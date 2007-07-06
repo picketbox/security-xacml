@@ -19,21 +19,30 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.interfaces;
+package org.jboss.security.xacml.factories;
 
-import java.util.Set;
+import org.jboss.security.xacml.core.JBossRequestContext;
+import org.jboss.security.xacml.core.JBossResponseContext;
+import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.ResponseContext;
 
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  Factory to create the Request and ResponseContext objects
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
-{
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+public class RequestResponseContextFactory
+{ 
+   public static RequestContext createRequestCtx()
+   {
+      return new JBossRequestContext();
+   }
+   
+   public static ResponseContext createResponseContext()
+   {
+      return new JBossResponseContext();
+   } 
 }

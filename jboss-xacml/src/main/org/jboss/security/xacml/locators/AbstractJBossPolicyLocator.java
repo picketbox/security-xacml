@@ -19,21 +19,47 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.interfaces;
+package org.jboss.security.xacml.locators;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.jboss.security.xacml.interfaces.PolicyLocator;
+import org.jboss.security.xacml.interfaces.XACMLPolicy;
+import org.jboss.security.xacml.jaxb.Option;
 
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
+public abstract class AbstractJBossPolicyLocator implements PolicyLocator
 {
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+   protected List<Option> options = null; 
+   protected Map<String,Object> map = new HashMap<String,Object>(); 
+   protected Set<XACMLPolicy> policies;
+   
+   
+   
+   public void setOptions(List<Option> theoptions)
+   { 
+      this.options = theoptions;
+   }
+
+   public <T> T get(String key)
+   { 
+      return (T)map.get(key);
+   }
+
+   public <T> void set(String key, T obj)
+   {
+      map.put(key, obj); 
+   }
+
+   public abstract void setPolicies(Set<XACMLPolicy> policies); 
 }

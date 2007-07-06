@@ -21,19 +21,17 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-import java.util.Set;
-
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  Interface defining operations
+ *  on a context map
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
+public interface ContextMapOp
 {
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+   <T> T get(String key);  
+   <T> void set(String key, T obj);
 }

@@ -19,21 +19,52 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.interfaces;
+package org.jboss.security.xacml.core;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+
+import org.jboss.security.xacml.interfaces.ResponseContext;
+import org.jboss.security.xacml.interfaces.XACMLConstants;
+
+import com.sun.xacml.ctx.ResponseCtx;
+import com.sun.xacml.ctx.Result;
 
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  Implementation of the ResponseContext interface
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
+public class JBossResponseContext implements ResponseContext
 {
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+   private int decision = XACMLConstants.DECISION_DENY;
+   
+   private Map<String,Object> map = new HashMap<String,Object>();
+
+   public <T> T get(String key)
+   {
+      return (T) map.get(key);
+   }
+
+   public <T> void set(String key, T obj)
+   {
+      map.put(key, obj);
+   }
+
+   public int getDecision()
+   { 
+      ResponseCtx response = (ResponseCtx) map.get(XACMLConstants.RESPONSE_CTX);
+      if(response != null)
+      {
+         Set<Result> results = response.getResults();
+         Result res = results.iterator().next();
+         decision = res.getDecision();
+      } 
+      return decision;
+         
+   } 
 }

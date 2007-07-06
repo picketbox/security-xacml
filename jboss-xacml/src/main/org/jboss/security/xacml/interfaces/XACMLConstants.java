@@ -21,19 +21,41 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-import java.util.Set;
-
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  Constants
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
+public interface XACMLConstants
 {
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+   String UNDERLYING_POLICY = "underlying_policy";
+   String POLICY_FINDER = "policy_finder";
+   String POLICY_FINDER_MODULE = "policy_finder_module";
+   String REQUEST_CTX = "request_ctx";
+   String RESPONSE_CTX = "response_ctx";
+   
+   String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+   
+   /**
+    * The decision to permit the request
+    */
+   public static final int DECISION_PERMIT = 0;
+
+   /**
+    * The decision to deny the request
+    */
+   public static final int DECISION_DENY = 1;
+
+   /**
+    * The decision that a decision about the request cannot be made
+    */
+   public static final int DECISION_INDETERMINATE = 2;
+
+   /**
+    * The decision that nothing applied to us
+    */
+   public static final int DECISION_NOT_APPLICABLE = 3;
 }

@@ -37,15 +37,32 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.jboss.security.xacml.factories.PolicyFactory;
+import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.PolicyLocator;
+import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.ResponseContext;
+import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
+import org.jboss.security.xacml.jaxb.LocatorType;
+import org.jboss.security.xacml.jaxb.LocatorsType;
 import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.security.xacml.jaxb.PolicyType;
+import org.jboss.security.xacml.locators.JBossPolicySetLocator;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
+
+import com.sun.xacml.PDPConfig;
+import com.sun.xacml.ctx.RequestCtx;
+import com.sun.xacml.ctx.ResponseCtx;
+import com.sun.xacml.finder.AttributeFinder;
+import com.sun.xacml.finder.AttributeFinderModule;
+import com.sun.xacml.finder.PolicyFinder;
+import com.sun.xacml.finder.PolicyFinderModule;
+import com.sun.xacml.finder.impl.CurrentEnvModule;
+import com.sun.xacml.finder.impl.SelectorModule;
 
 //$Id$
 
@@ -61,6 +78,8 @@ public class JBossPDP implements PolicyDecisionPoint
    private Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
    private Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
    
+   private PolicyFinder policyFinder = new PolicyFinder(); 
+   
    public JBossPDP()
    {   
    }
@@ -70,8 +89,8 @@ public class JBossPDP implements PolicyDecisionPoint
       createValidatingUnMarshaller();
       try
       {
-         JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
-         createPolicyObjects((PDP) jxb.getValue());
+         JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile); 
+         bootstrap((PDP) jxb.getValue());
       }
       catch (Exception e)
       {
@@ -85,7 +104,7 @@ public class JBossPDP implements PolicyDecisionPoint
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
-         createPolicyObjects((PDP) jxb.getValue());
+         bootstrap((PDP) jxb.getValue());
       }
       catch ( Exception e)
       {
@@ -99,7 +118,7 @@ public class JBossPDP implements PolicyDecisionPoint
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
-         createPolicyObjects((PDP) jxb.getValue());
+         bootstrap((PDP) jxb.getValue());
       }
       catch ( Exception e)
       {
@@ -113,7 +132,7 @@ public class JBossPDP implements PolicyDecisionPoint
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
-         createPolicyObjects((PDP) jxb.getValue());
+         bootstrap((PDP) jxb.getValue());
       }
       catch ( Exception e)
       {
@@ -129,16 +148,45 @@ public class JBossPDP implements PolicyDecisionPoint
    public void setPolicies(Set<XACMLPolicy> policies)
    { 
       this.policies = policies;
-   } 
+   }  
+
+   public ResponseContext evaluate(RequestContext request)
+   { 
+      HashSet<PolicyFinderModule> policyModules = new HashSet<PolicyFinderModule>();
+      //Go through the Locators
+      for(PolicyLocator locator: locators)
+      { 
+         policyModules.addAll((List)locator.get(XACMLConstants.POLICY_FINDER_MODULE));
+      }  
+      policyFinder.setModules(policyModules);
+      
+      AttributeFinder attributeFinder = new AttributeFinder();
+      List<AttributeFinderModule> attributeModules = new ArrayList<AttributeFinderModule>();  
+      attributeModules.add(new CurrentEnvModule());
+      attributeModules.add(new SelectorModule());
+      attributeFinder.setModules(attributeModules);
+      
+      com.sun.xacml.PDP pdp = new com.sun.xacml.PDP(new PDPConfig(attributeFinder, 
+            policyFinder, null)); 
+      RequestCtx req = (RequestCtx) request.get(XACMLConstants.REQUEST_CTX);
+      if(req == null)
+         throw new IllegalStateException("Request Context does not contain a request");
+      
+      ResponseCtx resp = pdp.evaluate(req);
+      
+      ResponseContext response = RequestResponseContextFactory.createResponseContext();
+      response.set(XACMLConstants.RESPONSE_CTX, resp);
+      return response;
+   }
    
-   private void createPolicyObjects(PDP pdp) throws Exception
-   {  
+   private void bootstrap(PDP pdp) throws Exception
+   {   
       PoliciesType policiesType = pdp.getPolicies();
       List<PolicySetType> pset = policiesType.getPolicySet();
       for(PolicySetType pst: pset)
       {
          String loc = pst.getLocation(); 
-         XACMLPolicy policySet = PolicyFactory.createPolicySet(getInputStream(loc));
+         XACMLPolicy policySet = PolicyFactory.createPolicySet(getInputStream(loc),policyFinder);
          List<PolicyType> policyTypeList =  pst.getPolicy();
          
          List<XACMLPolicy> policyList = new ArrayList<XACMLPolicy>();
@@ -155,6 +203,16 @@ public class JBossPDP implements PolicyDecisionPoint
       for(PolicyType pt:policyList)
       {
          policies.add(PolicyFactory.createPolicy(getInputStream(pt.getLocation())));
+      }
+      
+      //Take care of the locators
+      LocatorsType locatorsType = pdp.getLocators(); 
+      List<LocatorType> locs = locatorsType.getLocator();
+      for(LocatorType lt:locs)
+      {
+         PolicyLocator pl = (PolicyLocator) loadClass(lt.getName()).newInstance();
+         pl.setPolicies(policies);
+         this.locators.add(pl);
       }
    }
    
@@ -195,5 +253,11 @@ public class JBossPDP implements PolicyDecisionPoint
          is = tcl.getResourceAsStream(loc);
       }
       return is; 
+   }
+   
+   private Class loadClass(String fqn) throws Exception
+   {
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      return tcl.loadClass(fqn);
    }
 }

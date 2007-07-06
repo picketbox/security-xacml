@@ -21,19 +21,18 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-import java.util.Set;
+import java.io.IOException;
+import java.io.InputStream;
 
 //$Id$
 
 /**
- *  Represents a XACML PDP
+ *  Represents a Request
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 5, 2007 
+ *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
-{
-   void setPolicies(Set<XACMLPolicy> policies);
-   void setLocators(Set<PolicyLocator> locators); 
-   ResponseContext evaluate(RequestContext request);
+public interface RequestContext extends ContextMapOp
+{ 
+   void readRequest(InputStream is) throws IOException;
 }

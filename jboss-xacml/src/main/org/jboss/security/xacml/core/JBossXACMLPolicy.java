@@ -24,8 +24,11 @@ package org.jboss.security.xacml.core;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.util.XACMLPolicyUtil;
 
@@ -41,13 +44,14 @@ import com.sun.xacml.finder.PolicyFinder;
  *  @version $Revision$
  */
 public class JBossXACMLPolicy implements XACMLPolicy
-{
-   //The base SunXACML Policy
-   private AbstractPolicy policy = null;
-   private PolicyFinder policyFinder = new PolicyFinder();
+{  
+   private PolicyFinder finder = new PolicyFinder();
+   
    private List<XACMLPolicy> enclosingPolicies = new ArrayList<XACMLPolicy>();
    
    private int policyType = XACMLPolicy.POLICY;
+   
+   private Map<String, Object> map = new HashMap<String, Object>();
    
    public JBossXACMLPolicy(URL url, int type) throws Exception
    {
@@ -56,11 +60,13 @@ public class JBossXACMLPolicy implements XACMLPolicy
    
    public JBossXACMLPolicy(InputStream is, int type) throws Exception
    {
+      AbstractPolicy policy = null;
       XACMLPolicyUtil xpu = new XACMLPolicyUtil();
       this.policyType = type;
       if(type == XACMLPolicy.POLICYSET)
       {
-         policy = xpu.createPolicySet(is, policyFinder); 
+         policy = xpu.createPolicySet(is, finder);  
+         map.put(XACMLConstants.POLICY_FINDER, finder);
       }
       else
          if(type == XACMLPolicy.POLICY)
@@ -69,6 +75,29 @@ public class JBossXACMLPolicy implements XACMLPolicy
          }
          else
             throw new RuntimeException("Unknown type");
+      
+      map.put(XACMLConstants.UNDERLYING_POLICY, policy); 
+   }
+   
+   public JBossXACMLPolicy(InputStream is, int type, PolicyFinder theFinder) throws Exception
+   {
+      AbstractPolicy policy = null;
+      XACMLPolicyUtil xpu = new XACMLPolicyUtil();
+      this.policyType = type;
+      if(type == XACMLPolicy.POLICYSET)
+      {
+         policy = xpu.createPolicySet(is, theFinder);  
+         map.put(XACMLConstants.POLICY_FINDER, theFinder);
+      }
+      else
+         if(type == XACMLPolicy.POLICY)
+         {
+            policy = xpu.createPolicy(is); 
+         }
+         else
+            throw new RuntimeException("Unknown type");
+      
+      map.put(XACMLConstants.UNDERLYING_POLICY, policy); 
    }
    
    public int getType()
@@ -84,5 +113,15 @@ public class JBossXACMLPolicy implements XACMLPolicy
    public List<XACMLPolicy> getEnclosingPolicies()
    { 
       return enclosingPolicies;
+   } 
+
+   public <T> T get(String key)
+   { 
+      return (T) map.get(key);
+   }
+
+   public <T> void set(String key, T obj)
+   {
+      map.put(key, obj);
    } 
 }

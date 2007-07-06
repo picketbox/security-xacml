@@ -31,12 +31,12 @@ import java.util.List;
  *  @since  Jul 5, 2007 
  *  @version $Revision$
  */
-public interface XACMLPolicy
+public interface XACMLPolicy extends ContextMapOp
 { 
    int POLICYSET = 0;
    int POLICY = 1;
    
    int getType();
    void setEnclosingPolicies(List<XACMLPolicy> policies);
-   List<XACMLPolicy> getEnclosingPolicies();
+   List<XACMLPolicy> getEnclosingPolicies(); 
 }

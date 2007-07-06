@@ -27,6 +27,8 @@ import java.lang.reflect.Constructor;
 import org.jboss.security.xacml.core.JBossXACMLPolicy;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 
+import com.sun.xacml.finder.PolicyFinder;
+
 //$Id$
 
 /**
@@ -68,6 +70,15 @@ public class PolicyFactory
                                                              XACMLPolicy.POLICYSET});
    }
    
+   public static XACMLPolicy createPolicySet(InputStream policySetFile,
+         PolicyFinder theFinder)
+   throws Exception
+   { 
+      return (XACMLPolicy) getCtrWithFinder().newInstance(new Object[]{policySetFile, 
+                                                             XACMLPolicy.POLICYSET,
+                                                             theFinder});
+   }
+   
    public static XACMLPolicy createPolicy(InputStream policyFile)
    throws Exception
    { 
@@ -84,5 +95,13 @@ public class PolicyFactory
       return constructingClass.getConstructor(new Class[] {
                                                           InputStream.class, 
                                                           Integer.TYPE });
+   }
+   
+   private static Constructor<XACMLPolicy> getCtrWithFinder() throws  Exception 
+   {
+      return constructingClass.getConstructor(new Class[] {
+                                                          InputStream.class, 
+                                                          Integer.TYPE ,
+                                                          PolicyFinder.class});
    }
 }

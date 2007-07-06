@@ -21,6 +21,11 @@
   */
 package org.jboss.security.xacml.interfaces;
 
+import java.util.List;
+import java.util.Set;
+
+import org.jboss.security.xacml.jaxb.Option;
+
 //$Id$
 
 /**
@@ -29,7 +34,8 @@ package org.jboss.security.xacml.interfaces;
  *  @since  Jul 5, 2007 
  *  @version $Revision$
  */
-public interface PolicyLocator
+public interface PolicyLocator extends ContextMapOp
 {
-
+   void setOptions(List<Option> options);  
+   void setPolicies(Set<XACMLPolicy> policies);
 }
