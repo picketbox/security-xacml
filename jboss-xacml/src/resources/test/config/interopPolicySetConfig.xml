@@ -1,0 +1,12 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:PolicySet>
+      <ns:Location>test/policies/interop/xacml-policySet.xml</ns:Location>
+    </ns:PolicySet>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.test.security.xacml.MyLocator">
+     <ns:Option Name="option1">1</ns:Option>
+    </ns:Locator>
+  </ns:Locators>
+</ns:jbosspdp>
