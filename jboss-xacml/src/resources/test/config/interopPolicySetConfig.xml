@@ -2,11 +2,25 @@
   <ns:Policies>
     <ns:PolicySet>
       <ns:Location>test/policies/interop/xacml-policySet.xml</ns:Location>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy2.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy3.xml</ns:Location>
+      </ns:Policy>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy4.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy5.xml</ns:Location>
+      </ns:Policy>
+      
     </ns:PolicySet>
   </ns:Policies>
   <ns:Locators>
-    <ns:Locator Name="org.jboss.test.security.xacml.MyLocator">
-     <ns:Option Name="option1">1</ns:Option>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicySetLocator"> 
     </ns:Locator>
   </ns:Locators>
 </ns:jbosspdp>

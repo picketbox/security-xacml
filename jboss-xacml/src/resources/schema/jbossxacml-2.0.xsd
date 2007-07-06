@@ -35,7 +35,7 @@
    <xs:element name="Locators" type="ns:LocatorsType"/>
    <xs:complexType name="LocatorsType">
       <xs:sequence>
-         <xs:element name="Locator" type="ns:LocatorType" minOccurs="0"/>
+         <xs:element name="Locator" type="ns:LocatorType" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
    </xs:complexType> 
    
@@ -50,7 +50,7 @@
    
    <xs:complexType name="LocatorType">
       <xs:sequence>
-         <xs:element ref="ns:Option" minOccurs="0"/>
+         <xs:element ref="ns:Option" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="Name" type="xs:string"/>
    </xs:complexType> 
