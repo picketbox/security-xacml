@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="introduction">
+   <title>Introduction to JBoss XACML</title>
+
+   <para>The JBoss XACML provides standards based, robust Policy Infrastruture library .
+  </para>
+
+   <para>JBossXACML is based on Oasis XACML v2.0. It defines an API to read one or more PolicySets (and/or Policy files) via a simple configuration file.
+  </para>
+
+   <para>At its core, JBossXACML makes use of the standards compliant, BSD style licensed SunXACML library available at http://sunxacml.sourceforge.net/
+  </para>
+</chapter>
