@@ -9,7 +9,7 @@
 	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-xjc/2.0.5/jaxb-xjc-2.0.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/sun-xacml/sun-xacml/2.0/sun-xacml-2.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/sun-jaf/activation/1.0.2/activation-1.0.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sun-jaf/activation/1.1/activation-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jboss/jboss-javaee/5.0.0-SNAPSHOT/jboss-javaee-5.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="target/eclipse-classes"/>
 </classpath>
