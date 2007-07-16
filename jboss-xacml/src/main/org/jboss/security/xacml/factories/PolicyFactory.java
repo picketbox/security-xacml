@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor; 
 
 import org.jboss.security.xacml.core.JBossXACMLPolicy;
+import org.jboss.security.xacml.core.SecurityActions;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 
 import com.sun.xacml.finder.PolicyFinder;
@@ -51,7 +52,7 @@ public class PolicyFactory
    
    public static void setConstructingClass(String fqn)
    {
-      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      ClassLoader tcl = SecurityActions.getContextClassLoader(); 
       try
       {
          setConstructingClass(tcl.loadClass(fqn)); 

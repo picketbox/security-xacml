@@ -50,7 +50,6 @@ import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.security.xacml.jaxb.PolicyType;
-import org.jboss.security.xacml.locators.JBossPolicySetLocator;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
@@ -223,7 +222,7 @@ public class JBossPDP implements PolicyDecisionPoint
          JAXBContext jc = JAXBContext.newInstance( "org.jboss.security.xacml.jaxb" ); ;
          unmarshaller = jc.createUnmarshaller(); 
          //Validate against schema
-         ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+         ClassLoader tcl = SecurityActions.getContextClassLoader();
          URL schemaURL = tcl.getResource("schema/jbossxacml-2.0.xsd"); 
          SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
          Schema schema = scFact.newSchema(schemaURL);
@@ -249,7 +248,7 @@ public class JBossPDP implements PolicyDecisionPoint
       }
       if(is == null)
       {
-         ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+         ClassLoader tcl = SecurityActions.getContextClassLoader();
          is = tcl.getResourceAsStream(loc);
       }
       return is; 
@@ -257,7 +256,7 @@ public class JBossPDP implements PolicyDecisionPoint
    
    private Class loadClass(String fqn) throws Exception
    {
-      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      ClassLoader tcl = SecurityActions.getContextClassLoader();
       return tcl.loadClass(fqn);
    }
 }
