@@ -21,30 +21,45 @@
   */
 package org.jboss.security.xacml.factories;
 
-import org.jboss.security.xacml.core.JBossRequestContext;
-import org.jboss.security.xacml.core.JBossResponseContext;
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.AttributeValueType;
-import org.jboss.security.xacml.interfaces.RequestContext;
-import org.jboss.security.xacml.interfaces.ResponseContext;
 
 //$Id$
 
 /**
- *  Factory to create the Request and ResponseContext objects
+ *  Construct Commonly Used Attributes in Request Subject/Resource/Action
+ *  and Environment sections
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 6, 2007 
+ *  @since  Jul 20, 2007 
  *  @version $Revision$
  */
-public class RequestResponseContextFactory
-{ 
-   public static RequestContext createRequestCtx()
+public class RequestAttributeFactory
+{
+   
+   public static AttributeType createIntegerAttributeType(String attrID, String issuer, int value)
    {
-      return new JBossRequestContext();
+      AttributeType attributeType = new AttributeType();
+      attributeType.setAttributeId(attrID);
+      attributeType.setDataType("http://www.w3.org/2001/XMLSchema#integer"); 
+      if(issuer != null)
+         attributeType.setIssuer(issuer);
+      AttributeValueType avt = new AttributeValueType();
+      avt.getContent().add("" + value);
+      attributeType.getAttributeValue().add(avt);
+      return attributeType;
    }
    
-   public static ResponseContext createResponseContext()
+   public static AttributeType createStringAttributeType(String attrID, String issuer, String value)
    {
-      return new JBossResponseContext();
-   }  
+      AttributeType attributeType = new AttributeType();
+      attributeType.setAttributeId(attrID);
+      attributeType.setDataType("http://www.w3.org/2001/XMLSchema#string");  
+      if(issuer != null)
+         attributeType.setIssuer(issuer);
+      AttributeValueType avt = new AttributeValueType();
+      avt.getContent().add(value);
+      attributeType.getAttributeValue().add(avt);
+      return attributeType;
+   }
+
 }

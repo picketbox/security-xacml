@@ -21,13 +21,21 @@
  */
 package org.jboss.security.xacml.core;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBElement;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jboss.security.xacml.core.model.context.ObjectFactory;
+import org.jboss.security.xacml.core.model.context.RequestType;
+import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.w3c.dom.Document;
@@ -57,6 +65,16 @@ public class JBossRequestContext implements RequestContext
    {
      map.put(key, obj);
    }
+   
+
+   public void setRequest(RequestType requestType) throws IOException
+   {
+      JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(requestType);
+      ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+      JAXB.marshal(requestJAXB, baos);
+      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray()); 
+      readRequest(bis);  
+   }
 
    public void readRequest(InputStream is) throws IOException
    { 
@@ -70,7 +88,14 @@ public class JBossRequestContext implements RequestContext
          throw new RuntimeException(e);
       }
    } 
-   
+ 
+   public void marshall(OutputStream os) throws IOException
+   {
+      RequestCtx storedRequest = get(XACMLConstants.REQUEST_CTX);    
+      if(storedRequest != null)
+         storedRequest.encode(os);
+   }
+
    private Node getRequest(InputStream is) throws Exception
    {
       String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os"; 
@@ -82,4 +107,5 @@ public class JBossRequestContext implements RequestContext
       NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Request");  
       return nodes.item(0);  
    }
+
 }

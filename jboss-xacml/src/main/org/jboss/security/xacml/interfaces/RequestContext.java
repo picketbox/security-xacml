@@ -23,6 +23,9 @@ package org.jboss.security.xacml.interfaces;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jboss.security.xacml.core.model.context.RequestType;
 
 //$Id$
 
@@ -34,5 +37,7 @@ import java.io.InputStream;
  */
 public interface RequestContext extends ContextMapOp
 { 
+   void setRequest(RequestType requestType) throws IOException;
    void readRequest(InputStream is) throws IOException;
-}
+   void marshall(OutputStream os) throws IOException;
+} 

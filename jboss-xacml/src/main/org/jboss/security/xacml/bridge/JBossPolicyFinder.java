@@ -19,32 +19,23 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.factories;
+package org.jboss.security.xacml.bridge;
 
-import org.jboss.security.xacml.core.JBossRequestContext;
-import org.jboss.security.xacml.core.JBossResponseContext;
-import org.jboss.security.xacml.core.model.context.AttributeType;
-import org.jboss.security.xacml.core.model.context.AttributeValueType;
-import org.jboss.security.xacml.interfaces.RequestContext;
-import org.jboss.security.xacml.interfaces.ResponseContext;
+import com.sun.xacml.finder.PolicyFinder;
 
 //$Id$
 
 /**
- *  Factory to create the Request and ResponseContext objects
+ *  Represents a consolidated PolicyFinder
+ *  that can contain all the PolicyFinderModules
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 6, 2007 
+ *  @since  Jul 19, 2007 
  *  @version $Revision$
  */
-public class RequestResponseContextFactory
+public class JBossPolicyFinder extends PolicyFinder
 { 
-   public static RequestContext createRequestCtx()
+   public JBossPolicyFinder()
    {
-      return new JBossRequestContext();
-   }
-   
-   public static ResponseContext createResponseContext()
-   {
-      return new JBossResponseContext();
-   }  
+      super(); 
+   } 
 }

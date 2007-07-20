@@ -36,6 +36,7 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.factories.PolicyFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
@@ -57,8 +58,7 @@ import com.sun.xacml.PDPConfig;
 import com.sun.xacml.ctx.RequestCtx;
 import com.sun.xacml.ctx.ResponseCtx;
 import com.sun.xacml.finder.AttributeFinder;
-import com.sun.xacml.finder.AttributeFinderModule;
-import com.sun.xacml.finder.PolicyFinder;
+import com.sun.xacml.finder.AttributeFinderModule; 
 import com.sun.xacml.finder.PolicyFinderModule;
 import com.sun.xacml.finder.impl.CurrentEnvModule;
 import com.sun.xacml.finder.impl.SelectorModule;
@@ -77,7 +77,7 @@ public class JBossPDP implements PolicyDecisionPoint
    private Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
    private Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
    
-   private PolicyFinder policyFinder = new PolicyFinder(); 
+   private JBossPolicyFinder policyFinder = new JBossPolicyFinder(); 
    
    public JBossPDP()
    {   

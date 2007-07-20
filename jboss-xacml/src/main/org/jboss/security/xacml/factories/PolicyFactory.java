@@ -24,11 +24,11 @@ package org.jboss.security.xacml.factories;
 import java.io.InputStream;
 import java.lang.reflect.Constructor; 
 
+import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.core.JBossXACMLPolicy;
 import org.jboss.security.xacml.core.SecurityActions;
-import org.jboss.security.xacml.interfaces.XACMLPolicy;
-
-import com.sun.xacml.finder.PolicyFinder;
+import org.jboss.security.xacml.interfaces.XACMLPolicy; 
+ 
 
 //$Id$
 
@@ -72,7 +72,7 @@ public class PolicyFactory
    }
    
    public static XACMLPolicy createPolicySet(InputStream policySetFile,
-         PolicyFinder theFinder)
+         JBossPolicyFinder theFinder)
    throws Exception
    { 
       return (XACMLPolicy) getCtrWithFinder().newInstance(new Object[]{policySetFile, 
@@ -103,6 +103,6 @@ public class PolicyFactory
       return constructingClass.getConstructor(new Class[] {
                                                           InputStream.class, 
                                                           Integer.TYPE ,
-                                                          PolicyFinder.class});
+                                                          JBossPolicyFinder.class});
    }
 }

@@ -52,15 +52,7 @@ public class JBossPolicyLocator extends AbstractJBossPolicyLocator
    public JBossPolicyLocator(Set<XACMLPolicy> policies)
    {
       setPolicies(policies);
-   }
-/*
-   public void setPolicy(XACMLPolicy xacmlPolicy)
-   {
-      if(xacmlPolicy.getType() != XACMLPolicy.POLICY)
-         throw new IllegalArgumentException("xacmlPolicy arg is not of " +
-                "type Policy:"+xacmlPolicy);
-      this.policy = xacmlPolicy;
-   }*/
+   } 
 
    @Override
    public void setPolicies(Set<XACMLPolicy> policies)

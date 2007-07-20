@@ -28,12 +28,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.util.XACMLPolicyUtil;
 
-import com.sun.xacml.AbstractPolicy;
-import com.sun.xacml.finder.PolicyFinder;
+import com.sun.xacml.AbstractPolicy; 
 
 //$Id$
 
@@ -45,7 +45,7 @@ import com.sun.xacml.finder.PolicyFinder;
  */
 public class JBossXACMLPolicy implements XACMLPolicy
 {  
-   private PolicyFinder finder = new PolicyFinder();
+   private JBossPolicyFinder finder = new JBossPolicyFinder();
    
    private List<XACMLPolicy> enclosingPolicies = new ArrayList<XACMLPolicy>();
    
@@ -79,7 +79,7 @@ public class JBossXACMLPolicy implements XACMLPolicy
       map.put(XACMLConstants.UNDERLYING_POLICY, policy); 
    }
    
-   public JBossXACMLPolicy(InputStream is, int type, PolicyFinder theFinder) throws Exception
+   public JBossXACMLPolicy(InputStream is, int type, JBossPolicyFinder theFinder) throws Exception
    {
       AbstractPolicy policy = null;
       XACMLPolicyUtil xpu = new XACMLPolicyUtil();
