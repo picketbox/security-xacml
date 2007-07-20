@@ -19,9 +19,14 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.test.security.xacml.core;
+package org.jboss.test.security.xacml.core.model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBElement;
 
 import junit.framework.TestCase;
 
@@ -29,6 +34,7 @@ import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.core.model.context.ActionType;
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.EnvironmentType;
+import org.jboss.security.xacml.core.model.context.ObjectFactory;
 import org.jboss.security.xacml.core.model.context.RequestType;
 import org.jboss.security.xacml.core.model.context.ResourceType;
 import org.jboss.security.xacml.core.model.context.SubjectType;
@@ -39,118 +45,41 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 
-//$Id$
 
 /**
- *  Unit tests for the JBossPDP
+ *  Construction of request/response
  *  @author Anil.Saldhana@redhat.com
- *  @since  Jul 6, 2007 
+ *  @since  Jul 20, 2007 
  *  @version $Revision$
  */
-public class JBossPDPUnitTestCase extends TestCase
+public class ContextUnitTestCase extends TestCase
 { 
-   /**Enable to see the xacml request in system out for the objects case**/
-   private boolean sysout = false;
-   
-   public void testInteropTestWithXMLRequests() throws Exception
-   {
-      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
-      assertNotNull("InputStream != null", is);
-      PolicyDecisionPoint pdp = new JBossPDP(is);
-      assertNotNull("JBossPDP is != null", pdp);
-//http://www.oasis-open.org/committees/download.php/24475/xacml-2.0-core-interop-draft-12-04.doc
-/*
- Test (Trade-limit)(Cred-line)(Curr-cred)(Req-tr-appr) (Req-cr-appr) (Num-shrs)(Buy-price)(Expected Decision
- 1     10000   15000           10000       False        False         1000       10  Deny
- 2     10000   15000           10000       False        False         1000       1    Permit
- 3     10000   15000           10000       True         False         1000       5   Permit
- 4     10000   15000           10000       True         False         1000       9   Deny
- 5     10000   15000           10000       True         False         1000       10  Deny
- 6     10000   15000           10000       True         False         1000       15  Deny
- 7     10000   15000           10000       True         True          1000       10  Permit
-*/
-
-      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase1-request.xml"));
-      assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase2-request.xml"));
-      assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase3-request.xml"));
-      assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase4-request.xml"));
-      assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase5-request.xml"));
-      assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase6-request.xml"));
-      assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase7-request.xml"));
-   } 
-   
-   public void testInteropTestWithObjects() throws Exception
-   {
-      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
-      assertNotNull("InputStream != null", is);
-      PolicyDecisionPoint pdp = new JBossPDP(is);
-      assertNotNull("JBossPDP is != null", pdp);
-      
-      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("false","false",10)));
-      assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("false","false",1)));
-      assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("true","false",5)));
-      assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("false","false",9)));
-      assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("true","false",10)));
-      assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("true","false",15)));
-      assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("true","true",10)));
-          
-   }
-   
-   private RequestContext getRequestContext(String reqTradeAppr, String reqCreditAppr,
-         int buyPrice) throws Exception
+   public void testConstructRequest() throws Exception
    {
       RequestType request = new RequestType();
-      request.getSubject().add(createSubject(reqTradeAppr,reqCreditAppr,buyPrice));
+      request.getSubject().add(createSubject());
       request.getResource().add(createResource());
       request.setAction(createAction());
       request.setEnvironment( new EnvironmentType());
       
+      JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(request);
+      ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+      JAXB.marshal(requestJAXB, baos);
+      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
       RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx();
-      requestCtx.setRequest(request);
-      if(sysout)
-        requestCtx.marshall(System.out);
+      requestCtx.readRequest(bis); 
+      requestCtx.marshall(System.out);
       
-      return requestCtx;
-   }
-   
-   private int getDecision(PolicyDecisionPoint pdp, String loc) throws Exception
-   {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream(loc);
-      RequestContext request = RequestResponseContextFactory.createRequestCtx();
-      request.readRequest(is);
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
+      InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
+      assertNotNull("InputStream != null", is);
+      PolicyDecisionPoint pdp = new JBossPDP(is);
+      assertNotNull("JBossPDP is != null", pdp);
+      
+      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY, getDecision(pdp,requestCtx));
    }
    
-   
-   private int getDecision(PolicyDecisionPoint pdp, RequestContext request) 
-   throws Exception
-   {
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
-   }
-   
-   private SubjectType createSubject(String reqTradeAppr, String reqCreditAppr,
-         int buyPrice)
+   private SubjectType createSubject()
    {
       //Create a subject type
       SubjectType subject = new SubjectType();
@@ -173,18 +102,18 @@ public class JBossPDPUnitTestCase extends TestCase
       
       AttributeType attBuyOfferShare = RequestAttributeFactory.createIntegerAttributeType(
             "urn:xacml:2.0:interop:example:subject:buy-offer-price",
-            "xacml20.interop.com", buyPrice);
+            "xacml20.interop.com", 100);
       subject.getAttribute().add(attBuyOfferShare);
        
       
       AttributeType attRequestExtCred = RequestAttributeFactory.createStringAttributeType(
             "urn:xacml:2.0:interop:example:subject:req-credit-ext-approval",
-            "xacml20.interop.com", reqCreditAppr);
+            "xacml20.interop.com", "false");
       subject.getAttribute().add(attRequestExtCred); 
       
       AttributeType attRequestTradeApproval = RequestAttributeFactory.createStringAttributeType(
             "urn:xacml:2.0:interop:example:subject:req-trade-approval",
-            "xacml20.interop.com", reqTradeAppr);
+            "xacml20.interop.com", "false");
       subject.getAttribute().add(attRequestTradeApproval);
 
      return subject;
@@ -201,32 +130,32 @@ public class JBossPDPUnitTestCase extends TestCase
       
       
       AttributeType attOwnerID = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:owner-id",
+            "urn:oasis:names:tc:xacml:1.0:resource:owner-id",
             "xacml20.interop.com", "123456");
       resourceType.getAttribute().add(attOwnerID);
 
       AttributeType attOwnerName = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:owner-name",
+            "urn:oasis:names:tc:xacml:1.0:resource:owner-name",
             "xacml20.interop.com", "John Smith");
       resourceType.getAttribute().add(attOwnerName);
       
       AttributeType attAccountStatus = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:account-status",
+            "urn:oasis:names:tc:xacml:1.0:resource:account-status",
             "xacml20.interop.com", "Active");
       resourceType.getAttribute().add(attAccountStatus); 
       
       AttributeType attCreditLine = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:credit-line",
+            "urn:oasis:names:tc:xacml:1.0:resource:credit-line",
             "xacml20.interop.com", 15000);
       resourceType.getAttribute().add(attCreditLine); 
       
       AttributeType attCurrentCredit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:current-credit",
+            "urn:oasis:names:tc:xacml:1.0:resource:current-credit",
             "xacml20.interop.com", 10000);
       resourceType.getAttribute().add(attCurrentCredit); 
       
       AttributeType attTradeLimit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:trade-limit",
+            "urn:oasis:names:tc:xacml:1.0:resource:trade-limit",
             "xacml20.interop.com", 10000);
       resourceType.getAttribute().add(attTradeLimit); 
       return resourceType;
@@ -240,5 +169,13 @@ public class JBossPDPUnitTestCase extends TestCase
             "xacml20.interop.com", "Buy");
       actionType.getAttribute().add(attActionID);
       return actionType;
+   }
+   
+   private int getDecision(PolicyDecisionPoint pdp, RequestContext request) 
+   throws Exception
+   {
+      ResponseContext response = pdp.evaluate(request);
+      assertNotNull("Response is not null", response);
+      return response.getDecision(); 
    }
 }
