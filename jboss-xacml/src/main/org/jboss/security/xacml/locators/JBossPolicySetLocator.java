@@ -53,25 +53,7 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
    public JBossPolicySetLocator(Set<XACMLPolicy> policies)
    {
       setPolicies(policies);
-   }
-   
-   /*public void setPolicySet(XACMLPolicy policySet)
-   {
-      if(policySet.getType() != XACMLPolicy.POLICYSET)
-         throw new IllegalArgumentException("policySet is not of type PolicySet:"+policySet);
-      this.thePolicySet = policySet; 
-      
-      //Check for enclosed policies
-      List<XACMLPolicy> policyList = thePolicySet.getEnclosingPolicies();
-      List<Policy> sunxacmlPolicies = new ArrayList<Policy>();
-      for(XACMLPolicy xp: policyList)
-      {
-         sunxacmlPolicies.add((Policy) xp.get(XACMLConstants.UNDERLYING_POLICY));
-      }
-      
-      thePolicyFinderModule.set((PolicySet) thePolicySet.get(XACMLConstants.UNDERLYING_POLICY), 
-                                sunxacmlPolicies);
-   }*/
+   } 
 
    @Override
    public void setPolicies(Set<XACMLPolicy> policies)
