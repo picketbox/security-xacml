@@ -21,19 +21,18 @@
   */
 package org.jboss.test.security.xacml.bindings.web;
 
-import java.io.InputStream;
 import java.net.URI;
 import java.security.Principal;
 import java.security.acl.Group;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBElement;
+
+import junit.framework.TestCase;
 
 import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.core.model.policy.ActionMatchType;
@@ -63,8 +62,6 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 import org.jboss.security.xacml.locators.JBossPolicyLocator;
-
-import junit.framework.TestCase;
 
 //$Id$
 
