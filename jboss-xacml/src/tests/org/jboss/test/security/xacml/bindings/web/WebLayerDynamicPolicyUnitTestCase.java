@@ -92,7 +92,8 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       
       //Add the basic locators also
       PolicyLocator policyLocator = new JBossPolicyLocator();
-      policyLocator.setPolicies(policies);
+      policyLocator.setPolicies(policies); //Locators need to be given the policies
+      
       Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
       locators.add(policyLocator);
       pdp.setLocators(locators);
@@ -136,7 +137,8 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       
       //Add the basic locators also
       PolicyLocator policyLocator = new JBossPolicyLocator();
-      policyLocator.setPolicies(policies);
+      policyLocator.setPolicies(policies); //Locators need to be given the policies
+      
       Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
       locators.add(policyLocator);
       pdp.setLocators(locators);
