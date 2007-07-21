@@ -33,8 +33,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.jboss.security.xacml.core.model.policy.AttributeDesignatorType;
 import org.jboss.security.xacml.core.model.policy.AttributeValueType;
-import org.jboss.security.xacml.core.model.policy.ResourceMatchType;
 import org.jboss.security.xacml.core.model.policy.SubjectAttributeDesignatorType;
+import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 
 //$Id$
 
@@ -50,37 +50,37 @@ public class PolicyAttributeFactory
 
    public static AttributeValueType createAnyURIAttributeType(URI value)
    {
-      return getBareAttributeValueType(""+value, "http://www.w3.org/2001/XMLSchema#anyURI");
+      return getBareAttributeValueType(""+value, XMLSchemaConstants.DATATYPE_ANYURI);
    }
    
    public static AttributeValueType createBase64BinaryAttributeType(byte[] value)
    {
-      return getBareAttributeValueType(value, "http://www.w3.org/2001/XMLSchema#base64Binary");
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_BASE64BINARY);
    }
    
    public static AttributeValueType createBooleanAttributeType( boolean value)
    {
-      return getBareAttributeValueType(value, "http://www.w3.org/2001/XMLSchema#boolean");
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_BOOLEAN);
    }
    
    public static AttributeValueType createDateAttributeType()
    {
-      return getBareAttributeValueType(getXMLDate(), "http://www.w3.org/2001/XMLSchema#date");
+      return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_DATE);
    }
    
    public static AttributeValueType createDateAttributeType(XMLGregorianCalendar value)
    {
-      return getBareAttributeValueType(value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#date");
+      return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE);
    }
    
    public static AttributeValueType createDateTimeAttributeType()
    {
-      return getBareAttributeValueType(getXMLDate(), "http://www.w3.org/2001/XMLSchema#dateTime");
+      return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
    
    public static AttributeValueType createDateTimeAttributeType(XMLGregorianCalendar value)
    {
-      return getBareAttributeValueType(value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#dateTime");
+      return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
    
    public static AttributeValueType createDNSNameAttributeType(String hostname)
@@ -90,7 +90,7 @@ public class PolicyAttributeFactory
    
    public static AttributeValueType createDoubleAttributeType(double value)
    {
-      return getBareAttributeValueType("" + value, "http://www.w3.org/2001/XMLSchema#double");
+      return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_DOUBLE);
    }
    
    public static AttributeValueType createEmailAttributeType(String value)
@@ -100,12 +100,12 @@ public class PolicyAttributeFactory
    
    public static AttributeValueType createHexBinaryAttributeType(byte[] value)
    {
-      return getBareAttributeValueType(value, "http://www.w3.org/2001/XMLSchema#hexBinary");
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_HEXBINARY);
    }
    
    public static AttributeValueType createIntegerAttributeType(int value)
    {
-      return getBareAttributeValueType("" + value, "http://www.w3.org/2001/XMLSchema#integer"); 
+      return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_INTEGER); 
    }
    
    public static AttributeValueType createIPAddressAttributeType(InetAddress address)
@@ -115,17 +115,17 @@ public class PolicyAttributeFactory
    
    public static AttributeValueType createStringAttributeType(String value)
    {
-      return getBareAttributeValueType(value, "http://www.w3.org/2001/XMLSchema#string"); 
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_STRING); 
    }
    
    public static AttributeValueType createTimeAttributeType()
    {
-      return getBareAttributeValueType(getXMLDate(), "http://www.w3.org/2001/XMLSchema#time"); 
+      return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_TIME); 
    }
    
    public static AttributeValueType createTimeAttributeType(XMLGregorianCalendar value)
    {
-      return getBareAttributeValueType(value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#time"); 
+      return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_TIME); 
    }
    
    public static AttributeValueType createX509NameAttributeType(X500Principal value)

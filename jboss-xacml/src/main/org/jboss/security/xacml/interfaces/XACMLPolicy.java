@@ -33,10 +33,32 @@ import java.util.List;
  */
 public interface XACMLPolicy extends ContextMapOp
 { 
+   /**
+    * Type identifying a PolicySet
+    */
    int POLICYSET = 0;
+   
+   /**
+    * Type identifying a Policy
+    */
    int POLICY = 1;
    
+   /**
+    * Return a type (PolicySet or Policy)
+    * @return int value representing type
+    */
    int getType();
+   
+   /**
+    * A PolicySet can contain policies within.
+    * Setter to set the policies inside a policyset
+    * @param policies a list of policies
+    */
    void setEnclosingPolicies(List<XACMLPolicy> policies);
+   
+   /**
+    * Return the enclosing policies for a PolicySet
+    * @return a list of policies
+    */
    List<XACMLPolicy> getEnclosingPolicies(); 
 }

@@ -35,6 +35,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.security.xacml.core.model.context.ObjectFactory;
 import org.jboss.security.xacml.core.model.context.RequestType;
+import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.w3c.dom.Document;
@@ -51,21 +52,29 @@ import com.sun.xacml.ctx.RequestCtx;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossRequestContext implements RequestContext
+public class JBossRequestContext implements RequestContext, ContextMapOp
 {
    private Map<String,Object> map = new HashMap<String,Object>();
 
+   /**
+    * @see ContextMapOp#get(String)
+    */
    public <T> T get(String key)
    {
      return (T) map.get(key);
    }
 
+   /**
+    * @see ContextMapOp#set(String, Object)
+    */
    public <T> void set(String key, T obj)
    {
      map.put(key, obj);
    }
    
-
+   /**
+    * @see RequestContext#setRequest(RequestType)
+    */
    public void setRequest(RequestType requestType) throws IOException
    {
       JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(requestType);
@@ -75,6 +84,9 @@ public class JBossRequestContext implements RequestContext
       readRequest(bis);  
    }
 
+   /**
+    * @see RequestContext#readRequest(InputStream)
+    */
    public void readRequest(InputStream is) throws IOException
    { 
       try
@@ -88,6 +100,9 @@ public class JBossRequestContext implements RequestContext
       }
    } 
  
+   /**
+    * @see RequestContext#marshall(OutputStream)
+    */
    public void marshall(OutputStream os) throws IOException
    {
       RequestCtx storedRequest = get(XACMLConstants.REQUEST_CTX);    

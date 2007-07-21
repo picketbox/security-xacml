@@ -32,6 +32,19 @@ package org.jboss.security.xacml.interfaces;
  */
 public interface ContextMapOp
 {
+   /**
+    * Get an element from the map
+    * @param <T> object from the map
+    * @param key Key
+    * @return object from the map
+    */
    <T> T get(String key);  
+   
+   /**
+    * Set an object on the map
+    * @param <T>
+    * @param key Key for the map
+    * @param obj Object to be placed
+    */
    <T> void set(String key, T obj);
 }

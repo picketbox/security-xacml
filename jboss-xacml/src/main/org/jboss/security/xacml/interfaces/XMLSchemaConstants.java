@@ -32,5 +32,14 @@ package org.jboss.security.xacml.interfaces;
 public interface XMLSchemaConstants
 {
    String DATATYPE_ANYURI = "http://www.w3.org/2001/XMLSchema#anyURI";
+   String DATATYPE_BASE64BINARY = "http://www.w3.org/2001/XMLSchema#base64Binary";
+   String DATATYPE_BOOLEAN  = "http://www.w3.org/2001/XMLSchema#boolean";
+   String DATATYPE_DATE = "http://www.w3.org/2001/XMLSchema#date";
+   String DATATYPE_DATE_TIME = "http://www.w3.org/2001/XMLSchema#dateTime";
+   String DATATYPE_DOUBLE = "http://www.w3.org/2001/XMLSchema#double";
+   String DATATYPE_HEXBINARY = "http://www.w3.org/2001/XMLSchema#hexBinary";
+   String DATATYPE_INTEGER = "http://www.w3.org/2001/XMLSchema#integer";
+   
    String DATATYPE_STRING = "http://www.w3.org/2001/XMLSchema#string";
+   String DATATYPE_TIME = "http://www.w3.org/2001/XMLSchema#time";
 }

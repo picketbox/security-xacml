@@ -33,7 +33,27 @@ import java.util.Set;
  */
 public interface PolicyDecisionPoint 
 {
+   /**
+    * Set a set of Policy/PolicySet instances on the PDP
+    * - Remember to also pass a set of PolicyLocators 
+    * if you have not used a JBossXACML config file
+    * @param policies  a Set of Policy/PolicySet instances
+    */
    void setPolicies(Set<XACMLPolicy> policies);
+   
+   /**
+    * Set a set of policy locators.
+    * - This method is primarily used when the policy/policyset
+    * instances are created without the usage of the JBossXACML 
+    * Config File. In this case, do not forget to set the policy
+    * objects in the locators via their setPolicies method
+    * @param locators a set of PolicyLocator instances
+    */
    void setLocators(Set<PolicyLocator> locators); 
+   
+   /**
+    * Method to evaluate a XACML Request
+    * @param request The RequestContext that contains the XACML Request
+    */
    ResponseContext evaluate(RequestContext request);
 }

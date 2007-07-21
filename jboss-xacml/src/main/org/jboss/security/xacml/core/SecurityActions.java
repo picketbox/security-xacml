@@ -34,6 +34,10 @@ import java.security.PrivilegedAction;
  */
 public class SecurityActions
 {
+   /**
+    * Obtain the Thread Context ClassLoader
+    * @return
+    */
    public static ClassLoader getContextClassLoader()
    {
       return (ClassLoader) AccessController.doPrivileged(new PrivilegedAction()

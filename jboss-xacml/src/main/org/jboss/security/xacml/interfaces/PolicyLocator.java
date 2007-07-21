@@ -36,6 +36,15 @@ import org.jboss.security.xacml.jaxb.Option;
  */
 public interface PolicyLocator extends ContextMapOp
 {
-   void setOptions(List<Option> options);  
+   /**
+    * Set a list of options on the locator
+    * @param options
+    */
+   void setOptions(List<Option> options); 
+   
+   /**
+    * Set of policies that this locator is able to return
+    * @param policies
+    */
    void setPolicies(Set<XACMLPolicy> policies);
 }

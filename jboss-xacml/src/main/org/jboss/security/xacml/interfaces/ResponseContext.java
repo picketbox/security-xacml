@@ -31,5 +31,10 @@ package org.jboss.security.xacml.interfaces;
  */
 public interface ResponseContext extends ContextMapOp
 { 
+   /**
+    * Decision based on the evaluation of policies
+    * @return int value {@see XACMLConstants#DECISION_PERMIT}
+    * @see XACMLConstants
+    */
    int getDecision();
 }

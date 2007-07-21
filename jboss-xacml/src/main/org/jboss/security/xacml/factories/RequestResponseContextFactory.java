@@ -36,11 +36,20 @@ import org.jboss.security.xacml.interfaces.ResponseContext;
  */
 public class RequestResponseContextFactory
 { 
+   /**
+    * Create a bare RequestContext object
+    * @see RequestContext#setRequest(org.jboss.security.xacml.core.model.context.RequestType)
+    * @return a RequestContext object
+    */
    public static RequestContext createRequestCtx()
    {
       return new JBossRequestContext();
    }
    
+   /**
+    * Create a ResponseContext object
+    * @return a ResponseContext object
+    */
    public static ResponseContext createResponseContext()
    {
       return new JBossResponseContext();

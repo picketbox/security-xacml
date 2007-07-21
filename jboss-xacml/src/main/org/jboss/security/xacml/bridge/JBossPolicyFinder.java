@@ -28,6 +28,10 @@ import com.sun.xacml.finder.PolicyFinder;
 /**
  *  Represents a consolidated PolicyFinder
  *  that can contain all the PolicyFinderModules
+ *  
+ *  - Use this in the creation of the PolicySet 
+ *  from the PolicyFactory
+ *  
  *  @author Anil.Saldhana@redhat.com
  *  @since  Jul 19, 2007 
  *  @version $Revision$

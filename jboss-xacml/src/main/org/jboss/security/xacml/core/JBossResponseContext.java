@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 
@@ -39,22 +40,31 @@ import com.sun.xacml.ctx.Result;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossResponseContext implements ResponseContext
+public class JBossResponseContext implements ResponseContext, ContextMapOp
 {
    private int decision = XACMLConstants.DECISION_DENY;
    
    private Map<String,Object> map = new HashMap<String,Object>();
 
+   /**
+    * @see ContextMapOp#get(String)
+    */
    public <T> T get(String key)
    {
       return (T) map.get(key);
    }
-
+   
+   /**
+    * @see ContextMapOp#set(String, Object)
+    */
    public <T> void set(String key, T obj)
    {
       map.put(key, obj);
    }
 
+   /**
+    * @see ResponseContext#getDecision()
+    */
    public int getDecision()
    { 
       ResponseCtx response = (ResponseCtx) map.get(XACMLConstants.RESPONSE_CTX);

@@ -33,6 +33,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.AttributeValueType;
+import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 
 //$Id$
 
@@ -48,37 +49,37 @@ public class RequestAttributeFactory
    
    public static AttributeType createAnyURIAttributeType(String attrID, String issuer,URI value)
    {
-      return getBareAttributeType(attrID, issuer, ""+value, "http://www.w3.org/2001/XMLSchema#anyURI");
+      return getBareAttributeType(attrID, issuer, ""+value, XMLSchemaConstants.DATATYPE_ANYURI);
    }
    
    public static AttributeType createBase64BinaryAttributeType(String attrID, String issuer,byte[] value)
    {
-      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#base64Binary");
+      return getBareAttributeType(attrID, issuer, value, XMLSchemaConstants.DATATYPE_BASE64BINARY);
    }
    
    public static AttributeType createBooleanAttributeType(String attrID, String issuer,boolean value)
    {
-      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#boolean");
+      return getBareAttributeType(attrID, issuer, value, XMLSchemaConstants.DATATYPE_BOOLEAN);
    }
    
    public static AttributeType createDateAttributeType(String attrID, String issuer)
    {
-      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#date");
+      return getBareAttributeType(attrID, issuer, getXMLDate(), XMLSchemaConstants.DATATYPE_DATE);
    }
    
    public static AttributeType createDateAttributeType(String attrID, String issuer,XMLGregorianCalendar value)
    {
-      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#date");
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE);
    }
    
    public static AttributeType createDateTimeAttributeType(String attrID, String issuer)
    {
-      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#dateTime");
+      return getBareAttributeType(attrID, issuer, getXMLDate(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
    
    public static AttributeType createDateTimeAttributeType(String attrID, String issuer,XMLGregorianCalendar value)
    {
-      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#dateTime");
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
    
    public static AttributeType createDNSNameAttributeType(String attrID, String issuer,String hostname)
@@ -88,7 +89,7 @@ public class RequestAttributeFactory
    
    public static AttributeType createDoubleAttributeType(String attrID, String issuer,double value)
    {
-      return getBareAttributeType(attrID, issuer, "" + value, "http://www.w3.org/2001/XMLSchema#double");
+      return getBareAttributeType(attrID, issuer, "" + value, XMLSchemaConstants.DATATYPE_DOUBLE);
    }
    
    public static AttributeType createEmailAttributeType(String attrID, String issuer,String value)
@@ -98,12 +99,12 @@ public class RequestAttributeFactory
    
    public static AttributeType createHexBinaryAttributeType(String attrID, String issuer,byte[] value)
    {
-      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#hexBinary");
+      return getBareAttributeType(attrID, issuer, value, XMLSchemaConstants.DATATYPE_HEXBINARY);
    }
    
    public static AttributeType createIntegerAttributeType(String attrID, String issuer, int value)
    {
-     return getBareAttributeType(attrID, issuer, ""+value, "http://www.w3.org/2001/XMLSchema#integer"); 
+     return getBareAttributeType(attrID, issuer, ""+value, XMLSchemaConstants.DATATYPE_INTEGER); 
    }
    
    public static AttributeType createIPAddressAttributeType(String attrID, String issuer,InetAddress address)
@@ -113,17 +114,17 @@ public class RequestAttributeFactory
    
    public static AttributeType createStringAttributeType(String attrID, String issuer, String value)
    {
-      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#string"); 
+      return getBareAttributeType(attrID, issuer, value, XMLSchemaConstants.DATATYPE_STRING); 
    }
    
    public static AttributeType createTimeAttributeType(String attrID, String issuer)
    { 
-      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#time"); 
+      return getBareAttributeType(attrID, issuer, getXMLDate(), XMLSchemaConstants.DATATYPE_TIME); 
    }
    
    public static AttributeType createTimeAttributeType(String attrID, String issuer, XMLGregorianCalendar value)
    {
-      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#time"); 
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), XMLSchemaConstants.DATATYPE_TIME); 
    }
    
    public static AttributeType createX509NameAttributeType(String attrID, String issuer, X500Principal value)

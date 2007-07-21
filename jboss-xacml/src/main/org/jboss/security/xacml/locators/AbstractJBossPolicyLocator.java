@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.PolicyLocator;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.jaxb.Option;
@@ -38,28 +39,38 @@ import org.jboss.security.xacml.jaxb.Option;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public abstract class AbstractJBossPolicyLocator implements PolicyLocator
+public abstract class AbstractJBossPolicyLocator implements PolicyLocator, ContextMapOp
 {
    protected List<Option> options = null; 
    protected Map<String,Object> map = new HashMap<String,Object>(); 
    protected Set<XACMLPolicy> policies;
    
-   
-   
+   /**
+    * @see PolicyLocator#setOptions(List)
+    */
    public void setOptions(List<Option> theoptions)
    { 
       this.options = theoptions;
    }
 
+   /**
+    * @see ContextMapOp#get(String)
+    */
    public <T> T get(String key)
    { 
       return (T)map.get(key);
    }
 
+   /**
+    * @see ContextMapOp#set(String, Object)
+    */
    public <T> void set(String key, T obj)
    {
       map.put(key, obj); 
    }
 
+   /**
+    * @see PolicyLocator#setPolicies(Set)
+    */
    public abstract void setPolicies(Set<XACMLPolicy> policies); 
 }

@@ -79,10 +79,17 @@ public class JBossPDP implements PolicyDecisionPoint
    
    private JBossPolicyFinder policyFinder = new JBossPolicyFinder(); 
    
+   /**
+    * CTR
+    */
    public JBossPDP()
    {   
    }
    
+   /**
+    * Create a PDP
+    * @param configFile Inputstream for the JBossXACML Config File
+    */
    public JBossPDP(InputStream configFile)
    {  
       createValidatingUnMarshaller();
@@ -97,6 +104,10 @@ public class JBossPDP implements PolicyDecisionPoint
       }
    }
    
+   /**
+    * Create a PDP
+    * @param configFile InputSource for the JBossXACML Config File
+    */
    public JBossPDP(InputSource configFile)
    {  
       createValidatingUnMarshaller();
@@ -111,6 +122,10 @@ public class JBossPDP implements PolicyDecisionPoint
       }
    }
    
+   /**
+    * Create a PDP
+    * @param configFile Parsed Node for the JBossXACML Config File
+    */
    public JBossPDP(Node configFile)
    { 
       createValidatingUnMarshaller();
@@ -125,6 +140,10 @@ public class JBossPDP implements PolicyDecisionPoint
       }
    }
    
+   /**
+    * Create a PDP
+    * @param configFile XMLStreamReader for the JBossXACML Config File
+    */
    public JBossPDP(XMLStreamReader configFile)
    { 
       createValidatingUnMarshaller();
@@ -139,16 +158,25 @@ public class JBossPDP implements PolicyDecisionPoint
       }
    } 
 
+   /**
+    * @see PolicyDecisionPoint#setLocators(Set)
+    */
    public void setLocators(Set<PolicyLocator> locators)
    { 
       this.locators = locators;
    }
 
+   /**
+    * @see PolicyDecisionPoint#setPolicies(Set)
+    */
    public void setPolicies(Set<XACMLPolicy> policies)
    { 
       this.policies = policies;
    }  
 
+   /**
+    * @see PolicyDecisionPoint#evaluate(RequestContext)
+    */
    public ResponseContext evaluate(RequestContext request)
    { 
       HashSet<PolicyFinderModule> policyModules = new HashSet<PolicyFinderModule>();

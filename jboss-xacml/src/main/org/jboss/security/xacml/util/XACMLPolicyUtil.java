@@ -44,22 +44,50 @@ import com.sun.xacml.finder.PolicyFinder;
  */
 public class XACMLPolicyUtil 
 {
+   /**
+    * Create a PolicySet
+    * @param location location of the policy set file
+    * @param finder PolicyFinder instance
+    * @return
+    * @throws Exception
+    */
 	public PolicySet createPolicySet(URL location, PolicyFinder finder) throws Exception
 	{
         return createPolicySet(location.openStream(),  finder); 
 	}
 	
+    /**
+     * Create a policyset
+     * @param is
+     * @param finder
+     * @return
+     * @throws Exception
+     */
 	public PolicySet createPolicySet(InputStream is, PolicyFinder finder) throws Exception  
 	{
+       if(finder == null)
+          throw new IllegalArgumentException("Policy Finder is null");
 		Document doc = getDocument(is);
 		return PolicySet.getInstance(doc.getFirstChild(), finder); 
 	}
 
+    /**
+     * Create a Policy
+     * @param location Policy File
+     * @return
+     * @throws Exception
+     */
 	public Policy createPolicy(URL location) throws Exception
 	{  
 		return createPolicy(location.openStream());
 	}
 
+    /**
+     * Create a policy
+     * @param is Inputstream of the policy file
+     * @return
+     * @throws Exception
+     */
 	public Policy createPolicy(InputStream is) throws Exception
 	{ 
 		Document doc = getDocument(is);
