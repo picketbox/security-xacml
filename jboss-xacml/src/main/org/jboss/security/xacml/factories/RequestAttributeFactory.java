@@ -21,6 +21,16 @@
   */
 package org.jboss.security.xacml.factories;
 
+import java.net.InetAddress;
+import java.net.URI;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.security.auth.x500.X500Principal;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.AttributeValueType;
 
@@ -36,30 +46,117 @@ import org.jboss.security.xacml.core.model.context.AttributeValueType;
 public class RequestAttributeFactory
 {
    
+   public static AttributeType createAnyURIAttributeType(String attrID, String issuer,URI value)
+   {
+      return getBareAttributeType(attrID, issuer, ""+value, "http://www.w3.org/2001/XMLSchema#anyURI");
+   }
+   
+   public static AttributeType createBase64BinaryAttributeType(String attrID, String issuer,byte[] value)
+   {
+      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#base64Binary");
+   }
+   
+   public static AttributeType createBooleanAttributeType(String attrID, String issuer,boolean value)
+   {
+      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#boolean");
+   }
+   
+   public static AttributeType createDateAttributeType(String attrID, String issuer)
+   {
+      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#date");
+   }
+   
+   public static AttributeType createDateAttributeType(String attrID, String issuer,XMLGregorianCalendar value)
+   {
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#date");
+   }
+   
+   public static AttributeType createDateTimeAttributeType(String attrID, String issuer)
+   {
+      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#dateTime");
+   }
+   
+   public static AttributeType createDateTimeAttributeType(String attrID, String issuer,XMLGregorianCalendar value)
+   {
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#dateTime");
+   }
+   
+   public static AttributeType createDNSNameAttributeType(String attrID, String issuer,String hostname)
+   {
+      return getBareAttributeType(attrID, issuer, hostname, "urn:oasis:names:tc:xacml:2.0:data-type:dnsName");
+   }
+   
+   public static AttributeType createDoubleAttributeType(String attrID, String issuer,double value)
+   {
+      return getBareAttributeType(attrID, issuer, "" + value, "http://www.w3.org/2001/XMLSchema#double");
+   }
+   
+   public static AttributeType createEmailAttributeType(String attrID, String issuer,String value)
+   {
+      return getBareAttributeType(attrID, issuer, value, "urn:oasis:names:tc:xacml:1.0:data-type:rfc822Name");
+   }
+   
+   public static AttributeType createHexBinaryAttributeType(String attrID, String issuer,byte[] value)
+   {
+      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#hexBinary");
+   }
+   
    public static AttributeType createIntegerAttributeType(String attrID, String issuer, int value)
    {
-      AttributeType attributeType = new AttributeType();
-      attributeType.setAttributeId(attrID);
-      attributeType.setDataType("http://www.w3.org/2001/XMLSchema#integer"); 
-      if(issuer != null)
-         attributeType.setIssuer(issuer);
-      AttributeValueType avt = new AttributeValueType();
-      avt.getContent().add("" + value);
-      attributeType.getAttributeValue().add(avt);
-      return attributeType;
+     return getBareAttributeType(attrID, issuer, ""+value, "http://www.w3.org/2001/XMLSchema#integer"); 
+   }
+   
+   public static AttributeType createIPAddressAttributeType(String attrID, String issuer,InetAddress address)
+   {
+      return getBareAttributeType(attrID, issuer, address, "urn:oasis:names:tc:xacml:2.0:data-type:ipAddress"); 
    }
    
    public static AttributeType createStringAttributeType(String attrID, String issuer, String value)
    {
+      return getBareAttributeType(attrID, issuer, value, "http://www.w3.org/2001/XMLSchema#string"); 
+   }
+   
+   public static AttributeType createTimeAttributeType(String attrID, String issuer)
+   { 
+      return getBareAttributeType(attrID, issuer, getXMLDate(), "http://www.w3.org/2001/XMLSchema#time"); 
+   }
+   
+   public static AttributeType createTimeAttributeType(String attrID, String issuer, XMLGregorianCalendar value)
+   {
+      return getBareAttributeType(attrID, issuer, value.toXMLFormat(), "http://www.w3.org/2001/XMLSchema#time"); 
+   }
+   
+   public static AttributeType createX509NameAttributeType(String attrID, String issuer, X500Principal value)
+   {
+      return getBareAttributeType(attrID, issuer, value, "urn:oasis:names:tc:xacml:1.0:data-type:x500Name"); 
+   }
+   
+   private static AttributeType getBareAttributeType(String attrID, String issuer, Object value,
+         String dataType)
+   {
       AttributeType attributeType = new AttributeType();
       attributeType.setAttributeId(attrID);
-      attributeType.setDataType("http://www.w3.org/2001/XMLSchema#string");  
+      attributeType.setDataType(dataType);  
       if(issuer != null)
          attributeType.setIssuer(issuer);
       AttributeValueType avt = new AttributeValueType();
       avt.getContent().add(value);
       attributeType.getAttributeValue().add(avt);
-      return attributeType;
+      return attributeType; 
    }
-
+   
+   private static String getXMLDate()
+   {
+      DatatypeFactory dtf;
+      try
+      {
+         dtf = DatatypeFactory.newInstance();
+      }
+      catch (DatatypeConfigurationException e)
+      {
+         throw new RuntimeException(e);
+      } 
+      XMLGregorianCalendar value = dtf.newXMLGregorianCalendar((GregorianCalendar) Calendar.getInstance());
+      return value.toXMLFormat();
+   }
 }

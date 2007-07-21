@@ -35,7 +35,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.security.xacml.core.model.context.ObjectFactory;
 import org.jboss.security.xacml.core.model.context.RequestType;
-import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.w3c.dom.Document;

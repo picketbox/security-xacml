@@ -93,8 +93,8 @@ public class JBossPDPUnitTestCase extends TestCase
       InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
       assertNotNull("InputStream != null", is);
       PolicyDecisionPoint pdp = new JBossPDP(is);
-      assertNotNull("JBossPDP is != null", pdp);
-      
+      assertNotNull("JBossPDP is != null", pdp); 
+
       assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
             getDecision(pdp,getRequestContext("false","false",10)));
       assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
@@ -108,8 +108,7 @@ public class JBossPDPUnitTestCase extends TestCase
       assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
             getDecision(pdp,getRequestContext("true","false",15)));
       assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("true","true",10)));
-          
+            getDecision(pdp,getRequestContext("true","true",10)));  
    }
    
    private RequestContext getRequestContext(String reqTradeAppr, String reqCreditAppr,

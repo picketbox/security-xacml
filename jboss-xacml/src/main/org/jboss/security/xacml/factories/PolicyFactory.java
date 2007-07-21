@@ -21,12 +21,19 @@
   */
 package org.jboss.security.xacml.factories;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Constructor; 
+
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBElement;
 
 import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.core.JBossXACMLPolicy;
 import org.jboss.security.xacml.core.SecurityActions;
+import org.jboss.security.xacml.core.model.policy.ObjectFactory;
+import org.jboss.security.xacml.core.model.policy.PolicyType;
 import org.jboss.security.xacml.interfaces.XACMLPolicy; 
  
 
@@ -86,6 +93,20 @@ public class PolicyFactory
       return (XACMLPolicy) getCtr().newInstance(new Object[]
                                                   {
                                                      policyFile, 
+                                                     XACMLPolicy.POLICY
+                                                  }
+                                           );
+   }
+   
+   public static XACMLPolicy createPolicy(PolicyType policyFile)
+   throws Exception
+   { 
+      JAXBElement<PolicyType> jaxbPolicy = new ObjectFactory().createPolicy(policyFile);
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      JAXB.marshal(jaxbPolicy, baos);
+      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
+      return (XACMLPolicy) getCtr().newInstance(new Object[]
+                                                  { bis, 
                                                      XACMLPolicy.POLICY
                                                   }
                                            );

@@ -23,8 +23,6 @@ package org.jboss.security.xacml.factories;
 
 import org.jboss.security.xacml.core.JBossRequestContext;
 import org.jboss.security.xacml.core.JBossResponseContext;
-import org.jboss.security.xacml.core.model.context.AttributeType;
-import org.jboss.security.xacml.core.model.context.AttributeValueType;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 

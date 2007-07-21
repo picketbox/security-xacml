@@ -137,7 +137,7 @@ public class JBossPDP implements PolicyDecisionPoint
       {
          throw new RuntimeException(e);
       }
-   }
+   } 
 
    public void setLocators(Set<PolicyLocator> locators)
    { 
@@ -155,7 +155,11 @@ public class JBossPDP implements PolicyDecisionPoint
       //Go through the Locators
       for(PolicyLocator locator: locators)
       { 
-         policyModules.addAll((List)locator.get(XACMLConstants.POLICY_FINDER_MODULE));
+         List finderModulesList = (List)locator.get(XACMLConstants.POLICY_FINDER_MODULE);
+         if(finderModulesList == null)
+            throw new IllegalStateException("Locator "+locator.getClass().getName() 
+                  + " has no policy finder modules");
+         policyModules.addAll(finderModulesList);
       }  
       policyFinder.setModules(policyModules);
       

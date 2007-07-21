@@ -37,7 +37,20 @@ public interface XACMLConstants
    String REQUEST_CTX = "request_ctx";
    String RESPONSE_CTX = "response_ctx";
    
-   String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+   String CONTEXT_SCHEMA = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+   
+   //Identifiers
+   String ACTION_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:action:action-id";
+   String CURRENT_TIME_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:environment:current-time";
+   String RESOURCE_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
+   String SUBJECT_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
+   String SUBJECT_ROLE_IDENTIFIER = "urn:oasis:names:tc:xacml:2.0:subject:role";
+   
+   //Functions
+   String FUNCTION_ANYURI_EQUALS = "urn:oasis:names:tc:xacml:1.0:function:anyURI-equal";
+   String FUNCTION_STRING_EQUAL = "urn:oasis:names:tc:xacml:1.0:function:string-equal";
+   String FUNCTION_STRING_IS_IN = "urn:oasis:names:tc:xacml:1.0:function:string-is-in";
+   String FUNCTION_STRING_ONE_AND_ONLY = "urn:oasis:names:tc:xacml:1.0:function:string-one-and-only";
    
    /**
     * The decision to permit the request

@@ -21,12 +21,7 @@
   */
 package org.jboss.test.security.xacml.core.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-
-import javax.xml.bind.JAXB;
-import javax.xml.bind.JAXBElement;
 
 import junit.framework.TestCase;
 
@@ -34,7 +29,6 @@ import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.core.model.context.ActionType;
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.EnvironmentType;
-import org.jboss.security.xacml.core.model.context.ObjectFactory;
 import org.jboss.security.xacml.core.model.context.RequestType;
 import org.jboss.security.xacml.core.model.context.ResourceType;
 import org.jboss.security.xacml.core.model.context.SubjectType;
@@ -56,19 +50,14 @@ public class ContextUnitTestCase extends TestCase
 { 
    public void testConstructRequest() throws Exception
    {
-      RequestType request = new RequestType();
-      request.getSubject().add(createSubject());
-      request.getResource().add(createResource());
-      request.setAction(createAction());
-      request.setEnvironment( new EnvironmentType());
+      RequestType requestType = new RequestType();
+      requestType.getSubject().add(createSubject());
+      requestType.getResource().add(createResource());
+      requestType.setAction(createAction());
+      requestType.setEnvironment( new EnvironmentType());
       
-      JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(request);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-      JAXB.marshal(requestJAXB, baos);
-      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
       RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx();
-      requestCtx.readRequest(bis); 
-      requestCtx.marshall(System.out);
+      requestCtx.setRequest(requestType); 
       
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
@@ -130,32 +119,32 @@ public class ContextUnitTestCase extends TestCase
       
       
       AttributeType attOwnerID = RequestAttributeFactory.createStringAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:owner-id",
+            "urn:xacml:2.0:interop:example:resource:owner-id",
             "xacml20.interop.com", "123456");
       resourceType.getAttribute().add(attOwnerID);
 
       AttributeType attOwnerName = RequestAttributeFactory.createStringAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:owner-name",
+            "urn:xacml:2.0:interop:example:resource:owner-name",
             "xacml20.interop.com", "John Smith");
       resourceType.getAttribute().add(attOwnerName);
       
       AttributeType attAccountStatus = RequestAttributeFactory.createStringAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:account-status",
+            "urn:xacml:2.0:interop:example:resource:account-status",
             "xacml20.interop.com", "Active");
       resourceType.getAttribute().add(attAccountStatus); 
       
       AttributeType attCreditLine = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:credit-line",
+            "urn:xacml:2.0:interop:example:resource:credit-line",
             "xacml20.interop.com", 15000);
       resourceType.getAttribute().add(attCreditLine); 
       
       AttributeType attCurrentCredit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:current-credit",
+            "urn:xacml:2.0:interop:example:resource:current-credit",
             "xacml20.interop.com", 10000);
       resourceType.getAttribute().add(attCurrentCredit); 
       
       AttributeType attTradeLimit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:trade-limit",
+            "urn:xacml:2.0:interop:example:resource:trade-limit",
             "xacml20.interop.com", 10000);
       resourceType.getAttribute().add(attTradeLimit); 
       return resourceType;
