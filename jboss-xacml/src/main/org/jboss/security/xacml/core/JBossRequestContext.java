@@ -52,7 +52,7 @@ import com.sun.xacml.ctx.RequestCtx;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossRequestContext implements RequestContext, ContextMapOp
+public class JBossRequestContext implements RequestContext 
 {
    private Map<String,Object> map = new HashMap<String,Object>();
 

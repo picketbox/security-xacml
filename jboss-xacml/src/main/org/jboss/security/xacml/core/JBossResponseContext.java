@@ -40,7 +40,7 @@ import com.sun.xacml.ctx.Result;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossResponseContext implements ResponseContext, ContextMapOp
+public class JBossResponseContext implements ResponseContext 
 {
    private int decision = XACMLConstants.DECISION_DENY;
    
