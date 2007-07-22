@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="dependencies">
+   <title>Dependencies forJBoss XACML</title>
+
+   <para>JBoss XACML needs the following as dependencies.</para>
+
+   <para>
+    <orderedlist numeration="arabic">
+       <listitem><para>JDK 5.0 or above</para></listitem>
+       <listitem><para>JBoss-JavaEE 5.0 (This basically provides javax.xml.stream support which exists in JDK6)</para></listitem>
+       <listitem><para>JAXB2 libraries (JAXB-API, JAXB-IMPL)</para></listitem>
+       <listitem><para>SunXACML 2.0</para></listitem>
+    </orderedlist>
+   </para>
+</chapter>

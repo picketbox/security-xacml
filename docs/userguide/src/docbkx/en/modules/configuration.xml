@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="configuration">
+   <title>JBoss XACML Configuration</title>
+
+   <para>An configuration file can be used to define the various policies and policy sets that the PDP can use for evaluation. The schema file driving the configuration is shown below.
+  </para>
+
+  <programlisting>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:ns="urn:jboss:xacml:2.0" 
+           targetNamespace="urn:jboss:xacml:2.0" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified">
+   <xs:element name="jbosspdp" type="ns:PDP">
+      <xs:annotation>
+         <xs:documentation>Root Element for JBoss XACML</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="PDP">
+      <xs:sequence>
+         <xs:element ref="ns:Policies"/>
+         <xs:element ref="ns:Locators"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="Policies" type="ns:PoliciesType"/>
+   <xs:complexType name="PoliciesType">
+      <xs:sequence>
+         <xs:element name="PolicySet" 
+                     type="ns:PolicySetType" 
+                     minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="Policy" 
+                     type="ns:PolicyType" 
+                     minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PolicySetType">
+      <xs:sequence>
+         <xs:element name="Location" 
+                     type="xs:anyURI" minOccurs="0"/>
+         <xs:element name="Policy" 
+                     type="ns:PolicyType" 
+                     minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PolicyType">
+      <xs:sequence>
+         <xs:element name="Location" type="xs:anyURI"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="Locators" type="ns:LocatorsType"/>
+   <xs:complexType name="LocatorsType">
+      <xs:sequence>
+         <xs:element name="Locator" 
+                     type="ns:LocatorType" minOccurs="0" 
+                     maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="Option">
+      <xs:complexType mixed="true">
+         <xs:sequence>
+            <xs:any namespace="##other" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="Name" type="xs:string"/>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="LocatorType">
+      <xs:sequence>
+         <xs:element ref="ns:Option" 
+                     minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="Name" type="xs:string"/>
+   </xs:complexType>
+</xs:schema>
+
+  </programlisting>
+
+   <para>The following is an example of a configuration file.</para>
+
+   <programlisting>
+
+   <ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:PolicySet>
+      <ns:Location>test/policies/interop/xacml-policySet.xml</ns:Location>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy2.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy3.xml</ns:Location>
+      </ns:Policy>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy4.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy5.xml</ns:Location>
+      </ns:Policy>
+      
+    </ns:PolicySet>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicySetLocator"> 
+    </ns:Locator>
+  </ns:Locators>
+</ns:jbosspdp>
+ 
+   </programlisting> 
+
+   <para>As shown in the configuration file, you can define a policy set with enclosing policies. If you do not need any policy sets, but want to define 1 or more policies, you can do so. The location of a policy/policy set has to confrom to the java.net.URL format (or you can provide a relative location as shown in the above configuration file).  
+  </para>
+
+  <para>The PDP makes use of PolicyLocator(s) for policies. Each of these policy locators are asked for a policy when a request is being evaluated. The default locator that is provided with JBossXACML is the <command>org.jboss.security.xacml.locators.JBossPolicySetLocator</command> 
+  </para>
+
+  <para>You will need to provide at least 1 locator.</para>
+</chapter>

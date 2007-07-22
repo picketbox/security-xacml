@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="pdp">
+   <title>Introduction to JBoss XACML PDP</title>
+
+   <para>There is an implementation of the <command>org.jboss.security.xacml.interfaces.PolicyDecisionPoint</command> in JBoss called as <command>org.jboss.security.xacml.core.JBossPDP</command>. There are few variants of the construction of the JBossPDP as shown below.
+  </para>
+
+  <programlisting>
+   public JBossPDP(InputStream configFile);
+   public JBossPDP(InputSource configFile);
+   public JBossPDP(Node configFile);
+   public JBossPDP(XMLStreamReader configFile);
+   public JBossPDP(URL configFileURL);
+  </programlisting>
+
+  <sect1 id="PDPViaConfig">
+  <title>PDP Construction with a Configuration File</title>
+
+   <para>A PDP can be provided with policies via a configuration file or one can make use of the JAXB2 object model in JBoss XACML to construct the Policy/POlicySet instances and then provide them to the PDP. An example usage of the PDP with a configuration file is shown below:</para>
+
+  <programlisting>
+      import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
+      import org.jboss.security.xacml.core.JBossPDP;
+
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      InputStream is = 
+       tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
+      PolicyDecisionPoint pdp = new JBossPDP(is);
+  </programlisting>
+  </sect1>
+
+  <sect1 id="PDPViaObjects">
+  <title>PDP Construction with Object Model</title>
+
+  <para>
+   There is an object model provided with JBoss XACML in the package <command>org.jboss.security.xacml.core.model.policy</command>. This is the package that one will work with in the construction of elements associated with a Policy or PolicySet. There is a utility factory class that is provided in <command>org.jboss.security.xacml.factories.PolicyAttributeFactory</command> which can be used to create the AttributeValueTypes used in a Policy.
+  </para>
+  <para>
+   The interface <command>org.jboss.security.xacml.interfaces.XACMLPolicy</command> represents either a Policy or a PolicySet and is represented in the method in the PDP when you want to pass a set of pre-constructed instances, as shown below:
+  </para>
+
+  <programlisting>
+<![CDATA[
+      PolicyType policyType = constructPolicy();
+      PolicyDecisionPoint pdp = new JBossPDP();
+      
+      XACMLPolicy policy = PolicyFactory.createPolicy(policyType);
+      Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
+      policies.add(policy);
+      
+      //Pass a set of policies (and/or policy sets) to the PDP
+      pdp.setPolicies(policies);
+]]>
+  </programlisting>
+  </sect1>
+</chapter>

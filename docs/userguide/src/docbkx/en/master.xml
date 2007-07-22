@@ -4,10 +4,15 @@
 <book lang="en">
    <bookinfo>
       <title>User Guide for JBoss XACML</title>
-
       <subtitle>A Guide for Developers</subtitle>
-
-      <releaseinfo>2.0.0</releaseinfo>
+      <releaseinfo>2.0.1</releaseinfo>
+      <authorgroup>
+        <author>
+          <firstname>Anil</firstname>
+          <othername>J.</othername>
+          <surname>Saldhana</surname>
+        </author>
+      </authorgroup>
    </bookinfo>
 
    <toc></toc>
@@ -38,6 +43,21 @@
    </preface>
 
    <xi:include href="modules/introduction.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/configuration.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/pdp.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/examples.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/pep.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/dependencies.xml"
                xml:base="./"
                xmlns:xi="http://www.w3.org/2001/XInclude"/>
    <xi:include href="modules/acknowledgments.xml"
