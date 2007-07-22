@@ -157,6 +157,24 @@ public class JBossPDP implements PolicyDecisionPoint
          throw new RuntimeException(e);
       }
    } 
+   
+   /**
+    * Create a PDP
+    * @param configFileURL URL of the JBossXACML Config File
+    */
+   public JBossPDP(URL configFileURL)
+   { 
+      createValidatingUnMarshaller();
+      try
+      {
+         JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFileURL.openStream());
+         bootstrap((PDP) jxb.getValue());
+      }
+      catch ( Exception e)
+      {
+         throw new RuntimeException(e);
+      }
+   } 
 
    /**
     * @see PolicyDecisionPoint#setLocators(Set)
