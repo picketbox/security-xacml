@@ -36,8 +36,8 @@ import org.jboss.security.xacml.factories.RequestAttributeFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.RequestContext;
-import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 //$Id$
 
@@ -50,7 +50,8 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 public class JBossPDPUnitTestCase extends TestCase
 { 
    /**Enable to see the xacml request in system out for the objects case**/
-   private boolean sysout = false;
+   //Enable for request trace
+   private boolean debug = "true".equals(System.getProperty("debug","false")); 
    
    public void testInteropTestWithXMLRequests() throws Exception
    {
@@ -71,20 +72,7 @@ public class JBossPDPUnitTestCase extends TestCase
  7     10000   15000           10000       True         True          1000       10  Permit
 */
 
-      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase1-request.xml"));
-      assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase2-request.xml"));
-      assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase3-request.xml"));
-      assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase4-request.xml"));
-      assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase5-request.xml"));
-      assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase6-request.xml"));
-      assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,"test/requests/interop/scenario2-testcase7-request.xml"));
+      XACMLTestUtil.validateInteropCases(pdp);
    } 
    
    public void testInteropTestWithObjects() throws Exception
@@ -96,19 +84,19 @@ public class JBossPDPUnitTestCase extends TestCase
       assertNotNull("JBossPDP is != null", pdp); 
 
       assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("false","false",10)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("false","false",10)));
       assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("false","false",1)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("false","false",1)));
       assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("true","false",5)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("true","false",5)));
       assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("false","false",9)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("false","false",9)));
       assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("true","false",10)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("true","false",10)));
       assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,getRequestContext("true","false",15)));
+            XACMLTestUtil.getDecision(pdp,getRequestContext("true","false",15)));
       assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,getRequestContext("true","true",10)));  
+            XACMLTestUtil.getDecision(pdp,getRequestContext("true","true",10)));  
    }
    
    private RequestContext getRequestContext(String reqTradeAppr, String reqCreditAppr,
@@ -122,31 +110,12 @@ public class JBossPDPUnitTestCase extends TestCase
       
       RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx();
       requestCtx.setRequest(request);
-      if(sysout)
+      if(debug)
         requestCtx.marshall(System.out);
       
       return requestCtx;
-   }
+   } 
    
-   private int getDecision(PolicyDecisionPoint pdp, String loc) throws Exception
-   {
-      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream(loc);
-      RequestContext request = RequestResponseContextFactory.createRequestCtx();
-      request.readRequest(is);
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
-   }
-   
-   
-   private int getDecision(PolicyDecisionPoint pdp, RequestContext request) 
-   throws Exception
-   {
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
-   }
    
    private SubjectType createSubject(String reqTradeAppr, String reqCreditAppr,
          int buyPrice)

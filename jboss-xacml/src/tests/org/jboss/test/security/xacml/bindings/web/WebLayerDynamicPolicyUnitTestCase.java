@@ -24,10 +24,8 @@ package org.jboss.test.security.xacml.bindings.web;
 import java.net.URI;
 import java.security.Principal;
 import java.security.acl.Group;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBElement;
@@ -57,11 +55,11 @@ import org.jboss.security.xacml.factories.PolicyFactory;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.PolicyLocator;
 import org.jboss.security.xacml.interfaces.RequestContext;
-import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 import org.jboss.security.xacml.locators.JBossPolicyLocator;
+import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 //$Id$
 
@@ -74,7 +72,8 @@ import org.jboss.security.xacml.locators.JBossPolicyLocator;
  */
 public class WebLayerDynamicPolicyUnitTestCase extends TestCase
 {
-   private boolean debug = false; //Enable for request trace  
+   //Enable for request trace
+   private boolean debug = "true".equals(System.getProperty("debug","false"));   
     
    public void testWebBinding() throws Exception
    {  
@@ -105,7 +104,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       };
 
       //Create Role Group
-      Group grp = this.getRoleGroup("developer");
+      Group grp = XACMLTestUtil.getRoleGroup("developer");
       
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
@@ -118,7 +117,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
         request.marshall(System.out);
       
       assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT,
-            getDecision(pdp,request)); 
+            XACMLTestUtil.getDecision(pdp,request)); 
    }
    
    public void testNegativeAccessWebBinding() throws Exception
@@ -151,7 +150,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       };
 
       //Create Role Group
-      Group grp = this.getRoleGroup("imposter");
+      Group grp = XACMLTestUtil.getRoleGroup("imposter");
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
       HttpServletRequest req = util.createRequest(p, requestURI); 
@@ -159,10 +158,11 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       //Check DENY condition
       WebPEP pep = new WebPEP();
       RequestContext request = pep.createXACMLRequest(req, p, grp);
-      request.marshall(System.out);
+      if(debug)
+         request.marshall(System.out);
       
       assertEquals("Access Disallowed?", XACMLConstants.DECISION_DENY,
-            getDecision(pdp,request));  
+            XACMLTestUtil.getDecision(pdp,request));  
    }  
    
    
@@ -245,51 +245,5 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().add(denyRule);
       
       return policyType;
-   }
-   
-   private int getDecision(PolicyDecisionPoint pdp, RequestContext request) throws Exception
-   { 
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
-   }
-   
-   private Group getRoleGroup( final String roleName)
-   {
-      return new Group() {
-
-         private Vector vect = new Vector();
-         public boolean addMember(final Principal principal)
-         { 
-            return vect.add(principal);
-         }
-
-         public boolean isMember(Principal principal)
-         { 
-            return vect.contains(principal);
-         }
-
-         public Enumeration<? extends Principal> members()
-         { 
-            vect.add(new Principal()
-            {
-
-               public String getName()
-               { 
-                  return roleName;
-               }});
-            return vect.elements();
-         }
-
-         public boolean removeMember(Principal principal)
-         { 
-            return vect.remove(principal);
-         }
-
-         public String getName()
-         { 
-            return "ROLES";
-         }
-       }; 
-   } 
+   }  
 }

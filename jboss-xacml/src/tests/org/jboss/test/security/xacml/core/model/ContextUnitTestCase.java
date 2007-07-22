@@ -36,8 +36,8 @@ import org.jboss.security.xacml.factories.RequestAttributeFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.RequestContext;
-import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 
 /**
@@ -65,7 +65,9 @@ public class ContextUnitTestCase extends TestCase
       PolicyDecisionPoint pdp = new JBossPDP(is);
       assertNotNull("JBossPDP is != null", pdp);
       
-      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY, getDecision(pdp,requestCtx));
+      assertEquals("Case 1 should be deny", 
+            XACMLConstants.DECISION_DENY, 
+            XACMLTestUtil.getDecision(pdp,requestCtx));
    }
    
    private SubjectType createSubject()
@@ -158,13 +160,5 @@ public class ContextUnitTestCase extends TestCase
             "xacml20.interop.com", "Buy");
       actionType.getAttribute().add(attActionID);
       return actionType;
-   }
-   
-   private int getDecision(PolicyDecisionPoint pdp, RequestContext request) 
-   throws Exception
-   {
-      ResponseContext response = pdp.evaluate(request);
-      assertNotNull("Response is not null", response);
-      return response.getDecision(); 
-   }
+   } 
 }

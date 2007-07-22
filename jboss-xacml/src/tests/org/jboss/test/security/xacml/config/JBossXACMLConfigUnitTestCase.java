@@ -33,11 +33,14 @@ import javax.xml.validation.SchemaFactory;
 
 import junit.framework.TestCase;
 
+import org.jboss.security.xacml.core.JBossPDP;
+import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.jaxb.LocatorType;
 import org.jboss.security.xacml.jaxb.LocatorsType;
 import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
+import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 //$Id$
 
@@ -85,5 +88,18 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       List<LocatorType> lt = lts.getLocator();
       assertNotNull("LocatorType != null", lt);
       assertEquals("LocatorType != null", 1,lt.size());
+   } 
+   
+   /**
+    * Test the URL version of the PDP construction
+    * @throws Exception
+    */
+   public void testPDPConfig() throws Exception
+   {
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      URL configFile = tcl.getResource("test/config/interopPolicySetConfig.xml");
+      assertNotNull("configFile != null", configFile);
+      PolicyDecisionPoint pdp = new JBossPDP(configFile);
+      XACMLTestUtil.validateInteropCases(pdp);
    } 
 }
