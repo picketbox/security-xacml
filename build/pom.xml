@@ -96,6 +96,12 @@
             <include>**/**TestCase.java</include>
           </includes>
           <skip>false</skip>
+          <systemProperties>
+            <property>
+              <name>debug</name>
+              <value>false</value>
+            </property>
+          </systemProperties>
         </configuration>
       </plugin>
       <plugin>
