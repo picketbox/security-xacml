@@ -110,7 +110,7 @@
  
    </programlisting> 
 
-   <para>As shown in the configuration file, you can define a policy set with enclosing policies. If you do not need any policy sets, but want to define 1 or more policies, you can do so. The location of a policy/policy set has to confrom to the java.net.URL format (or you can provide a relative location as shown in the above configuration file).  
+   <para>As shown in the configuration file, you can define a policy set with enclosing policies. If you do not need any policy sets, but want to define 1 or more policies, you can do so. The location of a policy/policy set has to conform to the java.net.URL format (or you can provide a relative location as shown in the above configuration file).  
   </para>
 
   <para>The PDP makes use of PolicyLocator(s) for policies. Each of these policy locators are asked for a policy when a request is being evaluated. The default locator that is provided with JBossXACML is the <command>org.jboss.security.xacml.locators.JBossPolicySetLocator</command> 

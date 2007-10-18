@@ -18,7 +18,7 @@
   <sect1 id="PDPViaConfig">
   <title>PDP Construction with a Configuration File</title>
 
-   <para>A PDP can be provided with policies via a configuration file or one can make use of the JAXB2 object model in JBoss XACML to construct the Policy/POlicySet instances and then provide them to the PDP. An example usage of the PDP with a configuration file is shown below:</para>
+   <para>A PDP can be provided with policies via a configuration file or one can make use of the JAXB2 object model in JBoss XACML to construct the Policy/PolicySet instances and then provide them to the PDP. An example usage of the PDP with a configuration file is shown below:</para>
 
   <programlisting>
       import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
@@ -35,7 +35,7 @@
   <title>PDP Construction with Object Model</title>
 
   <para>
-   There is an object model provided with JBoss XACML in the package <command>org.jboss.security.xacml.core.model.policy</command>. This is the package that one will work with in the construction of elements associated with a Policy or PolicySet. There is a utility factory class that is provided in <command>org.jboss.security.xacml.factories.PolicyAttributeFactory</command> which can be used to create the AttributeValueTypes used in a Policy.
+   There is an object model provided with JBoss XACML in the package <command>org.jboss.security.xacml.core.model.policy</command>. This is the package that one will work with in the construction of elements associated with a Policy or PolicySet. There is an utility factory class that is provided in <command>org.jboss.security.xacml.factories.PolicyAttributeFactory</command> which can be used to create the AttributeValueTypes used in a Policy.
   </para>
   <para>
    The interface <command>org.jboss.security.xacml.interfaces.XACMLPolicy</command> represents either a Policy or a PolicySet and is represented in the method in the PDP when you want to pass a set of pre-constructed instances, as shown below:
