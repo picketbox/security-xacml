@@ -21,6 +21,8 @@
   */
 package org.jboss.security.xacml.core;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -76,5 +78,15 @@ public class JBossResponseContext implements ResponseContext
       } 
       return decision;
          
-   } 
+   }
+
+   /**
+    * @see ResponseContext#marshall(OutputStream)
+    */
+   public void marshall(OutputStream os) throws IOException
+   { 
+      ResponseCtx storedResponse = get(XACMLConstants.RESPONSE_CTX);    
+      if(storedResponse != null)
+         storedResponse.encode(os);
+   }   
 }

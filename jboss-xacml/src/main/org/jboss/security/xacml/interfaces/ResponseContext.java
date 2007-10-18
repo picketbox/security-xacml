@@ -21,6 +21,9 @@
   */
 package org.jboss.security.xacml.interfaces;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 //$Id$
 
 /**
@@ -37,4 +40,11 @@ public interface ResponseContext extends ContextMapOp
     * @see XACMLConstants
     */
    int getDecision();
+   
+   /**
+    * Marshall the response context onto an Output Stream
+    * @param os OutputStream (System.out, ByteArrayOutputStream etc)
+    * @throws IOException
+    */
+   void marshall(OutputStream os) throws IOException;
 }

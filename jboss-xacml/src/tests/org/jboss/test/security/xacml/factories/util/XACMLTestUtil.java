@@ -45,6 +45,8 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
  */
 public class XACMLTestUtil
 { 
+   //Enable for request trace
+   private static boolean debug = "true".equals(System.getProperty("debug","false"));
    /**
     * Get the decision from the PDP
     * @param pdp
@@ -76,6 +78,8 @@ public class XACMLTestUtil
    throws Exception
    {
       ResponseContext response = pdp.evaluate(request);
+      if(debug)
+         response.marshall(System.out);
       TestCase.assertNotNull("Response is not null", response);
       return response.getDecision(); 
    }
