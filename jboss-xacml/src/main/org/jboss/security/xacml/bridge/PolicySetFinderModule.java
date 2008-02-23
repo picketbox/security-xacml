@@ -94,7 +94,7 @@ public class PolicySetFinderModule extends PolicyFinderModule
                 // see if we previously found another match
                 if (selectedPolicy != null) {
                     // we found a match before, so this is an error
-                    ArrayList code = new ArrayList();
+                    ArrayList<String> code = new ArrayList<String>();
                     code.add(Status.STATUS_PROCESSING_ERROR);
                     Status status = new Status(code, "too many applicable "
                                                + "top-level policies");

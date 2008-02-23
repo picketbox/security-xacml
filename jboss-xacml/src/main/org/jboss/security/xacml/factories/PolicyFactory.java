@@ -48,9 +48,9 @@ import org.jboss.security.xacml.interfaces.XACMLPolicy;
  */
 public class PolicyFactory
 { 
-   public static Class constructingClass = JBossXACMLPolicy.class;
+   public static Class<?> constructingClass = JBossXACMLPolicy.class;
    
-   public static void setConstructingClass(Class clazz)
+   public static void setConstructingClass(Class<?> clazz)
    {
      if(XACMLPolicy.class.isAssignableFrom(clazz) == false)
         throw new RuntimeException("clazz is not of type XACMLPolicy");
@@ -112,16 +112,18 @@ public class PolicyFactory
                                            );
    }
    
+   @SuppressWarnings("unchecked")
    private static Constructor<XACMLPolicy> getCtr() throws  Exception 
    {
-      return constructingClass.getConstructor(new Class[] {
+      return (Constructor<XACMLPolicy>) constructingClass.getConstructor(new Class[] {
                                                           InputStream.class, 
                                                           Integer.TYPE });
    }
    
+   @SuppressWarnings("unchecked")
    private static Constructor<XACMLPolicy> getCtrWithFinder() throws  Exception 
    {
-      return constructingClass.getConstructor(new Class[] {
+      return (Constructor<XACMLPolicy>) constructingClass.getConstructor(new Class[] {
                                                           InputStream.class, 
                                                           Integer.TYPE ,
                                                           JBossPolicyFinder.class});

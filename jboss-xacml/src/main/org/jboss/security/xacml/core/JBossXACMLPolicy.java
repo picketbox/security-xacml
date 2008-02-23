@@ -153,6 +153,7 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
    /**
     * @see ContextMapOp#get(String)
     */
+   @SuppressWarnings("unchecked")
    public <T> T get(String key)
    { 
       return (T) map.get(key);

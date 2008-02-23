@@ -51,6 +51,7 @@ public class JBossResponseContext implements ResponseContext
    /**
     * @see ContextMapOp#get(String)
     */
+   @SuppressWarnings("unchecked")
    public <T> T get(String key)
    {
       return (T) map.get(key);
@@ -67,6 +68,7 @@ public class JBossResponseContext implements ResponseContext
    /**
     * @see ResponseContext#getDecision()
     */
+   @SuppressWarnings("unchecked")
    public int getDecision()
    { 
       ResponseCtx response = (ResponseCtx) map.get(XACMLConstants.RESPONSE_CTX);

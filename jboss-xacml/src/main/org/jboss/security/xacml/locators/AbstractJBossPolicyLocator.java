@@ -56,6 +56,7 @@ public abstract class AbstractJBossPolicyLocator implements PolicyLocator, Conte
    /**
     * @see ContextMapOp#get(String)
     */
+   @SuppressWarnings("unchecked")
    public <T> T get(String key)
    { 
       return (T)map.get(key);

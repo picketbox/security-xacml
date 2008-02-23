@@ -59,6 +59,7 @@ public class JBossRequestContext implements RequestContext
    /**
     * @see ContextMapOp#get(String)
     */
+   @SuppressWarnings("unchecked")
    public <T> T get(String key)
    {
      return (T) map.get(key);

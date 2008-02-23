@@ -40,9 +40,9 @@ public class SecurityActions
     */
    public static ClassLoader getContextClassLoader()
    {
-      return (ClassLoader) AccessController.doPrivileged(new PrivilegedAction()
+      return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
       { 
-         public Object run()
+         public ClassLoader run()
          { 
             return Thread.currentThread().getContextClassLoader();
          }

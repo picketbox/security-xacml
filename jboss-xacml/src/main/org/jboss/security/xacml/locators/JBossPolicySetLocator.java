@@ -41,9 +41,7 @@ import com.sun.xacml.PolicySet;
  *  @version $Revision$
  */
 public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
-{
-   private XACMLPolicy thePolicySet; 
-   
+{   
    private List<PolicySetFinderModule> pfml = new ArrayList<PolicySetFinderModule>(); 
    
    public JBossPolicySetLocator()

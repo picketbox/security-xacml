@@ -195,6 +195,7 @@ public class JBossPDP implements PolicyDecisionPoint
    /**
     * @see PolicyDecisionPoint#evaluate(RequestContext)
     */
+   @SuppressWarnings("unchecked")
    public ResponseContext evaluate(RequestContext request)
    { 
       HashSet<PolicyFinderModule> policyModules = new HashSet<PolicyFinderModule>();
@@ -304,7 +305,7 @@ public class JBossPDP implements PolicyDecisionPoint
       return is; 
    }
    
-   private Class loadClass(String fqn) throws Exception
+   private Class<?> loadClass(String fqn) throws Exception
    {
       ClassLoader tcl = SecurityActions.getContextClassLoader();
       return tcl.loadClass(fqn);
