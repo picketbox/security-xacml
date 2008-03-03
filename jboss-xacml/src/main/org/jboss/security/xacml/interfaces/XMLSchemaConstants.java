@@ -32,14 +32,34 @@ package org.jboss.security.xacml.interfaces;
 public interface XMLSchemaConstants
 {
    String DATATYPE_ANYURI = "http://www.w3.org/2001/XMLSchema#anyURI";
+
    String DATATYPE_BASE64BINARY = "http://www.w3.org/2001/XMLSchema#base64Binary";
-   String DATATYPE_BOOLEAN  = "http://www.w3.org/2001/XMLSchema#boolean";
+
+   String DATATYPE_BOOLEAN = "http://www.w3.org/2001/XMLSchema#boolean";
+
    String DATATYPE_DATE = "http://www.w3.org/2001/XMLSchema#date";
+
    String DATATYPE_DATE_TIME = "http://www.w3.org/2001/XMLSchema#dateTime";
+
    String DATATYPE_DOUBLE = "http://www.w3.org/2001/XMLSchema#double";
+
    String DATATYPE_HEXBINARY = "http://www.w3.org/2001/XMLSchema#hexBinary";
+
    String DATATYPE_INTEGER = "http://www.w3.org/2001/XMLSchema#integer";
-   
+
    String DATATYPE_STRING = "http://www.w3.org/2001/XMLSchema#string";
+
    String DATATYPE_TIME = "http://www.w3.org/2001/XMLSchema#time";
+
+   String DATATYPE_DAYTIMEDURATION = "http://www.w3.org/TR/2002/WD-xquery-operators-20020816#dayTimeDuration";
+
+   String DATATYPE_YEARMONTHDURATION = "http://www.w3.org/TR/2002/WD-xquery-operators-20020816#yearMonthDuration";
+
+   String DATATYPE_DNSNAME = "urn:oasis:names:tc:xacml:2.0:data-type:dnsName";
+
+   String DATATYPE_IPADDRESS = "urn:oasis:names:tc:xacml:2.0:data-type:ipAddress";
+
+   String DATATYPE_RFC822NAME = "urn:oasis:names:tc:xacml:1.0:data-type:rfc822Name";
+
+   String DATATYPE_X500NAME = "urn:oasis:names:tc:xacml:1.0:data-type:x500Name";
 }
