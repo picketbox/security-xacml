@@ -29,6 +29,7 @@ import java.util.GregorianCalendar;
 import javax.security.auth.x500.X500Principal;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.jboss.security.xacml.core.model.policy.AttributeDesignatorType;
@@ -50,89 +51,99 @@ public class PolicyAttributeFactory
 
    public static AttributeValueType createAnyURIAttributeType(URI value)
    {
-      return getBareAttributeValueType(""+value, XMLSchemaConstants.DATATYPE_ANYURI);
+      return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_ANYURI);
    }
-   
+
    public static AttributeValueType createBase64BinaryAttributeType(byte[] value)
    {
       return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_BASE64BINARY);
    }
-   
-   public static AttributeValueType createBooleanAttributeType( boolean value)
+
+   public static AttributeValueType createBooleanAttributeType(boolean value)
    {
       return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_BOOLEAN);
    }
-   
+
    public static AttributeValueType createDateAttributeType()
    {
       return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_DATE);
    }
-   
+
    public static AttributeValueType createDateAttributeType(XMLGregorianCalendar value)
    {
       return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE);
    }
-   
+
    public static AttributeValueType createDateTimeAttributeType()
    {
       return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
-   
+
    public static AttributeValueType createDateTimeAttributeType(XMLGregorianCalendar value)
    {
       return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
-   
+
    public static AttributeValueType createDNSNameAttributeType(String hostname)
    {
-      return getBareAttributeValueType(hostname, "urn:oasis:names:tc:xacml:2.0:data-type:dnsName");
+      return getBareAttributeValueType(hostname, XMLSchemaConstants.DATATYPE_DNSNAME);
    }
-   
+
    public static AttributeValueType createDoubleAttributeType(double value)
    {
       return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_DOUBLE);
    }
-   
+
    public static AttributeValueType createEmailAttributeType(String value)
    {
-      return getBareAttributeValueType(value, "urn:oasis:names:tc:xacml:1.0:data-type:rfc822Name");
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_RFC822NAME);
    }
-   
+
    public static AttributeValueType createHexBinaryAttributeType(byte[] value)
    {
       return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_HEXBINARY);
    }
-   
+
    public static AttributeValueType createIntegerAttributeType(int value)
    {
-      return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_INTEGER); 
+      return getBareAttributeValueType("" + value, XMLSchemaConstants.DATATYPE_INTEGER);
    }
-   
+
    public static AttributeValueType createIPAddressAttributeType(InetAddress address)
    {
-      return getBareAttributeValueType(address, "urn:oasis:names:tc:xacml:2.0:data-type:ipAddress"); 
+      return getBareAttributeValueType(address, XMLSchemaConstants.DATATYPE_IPADDRESS);
    }
-   
+
    public static AttributeValueType createStringAttributeType(String value)
    {
-      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_STRING); 
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_STRING);
    }
-   
+
    public static AttributeValueType createTimeAttributeType()
    {
-      return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_TIME); 
+      return getBareAttributeValueType(getXMLDate(), XMLSchemaConstants.DATATYPE_TIME);
    }
-   
+
    public static AttributeValueType createTimeAttributeType(XMLGregorianCalendar value)
    {
-      return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_TIME); 
+      return getBareAttributeValueType(value.toXMLFormat(), XMLSchemaConstants.DATATYPE_TIME);
    }
-   
+
    public static AttributeValueType createX509NameAttributeType(X500Principal value)
    {
-      return getBareAttributeValueType(value, "urn:oasis:names:tc:xacml:1.0:data-type:x500Name"); 
+      return getBareAttributeValueType(value, XMLSchemaConstants.DATATYPE_X500NAME);
    }
-   
+
+   public static AttributeValueType createDayTimeDurationAttributeType(Duration value)
+   {
+      return getBareAttributeValueType(value.toString(), XMLSchemaConstants.DATATYPE_DAYTIMEDURATION);
+   }
+
+   public static AttributeValueType createYearMonthDurationAttributeType(Duration value)
+   {
+      return getBareAttributeValueType(value.toString(), XMLSchemaConstants.DATATYPE_YEARMONTHDURATION);
+   }
+
    public static AttributeDesignatorType createAttributeDesignatorType(String id, String dataType)
    {
       AttributeDesignatorType adt = new AttributeDesignatorType();
@@ -140,7 +151,7 @@ public class PolicyAttributeFactory
       adt.setDataType(dataType);
       return adt;
    }
-   
+
    public static SubjectAttributeDesignatorType createSubjectAttributeDesignatorType(String id, String dataType)
    {
       SubjectAttributeDesignatorType adt = new SubjectAttributeDesignatorType();
@@ -148,14 +159,14 @@ public class PolicyAttributeFactory
       adt.setDataType(dataType);
       return adt;
    }
-   
+
    private static AttributeValueType getBareAttributeValueType(Object value, String dataType)
-   { 
+   {
       AttributeValueType avt = new AttributeValueType();
       avt.setDataType(dataType);
-      avt.getContent().add(value); 
-      return avt; 
-   } 
+      avt.getContent().add(value);
+      return avt;
+   }
 
    private static String getXMLDate()
    {
@@ -167,7 +178,7 @@ public class PolicyAttributeFactory
       catch (DatatypeConfigurationException e)
       {
          throw new RuntimeException(e);
-      } 
+      }
       XMLGregorianCalendar value = dtf.newXMLGregorianCalendar((GregorianCalendar) Calendar.getInstance());
       return value.toXMLFormat();
    }
