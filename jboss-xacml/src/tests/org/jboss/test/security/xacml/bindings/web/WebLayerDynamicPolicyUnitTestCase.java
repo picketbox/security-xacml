@@ -73,177 +73,169 @@ import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 public class WebLayerDynamicPolicyUnitTestCase extends TestCase
 {
    //Enable for request trace
-   private boolean debug = "true".equals(System.getProperty("debug","false"));   
-    
+   private boolean debug = "true".equals(System.getProperty("debug", "false"));
+
    public void testWebBinding() throws Exception
-   {  
+   {
       PolicyType policyType = constructPolicy();
       PolicyDecisionPoint pdp = new JBossPDP();
-      
+
       XACMLPolicy policy = PolicyFactory.createPolicy(policyType);
       Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
       policies.add(policy);
-      
+
       pdp.setPolicies(policies);
-      
+
       //Add the basic locators also
       PolicyLocator policyLocator = new JBossPolicyLocator();
       policyLocator.setPolicies(policies); //Locators need to be given the policies
-      
+
       Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
       locators.add(policyLocator);
       pdp.setLocators(locators);
       assertNotNull("JBossPDP is != null", pdp);
-      
+
       Principal p = new Principal()
-      { 
+      {
          public String getName()
-         { 
+         {
             return "testuser";
-         } 
+         }
       };
 
       //Create Role Group
       Group grp = XACMLTestUtil.getRoleGroup("developer");
-      
+
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
-      HttpServletRequest req = util.createRequest(p, requestURI); 
-      
+      HttpServletRequest req = util.createRequest(p, requestURI);
+
       //Check PERMIT condition
       WebPEP pep = new WebPEP();
       RequestContext request = pep.createXACMLRequest(req, p, grp);
-      if(debug)
-        request.marshall(System.out);
-      
-      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT,
-            XACMLTestUtil.getDecision(pdp,request)); 
+      if (debug)
+         request.marshall(System.out);
+
+      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
    }
-   
+
    public void testNegativeAccessWebBinding() throws Exception
    {
       PolicyType policyType = constructPolicy();
       PolicyDecisionPoint pdp = new JBossPDP();
-      
+
       XACMLPolicy policy = PolicyFactory.createPolicy(policyType);
       Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
       policies.add(policy);
-      
+
       pdp.setPolicies(policies);
-      
+
       //Add the basic locators also
       PolicyLocator policyLocator = new JBossPolicyLocator();
       policyLocator.setPolicies(policies); //Locators need to be given the policies
-      
+
       Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
       locators.add(policyLocator);
       pdp.setLocators(locators);
       assertNotNull("JBossPDP is != null", pdp);
-      
-      
+
       Principal p = new Principal()
-      { 
+      {
          public String getName()
-         { 
+         {
             return "testuser";
-         } 
+         }
       };
 
       //Create Role Group
       Group grp = XACMLTestUtil.getRoleGroup("imposter");
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
-      HttpServletRequest req = util.createRequest(p, requestURI); 
-      
+      HttpServletRequest req = util.createRequest(p, requestURI);
+
       //Check DENY condition
       WebPEP pep = new WebPEP();
       RequestContext request = pep.createXACMLRequest(req, p, grp);
-      if(debug)
+      if (debug)
          request.marshall(System.out);
-      
-      assertEquals("Access Disallowed?", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,request));  
-   }  
-   
-   
-   
+
+      assertEquals("Access Disallowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
+   }
+
    private PolicyType constructPolicy() throws Exception
    {
       ObjectFactory objectFactory = new ObjectFactory();
-      
-      String PERMIT_OVERRIDES="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides";
+
       PolicyType policyType = new PolicyType();
       policyType.setPolicyId("ExamplePolicy");
       policyType.setVersion("2.0");
-      policyType.setRuleCombiningAlgId(PERMIT_OVERRIDES);
-      
+      policyType.setRuleCombiningAlgId(XACMLConstants.RULE_COMBINING_PERMIT_OVERRIDES);
+
       //Create a target
-      TargetType targetType = new TargetType(); 
-      
+      TargetType targetType = new TargetType();
+
       ResourcesType resourcesType = new ResourcesType();
       ResourceType resourceType = new ResourceType();
       ResourceMatchType rmt = new ResourceMatchType();
-      rmt.setMatchId(XACMLConstants.FUNCTION_ANYURI_EQUALS);
+      rmt.setMatchId(XACMLConstants.FUNCTION_ANYURI_EQUAL);
       rmt.setResourceAttributeDesignator(PolicyAttributeFactory.createAttributeDesignatorType(
-                   XACMLConstants.RESOURCE_IDENTIFIER,XMLSchemaConstants.DATATYPE_ANYURI));
-      rmt.setAttributeValue(PolicyAttributeFactory.createAnyURIAttributeType(
-                                             new URI("http://test/developer-guide.html")));
+            XACMLConstants.ATTRIBUTEID_RESOURCE_ID, XMLSchemaConstants.DATATYPE_ANYURI));
+      rmt.setAttributeValue(PolicyAttributeFactory
+            .createAnyURIAttributeType(new URI("http://test/developer-guide.html")));
       resourceType.getResourceMatch().add(rmt);
       resourcesType.getResource().add(resourceType);
-      
+
       targetType.setResources(resourcesType);
-      
+
       policyType.setTarget(targetType);
-      
-      
+
       //Create a Rule
       RuleType permitRule = new RuleType();
       permitRule.setRuleId("ReadRule");
       permitRule.setEffect(EffectType.PERMIT);
-      
+
       ActionsType permitRuleActionsType = new ActionsType();
       ActionType permitRuleActionType = new ActionType();
-      
+
       ActionMatchType amct = new ActionMatchType();
       amct.setMatchId("urn:oasis:names:tc:xacml:1.0:function:string-equal");
       amct.setAttributeValue(PolicyAttributeFactory.createStringAttributeType("read"));
       amct.setActionAttributeDesignator(PolicyAttributeFactory.createAttributeDesignatorType(
-            XACMLConstants.ACTION_IDENTIFIER, XMLSchemaConstants.DATATYPE_STRING)); 
+            XACMLConstants.ATTRIBUTEID_ACTION_ID, XMLSchemaConstants.DATATYPE_STRING));
       permitRuleActionType.getActionMatch().add(amct);
       TargetType permitRuleTargetType = new TargetType();
       permitRuleActionsType.getAction().add(permitRuleActionType);
       permitRuleTargetType.setActions(permitRuleActionsType);
       permitRule.setTarget(permitRuleTargetType);
-      
-      ConditionType permitRuleConditionType = new ConditionType();  
+
+      ConditionType permitRuleConditionType = new ConditionType();
       FunctionType functionType = new FunctionType();
       functionType.setFunctionId(XACMLConstants.FUNCTION_STRING_EQUAL);
       JAXBElement<ExpressionType> jaxbElementFunctionType = objectFactory.createExpression(functionType);
       permitRuleConditionType.setExpression(jaxbElementFunctionType);
-      
+
       ApplyType permitRuleApplyType = new ApplyType();
       permitRuleApplyType.setFunctionId(XACMLConstants.FUNCTION_STRING_IS_IN);
-       
+
       SubjectAttributeDesignatorType sadt = PolicyAttributeFactory.createSubjectAttributeDesignatorType(
-            XACMLConstants.SUBJECT_ROLE_IDENTIFIER, XMLSchemaConstants.DATATYPE_STRING);
+            XACMLConstants.ATTRIBUTEID_SUBJECT_ROLE, XMLSchemaConstants.DATATYPE_STRING);
       JAXBElement<SubjectAttributeDesignatorType> sadtElement = objectFactory.createSubjectAttributeDesignator(sadt);
       AttributeValueType avt = PolicyAttributeFactory.createStringAttributeType("developer");
-      JAXBElement<AttributeValueType> jaxbAVT = objectFactory.createAttributeValue(avt); 
-      permitRuleApplyType.getExpression().add(jaxbAVT); 
+      JAXBElement<AttributeValueType> jaxbAVT = objectFactory.createAttributeValue(avt);
+      permitRuleApplyType.getExpression().add(jaxbAVT);
       permitRuleApplyType.getExpression().add(sadtElement);
-       
-      
+
       permitRuleConditionType.setExpression(objectFactory.createApply(permitRuleApplyType));
-       
+
       permitRule.setCondition(permitRuleConditionType);
-      
+
       policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().add(permitRule);
       //Create a Deny Rule
       RuleType denyRule = new RuleType();
-      denyRule.setRuleId("DenyRule"); 
-      denyRule.setEffect(EffectType.DENY); 
+      denyRule.setRuleId("DenyRule");
+      denyRule.setEffect(EffectType.DENY);
       policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().add(denyRule);
-      
+
       return policyType;
-   }  
+   }
 }
