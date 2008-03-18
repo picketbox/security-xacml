@@ -218,7 +218,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       permitRuleApplyType.setFunctionId(XACMLConstants.FUNCTION_STRING_IS_IN);
 
       SubjectAttributeDesignatorType sadt = PolicyAttributeFactory.createSubjectAttributeDesignatorType(
-            XACMLConstants.ATTRIBUTEID_SUBJECT_ROLE, XMLSchemaConstants.DATATYPE_STRING);
+            XACMLConstants.ATTRIBUTEID_ROLE, XMLSchemaConstants.DATATYPE_STRING);
       JAXBElement<SubjectAttributeDesignatorType> sadtElement = objectFactory.createSubjectAttributeDesignator(sadt);
       AttributeValueType avt = PolicyAttributeFactory.createStringAttributeType("developer");
       JAXBElement<AttributeValueType> jaxbAVT = objectFactory.createAttributeValue(avt);

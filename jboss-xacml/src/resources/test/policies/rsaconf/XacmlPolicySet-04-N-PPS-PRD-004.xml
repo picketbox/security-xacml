@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PolicySet
+    xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os 
+      http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
+    PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:N:PPS:PRD-004"
+    PolicyCombiningAlgId=
+      "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+  <Description>
+      Policy set for the PRD-004 permission. This permission allows
+      access to all medical records.
+  </Description>
+  <Target/>
+  <Policy
+      PolicyId="urn:oasis:names:tc:xacml:interop:policyid:N:PPS:PRD-004:1"
+      RuleCombiningAlgId=
+        "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:deny-overrides">
+    <Target>
+      <Resources>
+        <Resource>
+          <ResourceMatch
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+            <AttributeValue
+                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+              >urn:oasis:names:tc:xacml:interop:resource:medical-record</AttributeValue>
+            <ResourceAttributeDesignator
+                AttributeId="urn:oasis:names:tc:xacml:interop:resource:type"
+                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+          </ResourceMatch>
+        </Resource>
+      </Resources>
+    </Target>
+    <Rule
+        RuleId="urn:oasis:names:tc:xacml:interop:policy:N:PPS:PRD-004:1:rule:1"
+	     Effect="Permit">
+	 </Rule>
+  </Policy>
+</PolicySet>

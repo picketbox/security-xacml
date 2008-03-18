@@ -58,7 +58,7 @@ public interface XACMLConstants
    
    //Subject Attribute IDs
    String ATTRIBUTEID_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
-   String ATTRIBUTEID_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
+   String ATTRIBUTEID_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
    String ATTRIBUTEID_DNS_NAME = "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name";
    String ATTRIBUTEID_IP_ADDRESS = "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address";
    String ATTRIBUTEID_AUTHENTICATION_METHOD = "urn:oasis:names:tc:xacml:1.0:subject:authentication-method";
@@ -73,6 +73,7 @@ public interface XACMLConstants
    String ATTRIBUTEID_INTERMEDIARY_SUBJECT = "urn:oasis:names:tc:xacml:1.0:subject-category:intermediary-subject";
    String ATTRIBUTEID_RECIPIENT_SUBJECT = "urn:oasis:names:tc:xacml:1.0:subject-category:recipient-subject";
    String ATTRIBUTEID_REQUESTING_MACHINE = "urn:oasis:names:tc:xacml:1.0:subject-category:requesting-machine";
+   String ATTRIBUTEID_HL7_PERMISSION = "urn:oasis:names:tc:xacml:2.0:subject:hl7:permission";
    
    //Begin Functions
    //Equal

@@ -37,6 +37,7 @@ import org.jboss.security.xacml.core.model.context.SubjectType;
 import org.jboss.security.xacml.factories.RequestAttributeFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.XACMLConstants;
  
 //$Id$
 
@@ -48,11 +49,6 @@ import org.jboss.security.xacml.interfaces.RequestContext;
  */
 public class WebPEP
 {
-   String ACTION_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:action:action-id";
-   String CURRENT_TIME_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:environment:current-time";
-   String RESOURCE_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
-   String SUBJECT_IDENTIFIER = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
-   String SUBJECT_ROLE_IDENTIFIER = "urn:oasis:names:tc:xacml:2.0:subject:role";
    
    public RequestContext createXACMLRequest(HttpServletRequest request,
          Principal principal, Group roleGroup) throws Exception
@@ -62,30 +58,30 @@ public class WebPEP
       //Create a subject type
       SubjectType subject = new SubjectType(); 
       subject.getAttribute().add(RequestAttributeFactory.createStringAttributeType(
-            SUBJECT_IDENTIFIER, "jboss.org", principal.getName()));
+            XACMLConstants.ATTRIBUTEID_SUBJECT_ID, "jboss.org", principal.getName()));
       Enumeration<Principal> roles = (Enumeration<Principal>) roleGroup.members();
       while(roles.hasMoreElements())
       {
          Principal rolePrincipal = roles.nextElement();
          AttributeType attSubjectID = RequestAttributeFactory.createStringAttributeType(
-               SUBJECT_ROLE_IDENTIFIER, "jboss.org", rolePrincipal.getName()); 
+               XACMLConstants.ATTRIBUTEID_ROLE, "jboss.org", rolePrincipal.getName()); 
          subject.getAttribute().add(attSubjectID);
       } 
       
       //Create a resource type
       ResourceType resourceType = new ResourceType();
       resourceType.getAttribute().add(RequestAttributeFactory.createAnyURIAttributeType(
-            RESOURCE_IDENTIFIER, null, new URI(request.getRequestURI())));
+            XACMLConstants.ATTRIBUTEID_RESOURCE_ID, null, new URI(request.getRequestURI())));
       
       //Create an action type
       ActionType actionType = new ActionType();
       actionType.getAttribute().add(RequestAttributeFactory.createStringAttributeType(
-            ACTION_IDENTIFIER, "jboss.org", "read"));
+            XACMLConstants.ATTRIBUTEID_ACTION_ID, "jboss.org", "read"));
       
       //Create an Environment Type (Optional)
       EnvironmentType environmentType = new EnvironmentType(); 
       environmentType.getAttribute().add(RequestAttributeFactory.createDateTimeAttributeType(
-            CURRENT_TIME_IDENTIFIER, null));
+            XACMLConstants.ATTRIBUTEID_CURRENT_TIME, null));
        
       //Create a Request Type
       RequestType requestType = new RequestType();
