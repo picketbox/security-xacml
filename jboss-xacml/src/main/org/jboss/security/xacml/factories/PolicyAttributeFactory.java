@@ -144,19 +144,29 @@ public class PolicyAttributeFactory
       return getBareAttributeValueType(value.toString(), XMLSchemaConstants.DATATYPE_YEARMONTHDURATION);
    }
 
-   public static AttributeDesignatorType createAttributeDesignatorType(String id, String dataType)
+   public static AttributeDesignatorType createAttributeDesignatorType(String id, String dataType, String issuer,
+         boolean mustBePresent)
    {
       AttributeDesignatorType adt = new AttributeDesignatorType();
       adt.setAttributeId(id);
       adt.setDataType(dataType);
+      if (issuer != null)
+         adt.setIssuer(issuer);
+      adt.setMustBePresent(mustBePresent);
       return adt;
    }
 
-   public static SubjectAttributeDesignatorType createSubjectAttributeDesignatorType(String id, String dataType)
+   public static SubjectAttributeDesignatorType createSubjectAttributeDesignatorType(String id, String dataType,
+         String issuer, boolean mustBePresent, String subjectCategory)
    {
       SubjectAttributeDesignatorType adt = new SubjectAttributeDesignatorType();
       adt.setAttributeId(id);
       adt.setDataType(dataType);
+      if (issuer != null)
+         adt.setIssuer(issuer);
+      adt.setMustBePresent(mustBePresent);
+      if (subjectCategory != null)
+         adt.setSubjectCategory(subjectCategory);
       return adt;
    }
 

@@ -179,7 +179,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       ResourceMatchType rmt = new ResourceMatchType();
       rmt.setMatchId(XACMLConstants.FUNCTION_ANYURI_EQUAL);
       rmt.setResourceAttributeDesignator(PolicyAttributeFactory.createAttributeDesignatorType(
-            XACMLConstants.ATTRIBUTEID_RESOURCE_ID, XMLSchemaConstants.DATATYPE_ANYURI));
+            XACMLConstants.ATTRIBUTEID_RESOURCE_ID, XMLSchemaConstants.DATATYPE_ANYURI, null, false));
       rmt.setAttributeValue(PolicyAttributeFactory
             .createAnyURIAttributeType(new URI("http://test/developer-guide.html")));
       resourceType.getResourceMatch().add(rmt);
@@ -201,7 +201,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       amct.setMatchId("urn:oasis:names:tc:xacml:1.0:function:string-equal");
       amct.setAttributeValue(PolicyAttributeFactory.createStringAttributeType("read"));
       amct.setActionAttributeDesignator(PolicyAttributeFactory.createAttributeDesignatorType(
-            XACMLConstants.ATTRIBUTEID_ACTION_ID, XMLSchemaConstants.DATATYPE_STRING));
+            XACMLConstants.ATTRIBUTEID_ACTION_ID, XMLSchemaConstants.DATATYPE_STRING, null, false));
       permitRuleActionType.getActionMatch().add(amct);
       TargetType permitRuleTargetType = new TargetType();
       permitRuleActionsType.getAction().add(permitRuleActionType);
@@ -218,7 +218,7 @@ public class WebLayerDynamicPolicyUnitTestCase extends TestCase
       permitRuleApplyType.setFunctionId(XACMLConstants.FUNCTION_STRING_IS_IN);
 
       SubjectAttributeDesignatorType sadt = PolicyAttributeFactory.createSubjectAttributeDesignatorType(
-            XACMLConstants.ATTRIBUTEID_ROLE, XMLSchemaConstants.DATATYPE_STRING);
+            XACMLConstants.ATTRIBUTEID_ROLE, XMLSchemaConstants.DATATYPE_STRING, null, false, null);
       JAXBElement<SubjectAttributeDesignatorType> sadtElement = objectFactory.createSubjectAttributeDesignator(sadt);
       AttributeValueType avt = PolicyAttributeFactory.createStringAttributeType("developer");
       JAXBElement<AttributeValueType> jaxbAVT = objectFactory.createAttributeValue(avt);
