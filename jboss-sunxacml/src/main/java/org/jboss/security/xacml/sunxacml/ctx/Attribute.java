@@ -326,7 +326,7 @@ public class Attribute
       {
          for(AttributeValue value: this.attributeValues)
          {
-            value.encodeWithTags(false);
+            encoded += value.encodeWithTags(false);
          }
       }
       encoded += "</Attribute>";
