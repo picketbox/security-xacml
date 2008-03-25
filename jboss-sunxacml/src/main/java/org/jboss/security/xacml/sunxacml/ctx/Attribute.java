@@ -75,6 +75,8 @@ public class Attribute
 
    // the single value associated with this attribute
    //private AttributeValue value;
+   
+   //SECURITY-157: support multiple values
    private Set<AttributeValue> attributeValues = null;
 
    /**
