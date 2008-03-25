@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os 
       http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
-    PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:toplevel"
+    PolicySetId="urn:xacml:2.0:interop:example:policysetid:toplevel"
     PolicyCombiningAlgId=
       "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
   <Description>
@@ -12,7 +12,7 @@
   </Description>
   <Target/>
   <PolicySet
-      PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:toplevel:CDA"
+      PolicySetId="urn:xacml:2.0:interop:example:policysetid:toplevel:CDA"
       PolicyCombiningAlgId=
         "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
      <Target>
@@ -22,41 +22,39 @@
                MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
              <AttributeValue
                  DataType="http://www.w3.org/2001/XMLSchema#string"
-               >CDA</AttributeValue>
+               >UBA</AttributeValue>
              <ResourceAttributeDesignator
                  AttributeId=
-                   "urn:oasis:names:tc:xacml:interop:resource:confidentiality-code"
+                   "urn:xacml:2.0:interop:example:resource:confidentiality-code"
+                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
+           </ResourceMatch>
+         </Resource>
+         <Resource>
+           <ResourceMatch
+               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+             <AttributeValue
+                DataType="http://www.w3.org/2001/XMLSchema#string"
+               >MA</AttributeValue>
+             <ResourceAttributeDesignator
+                 AttributeId=
+                  "urn:xacml:2.0:interop:example:resource:hl7:confidentiality-code"
                  DataType="http://www.w3.org/2001/XMLSchema#string"/>
            </ResourceMatch>
          </Resource>
        </Resources>
      </Target>
 	  <PolicySetIdReference
-       >urn:oasis:names:tc:xacml:interop:policysetid:CDA</PolicySetIdReference>
+       >urn:xacml:2.0:interop:example:policysetid:CDA</PolicySetIdReference>
   </PolicySet>
   <PolicySet
-      PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:toplevel:N"
+      PolicySetId="urn:xacml:2.0:interop:example:policysetid:toplevel:N"
       PolicyCombiningAlgId=
         "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:permit-overrides">
      <Target>
-       <Resources>
-         <Resource>
-           <ResourceMatch
-               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-       	 <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#string"
-              >N</AttributeValue>
-            <ResourceAttributeDesignator
-                AttributeId=
-                  "urn:oasis:names:tc:xacml:interop:resource:confidentiality-code"
-                DataType="http://www.w3.org/2001/XMLSchema#string"/>
-            </ResourceMatch>
-          </Resource>
-        </Resources>
       </Target>
       <PolicySetIdReference
-        >urn:oasis:names:tc:xacml:interop:policysetid:N</PolicySetIdReference>
+        >urn:xacml:2.0:interop:example:policysetid:N</PolicySetIdReference>
       <PolicySetIdReference
-  >urn:oasis:names:tc:xacml:interop:policysetid:N:PermCollections</PolicySetIdReference>
+  >urn:xacml:2.0:interop:example:policysetid:N:PermCollections</PolicySetIdReference>
   </PolicySet>
 </PolicySet>

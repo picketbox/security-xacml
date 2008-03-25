@@ -4,17 +4,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os 
       http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
-    PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:N:PermCollections"
+    PolicySetId="urn:xacml:2.0:interop:example:policysetid:N:PermCollections"
     PolicyCombiningAlgId=
       "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
   <Description>
-      Policy set for the N confidentiality code.
+      Policy set for evaluating the subject:hl7:permission attributes.
       This implements an RBAC policy. This policy set matches
       subject roles and refers to permission policy sets.
   </Description>
   <Target/>
   <PolicySet
-      PolicySetId="urn:oasis:names:tc:xacml:interop:policysetid:N:med-rec-perm-set"
+      PolicySetId="urn:xacml:2.0:interop:example:policysetid:N:med-rec-perm-set"
 	   PolicyCombiningAlgId=
         "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
     <Target>
@@ -24,7 +24,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-003</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-003</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -33,7 +33,16 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-005</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-005</AttributeValue>
+            <SubjectAttributeDesignator
+                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:hl7:permission"
+                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+          </SubjectMatch>
+          <SubjectMatch
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+            <AttributeValue
+                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+              >urn:xacml:2.0:interop:example:hl7:prd-006</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -42,16 +51,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-006</AttributeValue>
-            <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
-          </SubjectMatch>
-          <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
-            <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-009</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-009</AttributeValue>
             <SubjectAttributeDesignator 
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -60,7 +60,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-010</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-010</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -69,7 +69,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-012</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-012</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -78,7 +78,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"
-              >urn:oasis:names:tc:xacml:interop:hl7:prd-017</AttributeValue>
+              >urn:xacml:2.0:interop:example:hl7:prd-017</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
@@ -87,6 +87,6 @@
       </Subjects>
     </Target>
     <PolicySetIdReference
-      >urn:oasis:names:tc:xacml:interop:policysetid:N:RPS:virt-med-rec-role</PolicySetIdReference>
+  	>urn:xacml:2.0:interop:example:policysetid:N:RPS:med-rec-vrole</PolicySetIdReference>
   </PolicySet>
 </PolicySet>
