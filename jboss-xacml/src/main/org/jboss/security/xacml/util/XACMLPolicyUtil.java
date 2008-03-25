@@ -29,12 +29,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jboss.security.xacml.sunxacml.Policy;
+import org.jboss.security.xacml.sunxacml.PolicySet;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import com.sun.xacml.Policy;
-import com.sun.xacml.PolicySet;
-import com.sun.xacml.finder.PolicyFinder;
 
 /**
  * Create an XACML Policy Object from the url for the policy xml

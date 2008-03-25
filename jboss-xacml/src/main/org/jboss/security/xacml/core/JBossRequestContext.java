@@ -38,14 +38,11 @@ import org.jboss.security.xacml.core.model.context.RequestType;
 import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.sun.xacml.ctx.RequestCtx;
-
-//$Id$
-
+  
 /**
  *  Implementation of the RequestContext interface
  *  @author Anil.Saldhana@redhat.com

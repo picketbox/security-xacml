@@ -51,19 +51,16 @@ import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.security.xacml.jaxb.PolicyType;
+import org.jboss.security.xacml.sunxacml.PDPConfig;
+import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
+import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
+import org.jboss.security.xacml.sunxacml.finder.AttributeFinder;
+import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
+import org.jboss.security.xacml.sunxacml.finder.impl.CurrentEnvModule;
+import org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
-
-import com.sun.xacml.PDPConfig;
-import com.sun.xacml.ctx.RequestCtx;
-import com.sun.xacml.ctx.ResponseCtx;
-import com.sun.xacml.finder.AttributeFinder;
-import com.sun.xacml.finder.AttributeFinderModule;
-import com.sun.xacml.finder.PolicyFinderModule;
-import com.sun.xacml.finder.impl.CurrentEnvModule;
-import com.sun.xacml.finder.impl.SelectorModule;
-
-//$Id$
 
 /**
  *  PDP for JBoss XACML
@@ -217,7 +214,8 @@ public class JBossPDP implements PolicyDecisionPoint
       attributeModules.add(new SelectorModule());
       attributeFinder.setModules(attributeModules);
 
-      com.sun.xacml.PDP pdp = new com.sun.xacml.PDP(new PDPConfig(attributeFinder, policyFinder, null));
+      org.jboss.security.xacml.sunxacml.PDP pdp = 
+         new org.jboss.security.xacml.sunxacml.PDP(new PDPConfig(attributeFinder, policyFinder, null));
       RequestCtx req = (RequestCtx) request.get(XACMLConstants.REQUEST_CTX);
       if (req == null)
          throw new IllegalStateException("Request Context does not contain a request");

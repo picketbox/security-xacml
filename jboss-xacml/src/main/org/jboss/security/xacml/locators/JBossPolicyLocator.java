@@ -28,12 +28,9 @@ import java.util.Set;
 import org.jboss.security.xacml.bridge.WrapperPolicyFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
-
-import com.sun.xacml.Policy;
-import com.sun.xacml.finder.PolicyFinderModule;
-
-//$Id$
-
+import org.jboss.security.xacml.sunxacml.Policy;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
+  
 /**
  *  Policy Locator for plain XACML Policy instances
  *  @author Anil.Saldhana@redhat.com

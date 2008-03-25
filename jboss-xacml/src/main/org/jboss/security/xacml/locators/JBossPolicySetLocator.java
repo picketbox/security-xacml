@@ -28,13 +28,10 @@ import java.util.Set;
 import org.jboss.security.xacml.bridge.PolicySetFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
-
-import com.sun.xacml.AbstractPolicy;
-import com.sun.xacml.Policy;
-import com.sun.xacml.PolicySet;
-
-//$Id$
-
+import org.jboss.security.xacml.sunxacml.AbstractPolicy;
+import org.jboss.security.xacml.sunxacml.Policy;
+import org.jboss.security.xacml.sunxacml.PolicySet;
+ 
 /**
  *  Locator for a PolicySet
  *  @author Anil.Saldhana@redhat.com

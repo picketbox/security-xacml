@@ -21,7 +21,8 @@
   */
 package org.jboss.security.xacml.bridge;
 
-import com.sun.xacml.finder.PolicyFinder;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
+
 
 //$Id$
 

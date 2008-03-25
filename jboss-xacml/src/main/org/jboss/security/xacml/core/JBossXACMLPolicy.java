@@ -32,12 +32,9 @@ import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
+import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.util.XACMLPolicyUtil;
-
-import com.sun.xacml.AbstractPolicy; 
-
-//$Id$
-
+ 
 /**
  *  JBossXACML Policy
  *  @author Anil.Saldhana@redhat.com

@@ -23,13 +23,14 @@ package org.jboss.security.xacml.bridge;
 
 import java.net.URI;
 
-import com.sun.xacml.EvaluationCtx;
-import com.sun.xacml.Policy;
-import com.sun.xacml.PolicyMetaData;
-import com.sun.xacml.VersionConstraints;
-import com.sun.xacml.finder.PolicyFinder;
-import com.sun.xacml.finder.PolicyFinderModule;
-import com.sun.xacml.finder.PolicyFinderResult;
+import org.jboss.security.xacml.sunxacml.EvaluationCtx;
+import org.jboss.security.xacml.sunxacml.Policy;
+import org.jboss.security.xacml.sunxacml.PolicyMetaData;
+import org.jboss.security.xacml.sunxacml.VersionConstraints;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
+ 
  
 
 /**
