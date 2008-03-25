@@ -140,7 +140,7 @@ public class RSAConferenceTestCase extends TestCase
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:medical-record";
 
       RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
             consentedIds, resourceType);
@@ -172,12 +172,10 @@ public class RSAConferenceTestCase extends TestCase
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:medical-record";
 
       RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
             consentedIds, resourceType);
-      
-      request.marshall(System.out);
 
       assertEquals("Access Allowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
    }

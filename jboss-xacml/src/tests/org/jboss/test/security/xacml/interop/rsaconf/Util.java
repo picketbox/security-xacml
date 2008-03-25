@@ -49,6 +49,9 @@ public class Util
 
    private static final String RESOURCE_TYPE = "urn:oasis:names:tc:xacml:interop:resource:type";
 
+   //Enable for request trace
+   private static boolean debug = "true".equals(System.getProperty("debug", "false"));
+
    /**
     * 
     * Creates a request with the normal XACML concept of roles.
@@ -74,6 +77,8 @@ public class Util
       try
       {
          request.setRequest(requestType);
+         if (debug)
+            request.marshall(System.out);
       }
       catch (IOException e)
       {
@@ -107,6 +112,8 @@ public class Util
       try
       {
          request.setRequest(requestType);
+         if (debug)
+            request.marshall(System.out);
       }
       catch (IOException e)
       {
