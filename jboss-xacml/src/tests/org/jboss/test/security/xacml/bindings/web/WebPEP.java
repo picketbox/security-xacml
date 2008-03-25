@@ -50,6 +50,7 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 public class WebPEP
 {
    
+   @SuppressWarnings("unchecked")
    public RequestContext createXACMLRequest(HttpServletRequest request,
          Principal principal, Group roleGroup) throws Exception
    {  

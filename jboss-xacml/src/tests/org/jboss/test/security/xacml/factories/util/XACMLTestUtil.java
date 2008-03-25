@@ -93,7 +93,7 @@ public class XACMLTestUtil
       return new Group()
       {
 
-         private Vector vect = new Vector();
+         private Vector<Principal> vect = new Vector<Principal>();
 
          public boolean addMember(final Principal principal)
          {

@@ -176,6 +176,8 @@ public class RSAConferenceTestCase extends TestCase
 
       RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
             consentedIds, resourceType);
+      
+      request.marshall(System.out);
 
       assertEquals("Access Allowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
    }

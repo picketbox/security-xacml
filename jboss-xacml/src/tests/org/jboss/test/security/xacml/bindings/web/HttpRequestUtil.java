@@ -67,11 +67,13 @@ public class HttpRequestUtil
 				return null;
 			}
 
-			public Enumeration getHeaderNames() { 
+			@SuppressWarnings("unchecked")
+            public Enumeration getHeaderNames() { 
 				return null;
 			}
 
-			public Enumeration getHeaders(String arg0) { 
+			@SuppressWarnings("unchecked")
+            public Enumeration getHeaders(String arg0) { 
 				return null;
 			}
 
@@ -151,7 +153,8 @@ public class HttpRequestUtil
 				return null;
 			}
 
-			public Enumeration getAttributeNames() { 
+			@SuppressWarnings("unchecked")
+            public Enumeration getAttributeNames() { 
 				return null;
 			}
 
@@ -187,7 +190,8 @@ public class HttpRequestUtil
 				return null;
 			}
 
-			public Enumeration getLocales() { 
+			@SuppressWarnings("unchecked")
+            public Enumeration getLocales() { 
 				return null;
 			}
 
@@ -195,11 +199,13 @@ public class HttpRequestUtil
 				return null;
 			}
 
-			public Map getParameterMap() { 
+			@SuppressWarnings("unchecked")
+            public Map getParameterMap() { 
 				return null;
 			}
 
-			public Enumeration getParameterNames() { 
+			@SuppressWarnings("unchecked")
+            public Enumeration getParameterNames() { 
 				return null;
 			}
 
