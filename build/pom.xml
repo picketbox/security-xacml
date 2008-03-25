@@ -19,11 +19,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <groupId>jboss</groupId>
+    <groupId>org.jboss</groupId>
     <artifactId>jboss-parent</artifactId>
-    <version>2</version>
+    <version>3</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jboss.security</groupId>
   <artifactId>jboss-xacml-project</artifactId>
   <version>2.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -88,20 +89,39 @@
         <inherited>false</inherited>
       </plugin>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <printSummary>true</printSummary>
+          <disableXmlReport>false</disableXmlReport>
+          <testFailureIgnore>true</testFailureIgnore>
+          <includes>
+           <include>**/**TestCase.java</include>
+          </includes>
+          <forkMode>pertest</forkMode>
+          <argLine>${surefire.jvm.args}</argLine>
+          <useFile>false</useFile>
+          <trimStackTrace>false</trimStackTrace>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.jboss.maven.plugins</groupId>
         <artifactId>maven-jboss-deploy-plugin</artifactId>
-        <version>1.4</version>
+        <version>1.6</version>
         <executions>
           <execution>
+            <id>jboss-deploy</id>
             <goals>
               <goal>jboss-deploy</goal>
             </goals>
+            <phase>deploy</phase>
           </execution>
        </executions>
        <configuration>
          <groupId>jboss</groupId>
          <license>lgpl</license>
          <jbossDeployRoot>${jboss.repository.root}</jbossDeployRoot>
+         <removeArtifactVersion>true</removeArtifactVersion>
        </configuration>
       </plugin>
     </plugins>
@@ -119,27 +139,6 @@
   </repositories>
   <modules>
     <module>../jboss-xacml</module>
+    <module>../jboss-sunxacml</module>
   </modules>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>dependencies</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>
