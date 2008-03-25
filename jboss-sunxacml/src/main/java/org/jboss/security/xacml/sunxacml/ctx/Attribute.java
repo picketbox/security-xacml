@@ -100,10 +100,11 @@ public class Attribute
       this.attributeValues.add(value); 
    }
 
-   public Attribute(URI id, String issuer, DateTimeAttribute issueInstant,
+   public Attribute(URI id, URI type, String issuer, DateTimeAttribute issueInstant,
          Set<AttributeValue> values) 
    {
       this.id = id;
+      this.type = type;
       this.issuer = issuer;
       this.issueInstant = issueInstant;
       this.attributeValues = values; 
@@ -222,7 +223,7 @@ public class Attribute
       if (value == null)
          throw new ParsingException("Attribute must contain a value");
 
-      return new Attribute(id,  issuer, issueInstant, valueSet);
+      return new Attribute(id, type, issuer, issueInstant, valueSet);
    }
 
    /**
