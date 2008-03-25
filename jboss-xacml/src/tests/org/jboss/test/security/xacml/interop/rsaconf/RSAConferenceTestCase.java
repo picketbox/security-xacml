@@ -21,13 +21,18 @@
   */
 package org.jboss.test.security.xacml.interop.rsaconf;
 
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.jboss.security.xacml.core.JBossPDP;
+import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 /**
  * A RSAConferenceTestCase.
@@ -38,7 +43,7 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 public class RSAConferenceTestCase extends TestCase
 {
 
-   public void testRequest1() throws Exception
+   public void atestCreateRequestWithHL7Permissions() throws Exception
    {
       Principal doctor = new Principal()
       {
@@ -74,7 +79,7 @@ public class RSAConferenceTestCase extends TestCase
       request.marshall(System.out);
    }
 
-   public void testRequest2() throws Exception
+   public void atestCreateRequestWithNormalRoles() throws Exception
    {
       Principal doctor = new Principal()
       {
@@ -102,5 +107,85 @@ public class RSAConferenceTestCase extends TestCase
             consentedIds, resourceType);
 
       request.marshall(System.out);
+   }
+
+   public void testUseCase1_1() throws Exception
+   {
+      PolicyDecisionPoint pdp = getPDP();
+      assertNotNull("JBossPDP is != null", pdp);
+
+      Principal doctor = new Principal()
+      {
+         public String getName()
+         {
+            return "Dr. Alice";
+         }
+      };
+
+      List<String> permissions = new ArrayList<String>();
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-003");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-005");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-006");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-009");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-010");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-012");
+      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-017");
+
+      String patient = "Anthony Gurrola";
+
+      List<String> confidentialityCodes = new ArrayList<String>();
+      confidentialityCodes.add("CDA");
+      confidentialityCodes.add("N");
+
+      List<String> consentedIds = new ArrayList<String>();
+      consentedIds.add("Dr. Alice");
+
+      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+            consentedIds, resourceType);
+
+      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
+   }
+
+   public void testUseCase1_2() throws Exception
+   {
+      PolicyDecisionPoint pdp = getPDP();
+      assertNotNull("JBossPDP is != null", pdp);
+
+      Principal doctor = new Principal()
+      {
+         public String getName()
+         {
+            return "Dr. Alice";
+         }
+      };
+
+      List<String> permissions = new ArrayList<String>();
+
+      String patient = "Anthony Gurrola";
+
+      List<String> confidentialityCodes = new ArrayList<String>();
+      confidentialityCodes.add("CDA");
+      confidentialityCodes.add("N");
+
+      List<String> consentedIds = new ArrayList<String>();
+      consentedIds.add("Dr. Alice");
+
+      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+            consentedIds, resourceType);
+
+      assertEquals("Access Allowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
+   }
+
+   private PolicyDecisionPoint getPDP()
+   {
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      InputStream is = tcl.getResourceAsStream("test/config/rsaConferencePolicySetConfig.xml");
+      assertNotNull("InputStream != null", is);
+
+      return new JBossPDP(is);
    }
 }

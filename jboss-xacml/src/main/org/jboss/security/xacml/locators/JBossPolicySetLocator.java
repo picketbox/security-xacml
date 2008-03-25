@@ -29,6 +29,7 @@ import org.jboss.security.xacml.bridge.PolicySetFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 
+import com.sun.xacml.AbstractPolicy;
 import com.sun.xacml.Policy;
 import com.sun.xacml.PolicySet;
 
@@ -41,47 +42,61 @@ import com.sun.xacml.PolicySet;
  *  @version $Revision$
  */
 public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
-{   
-   private List<PolicySetFinderModule> pfml = new ArrayList<PolicySetFinderModule>(); 
-   
+{
+   private List<PolicySetFinderModule> pfml = new ArrayList<PolicySetFinderModule>();
+
    public JBossPolicySetLocator()
-   {  
+   {
    }
-   
+
    public JBossPolicySetLocator(Set<XACMLPolicy> policies)
    {
       setPolicies(policies);
-   } 
+   }
 
    @Override
    public void setPolicies(Set<XACMLPolicy> policies)
-   { 
-      for(XACMLPolicy xp:policies)
+   {
+      for (XACMLPolicy xp : policies)
       {
-         if(xp.getType() == XACMLPolicy.POLICYSET)
+         if (xp.getType() == XACMLPolicy.POLICYSET)
          {
             pfml.add(getPopulatedPolicySetFinderModule(xp));
          }
       }
       this.map.put(XACMLConstants.POLICY_FINDER_MODULE, pfml);
-   } 
-   
+   }
+
    private PolicySetFinderModule getPopulatedPolicySetFinderModule(XACMLPolicy xpolicy)
    {
       PolicySetFinderModule psfm = new PolicySetFinderModule();
       //Check for enclosed policies
-      List<XACMLPolicy> policyList = xpolicy.getEnclosingPolicies();
       List<Policy> sunxacmlPolicies = new ArrayList<Policy>();
-      for(XACMLPolicy xp: policyList)
-      {
-         sunxacmlPolicies.add((Policy) xp.get(XACMLConstants.UNDERLYING_POLICY));
-      }
-      
-      psfm.set((PolicySet) xpolicy.get(XACMLConstants.UNDERLYING_POLICY), 
-            sunxacmlPolicies);
-      
+      List<PolicySet> sunxacmlPolicySets = new ArrayList<PolicySet>();
+      this.recursivePopulate(xpolicy, sunxacmlPolicySets, sunxacmlPolicies, psfm);
+
+      psfm.set((PolicySet) xpolicy.get(XACMLConstants.UNDERLYING_POLICY), sunxacmlPolicies, sunxacmlPolicySets);
+
       //Make this PolicySetFinderModule the module for this policy set
       xpolicy.set(XACMLConstants.POLICY_FINDER_MODULE, psfm);
       return psfm;
+   }
+
+   private void recursivePopulate(XACMLPolicy policy, List<PolicySet> policySets, List<Policy> policies,
+         PolicySetFinderModule psfm)
+   {
+      List<XACMLPolicy> policyList = policy.getEnclosingPolicies();
+      for (XACMLPolicy xp : policyList)
+      {
+         AbstractPolicy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
+         if (p instanceof Policy)
+            policies.add((Policy) p);
+         else if (p instanceof PolicySet)
+         {
+            policySets.add((PolicySet) p);
+            this.recursivePopulate(xp, policySets, policies, psfm);
+         }
+      }
+
    }
 }

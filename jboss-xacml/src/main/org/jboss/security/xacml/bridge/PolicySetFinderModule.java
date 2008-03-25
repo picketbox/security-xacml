@@ -22,7 +22,7 @@
 package org.jboss.security.xacml.bridge;
 
 import java.net.URI;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.xacml.AbstractPolicy;
@@ -43,105 +43,113 @@ import com.sun.xacml.finder.PolicyFinderResult;
 *  @since  Jul 6, 2007 
 *  @version $Revision$
 */
-public class PolicySetFinderModule extends PolicyFinderModule 
-{ 
-	private PolicySet policySet;
-	private List<Policy> policies = new ArrayList<Policy>();
-	protected PolicyFinder policyFinder = null;
-	   
+public class PolicySetFinderModule extends PolicyFinderModule
+{
+   private PolicySet policySet;
 
-	public PolicySetFinderModule()
-	{ 
-	}
-	
-	public PolicySetFinderModule(PolicySet policySet)
-	{
-		this.policySet = policySet; 
-	}
-	
-	public PolicySetFinderModule(PolicySet policySet, List<Policy> policies)
-	{
-		this.policySet = policySet;
-		this.policies.addAll(policies);
-	}
-	
-	@Override
-	public void init(PolicyFinder finder) 
-	{ 
-		this.policyFinder = finder;
-	}
-	
-	/**
+   private List<Policy> policies = new ArrayList<Policy>();
+
+   private List<PolicySet> policySets = new ArrayList<PolicySet>();
+
+   protected PolicyFinder policyFinder = null;
+
+   public PolicySetFinderModule()
+   {
+   }
+
+   public PolicySetFinderModule(PolicySet policySet)
+   {
+      this.policySet = policySet;
+   }
+
+   public PolicySetFinderModule(PolicySet policySet, List<Policy> policies)
+   {
+      this.policySet = policySet;
+      this.policies.addAll(policies);
+   }
+
+   @Override
+   public void init(PolicyFinder finder)
+   {
+      this.policyFinder = finder;
+   }
+
+   /**
      * Finds the applicable policy (if there is one) for the given context.
      *
      * @param context the evaluation context
      *
      * @return an applicable policy, if one exists, or an error
      */
-	@Override
-    public PolicyFinderResult findPolicy(EvaluationCtx context) 
-    {
-        AbstractPolicy selectedPolicy = null;
-        MatchResult match = policySet.match(context);
-        int result = match.getResult();
+   @Override
+   public PolicyFinderResult findPolicy(EvaluationCtx context)
+   {
+      AbstractPolicy selectedPolicy = null;
+      MatchResult match = policySet.match(context);
+      int result = match.getResult();
 
-            // if target matching was indeterminate, then return the error
-            if (result == MatchResult.INDETERMINATE)
-                return new PolicyFinderResult(match.getStatus());
+      // if target matching was indeterminate, then return the error
+      if (result == MatchResult.INDETERMINATE)
+         return new PolicyFinderResult(match.getStatus());
 
-         // see if the target matched
-            if (result == MatchResult.MATCH) {
-                // see if we previously found another match
-                if (selectedPolicy != null) {
-                    // we found a match before, so this is an error
-                    ArrayList<String> code = new ArrayList<String>();
-                    code.add(Status.STATUS_PROCESSING_ERROR);
-                    Status status = new Status(code, "too many applicable "
-                                               + "top-level policies");
-                    return new PolicyFinderResult(status);
-                }
+      // see if the target matched
+      if (result == MatchResult.MATCH)
+      {
+         // see if we previously found another match
+         if (selectedPolicy != null)
+         {
+            // we found a match before, so this is an error
+            ArrayList<String> code = new ArrayList<String>();
+            code.add(Status.STATUS_PROCESSING_ERROR);
+            Status status = new Status(code, "too many applicable " + "top-level policies");
+            return new PolicyFinderResult(status);
+         }
 
-                // this is the first match we've found, so remember it
-                selectedPolicy = policySet;
-            }
+         // this is the first match we've found, so remember it
+         selectedPolicy = policySet;
+      }
 
+      // return the single applicable policy (if there was one)
+      return new PolicyFinderResult(selectedPolicy);
+   }
 
-        // return the single applicable policy (if there was one)
-        return new PolicyFinderResult(selectedPolicy);
-    }
+   @Override
+   public PolicyFinderResult findPolicy(URI idReference, int type, VersionConstraints constraints,
+         PolicyMetaData parentMetaData)
+   {
+      for (Policy p : policies)
+      {
+         if (p.getId().compareTo(idReference) == 0)
+            return new PolicyFinderResult(p);
+      }
+      for (PolicySet p : policySets)
+      {
+         if (p.getId().compareTo(idReference) == 0)
+            return new PolicyFinderResult(p);
+      }
+      return new PolicyFinderResult();
+   }
 
+   @Override
+   public boolean isRequestSupported()
+   {
+      return true;
+   }
 
-	@Override
-	public PolicyFinderResult findPolicy(URI idReference, int type,
-			VersionConstraints constraints, PolicyMetaData parentMetaData) 
-	{ 
-		for(Policy p:policies)
-		{ 
-			if(p.getId().compareTo(idReference) == 0)
-				return new PolicyFinderResult(p); 
-		} 
-		return new PolicyFinderResult();
-	}
-
-	@Override
-	public boolean isRequestSupported() 
-	{
-		return true;
-	}
-	
-	/**
+   /**
      * Always returns true, since reference-based retrieval is supported.
      *
      * @return true
      */
-    public boolean isIdReferenceSupported() 
-    {
-        return true;
-    } 
-    
-    public void set(PolicySet ps, List<Policy> policies)
-    {
-    	this.policySet = ps;
-    	this.policies = policies;
-    }
+   public boolean isIdReferenceSupported()
+   {
+      return true;
+   }
+
+   public void set(PolicySet ps, List<Policy> policies, List<PolicySet> policySets)
+   {
+      this.policySet = ps;
+      this.policies = policies;
+      this.policySets = policySets;
+   }
 }

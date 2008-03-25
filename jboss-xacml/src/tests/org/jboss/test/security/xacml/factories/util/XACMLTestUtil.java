@@ -44,9 +44,10 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
  *  @version $Revision$
  */
 public class XACMLTestUtil
-{ 
+{
    //Enable for request trace
-   private static boolean debug = "true".equals(System.getProperty("debug","false"));
+   private static boolean debug = "true".equals(System.getProperty("debug", "false"));
+
    /**
     * Get the decision from the PDP
     * @param pdp
@@ -54,19 +55,18 @@ public class XACMLTestUtil
     * @return
     * @throws Exception
     */
-   public static int getDecision(PolicyDecisionPoint pdp, 
-         String requestFileLoc) throws Exception
+   public static int getDecision(PolicyDecisionPoint pdp, String requestFileLoc) throws Exception
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       InputStream is = tcl.getResourceAsStream(requestFileLoc);
       RequestContext request = RequestResponseContextFactory.createRequestCtx();
       request.readRequest(is);
       ResponseContext response = pdp.evaluate(request);
-      if(response == null)
-       throw new RuntimeException("Response is null");
-      return response.getDecision(); 
+      if (response == null)
+         throw new RuntimeException("Response is null");
+      return response.getDecision();
    }
-   
+
    /**
     * Get the decision from the PDP
     * @param pdp
@@ -74,60 +74,62 @@ public class XACMLTestUtil
     * @return
     * @throws Exception
     */
-   public static int getDecision(PolicyDecisionPoint pdp, RequestContext request) 
-   throws Exception
+   public static int getDecision(PolicyDecisionPoint pdp, RequestContext request) throws Exception
    {
       ResponseContext response = pdp.evaluate(request);
-      if(debug)
+      if (debug)
          response.marshall(System.out);
       TestCase.assertNotNull("Response is not null", response);
-      return response.getDecision(); 
+      return response.getDecision();
    }
-   
+
    /**
     * Get a Group with the passed rolename
     * @param roleName rolename which will be placed as a principal
     * @return
     */
-   public static Group getRoleGroup( final String roleName)
+   public static Group getRoleGroup(final String roleName)
    {
-      return new Group() {
+      return new Group()
+      {
 
          private Vector vect = new Vector();
+
          public boolean addMember(final Principal principal)
-         { 
+         {
             return vect.add(principal);
          }
 
          public boolean isMember(Principal principal)
-         { 
+         {
             return vect.contains(principal);
          }
 
          public Enumeration<? extends Principal> members()
-         { 
+         {
             vect.add(new Principal()
             {
 
                public String getName()
-               { 
+               {
                   return roleName;
-               }});
+               }
+            });
             return vect.elements();
          }
 
          public boolean removeMember(Principal principal)
-         { 
+         {
             return vect.remove(principal);
          }
 
          public String getName()
-         { 
+         {
             return "ROLES";
          }
-       }; 
-   } 
-   
+      };
+   }
+
    /**
     * Validate the 7 Oasis XACML Interoperability Use Cases
     * @param pdp
@@ -136,26 +138,19 @@ public class XACMLTestUtil
    public static void validateInteropCases(PolicyDecisionPoint pdp) throws Exception
    {
       TestCase.assertNotNull("JBossPDP is != null", pdp);
-      TestCase.assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase1-request.xml"));
-      TestCase.assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase2-request.xml"));
-      TestCase.assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase3-request.xml"));
-      TestCase.assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase4-request.xml"));
-      TestCase.assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase5-request.xml"));
-      TestCase.assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase6-request.xml"));
-      TestCase.assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT,
-            XACMLTestUtil.getDecision(pdp,
-                "test/requests/interop/scenario2-testcase7-request.xml")); 
+      TestCase.assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase1-request.xml"));
+      TestCase.assertEquals("Case 2 should be deny", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase2-request.xml"));
+      TestCase.assertEquals("Case 3 should be deny", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase3-request.xml"));
+      TestCase.assertEquals("Case 4 should be deny", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase4-request.xml"));
+      TestCase.assertEquals("Case 5 should be deny", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase5-request.xml"));
+      TestCase.assertEquals("Case 6 should be deny", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase6-request.xml"));
+      TestCase.assertEquals("Case 7 should be deny", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            "test/requests/interop/scenario2-testcase7-request.xml"));
    }
 }

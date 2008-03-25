@@ -25,6 +25,7 @@
       <xs:sequence>
          <xs:element name="Location" type="xs:anyURI" minOccurs="0"/>
          <xs:element name="Policy" type="ns:PolicyType" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="PolicySet" type="ns:PolicySetType" minOccurs="0"  maxOccurs="unbounded"/>
       </xs:sequence>
    </xs:complexType>
    <xs:complexType name="PolicyType">
