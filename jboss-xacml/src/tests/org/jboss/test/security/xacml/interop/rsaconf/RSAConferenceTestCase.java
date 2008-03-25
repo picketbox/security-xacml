@@ -54,13 +54,13 @@ public class RSAConferenceTestCase extends TestCase
       };
 
       List<String> permissions = new ArrayList<String>();
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-003");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-005");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-006");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-009");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-010");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-012");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-017");
+      permissions.add(Util.PERMISSION_BASE + "prd-003");
+      permissions.add(Util.PERMISSION_BASE + "prd-005");
+      permissions.add(Util.PERMISSION_BASE + "prd-006");
+      permissions.add(Util.PERMISSION_BASE + "prd-009");
+      permissions.add(Util.PERMISSION_BASE + "prd-010");
+      permissions.add(Util.PERMISSION_BASE + "prd-012");
+      permissions.add(Util.PERMISSION_BASE + "prd-017");
 
       String patient = "Anthony Gurrola";
 
@@ -71,9 +71,10 @@ public class RSAConferenceTestCase extends TestCase
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+      String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
+            patient, confidentialityCodes,
             consentedIds, resourceType);
 
       request.marshall(System.out);
@@ -90,7 +91,7 @@ public class RSAConferenceTestCase extends TestCase
       };
 
       List<String> roles = new ArrayList<String>();
-      roles.add("urn:oasis:names:tc:xacml:interop:role:physician");
+      roles.add(Util.PHYSICIAN);
 
       String patient = "Anthony Gurrola";
 
@@ -101,9 +102,10 @@ public class RSAConferenceTestCase extends TestCase
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:hl7-medical-record";
+      String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient, confidentialityCodes,
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, 
+            patient, confidentialityCodes,
             consentedIds, resourceType);
 
       request.marshall(System.out);
@@ -123,13 +125,13 @@ public class RSAConferenceTestCase extends TestCase
       };
 
       List<String> permissions = new ArrayList<String>();
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-003");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-005");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-006");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-009");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-010");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-012");
-      permissions.add("urn:oasis:names:tc:xacml:interop:hl7:prd-017");
+      permissions.add(Util.PERMISSION_BASE + "prd-003");
+      permissions.add(Util.PERMISSION_BASE + "prd-005");
+      permissions.add(Util.PERMISSION_BASE + "prd-006");
+      permissions.add(Util.PERMISSION_BASE + "prd-009");
+      permissions.add(Util.PERMISSION_BASE + "prd-010");
+      permissions.add(Util.PERMISSION_BASE + "prd-012");
+      permissions.add(Util.PERMISSION_BASE + "prd-017");
 
       String patient = "Anthony Gurrola";
 
@@ -142,10 +144,12 @@ public class RSAConferenceTestCase extends TestCase
 
       String resourceType = "urn:oasis:names:tc:xacml:interop:resource:medical-record";
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
+            patient, confidentialityCodes,
             consentedIds, resourceType);
 
-      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, 
+            XACMLTestUtil.getDecision(pdp, request));
    }
 
    public void testUseCase1_2() throws Exception
@@ -172,12 +176,13 @@ public class RSAConferenceTestCase extends TestCase
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:medical-record";
+      String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
+            patient, confidentialityCodes,
             consentedIds, resourceType);
 
-      assertEquals("Access Allowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
+      assertEquals("Deny?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
    }
 
    private PolicyDecisionPoint getPDP()

@@ -61,9 +61,13 @@ public class XACMLTestUtil
       InputStream is = tcl.getResourceAsStream(requestFileLoc);
       RequestContext request = RequestResponseContextFactory.createRequestCtx();
       request.readRequest(is);
+      if (debug)
+         request.marshall(System.out);
       ResponseContext response = pdp.evaluate(request);
       if (response == null)
          throw new RuntimeException("Response is null");
+      if (debug)
+         response.marshall(System.out);
       return response.getDecision();
    }
 

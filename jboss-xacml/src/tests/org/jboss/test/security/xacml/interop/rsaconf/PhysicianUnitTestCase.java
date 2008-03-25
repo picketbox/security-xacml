@@ -42,9 +42,10 @@ public class PhysicianUnitTestCase extends TestCase
 {
    public void testNConfidentialityCode() throws Exception
    {
+      System.setProperty("debug","true");
       int decision = XACMLTestUtil.getDecision(getPDP(), 
             "test/requests/interop/rsaconf08/NCode_request_01.xml");    
-      assertEquals(XACMLConstants.DECISION_DENY,decision);
+      assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
    }
    
    private PolicyDecisionPoint getPDP()

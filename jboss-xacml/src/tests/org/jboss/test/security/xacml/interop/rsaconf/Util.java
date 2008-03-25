@@ -42,12 +42,17 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
  */
 public class Util
 {
-
-   private static final String CONFIDENTIALITY_CODE = "urn:oasis:names:tc:xacml:interop:resource:confidentiality-code";
+   private static final String CONFIDENTIALITY_CODE = "urn:xacml:2.0:interop:example:resource:hl7:confidentiality-code";
 
    private static final String CONSENTED_SUBJECT_ID = "urn:oasis:names:tc:xacml:interop:resource:consented-subject-id";
 
    private static final String RESOURCE_TYPE = "urn:oasis:names:tc:xacml:interop:resource:type";
+   
+   public static final String PERMISSION_BASE = "urn:xacml:2.0:interop:example:hl7:";
+   
+   public static final String PHYSICIAN = "urn:xacml:2.0:interop:example:role:hl7:physician";
+   
+   public static final String MEDICAL_RECORD = "urn:xacml:2.0:interop:example:resource:hl7:medical-record";
 
    //Enable for request trace
    private static boolean debug = "true".equals(System.getProperty("debug", "false"));
