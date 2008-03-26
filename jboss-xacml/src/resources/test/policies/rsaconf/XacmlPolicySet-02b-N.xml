@@ -21,13 +21,13 @@
       <Subjects>
         <Subject>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:role:hl7:physician</AttributeValue>
             <SubjectAttributeDesignator 
                 AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
         </Subject>
       </Subjects>

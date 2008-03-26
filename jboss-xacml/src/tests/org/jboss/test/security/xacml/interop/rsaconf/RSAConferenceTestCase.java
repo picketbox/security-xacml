@@ -73,9 +73,17 @@ public class RSAConferenceTestCase extends TestCase
 
       String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
-            patient, confidentialityCodes,
-            consentedIds, resourceType);
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
+
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
 
       request.marshall(System.out);
    }
@@ -104,9 +112,17 @@ public class RSAConferenceTestCase extends TestCase
 
       String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, 
-            patient, confidentialityCodes,
-            consentedIds, resourceType);
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
+
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
 
       request.marshall(System.out);
    }
@@ -136,23 +152,30 @@ public class RSAConferenceTestCase extends TestCase
       String patient = "Anthony Gurrola";
 
       List<String> confidentialityCodes = new ArrayList<String>();
-      confidentialityCodes.add("CDA");
-      confidentialityCodes.add("N");
+      confidentialityCodes.add("UBA");
 
       List<String> consentedIds = new ArrayList<String>();
       consentedIds.add("Dr. Alice");
 
-      String resourceType = "urn:oasis:names:tc:xacml:interop:resource:medical-record";
+      String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
-            patient, confidentialityCodes,
-            consentedIds, resourceType);
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, 
-            XACMLTestUtil.getDecision(pdp, request));
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            request));
    }
 
-   public void testUseCase1_2() throws Exception
+   public void atestUseCase1_2() throws Exception
    {
       PolicyDecisionPoint pdp = getPDP();
       assertNotNull("JBossPDP is != null", pdp);
@@ -178,11 +201,105 @@ public class RSAConferenceTestCase extends TestCase
 
       String resourceType = Util.MEDICAL_RECORD;
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, 
-            patient, confidentialityCodes,
-            consentedIds, resourceType);
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
+
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
 
       assertEquals("Deny?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
+   }
+
+   public void atestUseCase1_3() throws Exception
+   {
+      PolicyDecisionPoint pdp = getPDP();
+      assertNotNull("JBossPDP is != null", pdp);
+
+      Principal doctor = new Principal()
+      {
+         public String getName()
+         {
+            return "Dr. Alice";
+         }
+      };
+
+      List<String> roles = new ArrayList<String>();
+      roles.add(Util.PHYSICIAN);
+
+      String patient = "Anthony Gurrola";
+
+      List<String> confidentialityCodes = new ArrayList<String>();
+      confidentialityCodes.add("UBA");
+      confidentialityCodes.add("MA");
+
+      List<String> consentedIds = new ArrayList<String>();
+      consentedIds.add("Dr. Alice");
+
+      String resourceType = Util.MEDICAL_RECORD;
+
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
+
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            request));
+   }
+
+   public void atestUseCase1_4() throws Exception
+   {
+      PolicyDecisionPoint pdp = getPDP();
+      assertNotNull("JBossPDP is != null", pdp);
+
+      Principal doctor = new Principal()
+      {
+         public String getName()
+         {
+            return "Dr. Alice";
+         }
+      };
+
+      List<String> roles = new ArrayList<String>();
+      roles.add("lala");
+
+      String patient = "Anthony Gurrola";
+
+      List<String> confidentialityCodes = new ArrayList<String>();
+      confidentialityCodes.add("UBA");
+      confidentialityCodes.add("MA");
+
+      List<String> consentedIds = new ArrayList<String>();
+      consentedIds.add("Dr. Alice");
+
+      String resourceType = Util.MEDICAL_RECORD;
+
+      List<String> resourcePermissions = new ArrayList<String>();
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-003");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-005");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-006");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-009");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-010");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
+      resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
+
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
+            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
+            request));
    }
 
    private PolicyDecisionPoint getPDP()

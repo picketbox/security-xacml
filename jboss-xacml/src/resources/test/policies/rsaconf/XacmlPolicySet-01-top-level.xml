@@ -25,7 +25,7 @@
                >UBA</AttributeValue>
              <ResourceAttributeDesignator
                  AttributeId=
-                   "urn:xacml:2.0:interop:example:resource:confidentiality-code"
+                   "urn:xacml:2.0:interop:example:resource:hl7:confidentiality-code"
                  DataType="http://www.w3.org/2001/XMLSchema#string"/>
            </ResourceMatch>
          </Resource>

@@ -20,13 +20,13 @@
       <Resources>
         <Resource>
           <ResourceMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
              >urn:xacml:2.0:interop:example:resource:hl7:medical-record</AttributeValue>
             <ResourceAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:resource:type"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </ResourceMatch>
         </Resource>
       </Resources>

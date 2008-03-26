@@ -73,7 +73,6 @@ public interface XACMLConstants
    String ATTRIBUTEID_INTERMEDIARY_SUBJECT = "urn:oasis:names:tc:xacml:1.0:subject-category:intermediary-subject";
    String ATTRIBUTEID_RECIPIENT_SUBJECT = "urn:oasis:names:tc:xacml:1.0:subject-category:recipient-subject";
    String ATTRIBUTEID_REQUESTING_MACHINE = "urn:oasis:names:tc:xacml:1.0:subject-category:requesting-machine";
-   String ATTRIBUTEID_HL7_PERMISSION = "urn:oasis:names:tc:xacml:2.0:subject:hl7:permission";
    
    //Begin Functions
    //Equal

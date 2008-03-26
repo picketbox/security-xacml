@@ -21,67 +21,67 @@
       <Subjects>
         <Subject>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-003</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-005</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-006</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-009</AttributeValue>
             <SubjectAttributeDesignator 
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-010</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-012</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
-              MatchId="urn:oasis:names:tc:xacml:1.0:function:anyURI-equal">
+              MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
               >urn:xacml:2.0:interop:example:hl7:prd-017</AttributeValue>
             <SubjectAttributeDesignator
                 AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
-                DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
         </Subject>
       </Subjects>
