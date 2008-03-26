@@ -40,17 +40,13 @@ package org.jboss.security.xacml.sunxacml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.combine.CombinerElement;

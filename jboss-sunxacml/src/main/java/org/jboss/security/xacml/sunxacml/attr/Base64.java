@@ -36,12 +36,8 @@
 
 package org.jboss.security.xacml.sunxacml.attr;
 
-import java.io.IOException;
 import java.io.ByteArrayOutputStream;
-
-import java.lang.Integer;
-
-import java.util.Arrays;
+import java.io.IOException;
 
 
 /**

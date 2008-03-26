@@ -38,14 +38,12 @@ package org.jboss.security.xacml.sunxacml.attr;
 
 
 import java.net.URI;
-
 import java.util.HashMap;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 

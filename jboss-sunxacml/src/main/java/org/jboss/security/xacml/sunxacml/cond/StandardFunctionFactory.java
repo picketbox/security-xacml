@@ -40,17 +40,12 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.logging.Logger;
 
-import org.jboss.security.xacml.sunxacml.PolicyMetaData;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.cond.cluster.AbsFunctionCluster;
 import org.jboss.security.xacml.sunxacml.cond.cluster.AddFunctionCluster;

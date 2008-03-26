@@ -39,9 +39,6 @@ package org.jboss.security.xacml.sunxacml.combine;
 
 
 import java.net.URI;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;

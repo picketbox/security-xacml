@@ -38,15 +38,9 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 
 
-import java.io.OutputStream;
-
-import java.net.URI;
-
 import java.util.List;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
-import org.jboss.security.xacml.sunxacml.Indenter;
-import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 
 
 /**

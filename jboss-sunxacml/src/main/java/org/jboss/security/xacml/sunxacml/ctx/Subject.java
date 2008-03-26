@@ -38,16 +38,11 @@ package org.jboss.security.xacml.sunxacml.ctx;
 
 
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import java.net.URI;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
 
 

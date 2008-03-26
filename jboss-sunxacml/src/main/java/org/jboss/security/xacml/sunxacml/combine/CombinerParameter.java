@@ -46,9 +46,7 @@ import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 /**

@@ -39,21 +39,13 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import java.io.OutputStream;
 import java.io.PrintStream;
-
-import java.util.ArrayList;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;

@@ -41,31 +41,22 @@ package org.jboss.security.xacml.sunxacml.attr;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;
-import org.jboss.security.xacml.sunxacml.MatchResult;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
-import org.jboss.security.xacml.sunxacml.TargetMatch;
 import org.jboss.security.xacml.sunxacml.cond.Evaluatable;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
-import org.jboss.security.xacml.sunxacml.ctx.Attribute;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
-import org.jboss.security.xacml.sunxacml.ctx.StatusDetail;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 /**

@@ -38,12 +38,9 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 
 import java.net.URI;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;

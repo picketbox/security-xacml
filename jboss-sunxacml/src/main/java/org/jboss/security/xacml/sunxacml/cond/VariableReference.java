@@ -40,9 +40,7 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +49,6 @@ import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
 import org.jboss.security.xacml.sunxacml.ProcessingException;
-import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.w3c.dom.Node;
 
 

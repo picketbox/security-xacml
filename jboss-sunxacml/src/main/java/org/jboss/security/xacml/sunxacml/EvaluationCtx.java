@@ -46,7 +46,6 @@ import org.jboss.security.xacml.sunxacml.attr.DateAttribute;
 import org.jboss.security.xacml.sunxacml.attr.DateTimeAttribute;
 import org.jboss.security.xacml.sunxacml.attr.TimeAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
-import org.jboss.security.xacml.sunxacml.finder.AttributeFinder;
 import org.w3c.dom.Node;
 
 

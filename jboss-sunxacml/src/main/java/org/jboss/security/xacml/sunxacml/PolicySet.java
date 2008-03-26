@@ -41,9 +41,7 @@ package org.jboss.security.xacml.sunxacml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,9 +51,7 @@ import java.util.Set;
 import org.jboss.security.xacml.sunxacml.combine.CombinerParameter;
 import org.jboss.security.xacml.sunxacml.combine.PolicyCombinerElement;
 import org.jboss.security.xacml.sunxacml.combine.PolicyCombiningAlgorithm;
-import org.jboss.security.xacml.sunxacml.ctx.Result;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

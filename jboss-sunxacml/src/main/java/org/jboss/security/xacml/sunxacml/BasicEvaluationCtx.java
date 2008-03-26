@@ -41,8 +41,6 @@ package org.jboss.security.xacml.sunxacml;
 
 
 import java.net.URI;
-import java.net.URISyntaxException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,7 +49,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,7 +62,6 @@ import org.jboss.security.xacml.sunxacml.attr.TimeAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.jboss.security.xacml.sunxacml.ctx.Attribute;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
-import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.jboss.security.xacml.sunxacml.ctx.Subject;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinder;
 import org.w3c.dom.Node;

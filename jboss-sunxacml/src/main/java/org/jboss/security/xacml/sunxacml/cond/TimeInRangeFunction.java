@@ -42,7 +42,6 @@ import java.util.List;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
-import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.attr.BooleanAttribute;
 import org.jboss.security.xacml.sunxacml.attr.TimeAttribute;
 

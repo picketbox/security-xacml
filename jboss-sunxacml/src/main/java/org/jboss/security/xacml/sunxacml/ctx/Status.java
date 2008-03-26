@@ -39,9 +39,6 @@ package org.jboss.security.xacml.sunxacml.ctx;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
-import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;

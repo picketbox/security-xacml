@@ -42,17 +42,14 @@ package org.jboss.security.xacml.sunxacml;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
-import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;

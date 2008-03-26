@@ -38,22 +38,15 @@ package org.jboss.security.xacml.sunxacml.ctx;
 
 
 import java.io.InputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

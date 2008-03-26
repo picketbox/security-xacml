@@ -39,22 +39,18 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 
 
-import java.net.URI;
-
 import java.io.OutputStream;
 import java.io.PrintStream;
-
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
-import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.w3c.dom.Node;

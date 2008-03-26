@@ -40,10 +40,7 @@ package org.jboss.security.xacml.sunxacml.attr;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-
 import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
@@ -64,7 +61,6 @@ import org.jboss.security.xacml.sunxacml.attr.proxy.StringAttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.proxy.TimeAttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.proxy.X500NameAttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.proxy.YearMonthDurationAttributeProxy;
-import org.w3c.dom.Node;
 
 
 /**

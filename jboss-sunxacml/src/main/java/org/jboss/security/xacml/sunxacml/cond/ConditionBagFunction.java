@@ -40,7 +40,6 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

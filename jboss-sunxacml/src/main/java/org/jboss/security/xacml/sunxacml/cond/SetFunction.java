@@ -41,10 +41,7 @@ package org.jboss.security.xacml.sunxacml.cond;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.attr.AnyURIAttribute;
-import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
-import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.attr.Base64BinaryAttribute;
 import org.jboss.security.xacml.sunxacml.attr.BooleanAttribute;
 import org.jboss.security.xacml.sunxacml.attr.DNSNameAttribute;

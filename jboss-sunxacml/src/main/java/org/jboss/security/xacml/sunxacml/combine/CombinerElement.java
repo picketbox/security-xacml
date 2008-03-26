@@ -37,12 +37,10 @@
 package org.jboss.security.xacml.sunxacml.combine;
 
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
-import java.io.OutputStream;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.PolicyTreeElement;

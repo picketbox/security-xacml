@@ -40,7 +40,6 @@ package org.jboss.security.xacml.sunxacml.combine;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +47,6 @@ import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.MatchResult;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
-import org.jboss.security.xacml.sunxacml.ctx.Status;
 
 
 /**

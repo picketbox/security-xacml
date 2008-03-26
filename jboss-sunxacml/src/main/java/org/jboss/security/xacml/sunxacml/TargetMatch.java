@@ -42,15 +42,12 @@ package org.jboss.security.xacml.sunxacml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeSelector;
@@ -63,7 +60,6 @@ import org.jboss.security.xacml.sunxacml.cond.Function;
 import org.jboss.security.xacml.sunxacml.cond.FunctionFactory;
 import org.jboss.security.xacml.sunxacml.cond.FunctionTypeException;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

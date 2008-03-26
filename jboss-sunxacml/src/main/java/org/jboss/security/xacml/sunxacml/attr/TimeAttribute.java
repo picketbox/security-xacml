@@ -38,13 +38,8 @@ package org.jboss.security.xacml.sunxacml.attr;
 
 
 import java.net.URI;
-
 import java.text.ParseException;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.TimeZone;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;

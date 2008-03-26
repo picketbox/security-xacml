@@ -42,7 +42,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.cond.ConditionBagFunction;
-import org.jboss.security.xacml.sunxacml.cond.FunctionBase;
 
 
 /**

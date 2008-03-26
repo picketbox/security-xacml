@@ -38,8 +38,6 @@ package org.jboss.security.xacml.sunxacml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.w3c.dom.Node;
