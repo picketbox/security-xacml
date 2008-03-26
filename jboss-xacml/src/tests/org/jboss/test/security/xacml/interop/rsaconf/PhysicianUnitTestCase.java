@@ -33,7 +33,7 @@ import junit.framework.TestCase;
 //$Id$
 
 /**
- *  
+ *  Physician Unit Test Case 
  *  @author Anil.Saldhana@redhat.com
  *  @since  Mar 25, 2008 
  *  @version $Revision$
@@ -45,6 +45,14 @@ public class PhysicianUnitTestCase extends TestCase
       System.setProperty("debug","true");
       int decision = XACMLTestUtil.getDecision(getPDP(), 
             "test/requests/interop/rsaconf08/NCode_request_01.xml");    
+      assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
+   }
+   
+   public void testUConfidentialityCode() throws Exception
+   {
+      System.setProperty("debug","true");
+      int decision = XACMLTestUtil.getDecision(getPDP(), 
+            "test/requests/interop/rsaconf08/UCode_request_01.xml");    
       assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
    }
    
