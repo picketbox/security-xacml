@@ -138,7 +138,7 @@
     </repository>
   </repositories>
   <modules>
-    <module>../jboss-xacml</module>
     <module>../jboss-sunxacml</module>
+    <module>../jboss-xacml</module>
   </modules>
 </project>
