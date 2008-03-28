@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jboss.security.xacml.core.model.context.RequestType;
+import org.w3c.dom.Node;
 
 //$Id$
 
@@ -50,6 +51,13 @@ public interface RequestContext extends ContextMapOp
     * @throws IOException
     */
    void readRequest(InputStream is) throws IOException;
+   
+   /**
+    * Read a preparsed Node
+    * @param node
+    * @throws IOException
+    */
+   void readRequest(Node node) throws IOException;
    
    /**
     * Marshall the request context onto an Output Stream

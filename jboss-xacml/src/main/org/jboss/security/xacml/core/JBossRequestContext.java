@@ -97,6 +97,22 @@ public class JBossRequestContext implements RequestContext
          throw new RuntimeException(e);
       }
    } 
+   
+   /**
+    * @see RequestContext#readRequest(Node)
+    */
+   public void readRequest(Node node) throws IOException
+   { 
+      try
+      {
+         RequestCtx request = RequestCtx.getInstance(node);
+         set(XACMLConstants.REQUEST_CTX, request);
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException(e);
+      }
+   } 
  
    /**
     * @see RequestContext#marshall(OutputStream)
