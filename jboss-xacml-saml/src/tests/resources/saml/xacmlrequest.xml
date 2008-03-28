@@ -1,0 +1,49 @@
+<samlp:RequestAbstract xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
+xsi:type="xacml-samlp:XACMLAuthzDecisionQuery" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+xmlns:xacml-samlp="urn:oasis:xacml:2.0:saml:protocol:schema:os"  
+xacml-samlp:InputContextOnly="true" 
+xacml-samlp:ReturnContext="true" 
+ID="s2846efb514a944cc3dc5b65ed8a76dde449787617" Version="2.0" 
+IssueInstant="2008-03-19T22:18:42Z" Destination="destination-uri">
+<saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">vaPepEntity</saml:Issuer>
+<xacml-context:Request xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os"  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/" 
+xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:context:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
+<Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" 
+DataType="urn:va:names:xacml:2.0:subject:ien" >
+<AttributeValue>100001</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:role" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Chief Resident</AttributeValue>
+<AttributeValue>Doctor</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:hl7permission" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>PRD-017</AttributeValue>
+<AttributeValue>PRD-003</AttributeValue>
+<AttributeValue>PRD-010</AttributeValue>
+<AttributeValue>PRD-006</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:locality" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Facility A</AttributeValue>
+</Attribute>
+</Subject>
+<xacml-context:Resource>
+<Attribute AttributeId="urn:va:names:xacml:2.0:record_type" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>patientchart</AttributeValue>
+</Attribute>
+</xacml-context:Resource>
+<xacml-context:Action>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>read</AttributeValue>
+</Attribute>
+</xacml-context:Action>
+<xacml-context:Environment></xacml-context:Environment>
+</xacml-context:Request>
+</samlp:RequestAbstract> 

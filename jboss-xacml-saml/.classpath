@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/resources"/>
+	<classpathentry kind="src" path="src/tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/opensaml/opensaml/2.0/opensaml-2.0.jar" sourcepath="/M2_REPO/opensaml/opensaml/2.0/opensaml-2.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/opensaml/openws/1.0/openws-1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/opensaml/xmltooling/1.0/xmltooling-1.0.jar" sourcepath="/M2_REPO/opensaml/xmltooling/1.0/xmltooling-1.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.4.3/slf4j-api-1.4.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.13/log4j-1.2.13.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/joda-time/1.4/joda-time-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-api/2.1.4/jaxb-api-2.1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-impl/2.1.4/jaxb-impl-2.1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-xjc/2.1.4/jaxb-xjc-2.1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sun-jaf/activation/1.1/activation-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/xmlsec/1.4.1/xmlsec-1.4.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/velocity/velocity-dep/1.5/velocity-dep-1.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jboss-sunxacml"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jboss-xacml"/>
+	<classpathentry kind="output" path="target/eclipse-classes"/>
+</classpath>
