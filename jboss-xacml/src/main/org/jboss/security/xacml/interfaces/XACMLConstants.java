@@ -31,6 +31,9 @@ package org.jboss.security.xacml.interfaces;
  */
 public interface XACMLConstants
 {
+   String XACML = "xacml";
+   String PREFIX_XACML_CONTEXT = "xacml-context";
+   
    String UNDERLYING_POLICY = "underlying_policy";
    String POLICY_FINDER = "policy_finder";
    String POLICY_FINDER_MODULE = "policy_finder_module";
@@ -38,6 +41,7 @@ public interface XACMLConstants
    String RESPONSE_CTX = "response_ctx";
    
    String CONTEXT_SCHEMA = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+   String POLICY_SCHEMA = "urn:oasis:names:tc:xacml:2.0:policy:schema:os";
    
    //Action Attribute IDs
    String ATTRIBUTEID_ACTION_ID = "urn:oasis:names:tc:xacml:1.0:action:action-id";
