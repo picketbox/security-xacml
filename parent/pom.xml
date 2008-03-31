@@ -40,7 +40,7 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>src/resources</directory>
+        <directory>src/tests/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
