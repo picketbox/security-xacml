@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jboss-xacml-saml</artifactId>
   <packaging>jar</packaging>
-  <name>JBoss XACML</name>
+  <name>JBoss XACML SAML Bridge</name>
   <url>http://www.jboss.org</url>
   <description>JBoss XACML Library</description> 
   <build>
@@ -41,6 +41,11 @@
       <groupId>org.jboss.security</groupId>
       <artifactId>jboss-sunxacml</artifactId>
       <version>2.0.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>apache-xerces</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>2.7.1</version>
     </dependency>
     <dependency>
        <groupId>commons-logging</groupId>
