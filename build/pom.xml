@@ -33,6 +33,10 @@
   <description>
     The JBoss XACML Project
   </description>
+   <scm>
+      <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</connection>
+      <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</developerConnection>
+   </scm>
   <build>
     <sourceDirectory>src/main</sourceDirectory>
     <testSourceDirectory>src/tests</testSourceDirectory>
