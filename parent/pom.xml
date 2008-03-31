@@ -19,10 +19,17 @@
       <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</developerConnection>
    </scm>
   <build>
-    <sourceDirectory>src/main</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/tests</testSourceDirectory>
     <finalName>${artifactId}</finalName>
     <resources>
+      <resource>
+        <directory>src/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
       <resource>
         <directory>src/etc</directory>
         <includes>
