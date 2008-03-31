@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <parent>
+      <groupId>org.jboss.security</groupId>
+      <artifactId>jboss-xacml-project</artifactId>
+      <version>2.0.2-SNAPSHOT</version>
+      <relativePath>parent</relativePath>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.jboss.security</groupId>
+   <artifactId>jboss-xacml-main</artifactId>
+   <packaging>pom</packaging>
+   <version>2.0.2-SNAPSHOT</version>
+   <name>JBoss XACML - Aggregator</name>
+   <url>http://labs.jboss.org/portal/jbosssecurity/</url>
+   <description>JBoss Security is a cross cutting project that handles security for the JEMS projects</description>
+   <modules>
+     <module>parent</module>
+     <module>jboss-sunxacml</module>
+     <module>jboss-xacml</module>
+     <module>jboss-xacml-saml</module>
+   </modules>
+</project>

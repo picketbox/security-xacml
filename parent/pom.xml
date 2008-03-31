@@ -74,9 +74,4 @@
       </snapshots>
     </repository>
   </repositories>
-  <modules>
-    <module>../jboss-sunxacml</module>
-    <module>../jboss-xacml</module>
-    <module>../jboss-xacml-saml</module>
-  </modules>
 </project>
