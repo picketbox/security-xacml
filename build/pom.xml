@@ -60,54 +60,6 @@
       </testResource>
     </testResources>
     <plugins>
-
-    <!-- define that we wish to create src jars -->
-   <plugin>
-       <artifactId>maven-source-plugin</artifactId>
-       <version>2.0</version>
-       <inherited>true</inherited>
-       <executions>
-           <execution>
-               <goals>
-                   <goal>jar</goal>
-                </goals>
-           </execution>
-       </executions>
-    </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>assembly</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <descriptors>
-            <descriptor>assembly/bin.xml</descriptor>
-            <descriptor>assembly/sources.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <inherited>false</inherited>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <printSummary>true</printSummary>
-          <disableXmlReport>false</disableXmlReport>
-          <testFailureIgnore>true</testFailureIgnore>
-          <includes>
-           <include>**/**TestCase.java</include>
-          </includes>
-          <forkMode>pertest</forkMode>
-          <argLine>${surefire.jvm.args}</argLine>
-          <useFile>false</useFile>
-          <trimStackTrace>false</trimStackTrace>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.jboss.maven.plugins</groupId>
         <artifactId>maven-jboss-deploy-plugin</artifactId>
