@@ -5,7 +5,7 @@
     xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os 
       http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
     PolicySetId=
-      "urn:xacml:2.0:interop:example:policysetid:N:RPS:med-rec-vrole"
+      "urn:va:xacml:2.0:interop:rsa8:policysetid:N:RPS:med-rec-vrole"
     PolicyCombiningAlgId=
       "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
   <Description>
@@ -14,5 +14,5 @@
   </Description>
   <Target/>
   <PolicySetIdReference
-    >urn:xacml:2.0:interop:example:policysetid:N:PPS:PRD-004</PolicySetIdReference>
+    >urn:va:xacml:2.0:interop:rsa8:policysetid:N:PPS:PRD-004</PolicySetIdReference>
 </PolicySet>

@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os 
       http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
-    PolicySetId="urn:xacml:2.0:interop:example:policysetid:N:PermCollections"
+    PolicySetId="urn:va:xacml:2.0:interop:rsa8:policysetid:N:PermCollections"
     PolicyCombiningAlgId=
       "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
   <Description>
@@ -14,7 +14,20 @@
   </Description>
   <Target/>
   <PolicySet
-      PolicySetId="urn:xacml:2.0:interop:example:policysetid:N:med-rec-perm-set"
+      PolicySetId="urn:va:xacml:2.0:interop:rsa8:policysetid:N:med-rec-perm-set"
+	   PolicyCombiningAlgId=
+        "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:permit-overrides">
+   <Target/>
+   <PolicySet
+      PolicySetId="urn:va:xacml:2.0:interop:rsa8:policysetid:N:med-rec-perm-set-0"
+	   PolicyCombiningAlgId=
+        "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+    <Target/>
+    <PolicySetIdReference
+  	>urn:va:xacml:2.0:interop:rsa8:policysetid:N:RPS:med-rec-vrole</PolicySetIdReference>
+   </PolicySet>
+   <PolicySet
+      PolicySetId="urn:va:xacml:2.0:interop:rsa8:policysetid:N:med-rec-perm-set-1"
 	   PolicyCombiningAlgId=
         "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
     <Target>
@@ -24,69 +37,70 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-003</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-003</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-005</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-005</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-006</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-006</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-009</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-009</AttributeValue>
             <SubjectAttributeDesignator 
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-010</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-010</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-012</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-012</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
           <SubjectMatch
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-              >urn:xacml:2.0:interop:example:hl7:prd-017</AttributeValue>
+              >urn:va:xacml:2.0:interop:rsa8:hl7:prd-017</AttributeValue>
             <SubjectAttributeDesignator
-                AttributeId="urn:xacml:2.0:interop:example:subject:hl7:permission"
+                AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
           </SubjectMatch>
         </Subject>
       </Subjects>
     </Target>
     <PolicySetIdReference
-  	>urn:xacml:2.0:interop:example:policysetid:N:RPS:med-rec-vrole</PolicySetIdReference>
+  	>urn:va:xacml:2.0:interop:rsa8:policysetid:N:RPS:med-rec-vrole</PolicySetIdReference>
+   </PolicySet>
   </PolicySet>
 </PolicySet>

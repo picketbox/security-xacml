@@ -1,0 +1,49 @@
+<Request
+    xmlns="urn:oasis:names:tc:xacml:2.0:context:schema:os"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:context:schema:os 
+      http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
+<Subject 
+SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+<Attribute 
+AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Doctor, Bob</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:role" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>physician</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-010</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-012</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-017</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-005</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-003</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-009</AttributeValue>
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-006</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:locality" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Facility A</AttributeValue>
+</Attribute>
+</Subject>
+<Resource>
+<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:resource:hl7:type" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:resource:hl7:patientsearch</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:resource:hl7:permission" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-006</AttributeValue>
+</Attribute>
+</Resource>
+<Action>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>execute</AttributeValue>
+</Attribute>
+</Action>
+<Environment></Environment>
+</Request>
