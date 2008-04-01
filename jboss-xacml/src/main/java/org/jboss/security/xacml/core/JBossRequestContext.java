@@ -89,7 +89,10 @@ public class JBossRequestContext implements RequestContext
    { 
       try
       {
-         RequestCtx request = RequestCtx.getInstance(getRequest(is));
+         Node root = getRequest(is);
+         if(root == null)
+            throw new IllegalStateException("Root node read from the input stream is null");
+         RequestCtx request = RequestCtx.getInstance(root);
          set(XACMLConstants.REQUEST_CTX, request);
       }
       catch (Exception e)

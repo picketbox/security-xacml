@@ -313,13 +313,15 @@ public class JBossPDP implements PolicyDecisionPoint
          is = url.openStream();
       }
       catch (Exception e)
-      {
+      { 
       }
       if (is == null)
       {
          ClassLoader tcl = SecurityActions.getContextClassLoader();
          is = tcl.getResourceAsStream(loc);
       }
+      if(is == null)
+         throw new RuntimeException("Null Inputstream for "+ loc);
       return is;
    }
 
