@@ -633,7 +633,7 @@ public class BasicEvaluationCtx implements EvaluationCtx
 
                 // if we got here, then we found a match, so we want to pull
                 // out the values and put them in out list
-                attributes.add(attr.getValue());
+                attributes.addAll(attr.getValues());
             }
         }
 
