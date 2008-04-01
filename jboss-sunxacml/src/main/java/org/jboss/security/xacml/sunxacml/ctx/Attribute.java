@@ -262,6 +262,15 @@ public class Attribute
    public DateTimeAttribute getIssueInstant() {
       return issueInstant;
    }
+   
+   /**
+    * Return all the values
+    * @return
+    */
+   public Set<AttributeValue> getValues()
+   {
+      return this.attributeValues;
+   }
 
    /**
     * The value of this attribute, or null if no value was included
