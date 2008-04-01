@@ -10,7 +10,7 @@ AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
 DataType="http://www.w3.org/2001/XMLSchema#string" >
 <AttributeValue>Doctor, Bob</AttributeValue>
 </Attribute>
-<Attribute AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:role" 
+<Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" 
 DataType="http://www.w3.org/2001/XMLSchema#string" >
 <AttributeValue>physician</AttributeValue>
 </Attribute>
