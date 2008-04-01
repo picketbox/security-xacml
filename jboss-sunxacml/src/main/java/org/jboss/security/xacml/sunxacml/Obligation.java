@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
@@ -220,12 +221,28 @@ public class Obligation
 
         while (it.hasNext()) {
             Attribute attr = (Attribute)(it.next());
-            out.println(indenter.makeString() +
+            /*out.println(indenter.makeString() +
                         "<AttributeAssignment AttributeId=\"" +
                         attr.getId().toString() + "\" DataType=\"" +
                         attr.getType().toString() + "\">" +
                         attr.getValue().encode() +
-                        "</AttributeAssignment>");
+                        "</AttributeAssignment>");*/
+            
+            StringBuilder str = new StringBuilder();
+            str.append(indenter.makeString());
+            str.append("<AttributeAssignment AttributeId=\"");
+            str.append(attr.getId().toString() + "\" DataType=\"");
+            str.append(attr.getType().toString() + "\">");
+            Set<AttributeValue> attrValues = attr.getValues();
+            if(attrValues != null)
+            {
+               for(AttributeValue val: attrValues)
+               {
+                  str.append(val.encodeWithTags(true));
+               }
+            }
+            str.append("</AttributeAssignment>");
+            out.println(str.toString());
         }
 
         indenter.out();
