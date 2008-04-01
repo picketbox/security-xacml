@@ -11,11 +11,17 @@
 					<ns:Location>test/policies/rsaconf/XacmlPolicySet-03-N-RPS-virt-med-rec-role.xml</ns:Location>
 					<ns:PolicySet>
 						<ns:Location>test/policies/rsaconf/XacmlPolicySet-04-N-PPS-PRD-004.xml</ns:Location>
-					</ns:PolicySet>
+					</ns:PolicySet> 
 				</ns:PolicySet>
 			</ns:PolicySet>
 			<ns:PolicySet>
 				<ns:Location>test/policies/rsaconf/XacmlPolicySet-02c-N-PermCollections.xml</ns:Location>
+			</ns:PolicySet> 
+			<ns:PolicySet>
+				<ns:Location>test/policies/rsaconf/XacmlPolicySet-02d-prog-note.xml</ns:Location>
+			</ns:PolicySet> 
+			<ns:PolicySet>
+				<ns:Location>test/policies/rsaconf/XacmlPolicySet-2e-MA.xml</ns:Location>
 			</ns:PolicySet>
 		</ns:PolicySet>
 	</ns:Policies>
