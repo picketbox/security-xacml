@@ -183,24 +183,8 @@ public class PhysicianUnitTestCase extends TestCase
       int decision = XACMLTestUtil.getDecision(getPDP(), 
             "test/requests/interop/rsaconf08/XacmlRequest-05-02.xml");    
       assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision); 
-   }
-   
-   public void testNConfidentialityCode() throws Exception
-   {
-      System.setProperty("debug","true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), 
-            "test/requests/interop/rsaconf08/NCode_request_01.xml");    
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
-   }
-   
-   public void testUConfidentialityCode() throws Exception
-   {
-      System.setProperty("debug","true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), 
-            "test/requests/interop/rsaconf08/UCode_request_01.xml");    
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
-   }
-   
+   } 
+  
    public void testPatientSearch() throws Exception
    {
       System.setProperty("debug","true");
