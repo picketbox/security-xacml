@@ -541,6 +541,8 @@ public class RequestCtx
     
     private static String getNodeName(Node node)
     {
+       if(node == null)
+          throw new IllegalArgumentException("Node is null");
     	String name = node.getLocalName();
     	if(name == null)
     		name = node.getNodeName();
