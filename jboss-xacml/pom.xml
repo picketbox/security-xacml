@@ -11,6 +11,23 @@
   <name>JBoss XACML</name>
   <url>http://www.jboss.org</url>
   <description>JBoss XACML Library</description> 
+  <build>
+    <plugins>
+      <plugin>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <configuration>
+           <printSummary>true</printSummary>
+           <disableXmlReport>false</disableXmlReport>
+           <testFailureIgnore>true</testFailureIgnore>
+           <includes>
+             <include>**/**TestCase.java</include>
+           </includes>
+           <forkMode>pertest</forkMode>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.jboss.security</groupId>
