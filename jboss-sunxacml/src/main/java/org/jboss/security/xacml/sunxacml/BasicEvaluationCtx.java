@@ -273,10 +273,10 @@ public class BasicEvaluationCtx implements EvaluationCtx
         mapAttributes(resource, resourceMap);
 
         // make sure there resource-id attribute was included
-        if (! resourceMap.containsKey(RESOURCE_ID)) {
+        if (! resourceMap.containsKey(RESOURCE_ID)) { 
             System.err.println("Resource must contain resource-id attr");
-            throw new ParsingException("resource missing resource-id");
-        } else {
+            //throw new ParsingException("resource missing resource-id");
+        } else { 
             // make sure there's only one value for this
             Set set = (Set)(resourceMap.get(RESOURCE_ID));
             if (set.size() > 1) {
@@ -287,8 +287,13 @@ public class BasicEvaluationCtx implements EvaluationCtx
                 // keep track of the resource-id attribute
                 resourceId = ((Attribute)(set.iterator().next())).getValue();
             }
-        }
-
+        
+        } 
+        
+        //SECURITY-162: Relax resource-id requirement
+        if(this.resourceId == null)
+           this.resourceId = new StringAttribute("");
+        
         // see if a resource-scope attribute was included
         if (resourceMap.containsKey(RESOURCE_SCOPE)) {
             Set set = (Set)(resourceMap.get(RESOURCE_SCOPE));
