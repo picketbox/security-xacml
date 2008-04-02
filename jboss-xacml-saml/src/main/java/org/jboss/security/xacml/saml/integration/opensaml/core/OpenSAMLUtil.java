@@ -19,48 +19,32 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.saml.integration.opensaml.util;
+package org.jboss.security.xacml.saml.integration.opensaml.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.xml.namespace.QName;
 
-import org.opensaml.xml.parse.BasicParserPool;
-import org.w3c.dom.Document;
+import org.opensaml.Configuration;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
  
 /**
- *  DOM util class
+ *  Utility class
  *  @author Anil.Saldhana@redhat.com
- *  @since  Mar 27, 2008 
+ *  @since  Apr 2, 2008 
  *  @version $Revision$
  */
-public class DOMUtil
-{ 
-   public static Document parse(File xmlFile, boolean validating) throws Exception
+public class OpenSAMLUtil
+{
+   @SuppressWarnings("unchecked")
+   public static XMLObjectBuilder getBuilder(QName qname)
    {
-      FileInputStream fis = null;
-      
-      try 
-      { 
-         fis = new FileInputStream(xmlFile);
-         return parse(fis,validating); 
-     } 
-     catch (Exception e) 
-     {
-         throw e;
-     }
-     finally
-     {
-        if(fis != null)
-           fis.close();
-     }
+     return Configuration.getBuilderFactory().getBuilder(qname);   
    }
    
-   public static Document parse(InputStream is, boolean validating)
-   throws Exception
+   public static XMLObject buildXMLObject(QName qname)
    {
-      BasicParserPool parser = new BasicParserPool(); 
-      parser.setNamespaceAware(true);
-      return parser.parse(is); 
-   }
+      XMLObjectBuilder<?> ob = getBuilder(qname);
+      return ob.buildObject(qname.getNamespaceURI(), qname.getLocalPart(), qname.getPrefix());
+   } 
+
 }
