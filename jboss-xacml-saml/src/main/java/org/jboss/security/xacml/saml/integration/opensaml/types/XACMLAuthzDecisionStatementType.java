@@ -23,12 +23,11 @@ package org.jboss.security.xacml.saml.integration.opensaml.types;
 
 import javax.xml.namespace.QName;
 
-import org.jboss.security.xacml.core.model.context.RequestType;
-import org.jboss.security.xacml.core.model.context.ResponseType;
+import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.saml.integration.opensaml.constants.SAMLXACMLConstants;
 import org.opensaml.saml2.core.Statement;
 
-//$Id$
 
 /**
  *  Represents a decision from XACML PDP
@@ -50,7 +49,7 @@ public interface XACMLAuthzDecisionStatementType extends Statement
            DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
 
    /** Default element name for XACML 2.0. */
-   QName DEFAULT_ELEMENT_NAME_XACML20 = new QName(SAMLXACMLConstants.SAML2_XACML20P_NS,
+   QName DEFAULT_ELEMENT_NAME_XACML20 = new QName(SAMLXACMLConstants.SAMLP,
            DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
    
    /** Local name of the XSI type. */
@@ -67,16 +66,12 @@ public interface XACMLAuthzDecisionStatementType extends Statement
    /** QName of the XSI type.XACML2.0. */
    QName TYPE_NAME_XACML20 = new QName(SAMLXACMLConstants.SAML2_XACML20P_NS, TYPE_LOCAL_NAME,
            SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
-  
-   /** CombinePolicies attribute name. */
-   String COMBINEPOLICIES_ATTRIB_NAME = "CombinePolicies";
 
+   public RequestContext getRequest();
 
-   public RequestType getRequest();
+   public ResponseContext getResponse();
 
-   public ResponseType getResponse();
-
-   public void setRequest(RequestType request);
+   public void setRequest(RequestContext request);
  
-   public void setResponse(ResponseType response); 
+   public void setResponse(ResponseContext response); 
 }
