@@ -156,7 +156,7 @@ public class StatusDetail
      */
     public static StatusDetail getInstance(Node root) throws ParsingException {
         // check that it's really a StatusDetailType root
-        if (! root.getNodeName().equals("StatusDetail"))
+        if (! getNodeName(root).equals("StatusDetail"))
             throw new ParsingException("not a StatusDetail node");
 
         return new StatusDetail(root);
@@ -194,5 +194,13 @@ public class StatusDetail
         
         return detailText;
     }
+    
+    private static String getNodeName(Node node)
+    {
+       String name = node.getLocalName();
+       if(name == null)
+          name = node.getNodeName();
+       return name; 
+    } 
 
 }
