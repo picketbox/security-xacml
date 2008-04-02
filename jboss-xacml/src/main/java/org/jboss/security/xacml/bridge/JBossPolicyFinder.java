@@ -23,7 +23,6 @@ package org.jboss.security.xacml.bridge;
 
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 
-
 //$Id$
 
 /**
@@ -38,9 +37,9 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
  *  @version $Revision$
  */
 public class JBossPolicyFinder extends PolicyFinder
-{ 
+{
    public JBossPolicyFinder()
    {
-      super(); 
-   } 
+      super();
+   }
 }

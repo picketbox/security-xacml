@@ -39,7 +39,6 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
-
 /**
  *  Construction of request/response
  *  @author Anil.Saldhana@redhat.com
@@ -47,29 +46,27 @@ import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
  *  @version $Revision$
  */
 public class ContextUnitTestCase extends TestCase
-{ 
+{
    public void testConstructRequest() throws Exception
    {
       RequestType requestType = new RequestType();
       requestType.getSubject().add(createSubject());
       requestType.getResource().add(createResource());
       requestType.setAction(createAction());
-      requestType.setEnvironment( new EnvironmentType());
-      
+      requestType.setEnvironment(new EnvironmentType());
+
       RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx();
-      requestCtx.setRequest(requestType); 
-      
+      requestCtx.setRequest(requestType);
+
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
       assertNotNull("InputStream != null", is);
       PolicyDecisionPoint pdp = new JBossPDP(is);
       assertNotNull("JBossPDP is != null", pdp);
-      
-      assertEquals("Case 1 should be deny", 
-            XACMLConstants.DECISION_DENY, 
-            XACMLTestUtil.getDecision(pdp,requestCtx));
+
+      assertEquals("Case 1 should be deny", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, requestCtx));
    }
-   
+
    private SubjectType createSubject()
    {
       //Create a subject type
@@ -77,88 +74,72 @@ public class ContextUnitTestCase extends TestCase
       subject.setSubjectCategory("urn:oasis:names:tc:xacml:1.0:subject-category:access-subject");
       //create the subject attributes
       AttributeType attSubjectID = RequestAttributeFactory.createStringAttributeType(
-                                            "urn:oasis:names:tc:xacml:1.0:subject:subject-id",
-                                            "xacml20.interop.com", "123456"); 
+            "urn:oasis:names:tc:xacml:1.0:subject:subject-id", "xacml20.interop.com", "123456");
       subject.getAttribute().add(attSubjectID);
-      
+
       AttributeType attUserName = RequestAttributeFactory.createStringAttributeType(
-                                             "urn:xacml:2.0:interop:example:subject:user-name",
-                                             "xacml20.interop.com", "John Smith");
+            "urn:xacml:2.0:interop:example:subject:user-name", "xacml20.interop.com", "John Smith");
       subject.getAttribute().add(attUserName);
-      
+
       AttributeType attBuyNumShares = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:subject:buy-num-shares",
-            "xacml20.interop.com", 1000);
-      subject.getAttribute().add(attBuyNumShares); 
-      
+            "urn:xacml:2.0:interop:example:subject:buy-num-shares", "xacml20.interop.com", 1000);
+      subject.getAttribute().add(attBuyNumShares);
+
       AttributeType attBuyOfferShare = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:subject:buy-offer-price",
-            "xacml20.interop.com", 100);
+            "urn:xacml:2.0:interop:example:subject:buy-offer-price", "xacml20.interop.com", 100);
       subject.getAttribute().add(attBuyOfferShare);
-       
-      
+
       AttributeType attRequestExtCred = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:subject:req-credit-ext-approval",
-            "xacml20.interop.com", "false");
-      subject.getAttribute().add(attRequestExtCred); 
-      
+            "urn:xacml:2.0:interop:example:subject:req-credit-ext-approval", "xacml20.interop.com", "false");
+      subject.getAttribute().add(attRequestExtCred);
+
       AttributeType attRequestTradeApproval = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:subject:req-trade-approval",
-            "xacml20.interop.com", "false");
+            "urn:xacml:2.0:interop:example:subject:req-trade-approval", "xacml20.interop.com", "false");
       subject.getAttribute().add(attRequestTradeApproval);
 
-     return subject;
+      return subject;
    }
-   
+
    public ResourceType createResource()
    {
       ResourceType resourceType = new ResourceType();
-      
+
       AttributeType attResourceID = RequestAttributeFactory.createStringAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
-            "xacml20.interop.com", "CustomerAccount");
+            "urn:oasis:names:tc:xacml:1.0:resource:resource-id", "xacml20.interop.com", "CustomerAccount");
       resourceType.getAttribute().add(attResourceID);
-      
-      
+
       AttributeType attOwnerID = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:owner-id",
-            "xacml20.interop.com", "123456");
+            "urn:xacml:2.0:interop:example:resource:owner-id", "xacml20.interop.com", "123456");
       resourceType.getAttribute().add(attOwnerID);
 
       AttributeType attOwnerName = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:owner-name",
-            "xacml20.interop.com", "John Smith");
+            "urn:xacml:2.0:interop:example:resource:owner-name", "xacml20.interop.com", "John Smith");
       resourceType.getAttribute().add(attOwnerName);
-      
+
       AttributeType attAccountStatus = RequestAttributeFactory.createStringAttributeType(
-            "urn:xacml:2.0:interop:example:resource:account-status",
-            "xacml20.interop.com", "Active");
-      resourceType.getAttribute().add(attAccountStatus); 
-      
+            "urn:xacml:2.0:interop:example:resource:account-status", "xacml20.interop.com", "Active");
+      resourceType.getAttribute().add(attAccountStatus);
+
       AttributeType attCreditLine = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:credit-line",
-            "xacml20.interop.com", 15000);
-      resourceType.getAttribute().add(attCreditLine); 
-      
+            "urn:xacml:2.0:interop:example:resource:credit-line", "xacml20.interop.com", 15000);
+      resourceType.getAttribute().add(attCreditLine);
+
       AttributeType attCurrentCredit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:current-credit",
-            "xacml20.interop.com", 10000);
-      resourceType.getAttribute().add(attCurrentCredit); 
-      
+            "urn:xacml:2.0:interop:example:resource:current-credit", "xacml20.interop.com", 10000);
+      resourceType.getAttribute().add(attCurrentCredit);
+
       AttributeType attTradeLimit = RequestAttributeFactory.createIntegerAttributeType(
-            "urn:xacml:2.0:interop:example:resource:trade-limit",
-            "xacml20.interop.com", 10000);
-      resourceType.getAttribute().add(attTradeLimit); 
+            "urn:xacml:2.0:interop:example:resource:trade-limit", "xacml20.interop.com", 10000);
+      resourceType.getAttribute().add(attTradeLimit);
       return resourceType;
    }
-   
+
    private ActionType createAction()
    {
       ActionType actionType = new ActionType();
       AttributeType attActionID = RequestAttributeFactory.createStringAttributeType(
-            "urn:oasis:names:tc:xacml:1.0:action:action-id",
-            "xacml20.interop.com", "Buy");
+            "urn:oasis:names:tc:xacml:1.0:action:action-id", "xacml20.interop.com", "Buy");
       actionType.getAttribute().add(attActionID);
       return actionType;
-   } 
+   }
 }

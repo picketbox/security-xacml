@@ -5,7 +5,6 @@
 // Generated on: 2007.07.06 at 03:19:27 PM CDT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for LocatorsType complex type.
@@ -36,41 +34,43 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "LocatorsType", propOrder = {
-    "locator"
-})
-public class LocatorsType {
+@XmlType(name = "LocatorsType", propOrder =
+{"locator"})
+public class LocatorsType
+{
 
-    @XmlElement(name = "Locator")
-    protected List<LocatorType> locator;
+   @XmlElement(name = "Locator")
+   protected List<LocatorType> locator;
 
-    /**
-     * Gets the value of the locator property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the locator property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getLocator().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LocatorType }
-     * 
-     * 
-     */
-    public List<LocatorType> getLocator() {
-        if (locator == null) {
-            locator = new ArrayList<LocatorType>();
-        }
-        return this.locator;
-    }
+   /**
+    * Gets the value of the locator property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the locator property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getLocator().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link LocatorType }
+    * 
+    * 
+    */
+   public List<LocatorType> getLocator()
+   {
+      if (locator == null)
+      {
+         locator = new ArrayList<LocatorType>();
+      }
+      return this.locator;
+   }
 
 }

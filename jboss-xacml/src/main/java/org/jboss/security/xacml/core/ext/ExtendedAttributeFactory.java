@@ -63,7 +63,7 @@ import org.jboss.security.xacml.sunxacml.attr.proxy.TimeAttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.proxy.X500NameAttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.proxy.YearMonthDurationAttributeProxy;
 import org.w3c.dom.Node;
- 
+
 /**
  *  Extendible Attribute factory
  *  @author Anil.Saldhana@redhat.com
@@ -71,62 +71,45 @@ import org.w3c.dom.Node;
  *  @version $Revision$
  */
 public class ExtendedAttributeFactory extends BaseAttributeFactory
-{ 
-  
+{
+
    private static ExtendedAttributeFactory instance = null;
-   private static  Map supportedDatatypes = new HashMap();
-    
+
+   private static Map supportedDatatypes = new HashMap();
+
    private ExtendedAttributeFactory()
    {
-      super(supportedDatatypes); 
+      super(supportedDatatypes);
 
       // the 1.x datatypes
-      supportedDatatypes.put(BooleanAttribute.identifier,
-                             new BooleanAttributeProxy());
-      supportedDatatypes.put(StringAttribute.identifier,
-                             new StringAttributeProxy());
-      supportedDatatypes.put(DateAttribute.identifier,
-                             new DateAttributeProxy());
-      supportedDatatypes.put(TimeAttribute.identifier,
-                             new TimeAttributeProxy());
-      supportedDatatypes.put(DateTimeAttribute.identifier,
-                             new DateTimeAttributeProxy());
-      supportedDatatypes.put(DayTimeDurationAttribute.identifier,
-                             new DayTimeDurationAttributeProxy());
-      supportedDatatypes.put(YearMonthDurationAttribute.identifier,
-                             new YearMonthDurationAttributeProxy());
-      supportedDatatypes.put(DoubleAttribute.identifier,
-                             new DoubleAttributeProxy());
-      supportedDatatypes.put(IntegerAttribute.identifier,
-                             new IntegerAttributeProxy());
-      supportedDatatypes.put(AnyURIAttribute.identifier,
-                             new AnyURIAttributeProxy());
-      supportedDatatypes.put(HexBinaryAttribute.identifier,
-                             new HexBinaryAttributeProxy());
-      supportedDatatypes.put(Base64BinaryAttribute.identifier,
-                             new Base64BinaryAttributeProxy());
-      supportedDatatypes.put(X500NameAttribute.identifier,
-                             new X500NameAttributeProxy());
-      supportedDatatypes.put(RFC822NameAttribute.identifier,
-                             new RFC822NameAttributeProxy());
- 
-      
+      supportedDatatypes.put(BooleanAttribute.identifier, new BooleanAttributeProxy());
+      supportedDatatypes.put(StringAttribute.identifier, new StringAttributeProxy());
+      supportedDatatypes.put(DateAttribute.identifier, new DateAttributeProxy());
+      supportedDatatypes.put(TimeAttribute.identifier, new TimeAttributeProxy());
+      supportedDatatypes.put(DateTimeAttribute.identifier, new DateTimeAttributeProxy());
+      supportedDatatypes.put(DayTimeDurationAttribute.identifier, new DayTimeDurationAttributeProxy());
+      supportedDatatypes.put(YearMonthDurationAttribute.identifier, new YearMonthDurationAttributeProxy());
+      supportedDatatypes.put(DoubleAttribute.identifier, new DoubleAttributeProxy());
+      supportedDatatypes.put(IntegerAttribute.identifier, new IntegerAttributeProxy());
+      supportedDatatypes.put(AnyURIAttribute.identifier, new AnyURIAttributeProxy());
+      supportedDatatypes.put(HexBinaryAttribute.identifier, new HexBinaryAttributeProxy());
+      supportedDatatypes.put(Base64BinaryAttribute.identifier, new Base64BinaryAttributeProxy());
+      supportedDatatypes.put(X500NameAttribute.identifier, new X500NameAttributeProxy());
+      supportedDatatypes.put(RFC822NameAttribute.identifier, new RFC822NameAttributeProxy());
+
       // the 2.0 datatypes
-      supportedDatatypes.put(DNSNameAttribute.identifier,
-                             new DNSNameAttributeProxy());
-      supportedDatatypes.put(IPAddressAttribute.identifier,
-                             new IPAddressAttributeProxy());
- 
+      supportedDatatypes.put(DNSNameAttribute.identifier, new DNSNameAttributeProxy());
+      supportedDatatypes.put(IPAddressAttribute.identifier, new IPAddressAttributeProxy());
+
    }
 
-   public void addDatatype(String id, AttributeProxy proxy) 
+   public void addDatatype(String id, AttributeProxy proxy)
    {
-      supportedDatatypes.put(id, proxy); 
-  }
+      supportedDatatypes.put(id, proxy);
+   }
 
    @Override
-   public AttributeValue createValue(URI dataType, String value) 
-   throws UnknownIdentifierException, ParsingException
+   public AttributeValue createValue(URI dataType, String value) throws UnknownIdentifierException, ParsingException
    {
       try
       {
@@ -135,9 +118,9 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
       catch (Exception e)
       {
          throw new RuntimeException(e);
-      } 
-   }  
-   
+      }
+   }
+
    @Override
    public AttributeValue createValue(Node root, String type) throws UnknownIdentifierException, ParsingException
    {
@@ -156,20 +139,19 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
    {
       return createValue(root, dataType.toString());
    }
- 
 
    public static ExtendedAttributeFactory getFactory()
    {
-      if(instance == null)
+      if (instance == null)
          instance = new ExtendedAttributeFactory();
       return instance;
    }
-   
+
    private AttributeProxy getProxy(String type)
    {
-      AttributeProxy proxy =  (AttributeProxy) supportedDatatypes.get(type.toString()); 
-      if(proxy == null)
-         throw new RuntimeException("proxy null for "+type);
+      AttributeProxy proxy = (AttributeProxy) supportedDatatypes.get(type.toString());
+      if (proxy == null)
+         throw new RuntimeException("proxy null for " + type);
       return proxy;
    }
 }

@@ -42,16 +42,16 @@ import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-  
+
 /**
  *  Implementation of the RequestContext interface
  *  @author Anil.Saldhana@redhat.com
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossRequestContext implements RequestContext 
+public class JBossRequestContext implements RequestContext
 {
-   private Map<String,Object> map = new HashMap<String,Object>();
+   private Map<String, Object> map = new HashMap<String, Object>();
 
    /**
     * @see ContextMapOp#get(String)
@@ -59,7 +59,7 @@ public class JBossRequestContext implements RequestContext
    @SuppressWarnings("unchecked")
    public <T> T get(String key)
    {
-     return (T) map.get(key);
+      return (T) map.get(key);
    }
 
    /**
@@ -67,30 +67,30 @@ public class JBossRequestContext implements RequestContext
     */
    public <T> void set(String key, T obj)
    {
-     map.put(key, obj);
+      map.put(key, obj);
    }
-   
+
    /**
     * @see RequestContext#setRequest(RequestType)
     */
    public void setRequest(RequestType requestType) throws IOException
    {
       JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(requestType);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
       JAXB.marshal(requestJAXB, baos);
-      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray()); 
-      readRequest(bis);  
+      ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
+      readRequest(bis);
    }
 
    /**
     * @see RequestContext#readRequest(InputStream)
     */
    public void readRequest(InputStream is) throws IOException
-   { 
+   {
       try
       {
          Node root = getRequest(is);
-         if(root == null)
+         if (root == null)
             throw new IllegalStateException("Root node read from the input stream is null");
          RequestCtx request = RequestCtx.getInstance(root);
          set(XACMLConstants.REQUEST_CTX, request);
@@ -99,13 +99,13 @@ public class JBossRequestContext implements RequestContext
       {
          throw new RuntimeException(e);
       }
-   } 
-   
+   }
+
    /**
     * @see RequestContext#readRequest(Node)
     */
    public void readRequest(Node node) throws IOException
-   { 
+   {
       try
       {
          RequestCtx request = RequestCtx.getInstance(node);
@@ -115,28 +115,27 @@ public class JBossRequestContext implements RequestContext
       {
          throw new RuntimeException(e);
       }
-   } 
- 
+   }
+
    /**
     * @see RequestContext#marshall(OutputStream)
     */
    public void marshall(OutputStream os) throws IOException
    {
-      RequestCtx storedRequest = get(XACMLConstants.REQUEST_CTX);    
-      if(storedRequest != null)
+      RequestCtx storedRequest = get(XACMLConstants.REQUEST_CTX);
+      if (storedRequest != null)
          storedRequest.encode(os);
    }
 
    private Node getRequest(InputStream is) throws Exception
    {
-      String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os"; 
-      DocumentBuilderFactory factory =
-         DocumentBuilderFactory.newInstance();
+      String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setNamespaceAware(true);
-      factory.setIgnoringComments(true); 
+      factory.setIgnoringComments(true);
       Document doc = factory.newDocumentBuilder().parse(is);
-      NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Request");  
-      return nodes.item(0);  
+      NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Request");
+      return nodes.item(0);
    }
 
 }

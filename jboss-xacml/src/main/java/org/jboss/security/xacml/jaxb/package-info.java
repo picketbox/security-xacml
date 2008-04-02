@@ -7,3 +7,4 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "urn:jboss:xacml:2.0", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.jboss.security.xacml.jaxb;
+

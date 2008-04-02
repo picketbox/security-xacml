@@ -5,13 +5,11 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for ExpressionType complex type.
@@ -31,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExpressionType")
-public abstract class ExpressionType {
-
+public abstract class ExpressionType
+{
 
 }

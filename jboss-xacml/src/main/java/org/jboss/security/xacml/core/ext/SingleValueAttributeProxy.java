@@ -32,7 +32,6 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
- 
 
 /**
  *  Represents a single value attribute proxy
@@ -41,7 +40,7 @@ import org.w3c.dom.NodeList;
  *  @version $Revision$
  */
 public class SingleValueAttributeProxy implements AttributeProxy
-{ 
+{
    private URI type;
 
    public SingleValueAttributeProxy(String type)
@@ -55,53 +54,53 @@ public class SingleValueAttributeProxy implements AttributeProxy
          throw new RuntimeException(e);
       }
    }
-   
+
    public SingleValueAttributeProxy(URI type)
    {
       this.type = type;
    }
-   
+
    public AttributeValue getInstance(Node root) throws Exception
-   { 
+   {
       // now we get the attribute value
-      if (getNodeName(root).equals("AttributeValue")) 
-      { 
+      if (getNodeName(root).equals("AttributeValue"))
+      {
          // now get the value
-         try 
+         try
          {
             Node child = root.getFirstChild();
-            if(child == null)
+            if (child == null)
                return new StringAttribute("");
-           //get the type of the node
+            //get the type of the node
             short nodetype = child.getNodeType();
 
             // now see if we have (effectively) a simple string value
-            if ((nodetype == Node.TEXT_NODE) || (nodetype == Node.CDATA_SECTION_NODE) ||
-                (nodetype == Node.COMMENT_NODE)) 
+            if ((nodetype == Node.TEXT_NODE) || (nodetype == Node.CDATA_SECTION_NODE)
+                  || (nodetype == Node.COMMENT_NODE))
             {
-                return new StringAttribute(child.getNodeValue());
+               return new StringAttribute(child.getNodeValue());
             }
-            
+
             return AttributeFactory.getInstance().createValue(child, type);
-         } 
-         catch (UnknownIdentifierException uie) 
+         }
+         catch (UnknownIdentifierException uie)
          {
             throw new ParsingException("Unknown AttributeId", uie);
-         } 
+         }
       }
       return null;
    }
 
    public AttributeValue getInstance(String value) throws Exception
-   { 
+   {
       return new SingleValueAttribute(type, value);
-   } 
-   
+   }
+
    private static String getNodeName(Node node)
    {
       String name = node.getLocalName();
-      if(name == null)
+      if (name == null)
          name = node.getNodeName();
-      return name; 
-   } 
+      return name;
+   }
 }

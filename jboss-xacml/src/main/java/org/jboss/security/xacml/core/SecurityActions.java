@@ -41,12 +41,12 @@ public class SecurityActions
    public static ClassLoader getContextClassLoader()
    {
       return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
-      { 
+      {
          public ClassLoader run()
-         { 
+         {
             return Thread.currentThread().getContextClassLoader();
          }
-      }); 
+      });
    }
 
 }

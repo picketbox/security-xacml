@@ -30,8 +30,6 @@ import org.jboss.security.xacml.sunxacml.VersionConstraints;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
- 
- 
 
 /**
  *  PolicyFinderModule that returns the enclosing Policy Object
@@ -40,15 +38,16 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
  *  @version $Revision$
  */
 public class WrapperPolicyFinderModule extends PolicyFinderModule
-{ 
+{
    protected PolicyFinder policyFinder = null;
+
    private Policy policy = null;;
-   
+
    public WrapperPolicyFinderModule(Policy policy)
    {
-      this.policy  = policy;
+      this.policy = policy;
    }
-   
+
    /**
     * @see PolicyFinderModule#init(com.sun.xacml.finder.PolicyFinder)
     */
@@ -56,7 +55,7 @@ public class WrapperPolicyFinderModule extends PolicyFinderModule
    {
       this.policyFinder = policyFinder;
    }
- 
+
    /**
     * @see PolicyFinderModule#findPolicy(com.sun.xacml.EvaluationCtx)
     */
@@ -64,17 +63,16 @@ public class WrapperPolicyFinderModule extends PolicyFinderModule
    {
       return new PolicyFinderResult(policy);
    }
- 
+
    /**
     * @see PolicyFinderModule#findPolicy(java.net.URI, int, 
     *        com.sun.xacml.VersionConstraints, com.sun.xacml.PolicyMetaData)
     */
-   public PolicyFinderResult findPolicy(URI arg0, int arg1, 
-         VersionConstraints arg2, PolicyMetaData arg3)
+   public PolicyFinderResult findPolicy(URI arg0, int arg1, VersionConstraints arg2, PolicyMetaData arg3)
    {
       return new PolicyFinderResult(policy);
    }
- 
+
    /**
     * @see PolicyFinderModule#isRequestSupported()
     */
@@ -82,5 +80,5 @@ public class WrapperPolicyFinderModule extends PolicyFinderModule
    {
       return true;
    }
-   
+
 }

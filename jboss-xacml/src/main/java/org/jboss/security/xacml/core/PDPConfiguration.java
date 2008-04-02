@@ -40,20 +40,18 @@ public class PDPConfiguration
    {
       AttributeFactory.setDefaultFactory(new ExtendedAttributeFactoryProxy());
    }
-   
+
    public static void installSingleValueAttribute(String type)
    {
       AttributeFactory factory = AttributeFactory.getInstance();
-      factory.addDatatype(type, 
-            new SingleValueAttributeProxy(type));
-      
+      factory.addDatatype(type, new SingleValueAttributeProxy(type));
+
    }
-   
+
    public static void installMultiValueAttribute(String type)
    {
       AttributeFactory factory = AttributeFactory.getInstance();
-      factory.addDatatype(type, 
-            new MultiValueAttributeProxy(type));
-      
-   } 
+      factory.addDatatype(type, new MultiValueAttributeProxy(type));
+
+   }
 }

@@ -5,13 +5,11 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.context;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for DecisionType.
@@ -34,31 +32,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum DecisionType {
 
-    @XmlEnumValue("Permit")
-    PERMIT("Permit"),
-    @XmlEnumValue("Deny")
-    DENY("Deny"),
-    @XmlEnumValue("Indeterminate")
-    INDETERMINATE("Indeterminate"),
-    @XmlEnumValue("NotApplicable")
-    NOT_APPLICABLE("NotApplicable");
-    private final String value;
+   @XmlEnumValue("Permit")
+   PERMIT("Permit"), @XmlEnumValue("Deny")
+   DENY("Deny"), @XmlEnumValue("Indeterminate")
+   INDETERMINATE("Indeterminate"), @XmlEnumValue("NotApplicable")
+   NOT_APPLICABLE("NotApplicable");
+   private final String value;
 
-    DecisionType(String v) {
-        value = v;
-    }
+   DecisionType(String v)
+   {
+      value = v;
+   }
 
-    public String value() {
-        return value;
-    }
+   public String value()
+   {
+      return value;
+   }
 
-    public static DecisionType fromValue(String v) {
-        for (DecisionType c: DecisionType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+   public static DecisionType fromValue(String v)
+   {
+      for (DecisionType c : DecisionType.values())
+      {
+         if (c.value.equals(v))
+         {
+            return c;
+         }
+      }
+      throw new IllegalArgumentException(v);
+   }
 
 }

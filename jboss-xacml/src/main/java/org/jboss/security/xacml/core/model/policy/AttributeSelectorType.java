@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for AttributeSelectorType complex type.
@@ -36,92 +34,102 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AttributeSelectorType")
-public class AttributeSelectorType
-    extends ExpressionType
+public class AttributeSelectorType extends ExpressionType
 {
 
-    @XmlAttribute(name = "RequestContextPath", required = true)
-    protected String requestContextPath;
-    @XmlAttribute(name = "DataType", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String dataType;
-    @XmlAttribute(name = "MustBePresent")
-    protected Boolean mustBePresent;
+   @XmlAttribute(name = "RequestContextPath", required = true)
+   protected String requestContextPath;
 
-    /**
-     * Gets the value of the requestContextPath property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRequestContextPath() {
-        return requestContextPath;
-    }
+   @XmlAttribute(name = "DataType", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String dataType;
 
-    /**
-     * Sets the value of the requestContextPath property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRequestContextPath(String value) {
-        this.requestContextPath = value;
-    }
+   @XmlAttribute(name = "MustBePresent")
+   protected Boolean mustBePresent;
 
-    /**
-     * Gets the value of the dataType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDataType() {
-        return dataType;
-    }
+   /**
+    * Gets the value of the requestContextPath property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getRequestContextPath()
+   {
+      return requestContextPath;
+   }
 
-    /**
-     * Sets the value of the dataType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDataType(String value) {
-        this.dataType = value;
-    }
+   /**
+    * Sets the value of the requestContextPath property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setRequestContextPath(String value)
+   {
+      this.requestContextPath = value;
+   }
 
-    /**
-     * Gets the value of the mustBePresent property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isMustBePresent() {
-        if (mustBePresent == null) {
-            return false;
-        } else {
-            return mustBePresent;
-        }
-    }
+   /**
+    * Gets the value of the dataType property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getDataType()
+   {
+      return dataType;
+   }
 
-    /**
-     * Sets the value of the mustBePresent property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setMustBePresent(Boolean value) {
-        this.mustBePresent = value;
-    }
+   /**
+    * Sets the value of the dataType property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setDataType(String value)
+   {
+      this.dataType = value;
+   }
+
+   /**
+    * Gets the value of the mustBePresent property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link Boolean }
+    *     
+    */
+   public boolean isMustBePresent()
+   {
+      if (mustBePresent == null)
+      {
+         return false;
+      }
+      else
+      {
+         return mustBePresent;
+      }
+   }
+
+   /**
+    * Sets the value of the mustBePresent property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link Boolean }
+    *     
+    */
+   public void setMustBePresent(Boolean value)
+   {
+      this.mustBePresent = value;
+   }
 
 }

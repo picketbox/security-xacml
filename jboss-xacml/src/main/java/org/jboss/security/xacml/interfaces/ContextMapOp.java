@@ -38,8 +38,8 @@ public interface ContextMapOp
     * @param key Key
     * @return object from the map
     */
-   <T> T get(String key);  
-   
+   <T> T get(String key);
+
    /**
     * Set an object on the map
     * @param <T>

@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for SubjectMatchType complex type.
@@ -41,117 +39,126 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SubjectMatchType", propOrder = {
-    "attributeValue",
-    "subjectAttributeDesignator",
-    "attributeSelector"
-})
-public class SubjectMatchType {
+@XmlType(name = "SubjectMatchType", propOrder =
+{"attributeValue", "subjectAttributeDesignator", "attributeSelector"})
+public class SubjectMatchType
+{
 
-    @XmlElement(name = "AttributeValue", required = true)
-    protected AttributeValueType attributeValue;
-    @XmlElement(name = "SubjectAttributeDesignator")
-    protected SubjectAttributeDesignatorType subjectAttributeDesignator;
-    @XmlElement(name = "AttributeSelector")
-    protected AttributeSelectorType attributeSelector;
-    @XmlAttribute(name = "MatchId", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String matchId;
+   @XmlElement(name = "AttributeValue", required = true)
+   protected AttributeValueType attributeValue;
 
-    /**
-     * Gets the value of the attributeValue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AttributeValueType }
-     *     
-     */
-    public AttributeValueType getAttributeValue() {
-        return attributeValue;
-    }
+   @XmlElement(name = "SubjectAttributeDesignator")
+   protected SubjectAttributeDesignatorType subjectAttributeDesignator;
 
-    /**
-     * Sets the value of the attributeValue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AttributeValueType }
-     *     
-     */
-    public void setAttributeValue(AttributeValueType value) {
-        this.attributeValue = value;
-    }
+   @XmlElement(name = "AttributeSelector")
+   protected AttributeSelectorType attributeSelector;
 
-    /**
-     * Gets the value of the subjectAttributeDesignator property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SubjectAttributeDesignatorType }
-     *     
-     */
-    public SubjectAttributeDesignatorType getSubjectAttributeDesignator() {
-        return subjectAttributeDesignator;
-    }
+   @XmlAttribute(name = "MatchId", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String matchId;
 
-    /**
-     * Sets the value of the subjectAttributeDesignator property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SubjectAttributeDesignatorType }
-     *     
-     */
-    public void setSubjectAttributeDesignator(SubjectAttributeDesignatorType value) {
-        this.subjectAttributeDesignator = value;
-    }
+   /**
+    * Gets the value of the attributeValue property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link AttributeValueType }
+    *     
+    */
+   public AttributeValueType getAttributeValue()
+   {
+      return attributeValue;
+   }
 
-    /**
-     * Gets the value of the attributeSelector property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AttributeSelectorType }
-     *     
-     */
-    public AttributeSelectorType getAttributeSelector() {
-        return attributeSelector;
-    }
+   /**
+    * Sets the value of the attributeValue property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link AttributeValueType }
+    *     
+    */
+   public void setAttributeValue(AttributeValueType value)
+   {
+      this.attributeValue = value;
+   }
 
-    /**
-     * Sets the value of the attributeSelector property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AttributeSelectorType }
-     *     
-     */
-    public void setAttributeSelector(AttributeSelectorType value) {
-        this.attributeSelector = value;
-    }
+   /**
+    * Gets the value of the subjectAttributeDesignator property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link SubjectAttributeDesignatorType }
+    *     
+    */
+   public SubjectAttributeDesignatorType getSubjectAttributeDesignator()
+   {
+      return subjectAttributeDesignator;
+   }
 
-    /**
-     * Gets the value of the matchId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMatchId() {
-        return matchId;
-    }
+   /**
+    * Sets the value of the subjectAttributeDesignator property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link SubjectAttributeDesignatorType }
+    *     
+    */
+   public void setSubjectAttributeDesignator(SubjectAttributeDesignatorType value)
+   {
+      this.subjectAttributeDesignator = value;
+   }
 
-    /**
-     * Sets the value of the matchId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMatchId(String value) {
-        this.matchId = value;
-    }
+   /**
+    * Gets the value of the attributeSelector property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link AttributeSelectorType }
+    *     
+    */
+   public AttributeSelectorType getAttributeSelector()
+   {
+      return attributeSelector;
+   }
+
+   /**
+    * Sets the value of the attributeSelector property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link AttributeSelectorType }
+    *     
+    */
+   public void setAttributeSelector(AttributeSelectorType value)
+   {
+      this.attributeSelector = value;
+   }
+
+   /**
+    * Gets the value of the matchId property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getMatchId()
+   {
+      return matchId;
+   }
+
+   /**
+    * Sets the value of the matchId property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setMatchId(String value)
+   {
+      this.matchId = value;
+   }
 
 }

@@ -5,7 +5,6 @@
 // Generated on: 2007.07.06 at 03:19:27 PM CDT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -40,70 +38,75 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "content"
-})
+@XmlType(name = "", propOrder =
+{"content"})
 @XmlRootElement(name = "Option")
-public class Option {
+public class Option
+{
 
-    @XmlMixed
-    @XmlAnyElement(lax = true)
-    protected List<Object> content;
-    @XmlAttribute(name = "Name")
-    protected String name;
+   @XmlMixed
+   @XmlAnyElement(lax = true)
+   protected List<Object> content;
 
-    /**
-     * Gets the value of the content property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the content property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getContent().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * {@link Object }
-     * 
-     * 
-     */
-    public List<Object> getContent() {
-        if (content == null) {
-            content = new ArrayList<Object>();
-        }
-        return this.content;
-    }
+   @XmlAttribute(name = "Name")
+   protected String name;
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+   /**
+    * Gets the value of the content property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the content property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getContent().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link String }
+    * {@link Object }
+    * 
+    * 
+    */
+   public List<Object> getContent()
+   {
+      if (content == null)
+      {
+         content = new ArrayList<Object>();
+      }
+      return this.content;
+   }
 
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+   /**
+    * Gets the value of the name property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getName()
+   {
+      return name;
+   }
+
+   /**
+    * Sets the value of the name property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setName(String value)
+   {
+      this.name = value;
+   }
 
 }

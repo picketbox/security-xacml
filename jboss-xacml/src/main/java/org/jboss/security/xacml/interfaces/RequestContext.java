@@ -37,32 +37,32 @@ import org.w3c.dom.Node;
  *  @version $Revision$
  */
 public interface RequestContext extends ContextMapOp
-{ 
+{
    /**
     * Place the Request instance on the context
     * @param requestType An instance of RequestType 
     * @throws IOException
     */
    void setRequest(RequestType requestType) throws IOException;
-   
+
    /**
     * Read the Request from a stream
     * @param is InputStream for the request 
     * @throws IOException
     */
    void readRequest(InputStream is) throws IOException;
-   
+
    /**
     * Read a preparsed Node
     * @param node
     * @throws IOException
     */
    void readRequest(Node node) throws IOException;
-   
+
    /**
     * Marshall the request context onto an Output Stream
     * @param os OutputStream (System.out, ByteArrayOutputStream etc)
     * @throws IOException
     */
    void marshall(OutputStream os) throws IOException;
-} 
+}

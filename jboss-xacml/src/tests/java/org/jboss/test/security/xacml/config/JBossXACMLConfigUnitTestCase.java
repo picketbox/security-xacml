@@ -54,7 +54,7 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
 {
    public void testBasicPolicySetConfig() throws Exception
    {
-      JAXBContext jc = JAXBContext.newInstance( "org.jboss.security.xacml.jaxb" ); 
+      JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
       assertNotNull("JAXBContext is !null", jc);
       Unmarshaller u = jc.createUnmarshaller();
       //Validate against schema
@@ -63,33 +63,33 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       assertNotNull("Schema URL != null", schemaURL);
       SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
       Schema schema = scFact.newSchema(schemaURL);
-      u.setSchema(schema); 
-      
+      u.setSchema(schema);
+
       URL configFile = tcl.getResource("test/config/basicPolicySetConfig.xml");
       JAXBElement<?> j = (JAXBElement<?>) u.unmarshal(configFile);
-      assertNotNull("JAXBElement is !null", j); 
+      assertNotNull("JAXBElement is !null", j);
       PDP pdp = (PDP) j.getValue();
       assertNotNull("PDP is not null", pdp);
-      
+
       //Validate Policies
       PoliciesType pts = pdp.getPolicies();
       assertNotNull("PoliciesType is not null", pts);
       List<PolicySetType> pst = pts.getPolicySet();
-      assertNotNull("PolicySetType is not null", pst); 
+      assertNotNull("PolicySetType is not null", pst);
       assertEquals("1 PolicySet", 1, pst.size());
       PolicySetType psetType = pst.get(0);
       String loc = psetType.getLocation();
       assertTrue("Location of PolicySet is >0", loc.length() > 0);
-      assertEquals("PolicyType is null", 0,pts.getPolicy().size());
-      
+      assertEquals("PolicyType is null", 0, pts.getPolicy().size());
+
       //Validate Locators
       LocatorsType lts = pdp.getLocators();
       assertNotNull("LocatorsType != null", lts);
       List<LocatorType> lt = lts.getLocator();
       assertNotNull("LocatorType != null", lt);
-      assertEquals("LocatorType != null", 1,lt.size());
-   } 
-   
+      assertEquals("LocatorType != null", 1, lt.size());
+   }
+
    /**
     * Test the URL version of the PDP construction
     * @throws Exception
@@ -101,5 +101,5 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       assertNotNull("configFile != null", configFile);
       PolicyDecisionPoint pdp = new JBossPDP(configFile);
       XACMLTestUtil.validateInteropCases(pdp);
-   } 
+   }
 }

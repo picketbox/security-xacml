@@ -5,14 +5,12 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for TargetType complex type.
@@ -37,117 +35,125 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TargetType", propOrder = {
-    "subjects",
-    "resources",
-    "actions",
-    "environments"
-})
-public class TargetType {
+@XmlType(name = "TargetType", propOrder =
+{"subjects", "resources", "actions", "environments"})
+public class TargetType
+{
 
-    @XmlElement(name = "Subjects")
-    protected SubjectsType subjects;
-    @XmlElement(name = "Resources")
-    protected ResourcesType resources;
-    @XmlElement(name = "Actions")
-    protected ActionsType actions;
-    @XmlElement(name = "Environments")
-    protected EnvironmentsType environments;
+   @XmlElement(name = "Subjects")
+   protected SubjectsType subjects;
 
-    /**
-     * Gets the value of the subjects property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SubjectsType }
-     *     
-     */
-    public SubjectsType getSubjects() {
-        return subjects;
-    }
+   @XmlElement(name = "Resources")
+   protected ResourcesType resources;
 
-    /**
-     * Sets the value of the subjects property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SubjectsType }
-     *     
-     */
-    public void setSubjects(SubjectsType value) {
-        this.subjects = value;
-    }
+   @XmlElement(name = "Actions")
+   protected ActionsType actions;
 
-    /**
-     * Gets the value of the resources property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ResourcesType }
-     *     
-     */
-    public ResourcesType getResources() {
-        return resources;
-    }
+   @XmlElement(name = "Environments")
+   protected EnvironmentsType environments;
 
-    /**
-     * Sets the value of the resources property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ResourcesType }
-     *     
-     */
-    public void setResources(ResourcesType value) {
-        this.resources = value;
-    }
+   /**
+    * Gets the value of the subjects property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link SubjectsType }
+    *     
+    */
+   public SubjectsType getSubjects()
+   {
+      return subjects;
+   }
 
-    /**
-     * Gets the value of the actions property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ActionsType }
-     *     
-     */
-    public ActionsType getActions() {
-        return actions;
-    }
+   /**
+    * Sets the value of the subjects property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link SubjectsType }
+    *     
+    */
+   public void setSubjects(SubjectsType value)
+   {
+      this.subjects = value;
+   }
 
-    /**
-     * Sets the value of the actions property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ActionsType }
-     *     
-     */
-    public void setActions(ActionsType value) {
-        this.actions = value;
-    }
+   /**
+    * Gets the value of the resources property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link ResourcesType }
+    *     
+    */
+   public ResourcesType getResources()
+   {
+      return resources;
+   }
 
-    /**
-     * Gets the value of the environments property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link EnvironmentsType }
-     *     
-     */
-    public EnvironmentsType getEnvironments() {
-        return environments;
-    }
+   /**
+    * Sets the value of the resources property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link ResourcesType }
+    *     
+    */
+   public void setResources(ResourcesType value)
+   {
+      this.resources = value;
+   }
 
-    /**
-     * Sets the value of the environments property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link EnvironmentsType }
-     *     
-     */
-    public void setEnvironments(EnvironmentsType value) {
-        this.environments = value;
-    }
+   /**
+    * Gets the value of the actions property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link ActionsType }
+    *     
+    */
+   public ActionsType getActions()
+   {
+      return actions;
+   }
+
+   /**
+    * Sets the value of the actions property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link ActionsType }
+    *     
+    */
+   public void setActions(ActionsType value)
+   {
+      this.actions = value;
+   }
+
+   /**
+    * Gets the value of the environments property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link EnvironmentsType }
+    *     
+    */
+   public EnvironmentsType getEnvironments()
+   {
+      return environments;
+   }
+
+   /**
+    * Sets the value of the environments property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link EnvironmentsType }
+    *     
+    */
+   public void setEnvironments(EnvironmentsType value)
+   {
+      this.environments = value;
+   }
 
 }

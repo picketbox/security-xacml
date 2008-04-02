@@ -5,14 +5,12 @@
 // Generated on: 2007.07.06 at 03:19:27 PM CDT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
-
 
 /**
  * This object contains factory methods for each 
@@ -29,100 +27,114 @@ import javax.xml.namespace.QName;
  * 
  */
 @XmlRegistry
-public class ObjectFactory {
+public class ObjectFactory
+{
 
-    private final static QName _Policies_QNAME = new QName("urn:jboss:xacml:2.0", "Policies");
-    private final static QName _Locators_QNAME = new QName("urn:jboss:xacml:2.0", "Locators");
-    private final static QName _Jbosspdp_QNAME = new QName("urn:jboss:xacml:2.0", "jbosspdp");
+   private final static QName _Policies_QNAME = new QName("urn:jboss:xacml:2.0", "Policies");
 
-    /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.jboss.security.xacml.jaxb
-     * 
-     */
-    public ObjectFactory() {
-    }
+   private final static QName _Locators_QNAME = new QName("urn:jboss:xacml:2.0", "Locators");
 
-    /**
-     * Create an instance of {@link PDP }
-     * 
-     */
-    public PDP createPDP() {
-        return new PDP();
-    }
+   private final static QName _Jbosspdp_QNAME = new QName("urn:jboss:xacml:2.0", "jbosspdp");
 
-    /**
-     * Create an instance of {@link LocatorType }
-     * 
-     */
-    public LocatorType createLocatorType() {
-        return new LocatorType();
-    }
+   /**
+    * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.jboss.security.xacml.jaxb
+    * 
+    */
+   public ObjectFactory()
+   {
+   }
 
-    /**
-     * Create an instance of {@link PolicyType }
-     * 
-     */
-    public PolicyType createPolicyType() {
-        return new PolicyType();
-    }
+   /**
+    * Create an instance of {@link PDP }
+    * 
+    */
+   public PDP createPDP()
+   {
+      return new PDP();
+   }
 
-    /**
-     * Create an instance of {@link PolicySetType }
-     * 
-     */
-    public PolicySetType createPolicySetType() {
-        return new PolicySetType();
-    }
+   /**
+    * Create an instance of {@link LocatorType }
+    * 
+    */
+   public LocatorType createLocatorType()
+   {
+      return new LocatorType();
+   }
 
-    /**
-     * Create an instance of {@link Option }
-     * 
-     */
-    public Option createOption() {
-        return new Option();
-    }
+   /**
+    * Create an instance of {@link PolicyType }
+    * 
+    */
+   public PolicyType createPolicyType()
+   {
+      return new PolicyType();
+   }
 
-    /**
-     * Create an instance of {@link PoliciesType }
-     * 
-     */
-    public PoliciesType createPoliciesType() {
-        return new PoliciesType();
-    }
+   /**
+    * Create an instance of {@link PolicySetType }
+    * 
+    */
+   public PolicySetType createPolicySetType()
+   {
+      return new PolicySetType();
+   }
 
-    /**
-     * Create an instance of {@link LocatorsType }
-     * 
-     */
-    public LocatorsType createLocatorsType() {
-        return new LocatorsType();
-    }
+   /**
+    * Create an instance of {@link Option }
+    * 
+    */
+   public Option createOption()
+   {
+      return new Option();
+   }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PoliciesType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "Policies")
-    public JAXBElement<PoliciesType> createPolicies(PoliciesType value) {
-        return new JAXBElement<PoliciesType>(_Policies_QNAME, PoliciesType.class, null, value);
-    }
+   /**
+    * Create an instance of {@link PoliciesType }
+    * 
+    */
+   public PoliciesType createPoliciesType()
+   {
+      return new PoliciesType();
+   }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LocatorsType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "Locators")
-    public JAXBElement<LocatorsType> createLocators(LocatorsType value) {
-        return new JAXBElement<LocatorsType>(_Locators_QNAME, LocatorsType.class, null, value);
-    }
+   /**
+    * Create an instance of {@link LocatorsType }
+    * 
+    */
+   public LocatorsType createLocatorsType()
+   {
+      return new LocatorsType();
+   }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PDP }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "jbosspdp")
-    public JAXBElement<PDP> createJbosspdp(PDP value) {
-        return new JAXBElement<PDP>(_Jbosspdp_QNAME, PDP.class, null, value);
-    }
+   /**
+    * Create an instance of {@link JAXBElement }{@code <}{@link PoliciesType }{@code >}}
+    * 
+    */
+   @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "Policies")
+   public JAXBElement<PoliciesType> createPolicies(PoliciesType value)
+   {
+      return new JAXBElement<PoliciesType>(_Policies_QNAME, PoliciesType.class, null, value);
+   }
+
+   /**
+    * Create an instance of {@link JAXBElement }{@code <}{@link LocatorsType }{@code >}}
+    * 
+    */
+   @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "Locators")
+   public JAXBElement<LocatorsType> createLocators(LocatorsType value)
+   {
+      return new JAXBElement<LocatorsType>(_Locators_QNAME, LocatorsType.class, null, value);
+   }
+
+   /**
+    * Create an instance of {@link JAXBElement }{@code <}{@link PDP }{@code >}}
+    * 
+    */
+   @XmlElementDecl(namespace = "urn:jboss:xacml:2.0", name = "jbosspdp")
+   public JAXBElement<PDP> createJbosspdp(PDP value)
+   {
+      return new JAXBElement<PDP>(_Jbosspdp_QNAME, PDP.class, null, value);
+   }
 
 }

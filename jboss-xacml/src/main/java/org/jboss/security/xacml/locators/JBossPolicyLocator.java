@@ -30,7 +30,7 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
-  
+
 /**
  *  Policy Locator for plain XACML Policy instances
  *  @author Anil.Saldhana@redhat.com
@@ -38,24 +38,24 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
  *  @version $Revision$
  */
 public class JBossPolicyLocator extends AbstractJBossPolicyLocator
-{ 
-   private List<PolicyFinderModule> pfml = new ArrayList<PolicyFinderModule>(); 
-   
+{
+   private List<PolicyFinderModule> pfml = new ArrayList<PolicyFinderModule>();
+
    public JBossPolicyLocator()
-   {   
+   {
    }
-   
+
    public JBossPolicyLocator(Set<XACMLPolicy> policies)
    {
       setPolicies(policies);
-   } 
+   }
 
    @Override
    public void setPolicies(Set<XACMLPolicy> policies)
-   { 
-      for(XACMLPolicy xp:policies)
+   {
+      for (XACMLPolicy xp : policies)
       {
-         if(xp.getType() == XACMLPolicy.POLICY)
+         if (xp.getType() == XACMLPolicy.POLICY)
          {
             Policy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
             WrapperPolicyFinderModule wpfm = new WrapperPolicyFinderModule(p);
@@ -63,5 +63,5 @@ public class JBossPolicyLocator extends AbstractJBossPolicyLocator
          }
       }
       this.map.put(XACMLConstants.POLICY_FINDER_MODULE, pfml);
-   } 
+   }
 }

@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import org.w3c.dom.Element;
-
 
 /**
  * <p>Java class for AttributeValueType complex type.
@@ -45,91 +43,98 @@ import org.w3c.dom.Element;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AttributeValueType", propOrder = {
-    "content"
-})
-public class AttributeValueType {
+@XmlType(name = "AttributeValueType", propOrder =
+{"content"})
+public class AttributeValueType
+{
 
-    @XmlMixed
-    @XmlAnyElement(lax = true)
-    protected List<Object> content;
-    @XmlAttribute(name = "DataType", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String dataType;
-    @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+   @XmlMixed
+   @XmlAnyElement(lax = true)
+   protected List<Object> content;
 
-    /**
-     * Gets the value of the content property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the content property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getContent().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Object }
-     * {@link String }
-     * {@link Element }
-     * 
-     * 
-     */
-    public List<Object> getContent() {
-        if (content == null) {
-            content = new ArrayList<Object>();
-        }
-        return this.content;
-    }
+   @XmlAttribute(name = "DataType", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String dataType;
 
-    /**
-     * Gets the value of the dataType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDataType() {
-        return dataType;
-    }
+   @XmlAnyAttribute
+   private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
-    /**
-     * Sets the value of the dataType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDataType(String value) {
-        this.dataType = value;
-    }
+   /**
+    * Gets the value of the content property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the content property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getContent().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link Object }
+    * {@link String }
+    * {@link Element }
+    * 
+    * 
+    */
+   public List<Object> getContent()
+   {
+      if (content == null)
+      {
+         content = new ArrayList<Object>();
+      }
+      return this.content;
+   }
 
-    /**
-     * Gets a map that contains attributes that aren't bound to any typed property on this class.
-     * 
-     * <p>
-     * the map is keyed by the name of the attribute and 
-     * the value is the string value of the attribute.
-     * 
-     * the map returned by this method is live, and you can add new attribute
-     * by updating the map directly. Because of this design, there's no setter.
-     * 
-     * 
-     * @return
-     *     always non-null
-     */
-    public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
-    }
+   /**
+    * Gets the value of the dataType property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getDataType()
+   {
+      return dataType;
+   }
+
+   /**
+    * Sets the value of the dataType property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setDataType(String value)
+   {
+      this.dataType = value;
+   }
+
+   /**
+    * Gets a map that contains attributes that aren't bound to any typed property on this class.
+    * 
+    * <p>
+    * the map is keyed by the name of the attribute and 
+    * the value is the string value of the attribute.
+    * 
+    * the map returned by this method is live, and you can add new attribute
+    * by updating the map directly. Because of this design, there's no setter.
+    * 
+    * 
+    * @return
+    *     always non-null
+    */
+   public Map<QName, String> getOtherAttributes()
+   {
+      return otherAttributes;
+   }
 
 }

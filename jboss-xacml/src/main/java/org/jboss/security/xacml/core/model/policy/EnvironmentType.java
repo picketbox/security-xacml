@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for EnvironmentType complex type.
@@ -36,41 +34,43 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "EnvironmentType", propOrder = {
-    "environmentMatch"
-})
-public class EnvironmentType {
+@XmlType(name = "EnvironmentType", propOrder =
+{"environmentMatch"})
+public class EnvironmentType
+{
 
-    @XmlElement(name = "EnvironmentMatch", required = true)
-    protected List<EnvironmentMatchType> environmentMatch;
+   @XmlElement(name = "EnvironmentMatch", required = true)
+   protected List<EnvironmentMatchType> environmentMatch;
 
-    /**
-     * Gets the value of the environmentMatch property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the environmentMatch property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getEnvironmentMatch().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link EnvironmentMatchType }
-     * 
-     * 
-     */
-    public List<EnvironmentMatchType> getEnvironmentMatch() {
-        if (environmentMatch == null) {
-            environmentMatch = new ArrayList<EnvironmentMatchType>();
-        }
-        return this.environmentMatch;
-    }
+   /**
+    * Gets the value of the environmentMatch property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the environmentMatch property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getEnvironmentMatch().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link EnvironmentMatchType }
+    * 
+    * 
+    */
+   public List<EnvironmentMatchType> getEnvironmentMatch()
+   {
+      if (environmentMatch == null)
+      {
+         environmentMatch = new ArrayList<EnvironmentMatchType>();
+      }
+      return this.environmentMatch;
+   }
 
 }

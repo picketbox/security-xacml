@@ -5,7 +5,6 @@
 // Generated on: 2008.03.19 at 05:35:22 PM BRT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for PolicySetType complex type.
@@ -39,101 +37,107 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PolicySetType", propOrder = {
-    "location",
-    "policy",
-    "policySet"
-})
-public class PolicySetType {
+@XmlType(name = "PolicySetType", propOrder =
+{"location", "policy", "policySet"})
+public class PolicySetType
+{
 
-    @XmlElement(name = "Location")
-    @XmlSchemaType(name = "anyURI")
-    protected String location;
-    @XmlElement(name = "Policy")
-    protected List<PolicyType> policy;
-    @XmlElement(name = "PolicySet")
-    protected List<PolicySetType> policySet;
+   @XmlElement(name = "Location")
+   @XmlSchemaType(name = "anyURI")
+   protected String location;
 
-    /**
-     * Gets the value of the location property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLocation() {
-        return location;
-    }
+   @XmlElement(name = "Policy")
+   protected List<PolicyType> policy;
 
-    /**
-     * Sets the value of the location property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLocation(String value) {
-        this.location = value;
-    }
+   @XmlElement(name = "PolicySet")
+   protected List<PolicySetType> policySet;
 
-    /**
-     * Gets the value of the policy property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the policy property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPolicy().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PolicyType }
-     * 
-     * 
-     */
-    public List<PolicyType> getPolicy() {
-        if (policy == null) {
-            policy = new ArrayList<PolicyType>();
-        }
-        return this.policy;
-    }
+   /**
+    * Gets the value of the location property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getLocation()
+   {
+      return location;
+   }
 
-    /**
-     * Gets the value of the policySet property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the policySet property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPolicySet().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PolicySetType }
-     * 
-     * 
-     */
-    public List<PolicySetType> getPolicySet() {
-        if (policySet == null) {
-            policySet = new ArrayList<PolicySetType>();
-        }
-        return this.policySet;
-    }
+   /**
+    * Sets the value of the location property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setLocation(String value)
+   {
+      this.location = value;
+   }
+
+   /**
+    * Gets the value of the policy property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the policy property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getPolicy().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link PolicyType }
+    * 
+    * 
+    */
+   public List<PolicyType> getPolicy()
+   {
+      if (policy == null)
+      {
+         policy = new ArrayList<PolicyType>();
+      }
+      return this.policy;
+   }
+
+   /**
+    * Gets the value of the policySet property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the policySet property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getPolicySet().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link PolicySetType }
+    * 
+    * 
+    */
+   public List<PolicySetType> getPolicySet()
+   {
+      if (policySet == null)
+      {
+         policySet = new ArrayList<PolicySetType>();
+      }
+      return this.policySet;
+   }
 
 }

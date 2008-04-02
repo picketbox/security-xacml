@@ -40,8 +40,8 @@ public interface PolicyLocator extends ContextMapOp
     * Set a list of options on the locator
     * @param options
     */
-   void setOptions(List<Option> options); 
-   
+   void setOptions(List<Option> options);
+
    /**
     * Set of policies that this locator is able to return
     * @param policies

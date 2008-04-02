@@ -41,15 +41,17 @@ import org.jboss.security.xacml.jaxb.Option;
  */
 public abstract class AbstractJBossPolicyLocator implements PolicyLocator, ContextMapOp
 {
-   protected List<Option> options = null; 
-   protected Map<String,Object> map = new HashMap<String,Object>(); 
+   protected List<Option> options = null;
+
+   protected Map<String, Object> map = new HashMap<String, Object>();
+
    protected Set<XACMLPolicy> policies;
-   
+
    /**
     * @see PolicyLocator#setOptions(List)
     */
    public void setOptions(List<Option> theoptions)
-   { 
+   {
       this.options = theoptions;
    }
 
@@ -58,8 +60,8 @@ public abstract class AbstractJBossPolicyLocator implements PolicyLocator, Conte
     */
    @SuppressWarnings("unchecked")
    public <T> T get(String key)
-   { 
-      return (T)map.get(key);
+   {
+      return (T) map.get(key);
    }
 
    /**
@@ -67,11 +69,11 @@ public abstract class AbstractJBossPolicyLocator implements PolicyLocator, Conte
     */
    public <T> void set(String key, T obj)
    {
-      map.put(key, obj); 
+      map.put(key, obj);
    }
 
    /**
     * @see PolicyLocator#setPolicies(Set)
     */
-   public abstract void setPolicies(Set<XACMLPolicy> policies); 
+   public abstract void setPolicies(Set<XACMLPolicy> policies);
 }

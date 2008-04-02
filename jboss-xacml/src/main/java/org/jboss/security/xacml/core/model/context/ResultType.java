@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.context;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import org.jboss.security.xacml.core.model.policy.ObligationsType;
-
 
 /**
  * <p>Java class for ResultType complex type.
@@ -39,116 +37,125 @@ import org.jboss.security.xacml.core.model.policy.ObligationsType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResultType", propOrder = {
-    "decision",
-    "status",
-    "obligations"
-})
-public class ResultType {
+@XmlType(name = "ResultType", propOrder =
+{"decision", "status", "obligations"})
+public class ResultType
+{
 
-    @XmlElement(name = "Decision", required = true)
-    protected DecisionType decision;
-    @XmlElement(name = "Status")
-    protected StatusType status;
-    @XmlElement(name = "Obligations", namespace = "urn:oasis:names:tc:xacml:2.0:policy:schema:os")
-    protected ObligationsType obligations;
-    @XmlAttribute(name = "ResourceId")
-    protected String resourceId;
+   @XmlElement(name = "Decision", required = true)
+   protected DecisionType decision;
 
-    /**
-     * Gets the value of the decision property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link DecisionType }
-     *     
-     */
-    public DecisionType getDecision() {
-        return decision;
-    }
+   @XmlElement(name = "Status")
+   protected StatusType status;
 
-    /**
-     * Sets the value of the decision property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link DecisionType }
-     *     
-     */
-    public void setDecision(DecisionType value) {
-        this.decision = value;
-    }
+   @XmlElement(name = "Obligations", namespace = "urn:oasis:names:tc:xacml:2.0:policy:schema:os")
+   protected ObligationsType obligations;
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StatusType }
-     *     
-     */
-    public StatusType getStatus() {
-        return status;
-    }
+   @XmlAttribute(name = "ResourceId")
+   protected String resourceId;
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StatusType }
-     *     
-     */
-    public void setStatus(StatusType value) {
-        this.status = value;
-    }
+   /**
+    * Gets the value of the decision property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link DecisionType }
+    *     
+    */
+   public DecisionType getDecision()
+   {
+      return decision;
+   }
 
-    /**
-     * Gets the value of the obligations property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ObligationsType }
-     *     
-     */
-    public ObligationsType getObligations() {
-        return obligations;
-    }
+   /**
+    * Sets the value of the decision property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link DecisionType }
+    *     
+    */
+   public void setDecision(DecisionType value)
+   {
+      this.decision = value;
+   }
 
-    /**
-     * Sets the value of the obligations property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ObligationsType }
-     *     
-     */
-    public void setObligations(ObligationsType value) {
-        this.obligations = value;
-    }
+   /**
+    * Gets the value of the status property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link StatusType }
+    *     
+    */
+   public StatusType getStatus()
+   {
+      return status;
+   }
 
-    /**
-     * Gets the value of the resourceId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResourceId() {
-        return resourceId;
-    }
+   /**
+    * Sets the value of the status property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link StatusType }
+    *     
+    */
+   public void setStatus(StatusType value)
+   {
+      this.status = value;
+   }
 
-    /**
-     * Sets the value of the resourceId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResourceId(String value) {
-        this.resourceId = value;
-    }
+   /**
+    * Gets the value of the obligations property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link ObligationsType }
+    *     
+    */
+   public ObligationsType getObligations()
+   {
+      return obligations;
+   }
+
+   /**
+    * Sets the value of the obligations property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link ObligationsType }
+    *     
+    */
+   public void setObligations(ObligationsType value)
+   {
+      this.obligations = value;
+   }
+
+   /**
+    * Gets the value of the resourceId property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getResourceId()
+   {
+      return resourceId;
+   }
+
+   /**
+    * Sets the value of the resourceId property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setResourceId(String value)
+   {
+      this.resourceId = value;
+   }
 
 }

@@ -5,7 +5,6 @@
 // Generated on: 2007.07.06 at 03:19:27 PM CDT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for PoliciesType complex type.
@@ -37,73 +35,77 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PoliciesType", propOrder = {
-    "policySet",
-    "policy"
-})
-public class PoliciesType {
+@XmlType(name = "PoliciesType", propOrder =
+{"policySet", "policy"})
+public class PoliciesType
+{
 
-    @XmlElement(name = "PolicySet")
-    protected List<PolicySetType> policySet;
-    @XmlElement(name = "Policy")
-    protected List<PolicyType> policy;
+   @XmlElement(name = "PolicySet")
+   protected List<PolicySetType> policySet;
 
-    /**
-     * Gets the value of the policySet property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the policySet property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPolicySet().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PolicySetType }
-     * 
-     * 
-     */
-    public List<PolicySetType> getPolicySet() {
-        if (policySet == null) {
-            policySet = new ArrayList<PolicySetType>();
-        }
-        return this.policySet;
-    }
+   @XmlElement(name = "Policy")
+   protected List<PolicyType> policy;
 
-    /**
-     * Gets the value of the policy property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the policy property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPolicy().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PolicyType }
-     * 
-     * 
-     */
-    public List<PolicyType> getPolicy() {
-        if (policy == null) {
-            policy = new ArrayList<PolicyType>();
-        }
-        return this.policy;
-    }
+   /**
+    * Gets the value of the policySet property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the policySet property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getPolicySet().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link PolicySetType }
+    * 
+    * 
+    */
+   public List<PolicySetType> getPolicySet()
+   {
+      if (policySet == null)
+      {
+         policySet = new ArrayList<PolicySetType>();
+      }
+      return this.policySet;
+   }
+
+   /**
+    * Gets the value of the policy property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the policy property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getPolicy().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link PolicyType }
+    * 
+    * 
+    */
+   public List<PolicyType> getPolicy()
+   {
+      if (policy == null)
+      {
+         policy = new ArrayList<PolicyType>();
+      }
+      return this.policy;
+   }
 
 }

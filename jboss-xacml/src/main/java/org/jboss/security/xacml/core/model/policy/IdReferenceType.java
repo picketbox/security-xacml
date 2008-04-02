@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-
 
 /**
  * <p>Java class for IdReferenceType complex type.
@@ -36,115 +34,126 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "IdReferenceType", propOrder = {
-    "value"
-})
-public class IdReferenceType {
+@XmlType(name = "IdReferenceType", propOrder =
+{"value"})
+public class IdReferenceType
+{
 
-    @XmlValue
-    @XmlSchemaType(name = "anyURI")
-    protected String value;
-    @XmlAttribute(name = "Version")
-    protected String version;
-    @XmlAttribute(name = "EarliestVersion")
-    protected String earliestVersion;
-    @XmlAttribute(name = "LatestVersion")
-    protected String latestVersion;
+   @XmlValue
+   @XmlSchemaType(name = "anyURI")
+   protected String value;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+   @XmlAttribute(name = "Version")
+   protected String version;
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+   @XmlAttribute(name = "EarliestVersion")
+   protected String earliestVersion;
 
-    /**
-     * Gets the value of the version property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getVersion() {
-        return version;
-    }
+   @XmlAttribute(name = "LatestVersion")
+   protected String latestVersion;
 
-    /**
-     * Sets the value of the version property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setVersion(String value) {
-        this.version = value;
-    }
+   /**
+    * Gets the value of the value property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getValue()
+   {
+      return value;
+   }
 
-    /**
-     * Gets the value of the earliestVersion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEarliestVersion() {
-        return earliestVersion;
-    }
+   /**
+    * Sets the value of the value property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setValue(String value)
+   {
+      this.value = value;
+   }
 
-    /**
-     * Sets the value of the earliestVersion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEarliestVersion(String value) {
-        this.earliestVersion = value;
-    }
+   /**
+    * Gets the value of the version property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getVersion()
+   {
+      return version;
+   }
 
-    /**
-     * Gets the value of the latestVersion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLatestVersion() {
-        return latestVersion;
-    }
+   /**
+    * Sets the value of the version property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setVersion(String value)
+   {
+      this.version = value;
+   }
 
-    /**
-     * Sets the value of the latestVersion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLatestVersion(String value) {
-        this.latestVersion = value;
-    }
+   /**
+    * Gets the value of the earliestVersion property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getEarliestVersion()
+   {
+      return earliestVersion;
+   }
+
+   /**
+    * Sets the value of the earliestVersion property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setEarliestVersion(String value)
+   {
+      this.earliestVersion = value;
+   }
+
+   /**
+    * Gets the value of the latestVersion property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getLatestVersion()
+   {
+      return latestVersion;
+   }
+
+   /**
+    * Sets the value of the latestVersion property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setLatestVersion(String value)
+   {
+      this.latestVersion = value;
+   }
 
 }

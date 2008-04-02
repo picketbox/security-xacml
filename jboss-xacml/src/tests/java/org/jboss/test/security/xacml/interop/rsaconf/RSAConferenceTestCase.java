@@ -82,8 +82,8 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
       request.marshall(System.out);
    }
@@ -121,8 +121,8 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
       request.marshall(System.out);
    }
@@ -168,11 +168,10 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
-      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
-            request));
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
    }
 
    public void atestUseCase1_2() throws Exception
@@ -210,8 +209,8 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithHL7Permissions(doctor, permissions, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
       assertEquals("Deny?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
    }
@@ -252,11 +251,10 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
-      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
-            request));
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
    }
 
    public void atestUseCase1_4() throws Exception
@@ -295,11 +293,10 @@ public class RSAConferenceTestCase extends TestCase
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-012");
       resourcePermissions.add(Util.PERMISSION_BASE + "prd-017");
 
-      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient,
-            confidentialityCodes, consentedIds, resourceType, resourcePermissions);
+      RequestContext request = Util.createRequestWithNormalRoles(doctor, roles, patient, confidentialityCodes,
+            consentedIds, resourceType, resourcePermissions);
 
-      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp,
-            request));
+      assertEquals("Permit?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
    }
 
    private PolicyDecisionPoint getPDP()

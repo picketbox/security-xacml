@@ -38,7 +38,7 @@ import org.jboss.security.xacml.factories.RequestAttributeFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
- 
+
 //$Id$
 
 /**
@@ -49,50 +49,53 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
  */
 public class WebPEP
 {
-   
+
    @SuppressWarnings("unchecked")
-   public RequestContext createXACMLRequest(HttpServletRequest request,
-         Principal principal, Group roleGroup) throws Exception
-   {  
-      RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx(); 
-      
+   public RequestContext createXACMLRequest(HttpServletRequest request, Principal principal, Group roleGroup)
+         throws Exception
+   {
+      RequestContext requestCtx = RequestResponseContextFactory.createRequestCtx();
+
       //Create a subject type
-      SubjectType subject = new SubjectType(); 
-      subject.getAttribute().add(RequestAttributeFactory.createStringAttributeType(
-            XACMLConstants.ATTRIBUTEID_SUBJECT_ID, "jboss.org", principal.getName()));
+      SubjectType subject = new SubjectType();
+      subject.getAttribute().add(
+            RequestAttributeFactory.createStringAttributeType(XACMLConstants.ATTRIBUTEID_SUBJECT_ID, "jboss.org",
+                  principal.getName()));
       Enumeration<Principal> roles = (Enumeration<Principal>) roleGroup.members();
-      while(roles.hasMoreElements())
+      while (roles.hasMoreElements())
       {
          Principal rolePrincipal = roles.nextElement();
          AttributeType attSubjectID = RequestAttributeFactory.createStringAttributeType(
-               XACMLConstants.ATTRIBUTEID_ROLE, "jboss.org", rolePrincipal.getName()); 
+               XACMLConstants.ATTRIBUTEID_ROLE, "jboss.org", rolePrincipal.getName());
          subject.getAttribute().add(attSubjectID);
-      } 
-      
+      }
+
       //Create a resource type
       ResourceType resourceType = new ResourceType();
-      resourceType.getAttribute().add(RequestAttributeFactory.createAnyURIAttributeType(
-            XACMLConstants.ATTRIBUTEID_RESOURCE_ID, null, new URI(request.getRequestURI())));
-      
+      resourceType.getAttribute().add(
+            RequestAttributeFactory.createAnyURIAttributeType(XACMLConstants.ATTRIBUTEID_RESOURCE_ID, null, new URI(
+                  request.getRequestURI())));
+
       //Create an action type
       ActionType actionType = new ActionType();
-      actionType.getAttribute().add(RequestAttributeFactory.createStringAttributeType(
-            XACMLConstants.ATTRIBUTEID_ACTION_ID, "jboss.org", "read"));
-      
+      actionType.getAttribute().add(
+            RequestAttributeFactory
+                  .createStringAttributeType(XACMLConstants.ATTRIBUTEID_ACTION_ID, "jboss.org", "read"));
+
       //Create an Environment Type (Optional)
-      EnvironmentType environmentType = new EnvironmentType(); 
-      environmentType.getAttribute().add(RequestAttributeFactory.createDateTimeAttributeType(
-            XACMLConstants.ATTRIBUTEID_CURRENT_TIME, null));
-       
+      EnvironmentType environmentType = new EnvironmentType();
+      environmentType.getAttribute().add(
+            RequestAttributeFactory.createDateTimeAttributeType(XACMLConstants.ATTRIBUTEID_CURRENT_TIME, null));
+
       //Create a Request Type
       RequestType requestType = new RequestType();
       requestType.getSubject().add(subject);
       requestType.getResource().add(resourceType);
       requestType.setAction(actionType);
       requestType.setEnvironment(environmentType);
-      
-      requestCtx.setRequest(requestType); 
-      
+
+      requestCtx.setRequest(requestType);
+
       return requestCtx;
-   }  
+   }
 }

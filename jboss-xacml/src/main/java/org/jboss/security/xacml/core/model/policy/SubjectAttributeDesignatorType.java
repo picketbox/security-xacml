@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for SubjectAttributeDesignatorType complex type.
@@ -34,40 +32,44 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SubjectAttributeDesignatorType")
-public class SubjectAttributeDesignatorType
-    extends AttributeDesignatorType
+public class SubjectAttributeDesignatorType extends AttributeDesignatorType
 {
 
-    @XmlAttribute(name = "SubjectCategory")
-    @XmlSchemaType(name = "anyURI")
-    protected String subjectCategory;
+   @XmlAttribute(name = "SubjectCategory")
+   @XmlSchemaType(name = "anyURI")
+   protected String subjectCategory;
 
-    /**
-     * Gets the value of the subjectCategory property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSubjectCategory() {
-        if (subjectCategory == null) {
-            return "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
-        } else {
-            return subjectCategory;
-        }
-    }
+   /**
+    * Gets the value of the subjectCategory property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getSubjectCategory()
+   {
+      if (subjectCategory == null)
+      {
+         return "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
+      }
+      else
+      {
+         return subjectCategory;
+      }
+   }
 
-    /**
-     * Sets the value of the subjectCategory property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSubjectCategory(String value) {
-        this.subjectCategory = value;
-    }
+   /**
+    * Sets the value of the subjectCategory property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setSubjectCategory(String value)
+   {
+      this.subjectCategory = value;
+   }
 
 }

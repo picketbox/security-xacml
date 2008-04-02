@@ -34,7 +34,7 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.util.XACMLPolicyUtil;
- 
+
 /**
  *  JBossXACML Policy
  *  @author Anil.Saldhana@redhat.com
@@ -42,15 +42,15 @@ import org.jboss.security.xacml.util.XACMLPolicyUtil;
  *  @version $Revision$
  */
 public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
-{  
+{
    private JBossPolicyFinder finder = new JBossPolicyFinder();
-   
+
    private List<XACMLPolicy> enclosingPolicies = new ArrayList<XACMLPolicy>();
-   
+
    private int policyType = XACMLPolicy.POLICY;
-   
+
    private Map<String, Object> map = new HashMap<String, Object>();
-   
+
    /**
     * Construct a JBossXACMLPolicy  
     * @param url url to the policy file
@@ -62,7 +62,7 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
    {
       this(url.openStream(), type);
    }
-   
+
    /**
     * Construct a JBossXACMLPolicy
     * @param is Inputstream to the policy file
@@ -75,22 +75,21 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
       AbstractPolicy policy = null;
       XACMLPolicyUtil xpu = new XACMLPolicyUtil();
       this.policyType = type;
-      if(type == XACMLPolicy.POLICYSET)
+      if (type == XACMLPolicy.POLICYSET)
       {
-         policy = xpu.createPolicySet(is, finder);  
+         policy = xpu.createPolicySet(is, finder);
          map.put(XACMLConstants.POLICY_FINDER, finder);
       }
+      else if (type == XACMLPolicy.POLICY)
+      {
+         policy = xpu.createPolicy(is);
+      }
       else
-         if(type == XACMLPolicy.POLICY)
-         {
-            policy = xpu.createPolicy(is); 
-         }
-         else
-            throw new RuntimeException("Unknown type");
-      
-      map.put(XACMLConstants.UNDERLYING_POLICY, policy); 
+         throw new RuntimeException("Unknown type");
+
+      map.put(XACMLConstants.UNDERLYING_POLICY, policy);
    }
-   
+
    /**
     * Construct a JBossXACMLPolicy instance
     * @param is Inputstream to the policy/policyset file
@@ -104,24 +103,23 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
       AbstractPolicy policy = null;
       XACMLPolicyUtil xpu = new XACMLPolicyUtil();
       this.policyType = type;
-      if(type == XACMLPolicy.POLICYSET)
+      if (type == XACMLPolicy.POLICYSET)
       {
-         if(theFinder == null)
+         if (theFinder == null)
             throw new IllegalArgumentException("policy finder is null");
-         policy = xpu.createPolicySet(is, theFinder);  
+         policy = xpu.createPolicySet(is, theFinder);
          map.put(XACMLConstants.POLICY_FINDER, theFinder);
       }
+      else if (type == XACMLPolicy.POLICY)
+      {
+         policy = xpu.createPolicy(is);
+      }
       else
-         if(type == XACMLPolicy.POLICY)
-         {
-            policy = xpu.createPolicy(is); 
-         }
-         else
-            throw new RuntimeException("Unknown type");
-      
-      map.put(XACMLConstants.UNDERLYING_POLICY, policy); 
+         throw new RuntimeException("Unknown type");
+
+      map.put(XACMLConstants.UNDERLYING_POLICY, policy);
    }
-   
+
    /**
     * @see XACMLPolicy#getType()
     * @see XACMLConstants
@@ -135,7 +133,7 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
     * @see XACMLPolicy#setEnclosingPolicies(List)
     */
    public void setEnclosingPolicies(List<XACMLPolicy> policies)
-   { 
+   {
       enclosingPolicies.addAll(policies);
    }
 
@@ -143,16 +141,16 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
     * @see XACMLPolicy#getEnclosingPolicies()
     */
    public List<XACMLPolicy> getEnclosingPolicies()
-   { 
+   {
       return enclosingPolicies;
-   } 
+   }
 
    /**
     * @see ContextMapOp#get(String)
     */
    @SuppressWarnings("unchecked")
    public <T> T get(String key)
-   { 
+   {
       return (T) map.get(key);
    }
 
@@ -162,5 +160,5 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
    public <T> void set(String key, T obj)
    {
       map.put(key, obj);
-   } 
+   }
 }

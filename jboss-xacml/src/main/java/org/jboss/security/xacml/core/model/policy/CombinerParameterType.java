@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for CombinerParameterType complex type.
@@ -36,62 +34,67 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CombinerParameterType", propOrder = {
-    "attributeValue"
-})
-public class CombinerParameterType {
+@XmlType(name = "CombinerParameterType", propOrder =
+{"attributeValue"})
+public class CombinerParameterType
+{
 
-    @XmlElement(name = "AttributeValue", required = true)
-    protected AttributeValueType attributeValue;
-    @XmlAttribute(name = "ParameterName", required = true)
-    protected String parameterName;
+   @XmlElement(name = "AttributeValue", required = true)
+   protected AttributeValueType attributeValue;
 
-    /**
-     * Gets the value of the attributeValue property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AttributeValueType }
-     *     
-     */
-    public AttributeValueType getAttributeValue() {
-        return attributeValue;
-    }
+   @XmlAttribute(name = "ParameterName", required = true)
+   protected String parameterName;
 
-    /**
-     * Sets the value of the attributeValue property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AttributeValueType }
-     *     
-     */
-    public void setAttributeValue(AttributeValueType value) {
-        this.attributeValue = value;
-    }
+   /**
+    * Gets the value of the attributeValue property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link AttributeValueType }
+    *     
+    */
+   public AttributeValueType getAttributeValue()
+   {
+      return attributeValue;
+   }
 
-    /**
-     * Gets the value of the parameterName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getParameterName() {
-        return parameterName;
-    }
+   /**
+    * Sets the value of the attributeValue property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link AttributeValueType }
+    *     
+    */
+   public void setAttributeValue(AttributeValueType value)
+   {
+      this.attributeValue = value;
+   }
 
-    /**
-     * Sets the value of the parameterName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setParameterName(String value) {
-        this.parameterName = value;
-    }
+   /**
+    * Gets the value of the parameterName property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getParameterName()
+   {
+      return parameterName;
+   }
+
+   /**
+    * Sets the value of the parameterName property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setParameterName(String value)
+   {
+      this.parameterName = value;
+   }
 
 }

@@ -27,7 +27,6 @@ import java.net.URISyntaxException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.w3c.dom.Node;
- 
 
 /**
  *  Represents a multi value attribute proxy
@@ -36,7 +35,7 @@ import org.w3c.dom.Node;
  *  @version $Revision$
  */
 public class MultiValueAttributeProxy implements AttributeProxy
-{ 
+{
    private URI type;
 
    public MultiValueAttributeProxy(String type)
@@ -50,19 +49,19 @@ public class MultiValueAttributeProxy implements AttributeProxy
          throw new RuntimeException(e);
       }
    }
-   
+
    public MultiValueAttributeProxy(URI type)
    {
       this.type = type;
    }
-   
+
    public AttributeValue getInstance(Node root) throws Exception
-   { 
+   {
       return null;
    }
 
    public AttributeValue getInstance(String value) throws Exception
-   { 
+   {
       return new SingleValueAttribute(type, value);
-   } 
+   }
 }

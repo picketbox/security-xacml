@@ -5,14 +5,12 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for RuleCombinerParametersType complex type.
@@ -33,35 +31,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RuleCombinerParametersType")
-public class RuleCombinerParametersType
-    extends CombinerParametersType
+public class RuleCombinerParametersType extends CombinerParametersType
 {
 
-    @XmlAttribute(name = "RuleIdRef", required = true)
-    protected String ruleIdRef;
+   @XmlAttribute(name = "RuleIdRef", required = true)
+   protected String ruleIdRef;
 
-    /**
-     * Gets the value of the ruleIdRef property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRuleIdRef() {
-        return ruleIdRef;
-    }
+   /**
+    * Gets the value of the ruleIdRef property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getRuleIdRef()
+   {
+      return ruleIdRef;
+   }
 
-    /**
-     * Sets the value of the ruleIdRef property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRuleIdRef(String value) {
-        this.ruleIdRef = value;
-    }
+   /**
+    * Sets the value of the ruleIdRef property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setRuleIdRef(String value)
+   {
+      this.ruleIdRef = value;
+   }
 
 }

@@ -35,21 +35,21 @@ import org.w3c.dom.Node;
  *  @version $Revision$
  */
 public interface ResponseContext extends ContextMapOp
-{ 
+{
    /**
     * Decision based on the evaluation of policies
     * @return int value {@see XACMLConstants#DECISION_PERMIT}
     * @see XACMLConstants
     */
    int getDecision();
-   
+
    /**
     * Read a preparsed Node
     * @param node
     * @throws IOException
     */
    void readResponse(Node node) throws IOException;
-   
+
    /**
     * Marshall the response context onto an Output Stream
     * @param os OutputStream (System.out, ByteArrayOutputStream etc)

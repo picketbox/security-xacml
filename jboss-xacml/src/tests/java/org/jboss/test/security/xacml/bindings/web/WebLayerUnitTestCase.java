@@ -46,72 +46,70 @@ import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 public class WebLayerUnitTestCase extends TestCase
 {
    //Enable for request trace
-   private boolean debug = "true".equals(System.getProperty("debug","false")); 
-   
+   private boolean debug = "true".equals(System.getProperty("debug", "false"));
+
    public void testWebBinding() throws Exception
-   { 
-      PolicyDecisionPoint pdp = getPDP(); 
+   {
+      PolicyDecisionPoint pdp = getPDP();
       assertNotNull("JBossPDP is != null", pdp);
-      
+
       Principal p = new Principal()
-      { 
+      {
          public String getName()
-         { 
+         {
             return "testuser";
-         } 
+         }
       };
 
       //Create Role Group
       Group grp = XACMLTestUtil.getRoleGroup("developer");
-      
+
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
-      HttpServletRequest req = util.createRequest(p, requestURI); 
-      
+      HttpServletRequest req = util.createRequest(p, requestURI);
+
       //Check PERMIT condition
       WebPEP pep = new WebPEP();
       RequestContext request = pep.createXACMLRequest(req, p, grp);
-      if(debug)
-        request.marshall(System.out);
-      
-      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT,
-            XACMLTestUtil.getDecision(pdp,request)); 
+      if (debug)
+         request.marshall(System.out);
+
+      assertEquals("Access Allowed?", XACMLConstants.DECISION_PERMIT, XACMLTestUtil.getDecision(pdp, request));
    }
-   
+
    public void testNegativeAccessWebBinding() throws Exception
    {
-      PolicyDecisionPoint pdp = getPDP(); 
+      PolicyDecisionPoint pdp = getPDP();
       assertNotNull("JBossPDP is != null", pdp);
       Principal p = new Principal()
-      { 
+      {
          public String getName()
-         { 
+         {
             return "testuser";
-         } 
+         }
       };
 
       //Create Role Group
       Group grp = XACMLTestUtil.getRoleGroup("imposter");
       String requestURI = "http://test/developer-guide.html";
       HttpRequestUtil util = new HttpRequestUtil();
-      HttpServletRequest req = util.createRequest(p, requestURI); 
-      
+      HttpServletRequest req = util.createRequest(p, requestURI);
+
       //Check DENY condition
       WebPEP pep = new WebPEP();
       RequestContext request = pep.createXACMLRequest(req, p, grp);
-      if(debug)
+      if (debug)
          request.marshall(System.out);
-      
-      assertEquals("Access Disallowed?", XACMLConstants.DECISION_DENY,
-            XACMLTestUtil.getDecision(pdp,request));  
-   }  
-   
+
+      assertEquals("Access Disallowed?", XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp, request));
+   }
+
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       InputStream is = tcl.getResourceAsStream("test/config/webConfig.xml");
       assertNotNull("InputStream != null", is);
-      
-      return new JBossPDP(is);  
-   }  
+
+      return new JBossPDP(is);
+   }
 }

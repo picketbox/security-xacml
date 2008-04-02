@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.context;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for ResourceType complex type.
@@ -37,68 +35,72 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResourceType", propOrder = {
-    "resourceContent",
-    "attribute"
-})
-public class ResourceType {
+@XmlType(name = "ResourceType", propOrder =
+{"resourceContent", "attribute"})
+public class ResourceType
+{
 
-    @XmlElement(name = "ResourceContent")
-    protected ResourceContentType resourceContent;
-    @XmlElement(name = "Attribute")
-    protected List<AttributeType> attribute;
+   @XmlElement(name = "ResourceContent")
+   protected ResourceContentType resourceContent;
 
-    /**
-     * Gets the value of the resourceContent property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ResourceContentType }
-     *     
-     */
-    public ResourceContentType getResourceContent() {
-        return resourceContent;
-    }
+   @XmlElement(name = "Attribute")
+   protected List<AttributeType> attribute;
 
-    /**
-     * Sets the value of the resourceContent property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ResourceContentType }
-     *     
-     */
-    public void setResourceContent(ResourceContentType value) {
-        this.resourceContent = value;
-    }
+   /**
+    * Gets the value of the resourceContent property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link ResourceContentType }
+    *     
+    */
+   public ResourceContentType getResourceContent()
+   {
+      return resourceContent;
+   }
 
-    /**
-     * Gets the value of the attribute property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the attribute property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAttribute().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link AttributeType }
-     * 
-     * 
-     */
-    public List<AttributeType> getAttribute() {
-        if (attribute == null) {
-            attribute = new ArrayList<AttributeType>();
-        }
-        return this.attribute;
-    }
+   /**
+    * Sets the value of the resourceContent property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link ResourceContentType }
+    *     
+    */
+   public void setResourceContent(ResourceContentType value)
+   {
+      this.resourceContent = value;
+   }
+
+   /**
+    * Gets the value of the attribute property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the attribute property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getAttribute().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link AttributeType }
+    * 
+    * 
+    */
+   public List<AttributeType> getAttribute()
+   {
+      if (attribute == null)
+      {
+         attribute = new ArrayList<AttributeType>();
+      }
+      return this.attribute;
+   }
 
 }

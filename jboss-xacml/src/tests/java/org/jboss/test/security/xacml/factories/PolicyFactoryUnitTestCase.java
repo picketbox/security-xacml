@@ -45,5 +45,5 @@ public class PolicyFactoryUnitTestCase extends TestCase
       XACMLPolicy xacmlPolicy = PolicyFactory.createPolicySet(is);
       assertNotNull("XACML PolicySet != null", xacmlPolicy);
       assertEquals("PolicySet?", xacmlPolicy.getType(), XACMLPolicy.POLICYSET);
-   } 
+   }
 }

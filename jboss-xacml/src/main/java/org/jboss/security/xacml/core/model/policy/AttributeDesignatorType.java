@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for AttributeDesignatorType complex type.
@@ -37,119 +35,132 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AttributeDesignatorType")
-public class AttributeDesignatorType
-    extends ExpressionType
+public class AttributeDesignatorType extends ExpressionType
 {
 
-    @XmlAttribute(name = "AttributeId", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String attributeId;
-    @XmlAttribute(name = "DataType", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String dataType;
-    @XmlAttribute(name = "Issuer")
-    protected String issuer;
-    @XmlAttribute(name = "MustBePresent")
-    protected Boolean mustBePresent;
+   @XmlAttribute(name = "AttributeId", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String attributeId;
 
-    /**
-     * Gets the value of the attributeId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeId() {
-        return attributeId;
-    }
+   @XmlAttribute(name = "DataType", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String dataType;
 
-    /**
-     * Sets the value of the attributeId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeId(String value) {
-        this.attributeId = value;
-    }
+   @XmlAttribute(name = "Issuer")
+   protected String issuer;
 
-    /**
-     * Gets the value of the dataType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDataType() {
-        return dataType;
-    }
+   @XmlAttribute(name = "MustBePresent")
+   protected Boolean mustBePresent;
 
-    /**
-     * Sets the value of the dataType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDataType(String value) {
-        this.dataType = value;
-    }
+   /**
+    * Gets the value of the attributeId property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getAttributeId()
+   {
+      return attributeId;
+   }
 
-    /**
-     * Gets the value of the issuer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIssuer() {
-        return issuer;
-    }
+   /**
+    * Sets the value of the attributeId property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setAttributeId(String value)
+   {
+      this.attributeId = value;
+   }
 
-    /**
-     * Sets the value of the issuer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIssuer(String value) {
-        this.issuer = value;
-    }
+   /**
+    * Gets the value of the dataType property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getDataType()
+   {
+      return dataType;
+   }
 
-    /**
-     * Gets the value of the mustBePresent property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isMustBePresent() {
-        if (mustBePresent == null) {
-            return false;
-        } else {
-            return mustBePresent;
-        }
-    }
+   /**
+    * Sets the value of the dataType property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setDataType(String value)
+   {
+      this.dataType = value;
+   }
 
-    /**
-     * Sets the value of the mustBePresent property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setMustBePresent(Boolean value) {
-        this.mustBePresent = value;
-    }
+   /**
+    * Gets the value of the issuer property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getIssuer()
+   {
+      return issuer;
+   }
+
+   /**
+    * Sets the value of the issuer property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setIssuer(String value)
+   {
+      this.issuer = value;
+   }
+
+   /**
+    * Gets the value of the mustBePresent property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link Boolean }
+    *     
+    */
+   public boolean isMustBePresent()
+   {
+      if (mustBePresent == null)
+      {
+         return false;
+      }
+      else
+      {
+         return mustBePresent;
+      }
+   }
+
+   /**
+    * Sets the value of the mustBePresent property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link Boolean }
+    *     
+    */
+   public void setMustBePresent(Boolean value)
+   {
+      this.mustBePresent = value;
+   }
 
 }

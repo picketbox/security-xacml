@@ -77,14 +77,14 @@ public class Util
     * 
     * @return a <code>RequestContext</code> with the <code>RequestType</code> set.
     */
-   public static RequestContext createRequestWithNormalRoles(Principal principal,
-         List<String> roles, String resourceId, List<String> confidentialityCodes,
-         List<String> consentedIds, String resourceType, List<String> resourcePermissions)
+   public static RequestContext createRequestWithNormalRoles(Principal principal, List<String> roles,
+         String resourceId, List<String> confidentialityCodes, List<String> consentedIds, String resourceType,
+         List<String> resourcePermissions)
    {
       RequestContext request = RequestResponseContextFactory.createRequestCtx();
 
-      RequestType requestType = createRequestType(principal, resourceId, confidentialityCodes,
-            consentedIds, resourceType, resourcePermissions);
+      RequestType requestType = createRequestType(principal, resourceId, confidentialityCodes, consentedIds,
+            resourceType, resourcePermissions);
       addNormalRoles(roles, requestType);
 
       try
@@ -114,14 +114,14 @@ public class Util
     * 
     * @return a <code>RequestContext</code> with the <code>RequestType</code> set.
     */
-   public static RequestContext createRequestWithHL7Permissions(Principal principal,
-         List<String> permissions, String resourceId, List<String> confidentialityCodes,
-         List<String> consentedIds, String resourceType, List<String> resourcePermissions)
+   public static RequestContext createRequestWithHL7Permissions(Principal principal, List<String> permissions,
+         String resourceId, List<String> confidentialityCodes, List<String> consentedIds, String resourceType,
+         List<String> resourcePermissions)
    {
       RequestContext request = RequestResponseContextFactory.createRequestCtx();
 
-      RequestType requestType = createRequestType(principal, resourceId, confidentialityCodes,
-            consentedIds, resourceType, resourcePermissions);
+      RequestType requestType = createRequestType(principal, resourceId, confidentialityCodes, consentedIds,
+            resourceType, resourcePermissions);
       addHL7Permissions(permissions, requestType);
 
       try
@@ -159,34 +159,31 @@ public class Util
       //create the Subject of the request
       SubjectType subject = new SubjectType();
       subject.getAttribute().add(
-            RequestAttributeFactory.createStringAttributeType(
-                  XACMLConstants.ATTRIBUTEID_SUBJECT_ID, null, principal.getName()));
+            RequestAttributeFactory.createStringAttributeType(XACMLConstants.ATTRIBUTEID_SUBJECT_ID, null, principal
+                  .getName()));
       requestType.getSubject().add(subject);
 
       //create the Resource of the request
       ResourceType resource = new ResourceType();
-      resource.getAttribute().add(
-            RequestAttributeFactory.createStringAttributeType(
-                  XACMLConstants.ATTRIBUTEID_RESOURCE_ID, null, resourceId));
+      resource.getAttribute()
+            .add(
+                  RequestAttributeFactory.createStringAttributeType(XACMLConstants.ATTRIBUTEID_RESOURCE_ID, null,
+                        resourceId));
       for (String confidentialityCode : confidentialityCodes)
       {
          resource.getAttribute().add(
-               RequestAttributeFactory.createStringAttributeType(CONFIDENTIALITY_CODE, null,
-                     confidentialityCode));
+               RequestAttributeFactory.createStringAttributeType(CONFIDENTIALITY_CODE, null, confidentialityCode));
       }
       for (String consentedId : consentedIds)
       {
          resource.getAttribute().add(
-               RequestAttributeFactory.createStringAttributeType(CONSENTED_SUBJECT_ID, null,
-                     consentedId));
+               RequestAttributeFactory.createStringAttributeType(CONSENTED_SUBJECT_ID, null, consentedId));
       }
-      resource.getAttribute().add(
-            RequestAttributeFactory.createStringAttributeType(RESOURCE_TYPE, null, resourceType));
+      resource.getAttribute().add(RequestAttributeFactory.createStringAttributeType(RESOURCE_TYPE, null, resourceType));
       for (String resourcePermission : resourcePermissions)
       {
          resource.getAttribute().add(
-               RequestAttributeFactory.createStringAttributeType(HL7_RESOURCE_PERMISSION, null,
-                     resourcePermission));
+               RequestAttributeFactory.createStringAttributeType(HL7_RESOURCE_PERMISSION, null, resourcePermission));
       }
       requestType.getResource().add(resource);
 
@@ -211,8 +208,7 @@ public class Util
          for (String role : roles)
          {
             subject.getAttribute().add(
-                  RequestAttributeFactory.createStringAttributeType(
-                        XACMLConstants.ATTRIBUTEID_ROLE, null, role));
+                  RequestAttributeFactory.createStringAttributeType(XACMLConstants.ATTRIBUTEID_ROLE, null, role));
          }
       }
    }
@@ -232,8 +228,7 @@ public class Util
          for (String permission : permissions)
          {
             subject.getAttribute().add(
-                  RequestAttributeFactory.createStringAttributeType(HL7_SUBJECT_PERMISSION, null,
-                        permission));
+                  RequestAttributeFactory.createStringAttributeType(HL7_SUBJECT_PERMISSION, null, permission));
          }
       }
    }

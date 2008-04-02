@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.policy;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for PolicySetCombinerParametersType complex type.
@@ -34,36 +32,37 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PolicySetCombinerParametersType")
-public class PolicySetCombinerParametersType
-    extends CombinerParametersType
+public class PolicySetCombinerParametersType extends CombinerParametersType
 {
 
-    @XmlAttribute(name = "PolicySetIdRef", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String policySetIdRef;
+   @XmlAttribute(name = "PolicySetIdRef", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String policySetIdRef;
 
-    /**
-     * Gets the value of the policySetIdRef property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPolicySetIdRef() {
-        return policySetIdRef;
-    }
+   /**
+    * Gets the value of the policySetIdRef property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getPolicySetIdRef()
+   {
+      return policySetIdRef;
+   }
 
-    /**
-     * Sets the value of the policySetIdRef property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPolicySetIdRef(String value) {
-        this.policySetIdRef = value;
-    }
+   /**
+    * Sets the value of the policySetIdRef property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setPolicySetIdRef(String value)
+   {
+      this.policySetIdRef = value;
+   }
 
 }

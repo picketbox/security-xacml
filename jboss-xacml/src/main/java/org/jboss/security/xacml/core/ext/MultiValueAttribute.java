@@ -32,7 +32,7 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
  *  @version $Revision$
  */
 public class MultiValueAttribute extends AttributeValue
-{ 
+{
    private String value;
 
    public MultiValueAttribute(URI type, String value)
@@ -40,14 +40,15 @@ public class MultiValueAttribute extends AttributeValue
       super(type);
       this.value = value;
    }
+
    protected MultiValueAttribute(URI type)
    {
-      super(type); 
+      super(type);
    }
 
    @Override
    public String encode()
-   { 
+   {
       return value;
-   } 
+   }
 }

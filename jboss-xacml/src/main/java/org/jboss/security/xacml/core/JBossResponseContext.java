@@ -34,18 +34,18 @@ import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
 import org.w3c.dom.Node;
-  
+
 /**
  *  Implementation of the ResponseContext interface
  *  @author Anil.Saldhana@redhat.com
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossResponseContext implements ResponseContext 
+public class JBossResponseContext implements ResponseContext
 {
    private int decision = XACMLConstants.DECISION_DENY;
-   
-   private Map<String,Object> map = new HashMap<String,Object>();
+
+   private Map<String, Object> map = new HashMap<String, Object>();
 
    /**
     * @see ContextMapOp#get(String)
@@ -55,7 +55,7 @@ public class JBossResponseContext implements ResponseContext
    {
       return (T) map.get(key);
    }
-   
+
    /**
     * @see ContextMapOp#set(String, Object)
     */
@@ -69,25 +69,25 @@ public class JBossResponseContext implements ResponseContext
     */
    @SuppressWarnings("unchecked")
    public int getDecision()
-   { 
+   {
       ResponseCtx response = (ResponseCtx) map.get(XACMLConstants.RESPONSE_CTX);
-      if(response != null)
+      if (response != null)
       {
          Set<Result> results = response.getResults();
          Result res = results.iterator().next();
          decision = res.getDecision();
-      } 
+      }
       return decision;
-         
+
    }
 
    /**
     * @see ResponseContext#marshall(OutputStream)
     */
    public void marshall(OutputStream os) throws IOException
-   { 
-      ResponseCtx storedResponse = get(XACMLConstants.RESPONSE_CTX);    
-      if(storedResponse != null)
+   {
+      ResponseCtx storedResponse = get(XACMLConstants.RESPONSE_CTX);
+      if (storedResponse != null)
          storedResponse.encode(os);
    }
 
@@ -99,12 +99,12 @@ public class JBossResponseContext implements ResponseContext
       ResponseCtx responseCtx;
       try
       {
-         responseCtx = ResponseCtx.getInstance(node); 
+         responseCtx = ResponseCtx.getInstance(node);
          set(XACMLConstants.RESPONSE_CTX, responseCtx);
       }
       catch (ParsingException e)
       {
          throw new RuntimeException(e);
-      }  
-   }   
+      }
+   }
 }

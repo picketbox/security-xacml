@@ -31,7 +31,7 @@ import java.util.Set;
  *  @since  Jul 5, 2007 
  *  @version $Revision$
  */
-public interface PolicyDecisionPoint 
+public interface PolicyDecisionPoint
 {
    /**
     * Set a set of Policy/PolicySet instances on the PDP
@@ -40,7 +40,7 @@ public interface PolicyDecisionPoint
     * @param policies  a Set of Policy/PolicySet instances
     */
    void setPolicies(Set<XACMLPolicy> policies);
-   
+
    /**
     * Set a set of policy locators.
     * - This method is primarily used when the policy/policyset
@@ -49,8 +49,8 @@ public interface PolicyDecisionPoint
     * objects in the locators via their setPolicies method
     * @param locators a set of PolicyLocator instances
     */
-   void setLocators(Set<PolicyLocator> locators); 
-   
+   void setLocators(Set<PolicyLocator> locators);
+
    /**
     * Method to evaluate a XACML Request
     * @param request The RequestContext that contains the XACML Request

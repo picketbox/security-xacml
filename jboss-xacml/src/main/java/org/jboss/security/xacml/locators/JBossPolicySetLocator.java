@@ -31,7 +31,7 @@ import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
- 
+
 /**
  *  Locator for a PolicySet
  *  @author Anil.Saldhana@redhat.com
@@ -68,31 +68,27 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
    {
       PolicySetFinderModule psfm = new PolicySetFinderModule();
       //Check for enclosed policies
-      List<Policy> sunxacmlPolicies = new ArrayList<Policy>();
-      List<PolicySet> sunxacmlPolicySets = new ArrayList<PolicySet>();
-      this.recursivePopulate(xpolicy, sunxacmlPolicySets, sunxacmlPolicies, psfm);
+      List<AbstractPolicy> sunxacmlPolicies = new ArrayList<AbstractPolicy>();
+      this.recursivePopulate(xpolicy, sunxacmlPolicies, psfm);
 
-      psfm.set((PolicySet) xpolicy.get(XACMLConstants.UNDERLYING_POLICY), sunxacmlPolicies, sunxacmlPolicySets);
+      psfm.set((PolicySet) xpolicy.get(XACMLConstants.UNDERLYING_POLICY), sunxacmlPolicies);
 
       //Make this PolicySetFinderModule the module for this policy set
       xpolicy.set(XACMLConstants.POLICY_FINDER_MODULE, psfm);
       return psfm;
    }
 
-   private void recursivePopulate(XACMLPolicy policy, List<PolicySet> policySets, List<Policy> policies,
-         PolicySetFinderModule psfm)
+   private void recursivePopulate(XACMLPolicy policy, List<AbstractPolicy> policies, PolicySetFinderModule psfm)
    {
       List<XACMLPolicy> policyList = policy.getEnclosingPolicies();
       for (XACMLPolicy xp : policyList)
       {
          AbstractPolicy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
+         policies.add(p);
          if (p instanceof Policy)
-            policies.add((Policy) p);
-         else if (p instanceof PolicySet)
-         {
-            policySets.add((PolicySet) p);
-            this.recursivePopulate(xp, policySets, policies, psfm);
-         }
+            System.out.println(p.getId());
+         if (p instanceof PolicySet)
+            this.recursivePopulate(xp, policies, psfm);
       }
 
    }

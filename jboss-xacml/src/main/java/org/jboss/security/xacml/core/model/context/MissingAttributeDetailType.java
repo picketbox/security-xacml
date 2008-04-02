@@ -5,7 +5,6 @@
 // Generated on: 2007.07.19 at 04:54:59 PM CDT 
 //
 
-
 package org.jboss.security.xacml.core.model.context;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for MissingAttributeDetailType complex type.
@@ -41,121 +39,132 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MissingAttributeDetailType", propOrder = {
-    "attributeValue"
-})
-public class MissingAttributeDetailType {
+@XmlType(name = "MissingAttributeDetailType", propOrder =
+{"attributeValue"})
+public class MissingAttributeDetailType
+{
 
-    @XmlElement(name = "AttributeValue")
-    protected List<AttributeValueType> attributeValue;
-    @XmlAttribute(name = "AttributeId", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String attributeId;
-    @XmlAttribute(name = "DataType", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String dataType;
-    @XmlAttribute(name = "Issuer")
-    protected String issuer;
+   @XmlElement(name = "AttributeValue")
+   protected List<AttributeValueType> attributeValue;
 
-    /**
-     * Gets the value of the attributeValue property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the attributeValue property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAttributeValue().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link AttributeValueType }
-     * 
-     * 
-     */
-    public List<AttributeValueType> getAttributeValue() {
-        if (attributeValue == null) {
-            attributeValue = new ArrayList<AttributeValueType>();
-        }
-        return this.attributeValue;
-    }
+   @XmlAttribute(name = "AttributeId", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String attributeId;
 
-    /**
-     * Gets the value of the attributeId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeId() {
-        return attributeId;
-    }
+   @XmlAttribute(name = "DataType", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String dataType;
 
-    /**
-     * Sets the value of the attributeId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeId(String value) {
-        this.attributeId = value;
-    }
+   @XmlAttribute(name = "Issuer")
+   protected String issuer;
 
-    /**
-     * Gets the value of the dataType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDataType() {
-        return dataType;
-    }
+   /**
+    * Gets the value of the attributeValue property.
+    * 
+    * <p>
+    * This accessor method returns a reference to the live list,
+    * not a snapshot. Therefore any modification you make to the
+    * returned list will be present inside the JAXB object.
+    * This is why there is not a <CODE>set</CODE> method for the attributeValue property.
+    * 
+    * <p>
+    * For example, to add a new item, do as follows:
+    * <pre>
+    *    getAttributeValue().add(newItem);
+    * </pre>
+    * 
+    * 
+    * <p>
+    * Objects of the following type(s) are allowed in the list
+    * {@link AttributeValueType }
+    * 
+    * 
+    */
+   public List<AttributeValueType> getAttributeValue()
+   {
+      if (attributeValue == null)
+      {
+         attributeValue = new ArrayList<AttributeValueType>();
+      }
+      return this.attributeValue;
+   }
 
-    /**
-     * Sets the value of the dataType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDataType(String value) {
-        this.dataType = value;
-    }
+   /**
+    * Gets the value of the attributeId property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getAttributeId()
+   {
+      return attributeId;
+   }
 
-    /**
-     * Gets the value of the issuer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIssuer() {
-        return issuer;
-    }
+   /**
+    * Sets the value of the attributeId property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setAttributeId(String value)
+   {
+      this.attributeId = value;
+   }
 
-    /**
-     * Sets the value of the issuer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIssuer(String value) {
-        this.issuer = value;
-    }
+   /**
+    * Gets the value of the dataType property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getDataType()
+   {
+      return dataType;
+   }
+
+   /**
+    * Sets the value of the dataType property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setDataType(String value)
+   {
+      this.dataType = value;
+   }
+
+   /**
+    * Gets the value of the issuer property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getIssuer()
+   {
+      return issuer;
+   }
+
+   /**
+    * Sets the value of the issuer property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setIssuer(String value)
+   {
+      this.issuer = value;
+   }
 
 }

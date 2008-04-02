@@ -214,8 +214,8 @@ public class JBossPDP implements PolicyDecisionPoint
       attributeModules.add(new SelectorModule());
       attributeFinder.setModules(attributeModules);
 
-      org.jboss.security.xacml.sunxacml.PDP pdp = 
-         new org.jboss.security.xacml.sunxacml.PDP(new PDPConfig(attributeFinder, policyFinder, null));
+      org.jboss.security.xacml.sunxacml.PDP pdp = new org.jboss.security.xacml.sunxacml.PDP(new PDPConfig(
+            attributeFinder, policyFinder, null));
       RequestCtx req = (RequestCtx) request.get(XACMLConstants.REQUEST_CTX);
       if (req == null)
          throw new IllegalStateException("Request Context does not contain a request");
@@ -313,15 +313,15 @@ public class JBossPDP implements PolicyDecisionPoint
          is = url.openStream();
       }
       catch (Exception e)
-      { 
+      {
       }
       if (is == null)
       {
          ClassLoader tcl = SecurityActions.getContextClassLoader();
          is = tcl.getResourceAsStream(loc);
       }
-      if(is == null)
-         throw new RuntimeException("Null Inputstream for "+ loc);
+      if (is == null)
+         throw new RuntimeException("Null Inputstream for " + loc);
       return is;
    }
 

@@ -5,7 +5,6 @@
 // Generated on: 2007.07.06 at 03:19:27 PM CDT 
 //
 
-
 package org.jboss.security.xacml.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * <p>Java class for PolicyType complex type.
@@ -35,37 +33,39 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PolicyType", propOrder = {
-    "location"
-})
-public class PolicyType {
+@XmlType(name = "PolicyType", propOrder =
+{"location"})
+public class PolicyType
+{
 
-    @XmlElement(name = "Location", required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String location;
+   @XmlElement(name = "Location", required = true)
+   @XmlSchemaType(name = "anyURI")
+   protected String location;
 
-    /**
-     * Gets the value of the location property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLocation() {
-        return location;
-    }
+   /**
+    * Gets the value of the location property.
+    * 
+    * @return
+    *     possible object is
+    *     {@link String }
+    *     
+    */
+   public String getLocation()
+   {
+      return location;
+   }
 
-    /**
-     * Sets the value of the location property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLocation(String value) {
-        this.location = value;
-    }
+   /**
+    * Sets the value of the location property.
+    * 
+    * @param value
+    *     allowed object is
+    *     {@link String }
+    *     
+    */
+   public void setLocation(String value)
+   {
+      this.location = value;
+   }
 
 }

@@ -23,7 +23,7 @@ package org.jboss.security.xacml.core.ext;
 
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactoryProxy;
- 
+
 /**
  *  
  *  @author Anil.Saldhana@redhat.com
@@ -31,9 +31,9 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeFactoryProxy;
  *  @version $Revision$
  */
 public class ExtendedAttributeFactoryProxy implements AttributeFactoryProxy
-{ 
+{
    public AttributeFactory getFactory()
-   { 
+   {
       return ExtendedAttributeFactory.getFactory();
-   } 
+   }
 }

@@ -28,7 +28,6 @@ import java.util.List;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.MatchResult;
-import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
 import org.jboss.security.xacml.sunxacml.PolicySet;
 import org.jboss.security.xacml.sunxacml.VersionConstraints;
@@ -36,7 +35,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
- 
+
 /**
 *  PolicyFinderModule for PolicySet
 *  @author Anil.Saldhana@redhat.com
@@ -47,9 +46,7 @@ public class PolicySetFinderModule extends PolicyFinderModule
 {
    private PolicySet policySet;
 
-   private List<Policy> policies = new ArrayList<Policy>();
-
-   private List<PolicySet> policySets = new ArrayList<PolicySet>();
+   private List<AbstractPolicy> policies = new ArrayList<AbstractPolicy>();
 
    protected PolicyFinder policyFinder = null;
 
@@ -62,7 +59,7 @@ public class PolicySetFinderModule extends PolicyFinderModule
       this.policySet = policySet;
    }
 
-   public PolicySetFinderModule(PolicySet policySet, List<Policy> policies)
+   public PolicySetFinderModule(PolicySet policySet, List<AbstractPolicy> policies)
    {
       this.policySet = policySet;
       this.policies.addAll(policies);
@@ -117,12 +114,7 @@ public class PolicySetFinderModule extends PolicyFinderModule
    public PolicyFinderResult findPolicy(URI idReference, int type, VersionConstraints constraints,
          PolicyMetaData parentMetaData)
    {
-      for (Policy p : policies)
-      {
-         if (p.getId().compareTo(idReference) == 0)
-            return new PolicyFinderResult(p);
-      }
-      for (PolicySet p : policySets)
+      for (AbstractPolicy p : policies)
       {
          if (p.getId().compareTo(idReference) == 0)
             return new PolicyFinderResult(p);
@@ -146,10 +138,9 @@ public class PolicySetFinderModule extends PolicyFinderModule
       return true;
    }
 
-   public void set(PolicySet ps, List<Policy> policies, List<PolicySet> policySets)
+   public void set(PolicySet ps, List<AbstractPolicy> policies)
    {
       this.policySet = ps;
       this.policies = policies;
-      this.policySets = policySets;
    }
 }

@@ -35,7 +35,7 @@ import org.jboss.security.xacml.interfaces.ResponseContext;
  *  @version $Revision$
  */
 public class RequestResponseContextFactory
-{ 
+{
    /**
     * Create a bare RequestContext object
     * @see RequestContext#setRequest(org.jboss.security.xacml.core.model.context.RequestType)
@@ -45,7 +45,7 @@ public class RequestResponseContextFactory
    {
       return new JBossRequestContext();
    }
-   
+
    /**
     * Create a ResponseContext object
     * @return a ResponseContext object
@@ -53,5 +53,5 @@ public class RequestResponseContextFactory
    public static ResponseContext createResponseContext()
    {
       return new JBossResponseContext();
-   }  
+   }
 }

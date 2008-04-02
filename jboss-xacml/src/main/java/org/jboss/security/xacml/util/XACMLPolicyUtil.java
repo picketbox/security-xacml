@@ -35,14 +35,13 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-
 /**
  * Create an XACML Policy Object from the url for the policy xml
  * @author Anil.Saldhana@redhat.com
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class XACMLPolicyUtil 
+public class XACMLPolicyUtil
 {
    /**
     * Create a PolicySet
@@ -51,56 +50,55 @@ public class XACMLPolicyUtil
     * @return
     * @throws Exception
     */
-	public PolicySet createPolicySet(URL location, PolicyFinder finder) throws Exception
-	{
-        return createPolicySet(location.openStream(),  finder); 
-	}
-	
-    /**
-     * Create a policyset
-     * @param is
-     * @param finder
-     * @return
-     * @throws Exception
-     */
-	public PolicySet createPolicySet(InputStream is, PolicyFinder finder) throws Exception  
-	{
-       if(finder == null)
-          throw new IllegalArgumentException("Policy Finder is null");
-		Document doc = getDocument(is);
-		return PolicySet.getInstance(doc.getFirstChild(), finder); 
-	}
+   public PolicySet createPolicySet(URL location, PolicyFinder finder) throws Exception
+   {
+      return createPolicySet(location.openStream(), finder);
+   }
 
-    /**
-     * Create a Policy
-     * @param location Policy File
-     * @return
-     * @throws Exception
-     */
-	public Policy createPolicy(URL location) throws Exception
-	{  
-		return createPolicy(location.openStream());
-	}
+   /**
+    * Create a policyset
+    * @param is
+    * @param finder
+    * @return
+    * @throws Exception
+    */
+   public PolicySet createPolicySet(InputStream is, PolicyFinder finder) throws Exception
+   {
+      if (finder == null)
+         throw new IllegalArgumentException("Policy Finder is null");
+      Document doc = getDocument(is);
+      return PolicySet.getInstance(doc.getFirstChild(), finder);
+   }
 
-    /**
-     * Create a policy
-     * @param is Inputstream of the policy file
-     * @return
-     * @throws Exception
-     */
-	public Policy createPolicy(InputStream is) throws Exception
-	{ 
-		Document doc = getDocument(is);
-		return Policy.getInstance(doc.getFirstChild());
-	}
+   /**
+    * Create a Policy
+    * @param location Policy File
+    * @return
+    * @throws Exception
+    */
+   public Policy createPolicy(URL location) throws Exception
+   {
+      return createPolicy(location.openStream());
+   }
 
-	private Document getDocument(InputStream is)
-	throws ParserConfigurationException, SAXException, IOException 
-	{
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-		docBuilderFactory.setNamespaceAware(true); 
-		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse (is);
-		return doc;
-	}
+   /**
+    * Create a policy
+    * @param is Inputstream of the policy file
+    * @return
+    * @throws Exception
+    */
+   public Policy createPolicy(InputStream is) throws Exception
+   {
+      Document doc = getDocument(is);
+      return Policy.getInstance(doc.getFirstChild());
+   }
+
+   private Document getDocument(InputStream is) throws ParserConfigurationException, SAXException, IOException
+   {
+      DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+      docBuilderFactory.setNamespaceAware(true);
+      DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+      Document doc = docBuilder.parse(is);
+      return doc;
+   }
 }
