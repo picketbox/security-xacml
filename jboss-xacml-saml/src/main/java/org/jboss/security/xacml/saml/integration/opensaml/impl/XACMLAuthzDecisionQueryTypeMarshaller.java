@@ -22,9 +22,6 @@
 package org.jboss.security.xacml.saml.integration.opensaml.impl;
 
 import org.opensaml.saml2.core.impl.RequestAbstractTypeMarshaller;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  *  Marshaller
@@ -47,11 +44,5 @@ extends RequestAbstractTypeMarshaller
    protected XACMLAuthzDecisionQueryTypeMarshaller(String targetNamespaceURI, String targetLocalName) 
    {
        super(targetNamespaceURI, targetLocalName);
-   }
-
-   /** {@inheritDoc} */
-   protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException 
-   {
-       super.marshallAttributes(samlObject, domElement);
    }
 }
