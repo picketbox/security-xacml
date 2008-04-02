@@ -24,7 +24,7 @@ package org.jboss.security.xacml.saml.integration.opensaml.core;
 import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- *  
+ *  Object Builder for XACML Related Objects
  *  @author Anil.Saldhana@redhat.com
  *  @since  Mar 28, 2008 
  *  @version $Revision$

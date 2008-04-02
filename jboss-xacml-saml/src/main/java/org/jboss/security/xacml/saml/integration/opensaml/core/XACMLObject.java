@@ -20,9 +20,7 @@
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
 package org.jboss.security.xacml.saml.integration.opensaml.core;
-
-//$Id$
-
+ 
 /**
  *  Marker Interface
  *  @author Anil.Saldhana@redhat.com
