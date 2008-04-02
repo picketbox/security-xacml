@@ -24,6 +24,8 @@ package org.jboss.security.xacml.interfaces;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.w3c.dom.Node;
+
 //$Id$
 
 /**
@@ -40,6 +42,13 @@ public interface ResponseContext extends ContextMapOp
     * @see XACMLConstants
     */
    int getDecision();
+   
+   /**
+    * Read a preparsed Node
+    * @param node
+    * @throws IOException
+    */
+   void readResponse(Node node) throws IOException;
    
    /**
     * Marshall the response context onto an Output Stream

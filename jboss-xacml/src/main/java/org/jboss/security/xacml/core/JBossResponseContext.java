@@ -30,8 +30,10 @@ import java.util.Set;
 import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
+import org.w3c.dom.Node;
   
 /**
  *  Implementation of the ResponseContext interface
@@ -87,5 +89,22 @@ public class JBossResponseContext implements ResponseContext
       ResponseCtx storedResponse = get(XACMLConstants.RESPONSE_CTX);    
       if(storedResponse != null)
          storedResponse.encode(os);
+   }
+
+   /**
+    * @see ResponseContext#readResponse(Node)
+    */
+   public void readResponse(Node node) throws IOException
+   {
+      ResponseCtx responseCtx;
+      try
+      {
+         responseCtx = ResponseCtx.getInstance(node); 
+         set(XACMLConstants.RESPONSE_CTX, responseCtx);
+      }
+      catch (ParsingException e)
+      {
+         throw new RuntimeException(e);
+      }  
    }   
 }
