@@ -1,0 +1,77 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
+ID="response-id:1" Version="2.0" 
+IssueInstant="2008-03-19T22:17:13Z">
+<samlp:Status xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+<samlp:StatusCode  xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+Value="urn:oasis:names:tc:xacml:1.0:status:ok">
+</samlp:StatusCode>
+</samlp:Status>
+<saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" 
+Version="2.0" ID="response-id:1" IssueInstant="2008-03-19T22:17:13Z">
+<saml:Issuer>issuer-1</saml:Issuer>
+<saml:Statement xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"  
+xsi:type="xacml-samlp:XACMLAuthzDecisionStatement" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+xmlns:xacml-samlp="urn:oasis:xacml:2.0:saml:protocol:schema:os"
+xmlns:xacml-saml="urn:oasis:names:tc:xacml:2.0:saml:assertion:schema:os" >
+<xacml-context:Response xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" >
+<xacml-context:Result >
+<xacml-context:Decision>Permit</xacml-context:Decision>
+<xacml-context:Status>
+<xacml-context:StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"></xacml-context:StatusCode>
+<xacml-context:StatusMessage>ok</xacml-context:StatusMessage> 
+</xacml-context:Status>
+<xacml:Obligations  xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" >
+<xacml:Obligation ObligationId="obligation-10" FulfillOn="Permit">
+</xacml:Obligation>
+<xacml:Obligation ObligationId="obligation-20" FulfillOn="Permit">
+<xacml:AttributeAssignment AttributeId="a-120" DataType="f-120" 
+xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os"/>
+</xacml:Obligation>
+</xacml:Obligations>
+</xacml-context:Result>
+</xacml-context:Response>
+
+<xacml-context:Request xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os"  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/" 
+xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:context:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
+<Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>100001</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:role" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Chief Resident</AttributeValue>
+<AttributeValue>Doctor</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:hl7permission" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>PRD-017</AttributeValue>
+<AttributeValue>PRD-003</AttributeValue>
+<AttributeValue>PRD-010</AttributeValue>
+<AttributeValue>PRD-006</AttributeValue>
+</Attribute>
+<Attribute AttributeId="urn:va:names:xacml:2.0:subject:locality" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>Facility A</AttributeValue>
+</Attribute>
+</Subject>
+<xacml-context:Resource>
+<Attribute AttributeId="urn:va:names:xacml:2.0:record_type" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>patientchart</AttributeValue>
+</Attribute>
+</xacml-context:Resource>
+<xacml-context:Action>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" 
+DataType="http://www.w3.org/2001/XMLSchema#string" >
+<AttributeValue>read</AttributeValue>
+</Attribute>
+</xacml-context:Action>
+<xacml-context:Environment></xacml-context:Environment>
+</xacml-context:Request>
+
+</saml:Statement>
+</saml:Assertion>
+</samlp:Response> 
