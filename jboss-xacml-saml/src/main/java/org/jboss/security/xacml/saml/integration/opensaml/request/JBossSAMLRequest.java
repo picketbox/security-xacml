@@ -22,10 +22,12 @@
 package org.jboss.security.xacml.saml.integration.opensaml.request;
 
 import java.io.File;
+import java.io.InputStream;
 
 import org.jboss.security.xacml.saml.integration.opensaml.util.DOMUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
  
@@ -35,11 +37,23 @@ import org.w3c.dom.Element;
  *  @since  Mar 27, 2008 
  *  @version $Revision$
  */
-public class SAMLRequest
+public class JBossSAMLRequest
 { 
    public SAMLObject getSAMLRequest(String requestFile) throws Exception
    {
       Document document = DOMUtil.parse(new File(requestFile), true);
+      return getSAMLObject(document);
+   }
+   
+   public SAMLObject getSAMLRequest(InputStream requestStream) 
+   throws Exception
+   {
+      Document document = DOMUtil.parse(requestStream, true);
+      return getSAMLObject(document);
+   }
+    
+   private SAMLObject getSAMLObject(Document document) throws UnmarshallingException
+   {
       if(document == null)
          throw new IllegalStateException("Document parsed is null");
       
