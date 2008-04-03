@@ -193,6 +193,35 @@ public class ResponseCtx
     }
     
     
+    public void encode(OutputStream output, Indenter indenter, 
+          String nsURI) {
+
+       // Make a PrintStream for a nicer printing interface
+       PrintStream out = new PrintStream(output);
+
+       // Prepare the indentation string
+       String topIndent = indenter.makeString();
+       out.println(topIndent + "<Response xmlns='"+nsURI+"'>");
+
+       // Now write the XML... 
+
+       // Go through all results
+       Iterator it = results.iterator();
+       indenter.in();
+
+       while (it.hasNext()) {
+           Result result = (Result)(it.next());
+           result.encode(out, indenter);
+       }
+
+       indenter.out();
+
+       // Finish the XML for a response
+       out.println(topIndent + "</Response>");
+   }
+
+    
+    
     private static String getNodeName(Node node)
     {
     	String name = node.getLocalName();
