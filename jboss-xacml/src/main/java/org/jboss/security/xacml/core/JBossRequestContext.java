@@ -52,6 +52,8 @@ import org.w3c.dom.NodeList;
 public class JBossRequestContext implements RequestContext
 {
    private Map<String, Object> map = new HashMap<String, Object>();
+   
+   private Node documentElement = null;
 
    /**
     * @see ContextMapOp#get(String)
@@ -68,6 +70,15 @@ public class JBossRequestContext implements RequestContext
    public <T> void set(String key, T obj)
    {
       map.put(key, obj);
+   }
+   
+
+   /**
+    * @see RequestContext#getDocumentElement()
+    */
+   public Node getDocumentElement()
+   {
+      return documentElement;
    }
 
    /**
@@ -90,6 +101,8 @@ public class JBossRequestContext implements RequestContext
       try
       {
          Node root = getRequest(is);
+         this.documentElement = root;
+         
          if (root == null)
             throw new IllegalStateException("Root node read from the input stream is null");
          RequestCtx request = RequestCtx.getInstance(root);
@@ -106,6 +119,10 @@ public class JBossRequestContext implements RequestContext
     */
    public void readRequest(Node node) throws IOException
    {
+      this.documentElement = node;
+      if(node == null)
+         throw new IllegalArgumentException("node is null");
+      
       try
       {
          RequestCtx request = RequestCtx.getInstance(node);

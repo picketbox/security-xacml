@@ -27,9 +27,7 @@ import java.io.OutputStream;
 
 import org.jboss.security.xacml.core.model.context.RequestType;
 import org.w3c.dom.Node;
-
-//$Id$
-
+ 
 /**
  *  Represents a Request
  *  @author Anil.Saldhana@redhat.com
@@ -38,6 +36,14 @@ import org.w3c.dom.Node;
  */
 public interface RequestContext extends ContextMapOp
 {
+   /**
+    * Return the element of the document
+    * from where the request was created if available
+    * Null if no parsing was involved
+    * @return
+    */
+   Node getDocumentElement();
+   
    /**
     * Place the Request instance on the context
     * @param requestType An instance of RequestType 

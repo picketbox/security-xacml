@@ -22,11 +22,11 @@
 package org.jboss.security.xacml.interfaces;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.w3c.dom.Node;
-
-//$Id$
+ 
 
 /**
  *  Represents a XACML Response
@@ -43,6 +43,21 @@ public interface ResponseContext extends ContextMapOp
     */
    int getDecision();
 
+   /**
+    * Return the element of the document
+    * from where the response was created if available
+    * Null if no parsing was involved
+    * @return
+    */
+   Node getDocumentElement();
+   
+   /**
+    * Read a response from an input stream
+    * @param is
+    * @throws Exception
+    */
+   void readResponse(InputStream is) throws Exception;
+   
    /**
     * Read a preparsed Node
     * @param node

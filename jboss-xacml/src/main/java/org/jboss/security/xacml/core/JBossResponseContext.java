@@ -22,10 +22,13 @@
 package org.jboss.security.xacml.core;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.ResponseContext;
@@ -33,7 +36,9 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *  Implementation of the ResponseContext interface
@@ -46,6 +51,8 @@ public class JBossResponseContext implements ResponseContext
    private int decision = XACMLConstants.DECISION_DENY;
 
    private Map<String, Object> map = new HashMap<String, Object>();
+   
+   private Node documentElement = null;
 
    /**
     * @see ContextMapOp#get(String)
@@ -80,6 +87,14 @@ public class JBossResponseContext implements ResponseContext
       return decision;
 
    }
+   
+   /**
+    * @see ResponseContext#getDocumentElement()
+    */
+   public Node getDocumentElement()
+   { 
+      return documentElement;
+   }
 
    /**
     * @see ResponseContext#marshall(OutputStream)
@@ -90,12 +105,25 @@ public class JBossResponseContext implements ResponseContext
       if (storedResponse != null)
          storedResponse.encode(os);
    }
+   
+   /**
+    * @see ResponseContext#readResponse(InputStream)
+    */
+   public void readResponse(InputStream is) throws Exception
+   {   
+      readResponse(getResponse(is));
+   }
 
    /**
     * @see ResponseContext#readResponse(Node)
     */
    public void readResponse(Node node) throws IOException
    {
+      if(node == null)
+         throw new IllegalArgumentException("node is null");
+      
+      this.documentElement = node;
+      
       ResponseCtx responseCtx;
       try
       {
@@ -106,5 +134,16 @@ public class JBossResponseContext implements ResponseContext
       {
          throw new RuntimeException(e);
       }
+   }
+   
+   private Node getResponse(InputStream is) throws Exception
+   {
+      String contextSchema = XACMLConstants.CONTEXT_SCHEMA;
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setNamespaceAware(true);
+      factory.setIgnoringComments(true);
+      Document doc = factory.newDocumentBuilder().parse(is);
+      NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Response");
+      return nodes.item(0);
    }
 }
