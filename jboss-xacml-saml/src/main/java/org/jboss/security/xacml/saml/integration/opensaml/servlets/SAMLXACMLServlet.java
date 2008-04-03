@@ -39,13 +39,8 @@ import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
+import org.jboss.security.xacml.saml.integration.opensaml.core.JBossXACMLSAMLConfiguration;
 import org.jboss.security.xacml.saml.integration.opensaml.core.OpenSAMLUtil;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeImplBuilder;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeUnMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeImplBuilder;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeUnMarshaller;
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLRequest;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
@@ -59,12 +54,12 @@ import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.core.impl.AssertionImpl;
-import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Element;
  
 
 /**
@@ -89,31 +84,40 @@ public class SAMLXACMLServlet extends HttpServlet
    
    private String issuerId = null;
    
-   public void init() throws ServletException
+   private String policyConfigFileName = "policyConfig.xml";
+   
+   private boolean debug = false;
+
+   static
    {
       try
       {
-         org.opensaml.DefaultBootstrap.bootstrap();
-         Configuration.registerObjectProvider(XACMLAuthzDecisionQueryType.DEFAULT_ELEMENT_NAME_XACML20, 
-               new XACMLAuthzDecisionQueryTypeImplBuilder(), 
-               new XACMLAuthzDecisionQueryTypeMarshaller(), 
-               new XACMLAuthzDecisionQueryTypeUnMarshaller(), 
-               null);
-         Configuration.registerObjectProvider(XACMLAuthzDecisionStatementType.DEFAULT_ELEMENT_NAME_XACML20, 
-               new XACMLAuthzDecisionStatementTypeImplBuilder(), 
-               new XACMLAuthzDecisionStatementTypeMarshaller(), 
-               new XACMLAuthzDecisionStatementTypeUnMarshaller(), 
-               null);
+         JBossXACMLSAMLConfiguration.initialize();
       }
-      catch (ConfigurationException e)
+      catch (Exception e)
       {
-         throw new ServletException(e);
-      }
+         throw new RuntimeException(e);
+      }   
+   }
+   
+   public void init() throws ServletException
+   {    
       responseId = getServletContext().getInitParameter("responseID");
       if(responseId == null)
          responseId = "response-id:1";
+      
+      issuerId = getServletContext().getInitParameter("issuerID");
       if(issuerId == null)
          issuerId = "issue-id:1";
+      
+      policyConfigFileName = getServletContext().getInitParameter("policyConfigFileName");
+      if(policyConfigFileName == null)
+         policyConfigFileName = "policyConfig.xml";
+      
+      String debugStr = getServletContext().getInitParameter("debug");
+      if("TRUE".equalsIgnoreCase(debugStr))
+         debug = true;
+      
       super.init();     
    }
 
@@ -126,7 +130,8 @@ public class SAMLXACMLServlet extends HttpServlet
       try
       {
          SAMLObject samlObject = samlRequest.getSAMLRequest(request.getInputStream());
-         logXMLObject(samlObject);
+         if(debug)
+           logXMLObject(samlObject);
          
          XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
          
@@ -159,12 +164,12 @@ public class SAMLXACMLServlet extends HttpServlet
          assertionImpl.getStatements().add(decision);
          
          samlResponse.getAssertions().add(assertionImpl);
-         //logXMLObject(samlResponse);
+         if(debug)
+            logXMLObject(samlResponse);
          
          MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
          Marshaller samlResponseMarshaller = marshallerFactory.getMarshaller(samlResponse);
-         
-         
+          
          response.setContentType("text/xml;charset=utf-8");;
          OutputStream os = response.getOutputStream();
          OutputStreamWriter osw = new OutputStreamWriter(os , "UTF-8");
@@ -203,18 +208,21 @@ public class SAMLXACMLServlet extends HttpServlet
       return new DateTime(ISOChronology.getInstanceUTC());
    }
    
-   private void logXMLObject(XMLObject xmlObject)
+   private Element logXMLObject(XMLObject xmlObject)
    {
       MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
       Marshaller marshaller = marshallerFactory.getMarshaller(xmlObject);
+      Element elem = null;
       try
       {
-         log(XMLHelper.prettyPrintXML(marshaller.marshall(xmlObject)));
+         elem = marshaller.marshall(xmlObject);
+         log(XMLHelper.prettyPrintXML(elem));
       }
       catch (MarshallingException e)
       {
-         log(e.getLocalizedMessage());
+         log(e.getLocalizedMessage(),e);
       }     
+      return elem;
    }
    
    private PolicyDecisionPoint getPDP() throws PrivilegedActionException
@@ -226,9 +234,9 @@ public class SAMLXACMLServlet extends HttpServlet
              return Thread.currentThread().getContextClassLoader();
          }
       });
-      InputStream is = tcl.getResourceAsStream("policyConfig.xml");
+      InputStream is = tcl.getResourceAsStream(this.policyConfigFileName);
       if(is == null)
-         throw new IllegalStateException("policyConfig.xml could not be located");
+         throw new IllegalStateException(policyConfigFileName  + " could not be located");
       return new JBossPDP(is); 
    }
 }
