@@ -55,6 +55,8 @@ public class RedHatEndpointTestCase extends TestCase
    protected void setUp() throws Exception
    {
       JBossXACMLSAMLConfiguration.initialize(); 
+      if(shouldTest == false)
+         System.out.println("TEST is disabled");
    }
    
    public void testRequest01_01() throws Exception

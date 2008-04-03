@@ -1,0 +1,18 @@
+
+<xacml-context:Response xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" >
+<xacml-context:Result >
+<xacml-context:Decision>Permit</xacml-context:Decision>
+<xacml-context:Status>
+<xacml-context:StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"></xacml-context:StatusCode>
+<xacml-context:StatusMessage>ok</xacml-context:StatusMessage> 
+</xacml-context:Status>
+<xacml:Obligations  xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" >
+<xacml:Obligation ObligationId="obligation-10" FulfillOn="Permit">
+</xacml:Obligation>
+<xacml:Obligation ObligationId="obligation-20" FulfillOn="Permit">
+<xacml:AttributeAssignment AttributeId="a-120" DataType="f-120" 
+xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os"/>
+</xacml:Obligation>
+</xacml:Obligations>
+</xacml-context:Result>
+</xacml-context:Response>
