@@ -24,6 +24,7 @@ package org.jboss.security.xacml.saml.integration.opensaml.impl;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
+import org.jboss.security.xacml.util.JBossXACMLUtil;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -49,6 +50,30 @@ public class XACMLAuthzDecisionStatementTypeMarshaller extends AbstractSAMLObjec
       
       parentElement.appendChild(xacmlDecisionElement);
       
+      ResponseContext responseContext = xacmlType.getResponse();
+      if(responseContext != null)
+      {
+         Node responseRoot = responseContext.getDocumentElement();
+         if(responseRoot != null)
+         {
+            XMLHelper.adoptElement((Element) responseRoot, parentElement.getOwnerDocument());  
+            xacmlDecisionElement.appendChild(responseRoot);
+         }
+         else
+         {
+            try
+            {
+               Element elem = JBossXACMLUtil.getResponseContextElement(responseContext);
+               XMLHelper.adoptElement(elem, parentElement.getOwnerDocument());  
+               xacmlDecisionElement.appendChild(elem);
+            }
+            catch (Exception e)
+            {
+               throw new RuntimeException(e);
+            }
+         }
+      } 
+      
       RequestContext requestContext = xacmlType.getRequest();
       if(requestContext != null)
       {
@@ -59,16 +84,7 @@ public class XACMLAuthzDecisionStatementTypeMarshaller extends AbstractSAMLObjec
             xacmlDecisionElement.appendChild(requestRoot);
          } 
       }
-      ResponseContext responseContext = xacmlType.getResponse();
-      if(responseContext != null)
-      {
-         Node responseRoot = responseContext.getDocumentElement();
-         if(responseRoot != null)
-         {
-            XMLHelper.adoptElement((Element) responseRoot, parentElement.getOwnerDocument());  
-            xacmlDecisionElement.appendChild(responseRoot);
-         } 
-      } 
+      
       return parentElement; 
    } 
 }
