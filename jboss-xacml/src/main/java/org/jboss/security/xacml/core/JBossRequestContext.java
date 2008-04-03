@@ -40,6 +40,7 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -144,6 +145,15 @@ public class JBossRequestContext implements RequestContext
          storedRequest.encode(os);
    }
 
+   /**
+    * @see ElementMappingType#asElement(Document)
+    */
+   public Element asElement(Document root)
+   { 
+      throw new RuntimeException("SECURITY-176");
+   }
+   
+   
    private Node getRequest(InputStream is) throws Exception
    {
       String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
@@ -154,5 +164,7 @@ public class JBossRequestContext implements RequestContext
       NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Request");
       return nodes.item(0);
    }
+
+   
 
 }

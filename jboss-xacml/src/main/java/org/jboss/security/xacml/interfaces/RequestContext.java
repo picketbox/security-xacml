@@ -34,7 +34,7 @@ import org.w3c.dom.Node;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public interface RequestContext extends ContextMapOp
+public interface RequestContext extends ContextMapOp, ElementMappingType
 {
    /**
     * Return the element of the document

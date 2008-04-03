@@ -37,6 +37,7 @@ import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -134,6 +135,14 @@ public class JBossResponseContext implements ResponseContext
       {
          throw new RuntimeException(e);
       }
+   }
+   
+   /**
+    * @see ElementMappingType#asElement(Document)
+    */
+   public Element asElement(Document root)
+   { 
+      throw new RuntimeException("SECURITY-177");
    }
    
    private Node getResponse(InputStream is) throws Exception
