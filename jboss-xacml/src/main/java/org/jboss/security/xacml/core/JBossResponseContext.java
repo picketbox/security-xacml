@@ -31,8 +31,10 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.security.xacml.interfaces.ContextMapOp;
+import org.jboss.security.xacml.interfaces.ElementMappingType;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
+import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
@@ -104,7 +106,7 @@ public class JBossResponseContext implements ResponseContext
    {
       ResponseCtx storedResponse = get(XACMLConstants.RESPONSE_CTX);
       if (storedResponse != null)
-         storedResponse.encode(os);
+         storedResponse.encode(os,new Indenter(0), XACMLConstants.CONTEXT_SCHEMA);
    }
    
    /**
@@ -153,6 +155,10 @@ public class JBossResponseContext implements ResponseContext
       factory.setIgnoringComments(true);
       Document doc = factory.newDocumentBuilder().parse(is);
       NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Response");
+      if(nodes.getLength() == 0)
+      {
+         nodes = doc.getElementsByTagName("Response");
+      }
       return nodes.item(0);
    }
 }
