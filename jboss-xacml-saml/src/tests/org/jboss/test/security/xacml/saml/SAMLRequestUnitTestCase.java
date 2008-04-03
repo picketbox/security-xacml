@@ -23,44 +23,33 @@ package org.jboss.test.security.xacml.saml;
 
 import junit.framework.TestCase;
 
-import org.jboss.security.xacml.core.PDPConfiguration;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.saml.integration.opensaml.core.JBossXACMLSAMLConfiguration;
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLRequest;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
 import org.opensaml.common.SAMLObject;
- 
+
 /**
- *  Unit Test for the Opensaml saml/xacml
+ *  Tests for SAMLRequest read
  *  @author Anil.Saldhana@redhat.com
- *  @since  Mar 27, 2008 
+ *  @since  Apr 2, 2008 
  *  @version $Revision$
  */
-public class SAMLXACMLUnitTestCase extends TestCase
+public class SAMLRequestUnitTestCase extends TestCase
 {
    protected void setUp() throws Exception
    {
       JBossXACMLSAMLConfiguration.initialize(); 
    }
    
-   public void testSAMLXACMLRequestRead() throws Exception
+   public void testSAMLRequest01_01() throws Exception
    {
-      //Install Custom Attributes
-      PDPConfiguration.installSingleValueAttribute("urn:va:names:xacml:2.0:subject:ien");
-      
-      JBossSAMLRequest request = new JBossSAMLRequest();
-      SAMLObject samlObject = request.getSAMLRequest("src/tests/resources/saml/xacmlrequest.xml");
-      assertNotNull(samlObject);
-      assertTrue(samlObject instanceof XACMLAuthzDecisionQueryType);
+      JBossSAMLRequest samlRequest = new JBossSAMLRequest();
+      String loc = "src/tests/resources/test/requests/interop/rsaconf08/XacmlRequest-01-01.xml";
+      SAMLObject samlObject = samlRequest.getSAMLRequest(loc);
       XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
-      RequestContext requestType = xacmlRequest.getRequest();
-      assertNotNull("XACML Request is not null", requestType);
+      RequestContext requestContext = xacmlRequest.getRequest();
+      assertNotNull("XACML Request Context is not null", requestContext);
    }
-  
-   public void testSAMLRequestRead() throws Exception
-   {
-      JBossSAMLRequest request = new JBossSAMLRequest();
-      SAMLObject samlObject = request.getSAMLRequest("src/tests/resources/saml/samlrequest.xml");
-      assertNotNull(samlObject);
-   }
+
 }

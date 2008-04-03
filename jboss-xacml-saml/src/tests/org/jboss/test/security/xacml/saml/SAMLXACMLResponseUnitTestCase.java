@@ -23,22 +23,14 @@ package org.jboss.test.security.xacml.saml;
 
 import java.util.List;
 
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeImplBuilder;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionQueryTypeUnMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeImplBuilder;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeMarshaller;
-import org.jboss.security.xacml.saml.integration.opensaml.impl.XACMLAuthzDecisionStatementTypeUnMarshaller;
+import junit.framework.TestCase;
+
+import org.jboss.security.xacml.saml.integration.opensaml.core.JBossXACMLSAMLConfiguration;
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLResponse;
-import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
-import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
-import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Statement;
-
-import junit.framework.TestCase;
  
 /**
  *  Test reading of a saml response containing
@@ -51,23 +43,28 @@ public class SAMLXACMLResponseUnitTestCase extends TestCase
 {
    protected void setUp() throws Exception
    {
-     org.opensaml.DefaultBootstrap.bootstrap(); 
-     Configuration.registerObjectProvider(XACMLAuthzDecisionQueryType.DEFAULT_ELEMENT_NAME_XACML20, 
-           new XACMLAuthzDecisionQueryTypeImplBuilder(), 
-           new XACMLAuthzDecisionQueryTypeMarshaller(), 
-           new XACMLAuthzDecisionQueryTypeUnMarshaller(), 
-           null);
-     Configuration.registerObjectProvider(XACMLAuthzDecisionStatementType.DEFAULT_ELEMENT_NAME_XACML20, 
-           new XACMLAuthzDecisionStatementTypeImplBuilder(), 
-           new XACMLAuthzDecisionStatementTypeMarshaller(), 
-           new XACMLAuthzDecisionStatementTypeUnMarshaller(), 
-           null);
+      JBossXACMLSAMLConfiguration.initialize(); 
    }
    
    public void testSAMLXACMLResponseRead() throws Exception
    {
       JBossSAMLResponse response = new JBossSAMLResponse();
       SAMLObject samlObject = response.getSAMLResponse("src/tests/resources/saml/samlxacmlresponse.xml");
+      assertNotNull(samlObject); 
+      
+      //Verify that the xacml response does exist
+      Response samlResponse = (Response) samlObject;
+      Assertion assertion = samlResponse.getAssertions().get(0);
+      List<Statement> statements = assertion.getStatements();
+      assertTrue("statements > 0 ", statements.size() > 0);
+      Statement statement = statements.get(0);
+      assertNotNull("Statement != null", statement);
+   } 
+   
+   public void testRHPDPResponseRead() throws Exception
+   {
+      JBossSAMLResponse response = new JBossSAMLResponse();
+      SAMLObject samlObject = response.getSAMLResponse("src/tests/resources/saml/rhpdpsamlresponse.xml");
       assertNotNull(samlObject); 
       
       //Verify that the xacml response does exist
