@@ -121,7 +121,7 @@ implements XACMLAuthzDecisionStatementType
             XMLConstants.XSI_NS, "type", XMLConstants.XSI_PREFIX);
       xsiAttr.setTextContent("xacml-samlp:XACMLAuthzDecisionStatement");
       element.setAttributeNodeNS(xsiAttr);  
-     
+      
       return element;
    }   
 }
