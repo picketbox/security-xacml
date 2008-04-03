@@ -21,13 +21,18 @@
   */
 package org.jboss.security.xacml.saml.integration.opensaml.impl;
 
+import org.jboss.security.xacml.interfaces.RequestContext;
+import org.jboss.security.xacml.interfaces.ResponseContext;
+import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
- *  
+ *  Marshaller for XACMLzDecisionStatementType
  *  @author Anil.Saldhana@redhat.com
  *  @since  Apr 2, 2008 
  *  @version $Revision$
@@ -38,7 +43,32 @@ public class XACMLAuthzDecisionStatementTypeMarshaller extends AbstractSAMLObjec
    public Element marshall(XMLObject xmlObject, Element parentElement) 
    throws MarshallingException
    {
-      return super.marshall(xmlObject, parentElement);
-   }
-
+      XACMLAuthzDecisionStatementType xacmlType = (XACMLAuthzDecisionStatementType) xmlObject;
+      
+      Element xacmlDecisionElement = xacmlType.asElement(parentElement.getOwnerDocument());
+      
+      parentElement.appendChild(xacmlDecisionElement);
+      
+      RequestContext requestContext = xacmlType.getRequest();
+      if(requestContext != null)
+      {
+         Node requestRoot = requestContext.getDocumentElement();
+         if(requestRoot != null)
+         { 
+            XMLHelper.adoptElement((Element) requestRoot, parentElement.getOwnerDocument());  
+            xacmlDecisionElement.appendChild(requestRoot);
+         } 
+      }
+      ResponseContext responseContext = xacmlType.getResponse();
+      if(responseContext != null)
+      {
+         Node responseRoot = responseContext.getDocumentElement();
+         if(responseRoot != null)
+         {
+            XMLHelper.adoptElement((Element) responseRoot, parentElement.getOwnerDocument());  
+            xacmlDecisionElement.appendChild(responseRoot);
+         } 
+      } 
+      return parentElement; 
+   } 
 }

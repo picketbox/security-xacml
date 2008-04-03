@@ -23,11 +23,18 @@ package org.jboss.security.xacml.saml.integration.opensaml.impl;
 
 import java.util.List;
 
+import org.jboss.security.xacml.interfaces.ElementMappingType;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.saml2.core.Statement;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.XMLConstants;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -40,7 +47,8 @@ public class XACMLAuthzDecisionStatementTypeImpl extends AbstractSAMLObject
 implements XACMLAuthzDecisionStatementType
 {
    private RequestContext requestContext;
-   private ResponseContext responseContext; 
+   private ResponseContext responseContext;
+   private Document rootDocument; 
 
    /* 
     * Constructor.
@@ -73,11 +81,47 @@ implements XACMLAuthzDecisionStatementType
    public void setRequest(RequestContext request)
    {
       this.requestContext = request;
-   }  
-   
-   /** {@inheritDoc} */
-   public List<XMLObject> getOrderedChildren() 
+   } 
+
+   public Document getOwnerDocument()
    {
-      throw new RuntimeException("Not implemented:getOrderedChildren()"); 
+      return this.rootDocument;
    }
+
+   public void setOwnerDocument(Document doc)
+   {
+      this.rootDocument = doc; 
+   }
+
+   public List<XMLObject> getOrderedChildren()
+   { 
+      return null;
+   }
+
+   /**
+    * @see ElementMappingType#asElement(root)
+    */
+   public Element asElement(Document root)
+   {  
+      if(root == null)
+         throw new IllegalArgumentException("root is null");
+      
+      /**
+        <saml:Statement xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"  
+        xsi:type="xacml-samlp:XACMLAuthzDecisionStatement" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+        xmlns:xacml-samlp="urn:oasis:xacml:2.0:saml:protocol:schema:os"
+        xmlns:xacml-saml="urn:oasis:names:tc:xacml:2.0:saml:assertion:schema:os" > 
+       */
+      Element element = XMLHelper.constructElement(root,
+            Statement.DEFAULT_ELEMENT_NAME);
+      
+      //Set the xsi:type
+      Attr xsiAttr = XMLHelper.constructAttribute(root, 
+            XMLConstants.XSI_NS, "type", XMLConstants.XSI_PREFIX);
+      xsiAttr.setTextContent("xacml-samlp:XACMLAuthzDecisionStatement");
+      element.setAttributeNodeNS(xsiAttr);  
+     
+      return element;
+   }   
 }

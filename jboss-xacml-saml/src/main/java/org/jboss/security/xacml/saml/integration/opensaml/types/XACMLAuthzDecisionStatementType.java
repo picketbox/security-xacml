@@ -23,10 +23,12 @@ package org.jboss.security.xacml.saml.integration.opensaml.types;
 
 import javax.xml.namespace.QName;
 
+import org.jboss.security.xacml.interfaces.ElementMappingType;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.saml.integration.opensaml.constants.SAMLXACMLConstants;
 import org.opensaml.saml2.core.Statement;
+import org.w3c.dom.Document;
 
 
 /**
@@ -35,7 +37,7 @@ import org.opensaml.saml2.core.Statement;
  *  @since  Mar 27, 2008 
  *  @version $Revision$
  */
-public interface XACMLAuthzDecisionStatementType extends Statement
+public interface XACMLAuthzDecisionStatementType extends Statement, ElementMappingType
 {
    /** Element local name. */
    String DEFAULT_ELEMENT_LOCAL_NAME = "XACMLAuthzDecisionStatement"; 
@@ -67,11 +69,14 @@ public interface XACMLAuthzDecisionStatementType extends Statement
    QName TYPE_NAME_XACML20 = new QName(SAMLXACMLConstants.SAML2_XACML20P_NS, TYPE_LOCAL_NAME,
            SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
 
-   public RequestContext getRequest();
+   RequestContext getRequest();
 
-   public ResponseContext getResponse();
+   ResponseContext getResponse();
 
-   public void setRequest(RequestContext request);
+   void setRequest(RequestContext request);
  
-   public void setResponse(ResponseContext response); 
+   void setResponse(ResponseContext response); 
+   
+   void setOwnerDocument(Document doc);
+   Document getOwnerDocument();
 }

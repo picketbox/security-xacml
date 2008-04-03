@@ -49,7 +49,7 @@ extends AbstractSAMLObjectBuilder<XACMLAuthzDecisionStatementType>
 
    @Override
    public XACMLAuthzDecisionStatementType buildObject()
-   { 
+   {
       return null;
    }
 }

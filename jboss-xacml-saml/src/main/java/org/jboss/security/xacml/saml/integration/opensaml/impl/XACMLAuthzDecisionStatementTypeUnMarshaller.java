@@ -34,7 +34,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *  
+ *  Unmarshaller for XACMLAuthzDecisionStatementType
  *  @author Anil.Saldhana@redhat.com
  *  @since  Apr 2, 2008 
  *  @version $Revision$
@@ -88,7 +88,8 @@ extends AbstractSAMLObjectUnmarshaller
          {
             throw new RuntimeException(e);
          } 
-         xacmlAuthzDecisionStatementType.setRequest(requestContext);
+         xacmlAuthzDecisionStatementType.setRequest(requestContext); 
+         xacmlAuthzDecisionStatementType.setOwnerDocument(childElement.getOwnerDocument());
       } 
       else
          if(childElement.getLocalName().equals("Response") 
@@ -105,6 +106,7 @@ extends AbstractSAMLObjectUnmarshaller
                throw new RuntimeException(e);
             } 
             xacmlAuthzDecisionStatementType.setResponse(responseContext);
+            xacmlAuthzDecisionStatementType.setOwnerDocument(childElement.getOwnerDocument());
          }
       else
       super.unmarshallChildElement(xmlObject, childElement);

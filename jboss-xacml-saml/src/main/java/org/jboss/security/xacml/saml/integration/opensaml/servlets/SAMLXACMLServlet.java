@@ -23,6 +23,12 @@ package org.jboss.security.xacml.saml.integration.opensaml.servlets;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -123,9 +129,6 @@ public class SAMLXACMLServlet extends HttpServlet
          logXMLObject(samlObject);
          
          XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
-         RequestContext requestType = xacmlRequest.getRequest();
-         if(requestType == null)
-            throw new RuntimeException("xacml request is null"); 
          
          RequestContext requestContext = xacmlRequest.getRequest();
          if(requestContext == null)
@@ -156,7 +159,21 @@ public class SAMLXACMLServlet extends HttpServlet
          assertionImpl.getStatements().add(decision);
          
          samlResponse.getAssertions().add(assertionImpl);
-         logXMLObject(samlResponse);
+         //logXMLObject(samlResponse);
+         
+         MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
+         Marshaller samlResponseMarshaller = marshallerFactory.getMarshaller(samlResponse);
+         
+         
+         response.setContentType("text/xml;charset=utf-8");;
+         OutputStream os = response.getOutputStream();
+         OutputStreamWriter osw = new OutputStreamWriter(os , "UTF-8");
+         PrintWriter pw = new PrintWriter(osw);
+         
+         String resp = XMLHelper.nodeToString(samlResponseMarshaller.marshall(samlResponse));
+         log(resp);
+         pw.print(resp);  
+         pw.flush();
       }
       catch (Exception e)
       {
@@ -200,9 +217,18 @@ public class SAMLXACMLServlet extends HttpServlet
       }     
    }
    
-   private PolicyDecisionPoint getPDP()
+   private PolicyDecisionPoint getPDP() throws PrivilegedActionException
    {
-      InputStream is = getServletContext().getResourceAsStream("policyConfig.xml");
+      ClassLoader tcl = AccessController.doPrivileged(new PrivilegedExceptionAction<ClassLoader>()
+      {
+         public ClassLoader run() throws Exception
+         {
+             return Thread.currentThread().getContextClassLoader();
+         }
+      });
+      InputStream is = tcl.getResourceAsStream("policyConfig.xml");
+      if(is == null)
+         throw new IllegalStateException("policyConfig.xml could not be located");
       return new JBossPDP(is); 
    }
 }
