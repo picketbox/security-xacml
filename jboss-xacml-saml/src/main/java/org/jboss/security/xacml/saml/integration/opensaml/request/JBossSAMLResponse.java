@@ -24,9 +24,15 @@ package org.jboss.security.xacml.saml.integration.opensaml.request;
 import java.io.File;
 import java.io.InputStream;
 
+import org.jboss.security.xacml.saml.integration.opensaml.core.OpenSAMLUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.DOMUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.saml2.core.Response;
+import org.opensaml.saml2.core.Status;
+import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -50,6 +56,26 @@ public class JBossSAMLResponse
    {
       Document document = DOMUtil.parse(responseFile, true);
       return getSAMLObject(document);
+   }
+   
+   public Response getSAMLResponse(DateTime issueInstant, 
+         String responseId, String issuerId)
+   {
+      if(issueInstant == null)
+         issueInstant = new DateTime(ISOChronology.getInstanceUTC());
+      
+      Response samlResponse = (Response) OpenSAMLUtil.buildXMLObject(Response.DEFAULT_ELEMENT_NAME); 
+      samlResponse.setID(responseId);
+      samlResponse.setIssueInstant(issueInstant);
+      
+      //Set samlp:Status
+      Status status = (Status) OpenSAMLUtil.buildXMLObject(Status.DEFAULT_ELEMENT_NAME);
+      StatusCode statusCode = (StatusCode) OpenSAMLUtil.buildXMLObject(StatusCode.DEFAULT_ELEMENT_NAME);
+      statusCode.setValue(StatusCode.SUCCESS_URI);
+      status.setStatusCode(statusCode);
+      samlResponse.setStatus(status);
+       
+      return samlResponse;
    }
     
    private SAMLObject getSAMLObject(Document document) throws UnmarshallingException
