@@ -26,6 +26,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallerFactory;
  
 /**
  *  Utility class
@@ -46,5 +48,11 @@ public class OpenSAMLUtil
       XMLObjectBuilder<?> ob = getBuilder(qname);
       return ob.buildObject(qname.getNamespaceURI(), qname.getLocalPart(), qname.getPrefix());
    } 
-
+   
+   public static Marshaller getMarshaller(XMLObject xmlObject)
+   {
+      MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
+      Marshaller marshaller = marshallerFactory.getMarshaller(xmlObject);
+      return marshaller;
+   } 
 }
