@@ -48,7 +48,9 @@ import org.opensaml.xml.util.XMLHelper;
  */
 public class RedHatEndpointTestCase extends TestCase
 {
-   String loc = "http://localhost:8080/jboss/SOAPServlet";
+   //String loc = "http://localhost:8080/test/SOAPServlet";
+   
+   String loc = "http://interop.demo.jboss.com:8080/test/SOAPServlet";
    
    boolean shouldTest = false;
    

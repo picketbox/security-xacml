@@ -74,7 +74,13 @@ IssueInstant="2008-03-19T22:18:42Z" Destination="destination-uri">
         >urn:va:xacml:2.0:interop:rsa8:resource:hl7:medical-record</xacml-context:AttributeValue>
     </xacml-context:Attribute>
   </xacml-context:Resource>
-  <xacml-context:Action/>  
-  <xacml-context:Environment/>
+  <xacml-context:Action/>   
+  <xacml-context:Environment>
+    <xacml-context:Attribute 
+        AttributeId="urn:va:xacml:2.0:interop:rsa8:environment:locality" 
+        DataType="http://www.w3.org/2001/XMLSchema#string" >
+      <xacml-context:AttributeValue>Facility A</xacml-context:AttributeValue>
+    </xacml-context:Attribute>
+  </xacml-context:Environment>
 </xacml-context:Request> 
 </samlp:RequestAbstract> 

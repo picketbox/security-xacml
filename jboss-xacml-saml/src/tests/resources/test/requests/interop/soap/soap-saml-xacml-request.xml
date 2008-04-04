@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+      <SOAP-ENV:Body>
+         <XACMLAuthzDecisionQuery 
+         Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" 
+         ID="_e064bd912f83c1544fea110307000acf" 
+         IssueInstant="2007-05-21T22:00:36Z" 
+         Version="2.0" 
+         xmlns="urn:oasis:xacml:2.0:saml:protocol:schema:os">
+            <xacml-context:Request xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+               <xacml-context:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+                  <xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>John Doe</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+                  <xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>123456</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+                  <xacml-context:Attribute AttributeId="urn:xacml:2.0:interop:example:subject:user-name" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>John Doe</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+               </xacml-context:Subject>
+               <xacml-context:Resource>
+                  <xacml-context:Attribute AttributeId="urn:xacml:2.0:interop:example:resource:owner-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>123456</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+                  <xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>CustomerAccount</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+                  <xacml-context:Attribute AttributeId="urn:xacml:2.0:interop:example:resource:account-status" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>Active</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+               </xacml-context:Resource>
+               <xacml-context:Action>
+                  <xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+                     <xacml-context:AttributeValue>ViewAccount</xacml-context:AttributeValue>
+                  </xacml-context:Attribute>
+               </xacml-context:Action>
+               <xacml-context:Environment/>
+            </xacml-context:Request>
+         </XACMLAuthzDecisionQuery>
+      </SOAP-ENV:Body>
+   </SOAP-ENV:Envelope> 
