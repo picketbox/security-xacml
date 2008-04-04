@@ -23,10 +23,14 @@ package org.jboss.security.xacml.saml.integration.opensaml.request;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 
 import org.jboss.security.xacml.saml.integration.opensaml.util.DOMUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.ws.soap.soap11.Body;
+import org.opensaml.ws.soap.soap11.Envelope;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,6 +65,28 @@ public class JBossSAMLRequest
       Element docElement = document.getDocumentElement();
       if(docElement == null)
          throw new IllegalStateException("Document Element is null");
-      return (SAMLObject) util.toXMLObject(docElement);
+      XMLObject xmlObject = util.toXMLObject(docElement);
+      if(xmlObject instanceof Envelope)
+      {
+         Envelope envelope = (Envelope) xmlObject; 
+         Body soapBody = envelope.getBody();
+         List<XMLObject> children = soapBody.getOrderedChildren();
+         if(children != null)
+         {
+            for(XMLObject child: children)
+            {
+               if(child instanceof SAMLObject)
+               {
+                  return (SAMLObject) child;
+               }
+            }
+         }
+      }
+      else
+      if(xmlObject instanceof SAMLObject)
+      {
+        return (SAMLObject) xmlObject;
+      }
+      throw new RuntimeException("Unknown Object:"+xmlObject.getClass().getCanonicalName()) ;
    }
 }
