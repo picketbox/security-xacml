@@ -29,9 +29,7 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 import junit.framework.TestCase;
-
-//$Id$
-
+ 
 /**
  *  Physician Unit Test Case 
  *  @author Anil.Saldhana@redhat.com
