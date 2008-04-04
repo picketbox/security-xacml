@@ -8,7 +8,7 @@
     PolicyCombiningAlgId=
       "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
   <Description>
-      Policy set for the UBA confidentiality code.
+      Policy set for the business rule for unsigned progress notes.
   </Description>
   <Target/>
   <Policy

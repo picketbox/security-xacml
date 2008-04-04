@@ -15,7 +15,7 @@
   <Policy
       PolicyId="urn:va:xacml:2.0:interop:rsa8:policyid:N:PPS:PRD-004:1"
       RuleCombiningAlgId=
-        "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:deny-overrides">
+        "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
     <Target>
       <Resources>
         <Resource>
@@ -122,7 +122,7 @@
               MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
             <AttributeValue
                 DataType="http://www.w3.org/2001/XMLSchema#string"
-             >urn:va:xacml:2.0:interop:rsa8:resource:hl7:progressnotes</AttributeValue>
+             >urn:va:xacml:2.0:interop:rsa8:resource:hl7:progress-note</AttributeValue>
             <ResourceAttributeDesignator
                 AttributeId="urn:va:xacml:2.0:interop:rsa8:resource:hl7:type"
                 DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -169,5 +169,12 @@
         </Apply>
       </Condition>
 	 </Rule>
+    <Rule
+        RuleId="urn:va:xacml:2.0:interop:rsa8:rule:N:PPS:PRD-004:1:rule:2"
+	     Effect="Deny">
+      <Description>
+      	If a Permit was not obtained above then set Deny by default.
+	   </Description>
+    </Rule>
   </Policy>
 </PolicySet>

@@ -6,7 +6,7 @@
       http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
 
   <!-- **************************************************************** -->
-  <!-- Test case 1-02: Should be Deny: Dr A missing 2 reqd perms        -->
+  <!-- Test case 2-04: Should be Deny: Dr A is on dissented multi-list  -->
   <!-- **************************************************************** -->
 
   <!-- Sample request. In this case a physician is trying to access   -->
@@ -29,6 +29,8 @@
          DataType="http://www.w3.org/2001/XMLSchema#string">
        <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-003</AttributeValue>
        <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-005</AttributeValue>
+       <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-006</AttributeValue>
+       <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-009</AttributeValue>
        <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-010</AttributeValue>
        <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-012</AttributeValue>
        <AttributeValue>urn:va:xacml:2.0:interop:rsa8:hl7:prd-017</AttributeValue>
@@ -54,11 +56,12 @@
     <Attribute
         AttributeId="urn:va:xacml:2.0:interop:rsa8:resource:hl7:confidentiality-code"
          DataType="http://www.w3.org/2001/XMLSchema#string">
-       <AttributeValue>xxx-DummyConfCode</AttributeValue>
+       <AttributeValue>UBA</AttributeValue>
     </Attribute>
     <Attribute
         AttributeId="urn:va:xacml:2.0:interop:rsa8:resource:hl7:dissented-subject-id"
         DataType="http://www.w3.org/2001/XMLSchema#string">
+            <AttributeValue>Dr. Charlie</AttributeValue>
             <AttributeValue>Dr. Alice</AttributeValue>
     </Attribute>
     <Attribute

@@ -23,12 +23,12 @@ package org.jboss.test.security.xacml.interop.rsaconf;
 
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
 import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
+
+import junit.framework.TestCase;
 
 //$Id$
 
@@ -47,12 +47,9 @@ public class PhysicianUnitTestCase extends TestCase
       <!-- Test case 1-01: Should be Perm: Dr A has all reqd perms          -->
       <!-- **************************************************************** -->
       **/
-
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-01-01.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-01-01.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
    public void testRequest01_02() throws Exception
    {
       /**
@@ -60,11 +57,9 @@ public class PhysicianUnitTestCase extends TestCase
          <!-- Test case 1-02: Should be Deny: Dr A missing 2 reqd perms        -->
          <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-01-02.xml");
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY, decision);
+      validateCase("XacmlRequest-01-02.xml", XACMLConstants.DECISION_DENY); 
    }
-
+   
    public void testRequest01_03() throws Exception
    {
       /**
@@ -72,11 +67,19 @@ public class PhysicianUnitTestCase extends TestCase
          <!-- Test case 1-03: Should be Perm: Dr A has all reqd perms +2 extra -->
          <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-01-03.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-01-03.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
+   public void testRequest01_04() throws Exception
+   {
+      /**
+          <!-- **************************************************************** -->
+          <!-- Test case 1-04: Should be Deny: Dr A has no facility             -->
+          <!-- **************************************************************** -->
+       */
+      validateCase("XacmlRequest-01-04.xml", XACMLConstants.DECISION_DENY); 
+   }
+   
    public void testRequest02_01() throws Exception
    {
       /**
@@ -84,11 +87,9 @@ public class PhysicianUnitTestCase extends TestCase
         <!-- Test case 2-01: Should be Deny: provides role but needs perms    -->
         <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-02-01.xml");
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY, decision);
+      validateCase("XacmlRequest-02-01.xml", XACMLConstants.DECISION_DENY); 
    }
-
+   
    public void testRequest02_02() throws Exception
    {
       /**
@@ -96,9 +97,7 @@ public class PhysicianUnitTestCase extends TestCase
        <!-- Test case 2-02: Should be Deny: Dr A is on dissented list        -->
        <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-02-02.xml");
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY, decision);
+      validateCase("XacmlRequest-02-02.xml", XACMLConstants.DECISION_DENY);  
    }
 
    public void testRequest02_03() throws Exception
@@ -108,11 +107,19 @@ public class PhysicianUnitTestCase extends TestCase
         <!-- Test case 2-03: Should be Perm: Dr A is not on dissented list    -->
         <!-- **************************************************************** --> 
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-02-03.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-02-03.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
+   public void testRequest02_04() throws Exception
+   {
+      /**
+      <!-- **************************************************************** -->
+      <!-- Test case 2-04: Should be Deny: Dr A is on dissented multi-list  -->
+      <!-- **************************************************************** -->
+      **/
+      validateCase("XacmlRequest-02-04.xml", XACMLConstants.DECISION_DENY); 
+   }
+  
    public void testRequest03_01() throws Exception
    {
       /**
@@ -120,11 +127,9 @@ public class PhysicianUnitTestCase extends TestCase
       <!-- Test case 3-01: Should be Deny: signed = Fals, Dr. A not author  -->
       <!-- **************************************************************** -->
       */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-03-01.xml");
-      assertEquals("DENY?", XACMLConstants.DECISION_DENY, decision);
+      validateCase("XacmlRequest-03-01.xml", XACMLConstants.DECISION_DENY);  
    }
-
+   
    public void testRequest03_02() throws Exception
    {
       /**
@@ -132,11 +137,9 @@ public class PhysicianUnitTestCase extends TestCase
         <!-- Test case 3-02: Should be Permit: sign = True, Dr. A not author  -->
         <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-03-02.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-03-02.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
    public void testRequest03_03() throws Exception
    {
       /**
@@ -145,23 +148,50 @@ public class PhysicianUnitTestCase extends TestCase
       <!-- Test case 3-03: Should be Perm: signed = Fals, Dr. A is author   -->
       <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-03-03.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-03-03.xml", XACMLConstants.DECISION_PERMIT);  
    }
-
+   
+   public void testRequest04_01() throws Exception
+   {
+      /**
+      <!-- **************************************************************** -->
+      <!-- Test case 4-01: Should be Perm + Obl: Dr A has emergency perm   -->
+      <!-- **************************************************************** -->
+      */
+      validateCase("XacmlRequest-04-01.xml", XACMLConstants.DECISION_PERMIT);  
+   }
+   
+   public void testRequest04_02() throws Exception
+   {
+      /**
+        <!-- **************************************************************** -->
+        <!-- Test case 04-02: Should be Perm + Obl: Dr A has emergency perm  -->
+        <!-- **************************************************************** -->
+       */
+      validateCase("XacmlRequest-04-02.xml", XACMLConstants.DECISION_PERMIT); 
+   }
+   
+   public void testRequest04_03() throws Exception
+   {
+      /**
+       * 
+      !-- **************************************************************** -->
+      <!-- Test case 4-03: Should be Deny+Obl: DrA has pea-001 but UBA set   -->
+      <!-- **************************************************************** -->
+       */
+      validateCase("XacmlRequest-04-03.xml", XACMLConstants.DECISION_DENY);  
+   }
+   
    public void testRequest05_01() throws Exception
    {
       /**
        * **************************************************************** -->
-      <!-- Test case 5-01: Should be Perm + Obl: Dr A is on dissented list  -->
-      <!-- **************************************************************** -->
+       <!-- Test case 5-01: Should be Perm + Obl: Dr A is on dissented list  -->
+       <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-05-01.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("XacmlRequest-05-01.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
    public void testRequest05_02() throws Exception
    {
       /**
@@ -169,18 +199,14 @@ public class PhysicianUnitTestCase extends TestCase
           <!-- Test case 5-02: Should be Perm: no obl; Dr A not on dis-list     -->
           <!-- **************************************************************** -->
        */
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/XacmlRequest-05-02.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
-   }
-
+      validateCase("XacmlRequest-05-02.xml", XACMLConstants.DECISION_PERMIT); 
+   } 
+  
    public void testPatientSearch() throws Exception
    {
-      System.setProperty("debug", "true");
-      int decision = XACMLTestUtil.getDecision(getPDP(), "test/requests/interop/rsaconf08/patient_search.xml");
-      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT, decision);
+      validateCase("patient_search.xml", XACMLConstants.DECISION_PERMIT); 
    }
-
+   
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
@@ -189,4 +215,22 @@ public class PhysicianUnitTestCase extends TestCase
 
       return new JBossPDP(is);
    }
+   
+   private void validateCase(String loc, int decisionval) throws Exception
+   {
+      loc = "test/requests/interop/rsaconf08/" + loc;
+      
+      int decision = XACMLTestUtil.getDecision(getPDP(), loc);   
+      switch(decisionval)
+      {
+         case XACMLConstants.DECISION_PERMIT: 
+            assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision);
+            break;
+         case XACMLConstants.DECISION_DENY:
+            assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
+            break;
+         default: fail("wrong value");
+      }  
+   }
+   
 }

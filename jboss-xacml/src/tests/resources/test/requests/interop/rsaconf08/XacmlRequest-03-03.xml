@@ -18,7 +18,12 @@
         AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
         DataType="http://www.w3.org/2001/XMLSchema#string">
       <AttributeValue>Dr. Alice</AttributeValue>
-     </Attribute>
+    </Attribute>
+    <Attribute 
+        AttributeId="urn:oasis:names:tc:xacml:1.0:subject:locality"
+        DataType="http://www.w3.org/2001/XMLSchema#string" >
+      <AttributeValue>Facility A</AttributeValue>
+    </Attribute>
      <Attribute
          AttributeId="urn:va:xacml:2.0:interop:rsa8:subject:hl7:permission"
          DataType="http://www.w3.org/2001/XMLSchema#string">
@@ -73,5 +78,11 @@
     </Attribute>
   </Resource>
   <Action/>  
-  <Environment/>
+  <Environment>
+    <Attribute 
+        AttributeId="urn:va:xacml:2.0:interop:rsa8:environment:locality" 
+        DataType="http://www.w3.org/2001/XMLSchema#string" >
+      <AttributeValue>Facility A</AttributeValue>
+    </Attribute>
+  </Environment>
 </Request>
