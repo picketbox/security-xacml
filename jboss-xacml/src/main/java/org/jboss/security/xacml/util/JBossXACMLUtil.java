@@ -26,7 +26,6 @@ import java.io.ByteArrayOutputStream;
 
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.ResponseContext;
-import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
