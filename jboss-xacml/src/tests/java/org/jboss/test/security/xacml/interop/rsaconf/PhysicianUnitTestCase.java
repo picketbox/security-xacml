@@ -205,6 +205,26 @@ public class PhysicianUnitTestCase extends TestCase
       validateCase("patient_search.xml", XACMLConstants.DECISION_PERMIT); 
    }
    
+   public void testEmergencyAccess() throws Exception
+   {
+      /**
+       * The request contains the “pea-001” attribute, which, combined with the 
+       * absence of the “env:locality” turns on emergency override.
+       * If you remove the “pea” from the request, it should turn into a “deny”. 
+       */
+      validateCase("emergency_access.xml", XACMLConstants.DECISION_PERMIT); 
+   }
+   
+   public void testEmergencyAccessDeny() throws Exception
+   {
+      /**
+       * The request contains the “pea-001” attribute, which, combined with the 
+       * absence of the “env:locality” turns on emergency override.
+       * If you remove the “pea” from the request, it should turn into a “deny”. 
+       */
+      validateCase("emergency_access_deny.xml", XACMLConstants.DECISION_DENY); 
+   }
+   
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
