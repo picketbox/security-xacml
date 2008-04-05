@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  *  @since  Mar 25, 2008 
  *  @version $Revision$
  */
-public class PhysicianUnitTestCase extends TestCase
+public class InteropUseCasesUnitTestCase extends TestCase
 {
    public void testRequest01_01() throws Exception
    {
