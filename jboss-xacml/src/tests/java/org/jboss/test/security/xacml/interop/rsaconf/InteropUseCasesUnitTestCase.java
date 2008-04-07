@@ -225,6 +225,31 @@ public class InteropUseCasesUnitTestCase extends TestCase
       validateCase("emergency_access_deny.xml", XACMLConstants.DECISION_DENY); 
    }
    
+   public void testDrCharlieFromFacilityBAccessPatientFromFacilityADeny() 
+   throws Exception
+   {
+      /**
+       * Deny case
+       * Dr.Charlie from FacilityB tries to access the chart of a patient
+       * from Facility A. Should be deny
+       */
+      validateCase("charliefacilityB_patientA_deny_request.xml", 
+            XACMLConstants.DECISION_DENY);
+   }
+   
+   public void testDrCharlieFromFacilityBAccessPatientFromFacilityA_EmergencyAccess() 
+   throws Exception
+   {
+      /**
+       * Permit case
+       * Dr.Charlie from FacilityB tries to access the chart of a patient
+       * from Facility A. There is an emergency access attribute in the subject
+       * "pea-001"
+       */
+      validateCase("charliefacilityB_patientA_emergency_request.xml", 
+            XACMLConstants.DECISION_PERMIT);
+   }
+   
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
