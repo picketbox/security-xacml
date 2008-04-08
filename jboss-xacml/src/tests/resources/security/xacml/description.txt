@@ -1,0 +1,42 @@
+//$Id: description.txt 45725 2006-06-21 17:19:15Z asaldhana $
+
+The Tests in the XACML suite
+=============================
+test1:Anil Saldhana can read or write Anil Saldhana's payroll personal information.
+
+test2: A subject with a role attribute of "Developer" can read or write development report.
+
+test3:  A subject with a "bogus" attribute with a value of "Developer" can read or write Development Reports.
+
+test4: Anil Saldhana can read or write Development Reports. Syntax for the SubjectAttributeDesignator omits the 
+required AttributeId xml attribute, however.
+
+test5: Anil Saldhana can read or write development reports. The associated Request for this test omits the
+required AttributeId for the Action attribute, however.
+
+test6: Anil Saldhana can read or write development reports.
+
+test7: Anil Saldhana can read or write development reports. (Missing Attribute)
+
+test8: Anil Saldhana can read or write development reports. (Presence of some attribute)
+
+test9: Anyone who is 30 integer years old may perform any action on any resource.
+
+test10: Anyone can perform any action on any resource if current-time is 08:23:47-05:00.
+
+test11: Any Subject can perform any action on any resource.
+
+test12: Any Subject can read any resource or can write any resource with "platinum" Quality of Service.
+
+test13: Anil Saldhana, identified by X500 Name, can read or write development reports.
+
+test14: Anyone can access any resource between 9AM and 5PM
+
+test15: Anyone can access any resource between 9AM and 5PM (Request comes at 2AM)
+
+test16: Anil Saldhana can read or write Anil Saldhana's payroll personal information when
+        the request parameter "status" in Action  has a value "employed" 
+
+test17: Anil Saldhana can read or write Anil Saldhana's payroll personal information when
+        the request parameter "status" in Action has a value "employed" (request param is missing)
+

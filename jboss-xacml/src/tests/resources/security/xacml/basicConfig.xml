@@ -1,0 +1,18 @@
+<config xmlns='http://sunxacml.sourceforge.net/schema/config-0.2'
+   defaultPDP='default' defaultAttributeFactory='default'
+   defaultCombiningAlgFactory='default' defaultFunctionFactory='default'>
+      
+   <pdp name='default'>
+      <attributeFinderModule
+         class='org.jboss.security.xacml.sunxacml.finder.impl.CurrentEnvModule'/>
+      <attributeFinderModule
+         class='org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule'/>
+      <attributeFinderModule
+         class='org.jboss.test.security.test.xacml.modules.TestRoleAttributeFinderModule'/>
+      <resourceFinderModule
+         class='org.jboss.test.security.test.xacml.modules.TestResourceFinderModule'/>
+   </pdp>
+   <attributeFactory name='default' useStandardDatatypes='true'/>
+   <combiningAlgFactory name='default' useStandardAlgorithms='true'/>
+   <functionFactory name='default' useStandardFunctions='true'/>
+</config>
