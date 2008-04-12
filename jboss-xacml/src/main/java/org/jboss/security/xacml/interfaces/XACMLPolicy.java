@@ -23,8 +23,6 @@ package org.jboss.security.xacml.interfaces;
 
 import java.util.List;
 
-//$Id$
-
 /**
  *  Represents a Policy or a PolicySet in the XACML World
  *  @author Anil.Saldhana@redhat.com

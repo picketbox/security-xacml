@@ -21,8 +21,6 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-//$Id$
-
 /**
  *  Defines the constants for XML Schema
  *  @author Anil.Saldhana@redhat.com

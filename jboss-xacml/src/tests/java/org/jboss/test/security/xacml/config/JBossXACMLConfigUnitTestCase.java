@@ -42,7 +42,6 @@ import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
-//$Id$
 
 /**
  *  Test the import of the config file driving JBossXACML

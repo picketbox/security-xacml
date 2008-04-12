@@ -35,7 +35,6 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 
-//$Id$
 
 /**
  *  Utility class for the JBossXACML Tests

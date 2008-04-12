@@ -25,13 +25,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeProxy;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  *  Represents a single value attribute proxy
@@ -63,7 +63,7 @@ public class SingleValueAttributeProxy implements AttributeProxy
    public AttributeValue getInstance(Node root) throws Exception
    {
       // now we get the attribute value
-      if (getNodeName(root).equals("AttributeValue"))
+      if (SunxacmlUtil.getNodeName(root).equals("AttributeValue"))
       {
          // now get the value
          try
@@ -94,13 +94,5 @@ public class SingleValueAttributeProxy implements AttributeProxy
    public AttributeValue getInstance(String value) throws Exception
    {
       return new SingleValueAttribute(type, value);
-   }
-
-   private static String getNodeName(Node node)
-   {
-      String name = node.getLocalName();
-      if (name == null)
-         name = node.getNodeName();
-      return name;
-   }
+   } 
 }

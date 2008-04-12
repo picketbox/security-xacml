@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.jboss.security.xacml.jaxb.Option;
 
-//$Id$
 
 /**
  *  Interface representing a locator for a XACML Policy

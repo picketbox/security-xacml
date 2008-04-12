@@ -23,8 +23,6 @@ package org.jboss.security.xacml.bridge;
 
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 
-//$Id$
-
 /**
  *  Represents a consolidated PolicyFinder
  *  that can contain all the PolicyFinderModules

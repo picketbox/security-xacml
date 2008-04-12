@@ -35,7 +35,6 @@ import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
-//$Id$
 
 /**
  *  Unit Tests for the Web bindings

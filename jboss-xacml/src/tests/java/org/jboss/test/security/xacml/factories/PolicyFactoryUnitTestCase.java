@@ -28,7 +28,6 @@ import org.jboss.security.xacml.interfaces.XACMLPolicy;
 
 import junit.framework.TestCase;
 
-//$Id$
 
 /**
  *  Unit Tests for the PolicyFactory

@@ -23,8 +23,7 @@ package org.jboss.security.xacml.core;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-
-//$Id$
+ 
 
 /**
  *  Privileged Blocks

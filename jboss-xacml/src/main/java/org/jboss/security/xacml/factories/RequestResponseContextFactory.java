@@ -26,7 +26,6 @@ import org.jboss.security.xacml.core.JBossResponseContext;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 
-//$Id$
 
 /**
  *  Factory to create the Request and ResponseContext objects

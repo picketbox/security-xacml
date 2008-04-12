@@ -39,7 +39,6 @@ import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 
-//$Id$
 
 /**
  *  PEP for the web layer

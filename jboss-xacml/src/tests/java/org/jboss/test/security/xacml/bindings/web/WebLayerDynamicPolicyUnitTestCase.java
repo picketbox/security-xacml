@@ -61,7 +61,6 @@ import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 import org.jboss.security.xacml.locators.JBossPolicyLocator;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
-//$Id$
 
 /**
  *  Test Case that constructs the policy dynamically

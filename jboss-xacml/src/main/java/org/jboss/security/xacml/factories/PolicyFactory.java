@@ -36,7 +36,6 @@ import org.jboss.security.xacml.core.model.policy.ObjectFactory;
 import org.jboss.security.xacml.core.model.policy.PolicyType;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 
-//$Id$
 
 /**
  *  A Policy Factory that creates XACML Policy

@@ -25,7 +25,7 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactoryProxy;
 
 /**
- *  
+ *  Extension of AttributeFactory
  *  @author Anil.Saldhana@redhat.com
  *  @since  Mar 28, 2008 
  *  @version $Revision$

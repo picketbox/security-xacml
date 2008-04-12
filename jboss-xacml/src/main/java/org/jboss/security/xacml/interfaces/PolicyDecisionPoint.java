@@ -23,8 +23,6 @@ package org.jboss.security.xacml.interfaces;
 
 import java.util.Set;
 
-//$Id$
-
 /**
  *  Represents a XACML PDP
  *  @author Anil.Saldhana@redhat.com

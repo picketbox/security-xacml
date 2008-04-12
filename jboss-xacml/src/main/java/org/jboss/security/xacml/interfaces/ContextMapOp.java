@@ -21,8 +21,6 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-//$Id$
-
 /**
  *  Interface defining operations
  *  on a context map

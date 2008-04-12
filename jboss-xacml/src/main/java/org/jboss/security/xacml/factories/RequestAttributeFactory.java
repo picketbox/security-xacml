@@ -35,8 +35,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.jboss.security.xacml.core.model.context.AttributeType;
 import org.jboss.security.xacml.core.model.context.AttributeValueType;
 import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
-
-//$Id$
+ 
 
 /**
  *  Construct Commonly Used Attributes in Request Subject/Resource/Action

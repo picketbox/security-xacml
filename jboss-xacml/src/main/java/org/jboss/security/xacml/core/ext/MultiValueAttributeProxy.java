@@ -57,11 +57,11 @@ public class MultiValueAttributeProxy implements AttributeProxy
 
    public AttributeValue getInstance(Node root) throws Exception
    {
-      return null;
+      throw new RuntimeException("Not Implemented");
    }
 
    public AttributeValue getInstance(String value) throws Exception
    {
-      return new SingleValueAttribute(type, value);
+      return new MultiValueAttribute(type, value);
    }
 }

@@ -71,11 +71,11 @@ import org.w3c.dom.Node;
  *  @version $Revision$
  */
 public class ExtendedAttributeFactory extends BaseAttributeFactory
-{
-
+{ 
    private static ExtendedAttributeFactory instance = null;
 
-   private static Map supportedDatatypes = new HashMap();
+   private static Map<String,AttributeProxy> supportedDatatypes = 
+      new HashMap<String, AttributeProxy>();
 
    private ExtendedAttributeFactory()
    {
@@ -99,8 +99,7 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
 
       // the 2.0 datatypes
       supportedDatatypes.put(DNSNameAttribute.identifier, new DNSNameAttributeProxy());
-      supportedDatatypes.put(IPAddressAttribute.identifier, new IPAddressAttributeProxy());
-
+      supportedDatatypes.put(IPAddressAttribute.identifier, new IPAddressAttributeProxy()); 
    }
 
    public void addDatatype(String id, AttributeProxy proxy)
@@ -109,7 +108,8 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
    }
 
    @Override
-   public AttributeValue createValue(URI dataType, String value) throws UnknownIdentifierException, ParsingException
+   public AttributeValue createValue(URI dataType, String value) 
+   throws UnknownIdentifierException, ParsingException
    {
       try
       {
@@ -122,7 +122,8 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
    }
 
    @Override
-   public AttributeValue createValue(Node root, String type) throws UnknownIdentifierException, ParsingException
+   public AttributeValue createValue(Node root, String type) 
+   throws UnknownIdentifierException, ParsingException
    {
       try
       {
@@ -135,7 +136,8 @@ public class ExtendedAttributeFactory extends BaseAttributeFactory
    }
 
    @Override
-   public AttributeValue createValue(Node root, URI dataType) throws UnknownIdentifierException, ParsingException
+   public AttributeValue createValue(Node root, URI dataType) 
+   throws UnknownIdentifierException, ParsingException
    {
       return createValue(root, dataType.toString());
    }

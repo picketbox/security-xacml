@@ -21,8 +21,6 @@
   */
 package org.jboss.security.xacml.interfaces;
 
-//$Id$
-
 /**
  *  Constants
  *  @author Anil.Saldhana@redhat.com

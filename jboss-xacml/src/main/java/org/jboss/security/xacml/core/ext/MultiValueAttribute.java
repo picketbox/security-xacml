@@ -26,7 +26,7 @@ import java.net.URI;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 
 /**
- *  Represents a custom attribute of single value
+ *  Represents a custom attribute of multi value
  *  @author Anil.Saldhana@redhat.com
  *  @since  Mar 28, 2008 
  *  @version $Revision$

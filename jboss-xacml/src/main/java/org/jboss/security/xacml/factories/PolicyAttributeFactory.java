@@ -37,7 +37,6 @@ import org.jboss.security.xacml.core.model.policy.AttributeValueType;
 import org.jboss.security.xacml.core.model.policy.SubjectAttributeDesignatorType;
 import org.jboss.security.xacml.interfaces.XMLSchemaConstants;
 
-//$Id$
 
 /**
  *  Static class that has methods to create AttributeValueTypes

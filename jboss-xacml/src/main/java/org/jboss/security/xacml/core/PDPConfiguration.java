@@ -41,6 +41,10 @@ public class PDPConfiguration
       AttributeFactory.setDefaultFactory(new ExtendedAttributeFactoryProxy());
    }
 
+   /**
+    * Install a Single Value Attribute that is not standard
+    * @param type
+    */
    public static void installSingleValueAttribute(String type)
    {
       AttributeFactory factory = AttributeFactory.getInstance();
@@ -48,6 +52,10 @@ public class PDPConfiguration
 
    }
 
+   /**
+    * Install a multi value Attribute that is not standard
+    * @param type
+    */
    public static void installMultiValueAttribute(String type)
    {
       AttributeFactory factory = AttributeFactory.getInstance();

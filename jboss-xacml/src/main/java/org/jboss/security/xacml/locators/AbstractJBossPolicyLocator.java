@@ -31,10 +31,9 @@ import org.jboss.security.xacml.interfaces.PolicyLocator;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.jaxb.Option;
 
-//$Id$
 
 /**
- *  
+ *  Base Class for Policy Locators
  *  @author Anil.Saldhana@redhat.com
  *  @since  Jul 6, 2007 
  *  @version $Revision$
