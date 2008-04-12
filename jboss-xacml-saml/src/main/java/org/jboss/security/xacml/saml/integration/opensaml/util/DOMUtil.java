@@ -36,6 +36,13 @@ import org.w3c.dom.Document;
  */
 public class DOMUtil
 { 
+   /**
+    * Parse an XML file
+    * @param xmlFile
+    * @param validating should we validate?
+    * @return
+    * @throws Exception
+    */
    public static Document parse(File xmlFile, boolean validating) throws Exception
    {
       FileInputStream fis = null;
@@ -56,6 +63,13 @@ public class DOMUtil
      }
    }
    
+   /**
+    * Parse an xml file
+    * @param is
+    * @param validating validate?
+    * @return
+    * @throws Exception
+    */
    public static Document parse(InputStream is, boolean validating)
    throws Exception
    {

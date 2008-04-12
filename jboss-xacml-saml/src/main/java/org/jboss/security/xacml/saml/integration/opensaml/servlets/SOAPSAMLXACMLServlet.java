@@ -45,8 +45,8 @@ import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLReque
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLResponse;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
+import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
 import org.joda.time.DateTime;
-import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
@@ -129,6 +129,7 @@ public class SOAPSAMLXACMLServlet extends HttpServlet
    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
    throws ServletException, IOException
    {
+      SAML2Util util = new SAML2Util();
       Envelope envelope = null;
       JBossSAMLRequest samlRequest = new JBossSAMLRequest();
       try
@@ -144,7 +145,7 @@ public class SOAPSAMLXACMLServlet extends HttpServlet
             throw new IllegalStateException("XACML Request Context is null");
          ResponseContext responseContext = getPDP().evaluate(requestContext);
     
-         DateTime issueInstant = getIssueInstant();
+         DateTime issueInstant = util.getIssueInstant();
            
          //We need to create a response to send back
          Response samlResponse = (new JBossSAMLResponse()).getSAMLResponse(issueInstant, 
@@ -216,11 +217,6 @@ public class SOAPSAMLXACMLServlet extends HttpServlet
          pw.flush(); 
       }
    } 
-   
-   public static DateTime getIssueInstant()
-   {
-      return new DateTime(ISOChronology.getInstanceUTC());
-   }
    
    private Element logXMLObject(XMLObject xmlObject)
    {

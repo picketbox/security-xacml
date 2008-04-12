@@ -38,40 +38,55 @@ implements XACMLAuthzDecisionQueryType
 {
    private RequestContext requestType;
    private XSBooleanValue combinePolicies;
-   
+
    /* 
     * Constructor.
     * @param nsURI the namespace the element is in
     * @param localname the local name of the XML element 
     * @param prefix the prefix for the given namespace
     */
-  protected XACMLAuthzDecisionQueryTypeImpl(String nsURI, String localname, 
-        String prefix) 
-  {
+   protected XACMLAuthzDecisionQueryTypeImpl(String nsURI, String localname, 
+         String prefix) 
+   {
       super(nsURI, localname, prefix);
       setElementNamespacePrefix(prefix);
-  }
+   }
 
+   /**
+    * Value of combine policies?
+    */
    public XSBooleanValue getCombinePolicies()
    { 
       return combinePolicies;
    }
 
+   /**
+    * Get the JBossXACML request context
+    */
    public RequestContext getRequest()
    {   
       return requestType;
    }
 
+   /**
+    * Boolean value to represent combining policies
+    */
    public boolean isCombinePolicies()
    { 
       return combinePolicies != null ? combinePolicies.getValue() : null;
    }
 
+   /**
+    * Set combining policies
+    */
    public void setCombinePolicies(XSBooleanValue combinePolicies)
    {
      this.combinePolicies = combinePolicies;
    }
 
+   /**
+    * Set the JBossXACML Request
+    */
    public void setRequest(RequestContext request)
    {
       this.requestType = request;

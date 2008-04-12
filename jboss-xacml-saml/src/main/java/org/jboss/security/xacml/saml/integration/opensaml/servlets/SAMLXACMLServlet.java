@@ -42,17 +42,16 @@ import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.saml.integration.opensaml.core.JBossXACMLSAMLConfiguration;
 import org.jboss.security.xacml.saml.integration.opensaml.core.OpenSAMLUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLRequest;
+import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLResponse;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionStatementType;
+import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
 import org.joda.time.DateTime;
-import org.joda.time.chrono.ISOChronology;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Response;
-import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.core.impl.AssertionImpl;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
@@ -126,6 +125,7 @@ public class SAMLXACMLServlet extends HttpServlet
    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
    throws ServletException, IOException
    {
+      SAML2Util util = new SAML2Util();
       JBossSAMLRequest samlRequest = new JBossSAMLRequest();
       try
       {
@@ -140,10 +140,11 @@ public class SAMLXACMLServlet extends HttpServlet
             throw new IllegalStateException("XACML Request Context is null");
          ResponseContext responseContext = getPDP().evaluate(requestContext);
     
-         DateTime issueInstant = getIssueInstant();
+         DateTime issueInstant = util.getIssueInstant();
            
          //We need to create a response to send back
-         Response samlResponse = getSAMLResponse(issueInstant, responseId, issuerId);
+         Response samlResponse = (new JBossSAMLResponse()).getSAMLResponse(issueInstant, 
+                                                  responseId, issuerId);
          //Create samlp:Assertion
          Assertion assertion = (Assertion) OpenSAMLUtil.buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME);
          assertion.setID(responseId);
@@ -184,29 +185,7 @@ public class SAMLXACMLServlet extends HttpServlet
       {
          throw new ServletException(e); 
       } 
-   }
-   
-   private Response getSAMLResponse(DateTime issueInstant, String responseId,
-         String issuerId)
-   {   
-      Response samlResponse = (Response) OpenSAMLUtil.buildXMLObject(Response.DEFAULT_ELEMENT_NAME); 
-      samlResponse.setID(responseId);
-      samlResponse.setIssueInstant(issueInstant);
-      
-      //Set samlp:Status
-      Status status = (Status) OpenSAMLUtil.buildXMLObject(Status.DEFAULT_ELEMENT_NAME);
-      StatusCode statusCode = (StatusCode) OpenSAMLUtil.buildXMLObject(StatusCode.DEFAULT_ELEMENT_NAME);
-      statusCode.setValue(StatusCode.SUCCESS_URI);
-      status.setStatusCode(statusCode);
-      samlResponse.setStatus(status);
-       
-      return samlResponse;
-   }
-   
-   public static DateTime getIssueInstant()
-   {
-      return new DateTime(ISOChronology.getInstanceUTC());
-   }
+   }  
    
    private Element logXMLObject(XMLObject xmlObject)
    {

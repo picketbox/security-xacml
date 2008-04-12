@@ -61,14 +61,39 @@ public interface XACMLAuthzDecisionStatementType extends Statement, ElementMappi
    QName TYPE_NAME_XACML20 = new QName(SAMLXACMLConstants.SAML2_XACML20P_NS, TYPE_LOCAL_NAME,
            SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
 
+   /**
+    * Get the JBossXACML request context
+    * @return
+    */
    RequestContext getRequest();
 
+   /**
+    * Get the JBossXACML response context
+    * @return
+    */
    ResponseContext getResponse();
 
+   /**
+    * Set the JBossXACML request context
+    * @param request
+    */
    void setRequest(RequestContext request);
  
+   /**
+    * Set the JBossXACML response context
+    * @param response
+    */
    void setResponse(ResponseContext response); 
-   
+ 
+   /**
+    * Set the owner document if available
+    * @param doc
+    */
    void setOwnerDocument(Document doc);
+ 
+   /**
+    * Get the owner document if available
+    * @return
+    */
    Document getOwnerDocument();
 }

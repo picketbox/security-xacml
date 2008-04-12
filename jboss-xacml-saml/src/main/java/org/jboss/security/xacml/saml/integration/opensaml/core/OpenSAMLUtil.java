@@ -43,12 +43,22 @@ public class OpenSAMLUtil
      return Configuration.getBuilderFactory().getBuilder(qname);   
    }
    
+   /**
+    * Build an xml object
+    * @param qname
+    * @return
+    */
    public static XMLObject buildXMLObject(QName qname)
    {
       XMLObjectBuilder<?> ob = getBuilder(qname);
       return ob.buildObject(qname.getNamespaceURI(), qname.getLocalPart(), qname.getPrefix());
    } 
    
+   /**
+    * Get the marshaller
+    * @param xmlObject
+    * @return
+    */
    public static Marshaller getMarshaller(XMLObject xmlObject)
    {
       MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();

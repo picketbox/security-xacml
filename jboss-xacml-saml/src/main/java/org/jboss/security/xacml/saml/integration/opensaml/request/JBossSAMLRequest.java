@@ -43,12 +43,24 @@ import org.w3c.dom.Element;
  */
 public class JBossSAMLRequest
 { 
+   /**
+    * Given a saml request file, parse the saml object
+    * @param requestFile
+    * @return
+    * @throws Exception
+    */
    public SAMLObject getSAMLRequest(String requestFile) throws Exception
    {
       Document document = DOMUtil.parse(new File(requestFile), true);
       return getSAMLObject(document);
    }
    
+   /**
+    * Parse the saml object from the input stream
+    * @param requestStream
+    * @return
+    * @throws Exception
+    */
    public SAMLObject getSAMLRequest(InputStream requestStream) 
    throws Exception
    {

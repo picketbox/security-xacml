@@ -45,12 +45,25 @@ import org.w3c.dom.Element;
  */
 public class JBossSAMLResponse
 {
+   /**
+    * Given a response file, parse the SAML Object
+    * representing the response
+    * @param responseFile
+    * @return
+    * @throws Exception
+    */
    public SAMLObject getSAMLResponse(String responseFile) throws Exception
    {
       Document document = DOMUtil.parse(new File(responseFile), true);
       return getSAMLObject(document);
    }
    
+   /**
+    * Get the SAML Object
+    * @param responseFile
+    * @return
+    * @throws Exception
+    */
    public SAMLObject getSAMLResponse(InputStream responseFile) 
    throws Exception
    {
@@ -58,6 +71,14 @@ public class JBossSAMLResponse
       return getSAMLObject(document);
    }
    
+   /**
+    * Get a response object with the issue instant, response ID
+    * and Issuer ID
+    * @param issueInstant if null, get the current time
+    * @param responseId
+    * @param issuerId
+    * @return
+    */
    public Response getSAMLResponse(DateTime issueInstant, 
          String responseId, String issuerId)
    {

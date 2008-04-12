@@ -41,6 +41,10 @@ import org.opensaml.Configuration;
  */
 public class JBossXACMLSAMLConfiguration
 {
+   /**
+    * Initializes the JBoss XACML-SAML Integration layer
+    * @throws Exception
+    */
    public static void initialize() throws Exception
    {
       org.opensaml.DefaultBootstrap.bootstrap(); 
