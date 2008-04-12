@@ -39,6 +39,7 @@ package org.jboss.security.xacml.sunxacml.attr;
 
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
@@ -482,4 +483,11 @@ public class AttributeDesignator implements Evaluatable
         out.println(indent + tag);
     }
 
+    @Override
+    public String toString()
+    {
+       ByteArrayOutputStream baos = new ByteArrayOutputStream();
+       encode(baos);
+       return baos.toString();
+    } 
 }
