@@ -28,8 +28,7 @@ import java.util.Set;
 import org.jboss.security.xacml.bridge.PolicySetFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
-import org.jboss.security.xacml.sunxacml.AbstractPolicy;
-import org.jboss.security.xacml.sunxacml.Policy;
+import org.jboss.security.xacml.sunxacml.AbstractPolicy; 
 import org.jboss.security.xacml.sunxacml.PolicySet;
 
 /**
@@ -84,9 +83,7 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
       for (XACMLPolicy xp : policyList)
       {
          AbstractPolicy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
-         policies.add(p);
-         if (p instanceof Policy)
-            System.out.println(p.getId());
+         policies.add(p); 
          if (p instanceof PolicySet)
             this.recursivePopulate(xp, policies, psfm);
       }
