@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <chapter id="introduction">
-   <title>Introduction to JBoss XACML</title>
+  <title>Introduction to JBoss XACML</title>
 
-   <para>The JBoss XACML provides a standards based, robust Policy Infrastruture library .
-  </para>
+  <para>JBoss XACML provides a standards based, robust Policy Infrastruture
+  library .</para>
 
-   <para>JBossXACML is based on Oasis XACML v2.0. It defines an API to read one or more PolicySets (and/or Policy files) via a simple configuration file. It also provides a JAXB v2.0 compatible object model that can be used to construct policies and requests in XACML. 
-  </para>
+  <para>JBossXACML is based on Oasis XACML v2.0. It </para>
+
+  <orderedlist>
+    <listitem>
+      <para>defines an API to read one or more PolicySets (and/or Policy
+      files) via a simple configuration file. </para>
+    </listitem>
+
+    <listitem>
+      <para>defines an API to parse XACML request files or streams.</para>
+    </listitem>
+
+    <listitem>
+      <para>provides a JAXB v2.0 compatible object model that can be used to
+      construct policies and requests in XACML.</para>
+    </listitem>
+  </orderedlist>
 
   <sect1 id="pre-requisites">
     <title>Pre-requisites</title>
-    <para>To make full use of JBoss XACML, you will need a basic understanding of XACML v2.0, their policies etc</para>
+
+    <para>To make full use of JBoss XACML, you will need a basic understanding
+    of XACML v2.0 and its policies etc</para>
   </sect1>
 </chapter>
