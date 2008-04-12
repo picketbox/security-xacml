@@ -57,6 +57,9 @@
    <xi:include href="modules/pep.xml"
                xml:base="./"
                xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="modules/rsa2008interop.xml"
+               xml:base="./"
+               xmlns:xi="http://www.w3.org/2001/XInclude"/>
    <xi:include href="modules/dependencies.xml"
                xml:base="./"
                xmlns:xi="http://www.w3.org/2001/XInclude"/>
