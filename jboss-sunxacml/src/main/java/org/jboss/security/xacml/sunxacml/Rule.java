@@ -198,7 +198,7 @@ public class Rule implements PolicyTreeElement
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String cname = child.getNodeName();
+            String cname = SunxacmlUtil.getNodeName(child);
 
             if (cname.equals("Description")) {
                 description = child.getFirstChild().getNodeValue();
@@ -343,9 +343,9 @@ public class Rule implements PolicyTreeElement
             // if it was INDETERMINATE, then that's what we return
             return new Result(Result.DECISION_INDETERMINATE,
                               result.getStatus(),
-                              context.getResourceId().encode());
+                              context.getResourceId().encode()); 
         } else {
-            // otherwise we return the effect on tue, and NA on false
+            // otherwise we return the effect on true, and NA on false
             BooleanAttribute bool =
                 (BooleanAttribute)(result.getAttributeValue());
 

@@ -49,6 +49,7 @@ import org.apache.xpath.XPathAPI;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
@@ -160,7 +161,7 @@ public class SelectorModule extends AttributeFinderModule
                     if (n.getNodeValue().equals(namespace)) {
                         // we found the matching namespace, so get the prefix
                         // and then break out
-                        String name = n.getNodeName();
+                        String name = SunxacmlUtil.getNodeName(n);
                         int pos = name.indexOf(':');
 
                         if (pos == -1) {

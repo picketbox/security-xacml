@@ -203,7 +203,7 @@ public class PolicyReference extends AbstractPolicy
         int policyType;
         
         // see what type of reference we are
-        String name = root.getNodeName();
+        String name = SunxacmlUtil.getNodeName(root);
         if (name.equals("PolicyIdReference")) {
             policyType = POLICY_REFERENCE;
         } else if (name.equals("PolicySetIdReference")) {

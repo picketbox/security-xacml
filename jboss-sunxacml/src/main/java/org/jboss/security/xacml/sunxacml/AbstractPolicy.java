@@ -251,7 +251,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
         
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            if (child.getNodeName().equals(policyPrefix + "Defaults"))
+            if (SunxacmlUtil.getNodeName(child).equals(policyPrefix + "Defaults"))
                 handleDefaults(child);
         }
 
@@ -265,7 +265,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String cname = child.getNodeName();
+            String cname = SunxacmlUtil.getNodeName(child);
 
             if (cname.equals("Description")) {
                 description = child.getFirstChild().getNodeValue();
@@ -291,7 +291,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (node.getNodeName().equals("Obligation"))
+            if (SunxacmlUtil.getNodeName(node).equals("Obligation"))
                 obligations.add(Obligation.getInstance(node));
         }
     }
@@ -308,7 +308,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (node.getNodeName().equals("XPathVersion"))
+            if (SunxacmlUtil.getNodeName(node).equals("XPathVersion"))
                 defaultVersion = node.getFirstChild().getNodeValue();
         }
     }
@@ -321,7 +321,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (node.getNodeName().equals("CombinerParameter"))
+            if (SunxacmlUtil.getNodeName(node).equals("CombinerParameter"))
                 parameters.add(CombinerParameter.getInstance(node));
         }
     }

@@ -262,7 +262,7 @@ public class PolicySet extends AbstractPolicy
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals("PolicySet")) {
                 policies.add(PolicySet.getInstance(child, finder));
@@ -353,7 +353,7 @@ public class PolicySet extends AbstractPolicy
 
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (node.getNodeName().equals("CombinerParameter"))
+            if (SunxacmlUtil.getNodeName(node).equals("CombinerParameter"))
                 parameters.add(CombinerParameter.getInstance(node));
         }
     }
@@ -387,9 +387,9 @@ public class PolicySet extends AbstractPolicy
         throws ParsingException
     {
         // first off, check that it's the right kind of node
-        if (! root.getNodeName().equals("PolicySet")) {
+        if (! SunxacmlUtil.getNodeName(root).equals("PolicySet")) {
             throw new ParsingException("Cannot create PolicySet from root of" +
-                                       " type " + root.getNodeName());
+                                       " type " + SunxacmlUtil.getNodeName(root));
         }
 
         return new PolicySet(root, finder);

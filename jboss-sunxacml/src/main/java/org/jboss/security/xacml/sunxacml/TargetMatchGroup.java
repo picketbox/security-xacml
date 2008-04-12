@@ -105,7 +105,7 @@ public class TargetMatchGroup
 
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals(TargetMatch.NAMES[matchType] + "Match")) {
                 matches.add(TargetMatch.getInstance(child, matchType,

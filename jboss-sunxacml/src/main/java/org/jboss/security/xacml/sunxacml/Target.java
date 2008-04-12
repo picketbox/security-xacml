@@ -175,7 +175,7 @@ public class Target
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals("Subjects")) {
                 subjects =

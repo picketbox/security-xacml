@@ -234,7 +234,7 @@ public class ConfigurationStore
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String childName = child.getNodeName();
+            String childName = SunxacmlUtil.getNodeName(child);
             String elementName = null;
 
             // get the element's name
@@ -379,7 +379,7 @@ public class ConfigurationStore
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals("policyFinderModule")) {
                 policyModules.add(loadClass("module", child));
@@ -428,7 +428,7 @@ public class ConfigurationStore
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
 
-            if (child.getNodeName().equals("datatype")) {
+            if (SunxacmlUtil.getNodeName(child).equals("datatype")) {
                 // a datatype is a class with an identifier
                 String identifier = child.getAttributes().
                     getNamedItem("identifier").getNodeValue();
@@ -470,7 +470,7 @@ public class ConfigurationStore
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
 
-            if (child.getNodeName().equals("algorithm")) {
+            if (SunxacmlUtil.getNodeName(child).equals("algorithm")) {
                 // an algorithm is a simple class element
                 CombiningAlgorithm alg =
                     (CombiningAlgorithm)(loadClass("algorithm", child));
@@ -526,7 +526,7 @@ public class ConfigurationStore
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals("target")) {
                 logger.config("Loading [TARGET] functions");
@@ -554,7 +554,7 @@ public class ConfigurationStore
         NodeList children = root.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
 
             if (name.equals("function")) {
                 // a function section is a simple class element
@@ -721,7 +721,7 @@ public class ConfigurationStore
 
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-            String name = child.getNodeName();
+            String name = SunxacmlUtil.getNodeName(child);
             
             if (child.getNodeType() == Node.ELEMENT_NODE) {
                 if (name.equals("string")) {

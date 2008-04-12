@@ -139,7 +139,7 @@ public class Obligation
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (node.getNodeName().equals("AttributeAssignment")) {
+            if (SunxacmlUtil.getNodeName(node).equals("AttributeAssignment")) {
                 try {
                     URI attrId =
                         new URI(node.getAttributes().

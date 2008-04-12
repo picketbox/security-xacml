@@ -237,7 +237,7 @@ public class TargetMatch
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            String name = node.getNodeName();
+            String name = SunxacmlUtil.getNodeName(node);
 
             if (name.equals(NAMES[matchType] + "AttributeDesignator")) {
                 eval = AttributeDesignator.getInstance(node, matchType,
