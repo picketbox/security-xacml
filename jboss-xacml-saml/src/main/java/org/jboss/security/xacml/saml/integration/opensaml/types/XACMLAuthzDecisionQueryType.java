@@ -40,10 +40,6 @@ public interface XACMLAuthzDecisionQueryType extends RequestAbstractType, XACMLO
    /** Element local name. */
    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "XACMLAuthzDecisionQuery";
 
-   /** Default element name for XACML 1.0. */
-   public static final QName DEFAULT_ELEMENT_NAME_XACML10 = new QName(SAMLXACMLConstants.SAML2_XACML10P_NS,
-           DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
-
    /** Default element name for XACML 1.1. */
    public static final QName DEFAULT_ELEMENT_NAME_XACML11 = new QName(SAMLXACMLConstants.SAML2_XACML1_1P_NS,
            DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
@@ -54,11 +50,7 @@ public interface XACMLAuthzDecisionQueryType extends RequestAbstractType, XACMLO
  
    /** Local name of the XSI type. */
    public static final String TYPE_LOCAL_NAME = "XACMLAuthzDecisionQueryType";
-
-   /** QName of the XSI type.XACML1.0. */
-   public static final QName TYPE_NAME_XACML10 = new QName(SAMLXACMLConstants.SAML2_XACML10P_NS, TYPE_LOCAL_NAME,
-           SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
-
+ 
    /** QName of the XSI type.XACML1.1. */
    public static final QName TYPE_NAME_XACML11 = new QName(SAMLXACMLConstants.SAML2_XACML1_1P_NS, TYPE_LOCAL_NAME,
            SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);

@@ -41,11 +41,7 @@ public interface XACMLAuthzDecisionStatementType extends Statement, ElementMappi
 {
    /** Element local name. */
    String DEFAULT_ELEMENT_LOCAL_NAME = "XACMLAuthzDecisionStatement"; 
-
-   /** Default element name for XACML 1.0. */
-   QName DEFAULT_ELEMENT_NAME_XACML10 = new QName(SAMLXACMLConstants.SAML2_XACML10P_NS,
-           DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
-
+ 
    /** Default element name for XACML 1.1. */
    QName DEFAULT_ELEMENT_NAME_XACML11 = new QName(SAMLXACMLConstants.SAML2_XACML1_1P_NS,
            DEFAULT_ELEMENT_LOCAL_NAME, SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
@@ -56,10 +52,6 @@ public interface XACMLAuthzDecisionStatementType extends Statement, ElementMappi
    
    /** Local name of the XSI type. */
    public static final String TYPE_LOCAL_NAME = "XACMLAuthzDecisionStatementType";
-
-   /** QName of the XSI type.XACML1.0. */
-   QName TYPE_NAME_XACML10 = new QName(SAMLXACMLConstants.SAML2_XACML10P_NS, TYPE_LOCAL_NAME,
-           SAMLXACMLConstants.SAML2_XACMLPROTOCOL_PREFIX);
 
    /** QName of the XSI type.XACML1.1. */
    QName TYPE_NAME_XACML11 = new QName(SAMLXACMLConstants.SAML2_XACML1_1P_NS, TYPE_LOCAL_NAME,
