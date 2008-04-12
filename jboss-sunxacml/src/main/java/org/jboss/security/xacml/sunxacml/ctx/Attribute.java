@@ -47,6 +47,7 @@ import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
@@ -157,10 +158,10 @@ public class Attribute
       AttributeFactory attrFactory = AttributeFactory.getInstance();
 
       // First check that we're really parsing an Attribute
-      if (! getNodeName(root).equals("Attribute")) {
+      if (! SunxacmlUtil.getNodeName(root).equals("Attribute")) {
          throw new ParsingException("Attribute object cannot be created " +
                "with root node of type: " +
-               root.getNodeName());
+               SunxacmlUtil.getNodeName(root));
       }
 
       NamedNodeMap attrs = root.getAttributes();
@@ -198,7 +199,7 @@ public class Attribute
       NodeList nodes = root.getChildNodes();
       for (int i = 0; i < nodes.getLength(); i++) {
          Node node = nodes.item(i);
-         if (getNodeName(node).equals("AttributeValue")) {
+         if (SunxacmlUtil.getNodeName(node).equals("AttributeValue")) {
             // only one value can be in an Attribute
             
             /* 
@@ -342,14 +343,4 @@ public class Attribute
       
       return encoded;
    }
-
-
-   private static String getNodeName(Node node)
-   {
-      String name = node.getLocalName();
-      if(name == null)
-         name = node.getNodeName();
-      return name; 
-   } 
-
 }

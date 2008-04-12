@@ -46,6 +46,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -156,7 +157,7 @@ public class StatusDetail
      */
     public static StatusDetail getInstance(Node root) throws ParsingException {
         // check that it's really a StatusDetailType root
-        if (! getNodeName(root).equals("StatusDetail"))
+        if (! SunxacmlUtil.getNodeName(root).equals("StatusDetail"))
             throw new ParsingException("not a StatusDetail node");
 
         return new StatusDetail(root);
@@ -193,14 +194,5 @@ public class StatusDetail
             throw new IllegalStateException("no encoded form available");
         
         return detailText;
-    }
-    
-    private static String getNodeName(Node node)
-    {
-       String name = node.getLocalName();
-       if(name == null)
-          name = node.getNodeName();
-       return name; 
     } 
-
 }

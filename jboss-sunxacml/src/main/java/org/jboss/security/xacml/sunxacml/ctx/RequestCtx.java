@@ -50,6 +50,7 @@ import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -205,10 +206,10 @@ public class RequestCtx
         String resourceContent;
 
         // First check to be sure the node passed is indeed a Request node.
-        String tagName = getNodeName(root); 
+        String tagName = SunxacmlUtil.getNodeName(root); 
         if (! tagName.equals("Request")) {
             throw new ParsingException("Request cannot be constructed using " +
-                                       "type: " + root.getNodeName());
+                                       "type: " + SunxacmlUtil.getNodeName(root));
         }
         
         // Now go through its child nodes, finding Subject,
@@ -217,7 +218,7 @@ public class RequestCtx
 
         for (int i = 0; i < children.getLength(); i++) {
             Node node = children.item(i);
-            String tag = getNodeName(node);
+            String tag = SunxacmlUtil.getNodeName(node);
 
             if (tag.equals("Subject")) {
                 // see if there is a category
@@ -275,7 +276,7 @@ public class RequestCtx
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (getNodeName(node).equals("Attribute"))
+            if (SunxacmlUtil.getNodeName(node).equals("Attribute"))
                 set.add(Attribute.getInstance(node));
         }
 
@@ -537,15 +538,5 @@ public class RequestCtx
             Attribute attr = (Attribute)(it.next());
             attr.encode(out, indenter);
         }
-    }
-    
-    private static String getNodeName(Node node)
-    {
-       if(node == null)
-          throw new IllegalArgumentException("Node is null");
-    	String name = node.getLocalName();
-    	if(name == null)
-    		name = node.getNodeName();
-    	return name; 
     } 
 }

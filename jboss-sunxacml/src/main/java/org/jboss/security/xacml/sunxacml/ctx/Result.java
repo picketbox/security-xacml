@@ -47,6 +47,7 @@ import java.util.Set;
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.Obligation;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -278,7 +279,7 @@ public class Result
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            String name = getNodeName(node);
+            String name = SunxacmlUtil.getNodeName(node);
 
             if (name.equals("Decision")) {
                 String type = node.getFirstChild().getNodeValue();
@@ -310,7 +311,7 @@ public class Result
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (getNodeName(node).equals("Obligation"))
+            if (SunxacmlUtil.getNodeName(node).equals("Obligation"))
                 set.add(Obligation.getInstance(node));
         }
 
@@ -448,14 +449,5 @@ public class Result
 
         // finish it off
         out.println(indent + "</Result>");
-    }
-    
-    private static String getNodeName(Node node)
-    {
-    	String name = node.getLocalName();
-    	if(name == null)
-    		name = node.getNodeName();
-    	return name; 
     } 
-
 }

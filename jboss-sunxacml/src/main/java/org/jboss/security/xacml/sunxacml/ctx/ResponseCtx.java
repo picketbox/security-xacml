@@ -47,6 +47,7 @@ import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -103,7 +104,7 @@ public class ResponseCtx
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            if (getNodeName(node).equals("Result")) {
+            if (SunxacmlUtil.getNodeName(node).equals("Result")) {
                 results.add(Result.getInstance(node));
             }
         }
@@ -218,16 +219,5 @@ public class ResponseCtx
 
        // Finish the XML for a response
        out.println(topIndent + "</Response>");
-   }
-
-    
-    
-    private static String getNodeName(Node node)
-    {
-    	String name = node.getLocalName();
-    	if(name == null)
-    		name = node.getNodeName();
-    	return name; 
-    } 
-
+   } 
 }

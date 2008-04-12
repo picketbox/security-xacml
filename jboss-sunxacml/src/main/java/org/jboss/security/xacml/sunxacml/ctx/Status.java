@@ -46,6 +46,7 @@ import java.util.List;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -224,7 +225,7 @@ public class Status
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
-            String name = getNodeName(node);
+            String name = SunxacmlUtil.getNodeName(node);
 
             if (name.equals("StatusCode")) {
                 code = parseStatusCode(node);
@@ -316,14 +317,5 @@ public class Status
         } else {
             out.println(in + "<StatusCode Value=\"" + code + "\"/>");
         }
-    }
-    
-    private static String getNodeName(Node node)
-    {
-    	String name = node.getLocalName();
-    	if(name == null)
-    		name = node.getNodeName();
-    	return name; 
     } 
-
 }
