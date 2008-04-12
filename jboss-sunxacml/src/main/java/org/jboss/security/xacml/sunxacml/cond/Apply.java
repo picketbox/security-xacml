@@ -38,6 +38,7 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
@@ -45,11 +46,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
+import org.jboss.security.xacml.sunxacml.attr.AttributeValue; 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -80,6 +84,9 @@ public class Apply implements Evaluatable
 
     // the paramaters to the function...ie, the contents of the apply
     private List xprs;
+    
+    protected static final Logger logger =
+       Logger.getLogger(Apply.class.getName());
 
     /**
      * Constructs an <code>Apply</code> instance.
@@ -329,7 +336,19 @@ public class Apply implements Evaluatable
         // function can only be at the start of an Apply), we no longer make
         // assumptions at this point, so the higher order functions are
         // left to evaluate their own parameters.
-        return function.evaluate(xprs, context);
+        EvaluationResult result = function.evaluate(xprs, context);
+        AttributeValue avalue = result.getAttributeValue(); 
+        StringBuilder builder = new StringBuilder();
+        builder.append("Function:"+function.getIdentifier().toASCIIString());
+        for(Object obj: xprs)
+        {
+          builder.append(":").append(obj).append(":");  
+        }
+        builder.append("::result=");
+        if(avalue != null)
+          builder.append(avalue.encode());
+        logger.log(Level.FINE, builder.toString());
+        return result;
     }
 
     /**
@@ -405,4 +424,11 @@ public class Apply implements Evaluatable
         out.println(indent + "</Apply>");
     }
 
+   @Override
+   public String toString()
+   {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      encode(baos);
+      return baos.toString();
+   } 
 }
