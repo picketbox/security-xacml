@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>jboss</groupId>
   <artifactId>jbossxacml</artifactId>
-  <version>2.0.1.GA</version>
+  <version>2.0.2.GA</version>
   <packaging>pom</packaging>
   <name>JBoss XACML User Guide</name>
   <description>The JBoss XACML User Guide</description>
@@ -53,7 +53,7 @@
 
         <configuration>
           <!--<foCustomization>${basedir}/src/styles/docbook-fo.xsl</foCustomization>-->
-          <includes>master.xml</includes>
+          <includes>jbossxacml.xml</includes>
 
           <!-- use separate pages per chapter for HTML -->
           <chunkedOutput>true</chunkedOutput>
@@ -76,4 +76,3 @@
     </plugins>
   </build>
 </project>
-
