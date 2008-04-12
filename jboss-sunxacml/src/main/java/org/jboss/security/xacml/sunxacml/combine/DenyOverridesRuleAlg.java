@@ -42,6 +42,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Rule;
@@ -71,7 +72,7 @@ public class DenyOverridesRuleAlg extends RuleCombiningAlgorithm
     // a URI form of the identifier
     private static URI identifierURI;
     // exception if the URI was invalid, which should never be a problem
-    private static RuntimeException earlyException;
+    private static RuntimeException earlyException;  
 
     static {
         try {
@@ -124,6 +125,8 @@ public class DenyOverridesRuleAlg extends RuleCombiningAlgorithm
             Rule rule = ((RuleCombinerElement)(it.next())).getRule();
             Result result = rule.evaluate(context);
             int value = result.getDecision();
+            
+            logger.log(Level.FINE, "Rule id:"+rule.getId().toASCIIString()+":result="+value);
             
             // if there was a value of DENY, then regardless of what else
             // we've seen, we always return DENY

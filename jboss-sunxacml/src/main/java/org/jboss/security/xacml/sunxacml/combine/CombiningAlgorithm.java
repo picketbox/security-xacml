@@ -40,6 +40,7 @@ package org.jboss.security.xacml.sunxacml.combine;
 
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
@@ -54,6 +55,8 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  */
 public abstract class CombiningAlgorithm
 {
+   protected static final Logger logger =
+      Logger.getLogger(CombiningAlgorithm.class.getName());
 
     // the identifier for the algorithm
     private URI identifier;
