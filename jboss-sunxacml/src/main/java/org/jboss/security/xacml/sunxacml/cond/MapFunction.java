@@ -51,6 +51,7 @@ import java.util.Set;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.w3c.dom.Node;
@@ -130,7 +131,7 @@ class MapFunction implements Function
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
 
-            if (node.getNodeName().equals("Function")) {
+            if (SunxacmlUtil.getNodeName(node).equals("Function")) {
                 String funcName = node.getAttributes().
                     getNamedItem("FunctionId").getNodeValue();
                 FunctionFactory factory = FunctionFactory.getGeneralInstance();

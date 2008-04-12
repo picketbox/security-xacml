@@ -15,6 +15,7 @@ package org.jboss.security.xacml.sunxacml.cond;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
 import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
@@ -54,7 +55,7 @@ class ExpressionHandler
                                              VariableManager manager)
         throws ParsingException
     {
-        String name = root.getNodeName();
+        String name = SunxacmlUtil.getNodeName(root);
 
         if (name.equals("Apply")) {
             return Apply.getInstance(root, metaData, manager);

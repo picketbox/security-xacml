@@ -45,6 +45,7 @@ import java.util.Map;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
 import org.jboss.security.xacml.sunxacml.ProcessingException;
+import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -196,7 +197,7 @@ public class VariableManager
             xprNode = nodes.item(i++);
 
         // now see if the node is an Apply
-        if (xprNode.getNodeName().equals("Apply")) {
+        if (SunxacmlUtil.getNodeName(xprNode).equals("Apply")) {
             try {
                 // get the function in the Apply...
                 Function function = ExpressionHandler.
