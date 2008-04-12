@@ -10,7 +10,8 @@
 <xacml:Obligation ObligationId="obligation-10" FulfillOn="Permit">
 </xacml:Obligation>
 <xacml:Obligation ObligationId="obligation-20" FulfillOn="Permit">
-<xacml:AttributeAssignment AttributeId="a-120" DataType="f-120" 
+<xacml:AttributeAssignment AttributeId="a-120" 
+DataType="http://www.w3.org/2001/XMLSchema#string" 
 xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os"/>
 </xacml:Obligation>
 </xacml:Obligations>
