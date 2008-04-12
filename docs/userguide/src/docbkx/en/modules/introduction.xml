@@ -10,9 +10,6 @@
    <para>JBossXACML is based on Oasis XACML v2.0. It defines an API to read one or more PolicySets (and/or Policy files) via a simple configuration file. It also provides a JAXB v2.0 compatible object model that can be used to construct policies and requests in XACML. 
   </para>
 
-   <para>At its core, JBossXACML makes use of the standards compliant, BSD style licensed SunXACML library available at http://sunxacml.sourceforge.net/
-  </para>
-
   <sect1 id="pre-requisites">
     <title>Pre-requisites</title>
     <para>To make full use of JBoss XACML, you will need a basic understanding of XACML v2.0, their policies etc</para>

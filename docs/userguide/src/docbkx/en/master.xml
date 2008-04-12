@@ -5,7 +5,7 @@
    <bookinfo>
       <title>User Guide for JBoss XACML</title>
       <subtitle>A Guide for Developers</subtitle>
-      <releaseinfo>2.0.1</releaseinfo>
+      <releaseinfo>2.0.2</releaseinfo>
       <authorgroup>
         <author>
           <firstname>Anil</firstname>
@@ -36,7 +36,7 @@
       <para>Authors:
          <itemizedlist spacing="compact">
             <listitem>
-               <para>Anil Saldhana - JBoss Security and Identity Management Project Lead</para>
+               <para>Anil Saldhana - Leader, JBoss Security and Identity Management</para>
             </listitem>
          </itemizedlist>
       </para>
