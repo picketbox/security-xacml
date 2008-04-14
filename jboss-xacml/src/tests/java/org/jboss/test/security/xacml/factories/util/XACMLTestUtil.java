@@ -56,18 +56,44 @@ public class XACMLTestUtil
     */
    public static int getDecision(PolicyDecisionPoint pdp, String requestFileLoc) throws Exception
    {
+      ResponseContext response = getResponse(pdp,requestFileLoc);
+      if (response == null)
+         throw new RuntimeException("Response is null");
+      if (debug)
+         response.marshall(System.out);
+      return response.getDecision();
+   }
+   
+   /**
+    * Get the Response
+    * @param pdp
+    * @param requestFileLoc
+    * @return
+    * @throws Exception
+    */
+   public static ResponseContext getResponse(PolicyDecisionPoint pdp, 
+         String requestFileLoc) throws Exception
+   {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       InputStream is = tcl.getResourceAsStream(requestFileLoc);
       RequestContext request = RequestResponseContextFactory.createRequestCtx();
       request.readRequest(is);
       if (debug)
          request.marshall(System.out);
-      ResponseContext response = pdp.evaluate(request);
-      if (response == null)
-         throw new RuntimeException("Response is null");
-      if (debug)
-         response.marshall(System.out);
-      return response.getDecision();
+      return getResponse(pdp,request);
+   }
+   
+   /**
+    * Get the response for a request from the pdp
+    * @param pdp
+    * @param request
+    * @return
+    * @throws Exception
+    */
+   public static ResponseContext getResponse(PolicyDecisionPoint pdp
+         , RequestContext request) throws Exception
+   {
+      return pdp.evaluate(request);
    }
 
    /**

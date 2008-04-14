@@ -30,14 +30,23 @@ import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jboss.security.xacml.core.model.context.ObjectFactory;
+import org.jboss.security.xacml.core.model.context.ResultType;
+import org.jboss.security.xacml.core.model.context.StatusCodeType;
+import org.jboss.security.xacml.core.model.context.StatusType;
+import org.jboss.security.xacml.core.model.policy.EffectType;
+import org.jboss.security.xacml.core.model.policy.ObligationType;
+import org.jboss.security.xacml.core.model.policy.ObligationsType;
 import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.ElementMappingType;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.sunxacml.Indenter;
+import org.jboss.security.xacml.sunxacml.Obligation;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
+import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -89,6 +98,47 @@ public class JBossResponseContext implements ResponseContext
       }
       return decision;
 
+   }
+   
+   /**
+    * @see ResponseContext#getResult()
+    */
+   @SuppressWarnings("unchecked")
+   public ResultType getResult()
+   {
+      ObjectFactory objectFactory = new ObjectFactory(); 
+      ResultType resultType = objectFactory.createResultType();
+      ResponseCtx response = (ResponseCtx) map.get(XACMLConstants.RESPONSE_CTX);
+      if (response != null)
+      {
+         //Resource ID
+         Result result = (Result) response.getResults().iterator().next(); 
+         resultType.setResourceId(result.getResource());
+         
+         //Status
+         Status status = result.getStatus();
+         StatusType statusType = objectFactory.createStatusType();
+         StatusCodeType statusCodeType = objectFactory.createStatusCodeType();
+         statusCodeType.setValue(status.getMessage()); 
+         statusType.setStatusCode(statusCodeType);
+         
+         //Obligations
+         Set<Obligation> obligationsSet = result.getObligations();
+         if(obligationsSet != null)
+         {
+            for(Obligation obl:obligationsSet)
+            {
+               ObligationType obType = new ObligationType();
+               obType.setObligationId(obl.getId().toASCIIString());
+               obType.setFulfillOn(EffectType.fromValue(Result.DECISIONS[obl.getFulfillOn()]));
+            
+               ObligationsType obligationsType = new ObligationsType();
+               obligationsType.getObligation().add(obType);
+               resultType.setObligations(obligationsType);  
+            }
+         }
+      }
+      return resultType; 
    }
    
    /**

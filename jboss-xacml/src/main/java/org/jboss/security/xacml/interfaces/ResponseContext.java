@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jboss.security.xacml.core.model.context.ResultType;
 import org.w3c.dom.Node;
  
 
@@ -42,6 +43,12 @@ public interface ResponseContext extends ContextMapOp, ElementMappingType
     * @see XACMLConstants
     */
    int getDecision();
+   
+   /**
+    * Get the result
+    * @return
+    */
+   ResultType getResult();
 
    /**
     * Return the element of the document
