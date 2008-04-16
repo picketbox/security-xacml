@@ -9,7 +9,6 @@
    <groupId>org.jboss.security</groupId>
    <artifactId>jboss-xacml-main</artifactId>
    <packaging>pom</packaging>
-   <version>2.0.2-SNAPSHOT</version>
    <name>JBoss XACML - Aggregator</name>
    <url>http://labs.jboss.org/portal/jbosssecurity/</url>
    <description>JBoss Security is a cross cutting project that handles security for the JEMS projects</description>
@@ -20,7 +19,7 @@
      <module>jboss-xacml-saml</module>
    </modules>
    <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</developerConnection>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/tags/2.0.2.GA</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/tags/2.0.2.GA</developerConnection>
    </scm>
 </project>
