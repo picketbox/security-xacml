@@ -28,7 +28,13 @@
   <sect1 id="pre-requisites">
     <title>Pre-requisites</title>
 
-    <para>To make full use of JBoss XACML, you will need a basic understanding
+    <para>
+      To make full use of JBoss XACML, you will need a basic understanding
     of XACML v2.0 and its policies etc</para>
+    <para> 
+      Please refer to the following wiki page for more information on JBossXACML. 
+     http://wiki.jboss.org/wiki/JBossXACML
+    </para>
   </sect1>
+
 </chapter>

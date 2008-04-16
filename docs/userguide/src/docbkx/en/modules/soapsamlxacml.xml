@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="soapsamlxacml">
+  <title>SOAP SAML XACML Integration</title>
+
+  <para>JBossXACML project currently includes a OpenSAML v2.0 based
+  integration code that provides servlets that can read in a SOAP 1.1 request
+  containing a SAML v2.0 payload carrying a XACML v2.0 Access Decision
+  request.</para>
+
+  <para>The Servlets are listed below:</para>
+
+  <sect1>
+    <title>SOAP SAML XACML Servlet</title>
+
+    <para>
+      The web.xml configuration is shown below:
+    </para>
+
+    <programlisting>
+    <![CDATA[
+     <web-app>
+       <context-param>
+         <param-name>debug</param-name>
+         <param-value>false</param-value>
+       </context-param>
+       <servlet>
+         <servlet-name>SOAPServlet</servlet-name>
+         <servlet-class>org.jboss.security.xacml.saml.
+         integration.opensaml.servlets.
+         SOAPSAMLXACMLServlet</servlet-class>
+       </servlet>
+       <servlet-mapping>
+         <servlet-name>SOAPServlet</servlet-name>
+         <url-pattern>/SOAPServlet</url-pattern>
+       </servlet-mapping>
+      </web-app>
+
+      ]]>
+
+    </programlisting>
+    <para>
+     Remember to place the policyConfig.xml which is the JBossXACML policy config file under WEB-INF/classes directory. You can place the policies under a policies directory in the classes directory. 
+    </para>
+  </sect1>
+
+  <sect1>
+    <title>SOAP SAML XACML Servlet</title>
+    <para>
+      The web.xml configuration is as defined above except that the class name of the saml servlet is org.jboss.xacml.saml.integration.opensaml.servlets.SAMLXACMLServlet
+    </para>
+  </sect1>
+</chapter>

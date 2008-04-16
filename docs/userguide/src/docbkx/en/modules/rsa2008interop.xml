@@ -30,7 +30,9 @@
     <title>Policy Sets used in the Interoperability</title>
 
     <para>The Policy Sets used in the interop are available at:
-    http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk/jboss-xacml/src/tests/resources/test/policies/rsaconf/</para>
+    http://anonsvn.jboss.org/repos/jbossas/
+      projects/security/security-xacml/trunk/
+      jboss-xacml/src/tests/resources/test/policies/rsaconf/</para>
   </sect1>
 
   <sect1>
@@ -67,7 +69,8 @@
       &lt;/ns:PolicySet&gt;
    &lt;/ns:Policies&gt;
    &lt;ns:Locators&gt;
-      &lt;ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicySetLocator"&gt;
+      &lt;ns:Locator 
+Name="org.jboss.security.xacml.locators.JBossPolicySetLocator"&gt;
       &lt;/ns:Locator&gt;
    &lt;/ns:Locators&gt;
 &lt;/ns:jbosspdp&gt;</programlisting>
@@ -78,12 +81,20 @@
   <sect1>
     <title>XACML Request Files</title>
 
-    <para>http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk/jboss-xacml/src/tests/resources/test/requests/interop/rsaconf08/</para>
+    <para>
+http://anonsvn.jboss.org/repos/jbossas/
+projects/security/security-xacml/trunk/
+jboss-xacml/src/tests/resources/test/
+requests/interop/rsaconf08/</para>
   </sect1>
 
   <sect1>
     <title>JUnit Test</title>
 
-    <para>http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk/jboss-xacml/src/tests/java/org/jboss/test/security/xacml/interop/rsaconf/InteropUseCasesUnitTestCase.java</para>
+    <para>
+http://anonsvn.jboss.org/repos/jbossas/projects/security/
+security-xacml/trunk/jboss-xacml/src/tests/java/org/
+jboss/test/security/xacml/interop/rsaconf/
+InteropUseCasesUnitTestCase.java</para>
   </sect1>
 </chapter>
