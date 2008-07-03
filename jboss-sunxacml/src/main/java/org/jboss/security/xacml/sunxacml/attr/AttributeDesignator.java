@@ -228,7 +228,11 @@ public class AttributeDesignator implements Evaluatable
 
         try {
             // there's always an Id
-            id = new URI(attrs.getNamedItem("AttributeId").getNodeValue());
+        	Node attributeIdNode = attrs.getNamedItem("AttributeId");
+        	if(attributeIdNode == null)
+        		throw new IllegalStateException("Required AttributeId missing in " +
+                        "AttributeDesignator ->" + root.getNodeName() );
+            id = new URI(attributeIdNode.getNodeValue());
         } catch (Exception e) {
             throw new ParsingException("Required AttributeId missing in " +
                                        "AttributeDesignator", e);
@@ -236,7 +240,11 @@ public class AttributeDesignator implements Evaluatable
         
         try {
             // there's always a data type
-            type = new URI(attrs.getNamedItem("DataType").getNodeValue());
+        	Node dataTypeNode = attrs.getNamedItem("DataType");
+        	if(dataTypeNode == null)
+        		throw new IllegalStateException("Required DataType missing in " +
+                        "AttributeDesignator ->"  + root.getNodeName());
+            type = new URI(dataTypeNode.getNodeValue());
         } catch (Exception e) {
             throw new ParsingException("Required DataType missing in " +
                                        "AttributeDesignator", e);
