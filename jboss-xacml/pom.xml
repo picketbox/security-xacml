@@ -32,7 +32,7 @@
     <dependency>
       <groupId>org.jboss.security</groupId>
       <artifactId>jboss-sunxacml</artifactId>
-      <version>${xacml.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>apache-xerces</groupId>
