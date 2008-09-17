@@ -25,9 +25,16 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import org.jboss.security.xacml.saml.integration.opensaml.core.OpenSAMLUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.DOMUtil;
 import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.saml2.core.AuthnRequest;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.ws.soap.soap11.Body;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
@@ -43,6 +50,38 @@ import org.w3c.dom.Element;
  */
 public class JBossSAMLRequest
 { 
+   /**
+    * Build a SAML Request
+    * @param issueInstant
+    * @param requestId Id for the request
+    * @param issuerId ID of the issuer (can be null)
+    * @return
+    */
+   public SAMLObject buildRequest(DateTime issueInstant, 
+         String requestId, String issuerId)
+   {
+      if(issueInstant == null)
+         issueInstant = new DateTime(ISOChronology.getInstanceUTC());
+      
+      RequestAbstractType samlRequest = 
+         (RequestAbstractType) OpenSAMLUtil.buildXMLObject(AuthnRequest.DEFAULT_ELEMENT_NAME);
+      
+      if(issuerId != null)
+      {
+         Issuer issuer = (Issuer) OpenSAMLUtil.buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
+         issuer.setValue(issuerId);
+         samlRequest.setIssuer(issuer);  
+      }
+      
+      samlRequest.setID(requestId);
+      samlRequest.setIssueInstant(issueInstant);
+      
+      //Hard code support for SAMl2
+      samlRequest.setVersion(SAMLVersion.VERSION_20);
+      
+      return samlRequest; 
+   }
+   
    /**
     * Given a saml request file, parse the saml object
     * @param requestFile

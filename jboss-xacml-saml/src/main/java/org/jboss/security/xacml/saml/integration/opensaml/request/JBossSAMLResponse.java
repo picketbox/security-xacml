@@ -30,6 +30,7 @@ import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
@@ -74,20 +75,33 @@ public class JBossSAMLResponse
    /**
     * Get a response object with the issue instant, response ID
     * and Issuer ID
+    * <b>Note the response has been set to a status of success.</b>
+    * 
     * @param issueInstant if null, get the current time
-    * @param responseId
-    * @param issuerId
+    * @param responseId The ID of the responses
+    * @param issuerId Id of the Response Issuer - can be null
     * @return
+    * @throws IllegalArgumentException if responseID is null
     */
    public Response getSAMLResponse(DateTime issueInstant, 
          String responseId, String issuerId)
    {
+      if(responseId == null)
+         throw new IllegalArgumentException("responseID is null");
+      
       if(issueInstant == null)
          issueInstant = new DateTime(ISOChronology.getInstanceUTC());
       
       Response samlResponse = (Response) OpenSAMLUtil.buildXMLObject(Response.DEFAULT_ELEMENT_NAME); 
       samlResponse.setID(responseId);
       samlResponse.setIssueInstant(issueInstant);
+      
+      if(issuerId != null)
+      {
+         Issuer issuer = (Issuer) OpenSAMLUtil.buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
+         issuer.setValue(issuerId);
+         samlResponse.setIssuer(issuer); 
+      }
       
       //Set samlp:Status
       Status status = (Status) OpenSAMLUtil.buildXMLObject(Status.DEFAULT_ELEMENT_NAME);

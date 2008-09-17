@@ -21,13 +21,18 @@
   */
 package org.jboss.test.security.xacml.saml;
 
+import java.util.UUID;
+
 import junit.framework.TestCase;
 
 import org.jboss.security.xacml.interfaces.RequestContext;
 import org.jboss.security.xacml.saml.integration.opensaml.core.JBossXACMLSAMLConfiguration;
 import org.jboss.security.xacml.saml.integration.opensaml.request.JBossSAMLRequest;
 import org.jboss.security.xacml.saml.integration.opensaml.types.XACMLAuthzDecisionQueryType;
+import org.jboss.security.xacml.saml.integration.opensaml.util.SAML2Util;
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.saml2.core.RequestAbstractType;
 
 /**
  *  Tests for SAMLRequest read
@@ -37,6 +42,8 @@ import org.opensaml.common.SAMLObject;
  */
 public class SAMLRequestUnitTestCase extends TestCase
 {
+   private SAML2Util util = new SAML2Util();
+   
    protected void setUp() throws Exception
    {
       JBossXACMLSAMLConfiguration.initialize(); 
@@ -50,6 +57,20 @@ public class SAMLRequestUnitTestCase extends TestCase
       XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
       RequestContext requestContext = xacmlRequest.getRequest();
       assertNotNull("XACML Request Context is not null", requestContext);
+   }
+   
+   public void testSAMLRequestConstruction()
+   {
+      DateTime issueInstant = util.getIssueInstant(); 
+      String requestId = UUID.randomUUID().toString();
+      JBossSAMLRequest samlRequest = new JBossSAMLRequest();
+      Object request = samlRequest.buildRequest(issueInstant, requestId, "anil");
+      assertTrue(request instanceof RequestAbstractType);
+      
+      RequestAbstractType rat = (RequestAbstractType) request;
+      assertEquals(issueInstant,rat.getIssueInstant());
+      assertEquals(requestId,rat.getID());
+      assertEquals("anil", rat.getIssuer().getValue());
    }
 
 }
