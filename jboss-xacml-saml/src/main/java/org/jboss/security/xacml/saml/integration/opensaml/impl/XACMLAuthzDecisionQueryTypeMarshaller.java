@@ -37,12 +37,4 @@ extends RequestAbstractTypeMarshaller
    {
        super();
    }
-
-   /**
-    * Constructor.
-    */
-   protected XACMLAuthzDecisionQueryTypeMarshaller(String targetNamespaceURI, String targetLocalName) 
-   {
-       super(targetNamespaceURI, targetLocalName);
-   }
 }

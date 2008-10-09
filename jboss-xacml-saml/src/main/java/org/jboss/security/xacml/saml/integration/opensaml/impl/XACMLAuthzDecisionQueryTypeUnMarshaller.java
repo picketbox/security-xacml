@@ -47,15 +47,7 @@ extends RequestAbstractTypeUnmarshaller
    {
        super();
    }
-
-   /**
-    * Constructor.
-    */
-   protected XACMLAuthzDecisionQueryTypeUnMarshaller(String targetNamespaceURI, String targetLocalName) 
-   {
-       super(targetNamespaceURI, targetLocalName);
-   }
-
+  
    /** {@inheritDoc} */
    protected void processChildElement(XMLObject parentObject, 
          XMLObject childObject) throws UnmarshallingException 
