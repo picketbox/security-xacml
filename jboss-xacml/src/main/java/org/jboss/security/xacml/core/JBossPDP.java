@@ -293,6 +293,8 @@ public class JBossPDP implements PolicyDecisionPoint
          //Validate against schema
          ClassLoader tcl = SecurityActions.getContextClassLoader();
          URL schemaURL = tcl.getResource("schema/jbossxacml-2.0.xsd");
+         if(schemaURL == null)
+            throw new IllegalStateException("Schema URL is null:" + "schema/jbossxacml-2.0.xsd");
          SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
          Schema schema = scFact.newSchema(schemaURL);
          unmarshaller.setSchema(schema);
