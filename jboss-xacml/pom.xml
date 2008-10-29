@@ -12,22 +12,16 @@
   <url>http://www.jboss.org</url>
   <description>JBoss XACML Library</description> 
   <build>
-    <plugins>
-      <plugin>
-         <artifactId>maven-surefire-plugin</artifactId>
-         <configuration>
-           <printSummary>true</printSummary>
-           <disableXmlReport>false</disableXmlReport>
-           <testFailureIgnore>true</testFailureIgnore>
-           <includes>
-             <include>**/**TestCase.java</include>
-           </includes>
-           <forkMode>pertest</forkMode>
-          </configuration>
-      </plugin>
-    </plugins>
+   <resources>
+      <resource>
+        <directory>src/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+   </resources>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>org.jboss.security</groupId>
@@ -53,21 +47,7 @@
       <groupId>sun-jaxb</groupId>
       <artifactId>jaxb-xjc</artifactId>
       <version>2.1.4</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-    </dependency>
-    <dependency>
-      <groupId>sun-jaf</groupId>
-      <artifactId>activation</artifactId>
-      <version>1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>codehaus-stax</groupId>
-      <artifactId>stax</artifactId>
-      <version>1.1.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>stax</groupId>
@@ -75,9 +55,28 @@
       <version>1.0</version>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>sun-jaf</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>codehaus-stax</groupId>
+      <artifactId>stax</artifactId>
+      <version>1.1.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

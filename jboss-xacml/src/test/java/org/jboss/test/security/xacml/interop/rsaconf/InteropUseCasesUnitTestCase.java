@@ -245,9 +245,9 @@ public class InteropUseCasesUnitTestCase extends TestCase
    public void testEmergencyAccess() throws Exception
    {
       /**
-       * The request contains the “pea-001” attribute, which, combined with the 
-       * absence of the “env:locality” turns on emergency override.
-       * If you remove the “pea” from the request, it should turn into a “deny”. 
+       * The request contains the ï¿½pea-001ï¿½ attribute, which, combined with the 
+       * absence of the ï¿½env:localityï¿½ turns on emergency override.
+       * If you remove the ï¿½peaï¿½ from the request, it should turn into a ï¿½denyï¿½. 
        */
       validateCase(getResponse("emergency_access.xml"), 
             XACMLConstants.DECISION_PERMIT); 
@@ -256,9 +256,9 @@ public class InteropUseCasesUnitTestCase extends TestCase
    public void testEmergencyAccessDeny() throws Exception
    {
       /**
-       * The request contains the “pea-001” attribute, which, combined with the 
-       * absence of the “env:locality” turns on emergency override.
-       * If you remove the “pea” from the request, it should turn into a “deny”. 
+       * The request contains the ï¿½pea-001ï¿½ attribute, which, combined with the 
+       * absence of the ï¿½env:localityï¿½ turns on emergency override.
+       * If you remove the ï¿½peaï¿½ from the request, it should turn into a ï¿½denyï¿½. 
        */
       validateCase(getResponse("emergency_access_deny.xml"), 
             XACMLConstants.DECISION_DENY); 

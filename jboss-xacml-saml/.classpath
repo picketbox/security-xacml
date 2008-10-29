@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/tests/resources"/>
+	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/resources"/>
-	<classpathentry excluding="resources/" kind="src" path="src/tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/opensaml/opensaml/2.2.0/opensaml-2.2.0.jar" sourcepath="/M2_REPO/opensaml/opensaml/2.0/opensaml-2.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/opensaml/openws/1.2.0/openws-1.2.0.jar" sourcepath="/M2_REPO/opensaml/openws/1.0/openws-1.0-sources.jar"/>

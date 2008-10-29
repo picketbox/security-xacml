@@ -49,7 +49,7 @@ public class SAMLXACMLUnitTestCase extends TestCase
       PDPConfiguration.installSingleValueAttribute("urn:va:names:xacml:2.0:subject:ien");
       
       JBossSAMLRequest request = new JBossSAMLRequest();
-      SAMLObject samlObject = request.getSAMLRequest("src/tests/resources/saml/xacmlrequest.xml");
+      SAMLObject samlObject = request.getSAMLRequest("src/test/resources/saml/xacmlrequest.xml");
       assertNotNull(samlObject);
       assertTrue(samlObject instanceof XACMLAuthzDecisionQueryType);
       XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
@@ -60,7 +60,7 @@ public class SAMLXACMLUnitTestCase extends TestCase
    public void testSAMLRequestRead() throws Exception
    {
       JBossSAMLRequest request = new JBossSAMLRequest();
-      SAMLObject samlObject = request.getSAMLRequest("src/tests/resources/saml/samlrequest.xml");
+      SAMLObject samlObject = request.getSAMLRequest("src/test/resources/saml/samlrequest.xml");
       assertNotNull(samlObject);
    }
 }

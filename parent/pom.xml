@@ -19,55 +19,13 @@
       <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</developerConnection>
    </scm>
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/tests</testSourceDirectory>
-    <finalName>${artifactId}</finalName>
-    <resources>
-      <resource>
-        <directory>src/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-        <filtering>true</filtering>
-      </resource>
-      <resource>
-        <directory>src/etc</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/tests/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
     <plugins>
-      <plugin>
-        <groupId>org.jboss.maven.plugins</groupId>
-        <artifactId>maven-jboss-deploy-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>jboss-deploy</id>
-            <goals>
-              <goal>jboss-deploy</goal>
-            </goals>
-            <phase>deploy</phase>
-          </execution>
-       </executions>
-       <configuration>
-         <groupId>jboss</groupId>
-         <license>lgpl</license>
-         <jbossDeployRoot>${jboss.repository.root}</jbossDeployRoot>
-         <removeArtifactVersion>true</removeArtifactVersion>
-       </configuration>
-      </plugin>
+       <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <configuration>
+            <tagBase>https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/tags</tagBase>
+          </configuration>
+        </plugin>
     </plugins>
   </build>
   <repositories>

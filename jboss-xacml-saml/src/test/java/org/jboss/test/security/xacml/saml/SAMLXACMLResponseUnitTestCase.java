@@ -49,7 +49,7 @@ public class SAMLXACMLResponseUnitTestCase extends TestCase
    public void testSAMLXACMLResponseRead() throws Exception
    {
       JBossSAMLResponse response = new JBossSAMLResponse();
-      SAMLObject samlObject = response.getSAMLResponse("src/tests/resources/saml/samlxacmlresponse.xml");
+      SAMLObject samlObject = response.getSAMLResponse("src/test/resources/saml/samlxacmlresponse.xml");
       assertNotNull(samlObject); 
       
       //Verify that the xacml response does exist
@@ -64,7 +64,7 @@ public class SAMLXACMLResponseUnitTestCase extends TestCase
    public void testRHPDPResponseRead() throws Exception
    {
       JBossSAMLResponse response = new JBossSAMLResponse();
-      SAMLObject samlObject = response.getSAMLResponse("src/tests/resources/saml/rhpdpsamlresponse.xml");
+      SAMLObject samlObject = response.getSAMLResponse("src/test/resources/saml/rhpdpsamlresponse.xml");
       assertNotNull(samlObject); 
       
       //Verify that the xacml response does exist

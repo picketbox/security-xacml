@@ -52,7 +52,7 @@ public class SAMLRequestUnitTestCase extends TestCase
    public void testSAMLRequest01_01() throws Exception
    {
       JBossSAMLRequest samlRequest = new JBossSAMLRequest();
-      String loc = "src/tests/resources/test/requests/interop/rsaconf08/XacmlRequest-01-01.xml";
+      String loc = "src/test/resources/test/requests/interop/rsaconf08/XacmlRequest-01-01.xml";
       SAMLObject samlObject = samlRequest.getSAMLRequest(loc);
       XACMLAuthzDecisionQueryType xacmlRequest = (XACMLAuthzDecisionQueryType)samlObject;
       RequestContext requestContext = xacmlRequest.getRequest();
