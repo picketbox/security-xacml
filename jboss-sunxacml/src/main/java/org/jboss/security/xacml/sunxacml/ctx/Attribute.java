@@ -99,6 +99,8 @@ public class Attribute
       if(this.attributeValues == null)
          this.attributeValues = new HashSet<AttributeValue>();
       this.attributeValues.add(value); 
+      if(value != null)
+        this.type = value.getType();
    }
 
    public Attribute(URI id, URI type, String issuer, DateTimeAttribute issueInstant,
