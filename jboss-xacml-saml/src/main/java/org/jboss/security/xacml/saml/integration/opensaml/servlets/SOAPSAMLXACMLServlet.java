@@ -201,7 +201,6 @@ public class SOAPSAMLXACMLServlet extends HttpServlet
          response.setContentType("text/xml;charset=utf-8");;
          OutputStream os = response.getOutputStream();
          OutputStreamWriter osw = new OutputStreamWriter(os , "UTF-8");
-         PrintWriter pw = new PrintWriter(osw);
          
          String resp = null;
          try
@@ -213,8 +212,18 @@ public class SOAPSAMLXACMLServlet extends HttpServlet
             log("marshalling exception",e);
          }
          log(resp);
-         pw.print(resp);  
-         pw.flush(); 
+         PrintWriter pw = null;
+         try
+         {
+            pw = new PrintWriter(osw);
+            pw.print(resp);  
+            pw.flush();
+         } 
+         finally
+         {
+            if(pw != null)
+               pw.close();
+         }
       }
    } 
    

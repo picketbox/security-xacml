@@ -127,6 +127,7 @@ public class SAMLXACMLServlet extends HttpServlet
    {
       SAML2Util util = new SAML2Util();
       JBossSAMLRequest samlRequest = new JBossSAMLRequest();
+      PrintWriter pw = null;
       try
       {
          SAMLObject samlObject = samlRequest.getSAMLRequest(request.getInputStream());
@@ -174,7 +175,7 @@ public class SAMLXACMLServlet extends HttpServlet
          response.setContentType("text/xml;charset=utf-8");;
          OutputStream os = response.getOutputStream();
          OutputStreamWriter osw = new OutputStreamWriter(os , "UTF-8");
-         PrintWriter pw = new PrintWriter(osw);
+         pw = new PrintWriter(osw);
          
          String resp = XMLHelper.nodeToString(samlResponseMarshaller.marshall(samlResponse));
          log(resp);
@@ -185,6 +186,11 @@ public class SAMLXACMLServlet extends HttpServlet
       {
          throw new ServletException(e); 
       } 
+      finally
+      {
+         if(pw != null)
+            pw.close();
+      }
    }  
    
    private Element logXMLObject(XMLObject xmlObject)
