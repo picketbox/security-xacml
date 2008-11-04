@@ -230,7 +230,7 @@ public class AttributeDesignator implements Evaluatable
             // there's always an Id
         	Node attributeIdNode = attrs.getNamedItem("AttributeId");
         	if(attributeIdNode == null)
-        		throw new IllegalStateException("Required AttributeId missing in " +
+        		throw new ParsingException("Required AttributeId missing in " +
                         "AttributeDesignator ->" + root.getNodeName() );
             id = new URI(attributeIdNode.getNodeValue());
         } catch (Exception e) {
