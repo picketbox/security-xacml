@@ -9,7 +9,7 @@
     <Description>
         Policy for Test IV
         This policy contains INTENTIONAL syntax error in SubjectAttributeDesigntor,
-        AttributeIt attribute is omitted.
+        AttributeId attribute is omitted.
     </Description>
     <Target/>
     <Rule
