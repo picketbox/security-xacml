@@ -81,6 +81,8 @@ public class XACMLUnitTestCase extends TestCase
          assertNotNull("PDP != null", pdp);
          ResponseCtx first = processRequest(pdp, getRequestFile(i));
          assertNotNull("Response != null", first);
+         if(debug)
+            System.out.println("Test:"+i);
          //Print out the response to the System.Out
          XACMLUtil.logResponseCtxToSystemOut(first, debug);
          ResponseCtx second = ResponseCtx.getInstance(new FileInputStream(getResponseFile(i)));

@@ -21,16 +21,12 @@
  */
 package org.jboss.test.security.test.xacml;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import org.jboss.test.security.test.xacml.modules.JBossStaticPolicyFinderModule;
-import org.jboss.test.security.test.xacml.modules.TestRoleAttributeFinderModule; 
 
 import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.Obligation;
@@ -43,9 +39,11 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinder;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.jboss.security.xacml.sunxacml.finder.impl.CurrentEnvModule;
-import org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule; 
+import org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule;
 import org.jboss.security.xacml.sunxacml.support.finder.StaticRefPolicyFinderModule;
-import org.jboss.security.xacml.sunxacml.support.finder.URLPolicyFinderModule; 
+import org.jboss.security.xacml.sunxacml.support.finder.URLPolicyFinderModule;
+import org.jboss.test.security.test.xacml.modules.JBossStaticPolicyFinderModule;
+import org.jboss.test.security.test.xacml.modules.TestRoleAttributeFinderModule;
 
 //$Id: XACMLUtil.java 58115 2006-11-04 08:42:14Z scott.stark@jboss.org $
 
