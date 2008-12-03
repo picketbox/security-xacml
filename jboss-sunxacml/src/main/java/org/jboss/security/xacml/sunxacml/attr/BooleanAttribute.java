@@ -63,52 +63,21 @@ public class BooleanAttribute extends AttributeValue
 
     /**
      * URI version of name for this type
-     * <p>
-     * This field is initialized by a static initializer so that
-     * we can catch any exceptions thrown by URI(String) and
-     * transform them into a RuntimeException, since this should
-     * never happen but should be reported properly if it ever does.
      */
-    private static URI identifierURI;
-
-    /**
-     * RuntimeException that wraps an Exception thrown during the
-     * creation of identifierURI, null if none.
-     */
-    private static RuntimeException earlyException;
+    private static URI identifierURI = URI.create(identifier);
 
     /**
      * Single instance of BooleanAttribute that represents true.
      * Initialized by the static initializer below.
      */
-    private static BooleanAttribute trueInstance;
+    private static BooleanAttribute trueInstance = new BooleanAttribute(true);
 
     /**
      * Single instance of BooleanAttribute that represents false.
      * Initialized by the static initializer below.
      */
-    private static BooleanAttribute falseInstance;
+    private static BooleanAttribute falseInstance = new BooleanAttribute(false);
 
-    /**
-     * Static initializer that initializes many static fields.
-     * <p>
-     * It is possible identifierURI
-     * class field so that we can catch any exceptions thrown
-     * by URI(String) and transform them into a RuntimeException.
-     * Such exceptions should never happen but should be reported
-     * properly if they ever do.
-     */
-    static {
-        try {
-            identifierURI = new URI(identifier);
-            trueInstance = new BooleanAttribute(true);
-            falseInstance = new BooleanAttribute(false);
-        } catch (Exception e) {
-            earlyException = new IllegalArgumentException();
-            earlyException.initCause(e);
-        }
-    };
- 
     /**
      * The actual boolean value that this object represents.
      */
@@ -155,10 +124,6 @@ public class BooleanAttribute extends AttributeValue
     public static BooleanAttribute getInstance(String value)
         throws ParsingException
     {
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
-
         if (value.equals("true"))
             return trueInstance;
         if (value.equals("false"))
@@ -177,10 +142,6 @@ public class BooleanAttribute extends AttributeValue
      */
     public static BooleanAttribute getInstance(boolean value) {
 
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
-
         if (value)
             return trueInstance;
         else
@@ -196,10 +157,6 @@ public class BooleanAttribute extends AttributeValue
      */
     public static BooleanAttribute getTrueInstance() {
 
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
-
         return trueInstance;
     }
 
@@ -211,10 +168,6 @@ public class BooleanAttribute extends AttributeValue
      *         false value
      */
     public static BooleanAttribute getFalseInstance() {
-
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
 
         return falseInstance;
     }

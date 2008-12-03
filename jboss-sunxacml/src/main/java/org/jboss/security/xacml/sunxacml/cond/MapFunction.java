@@ -77,18 +77,7 @@ class MapFunction implements Function
 
     // the stuff used to make sure that we have a valid identifier or a
     // known error, just like in the attribute classes
-    private static URI identifier;
-    private static RuntimeException earlyException;
-
-    // try to initialize the identifier
-    static {
-        try {
-            identifier = new URI(NAME_MAP);
-        } catch (Exception e) {
-            earlyException = new IllegalArgumentException();
-            earlyException.initCause(e);
-        }
-    };
+    private static URI identifier = URI.create(NAME_MAP);
 
     /**
      * Creates a new instance of a <code>MapFunction</code>.
@@ -170,10 +159,6 @@ class MapFunction implements Function
      * @return the function's identifier
      */
     public URI getIdentifier() {
-        // strictly speaking, this should never happen
-        if (earlyException != null)
-            throw earlyException;
-
         return identifier;
     }
 

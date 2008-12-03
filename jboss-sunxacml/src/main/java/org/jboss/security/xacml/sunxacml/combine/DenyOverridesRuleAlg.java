@@ -70,27 +70,13 @@ public class DenyOverridesRuleAlg extends RuleCombiningAlgorithm
         "deny-overrides";
 
     // a URI form of the identifier
-    private static URI identifierURI;
-    // exception if the URI was invalid, which should never be a problem
-    private static RuntimeException earlyException;  
-
-    static {
-        try {
-            identifierURI = new URI(algId);
-        } catch (URISyntaxException se) {
-            earlyException = new IllegalArgumentException();
-            earlyException.initCause(se);
-        }
-    }
+    private static URI identifierURI = URI.create(algId);
 
     /**
      * Standard constructor.
      */
     public DenyOverridesRuleAlg() {
         super(identifierURI);
-
-        if (earlyException != null)
-            throw earlyException;
     }
 
     /**

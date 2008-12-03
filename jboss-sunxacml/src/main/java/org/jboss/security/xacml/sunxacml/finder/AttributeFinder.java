@@ -50,6 +50,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
+import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
+import org.jboss.security.xacml.sunxacml.attr.AttributeSelector;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.w3c.dom.Node;
@@ -58,10 +60,10 @@ import org.w3c.dom.Node;
 /**
  * This class is used by the PDP to find attribute values that weren't
  * originally supplied in the request. It can be called with the data supplied
- * in <code>AttributeDesignator<code>s or <code>AttributeSelector</code>s.
+ * in {@link AttributeDesignator}s or {@link AttributeSelector}s.
  * Because the modules in this finder may themselves need attribute data
  * to search for attribute data, it's possible that the modules will look
- * for values in the <code>EvaluationCtx</code>, which may in turn result
+ * for values in the {@link EvaluationCtx}, which may in turn result
  * in the invocation of this finder again, so module writers need to be
  * careful about how they build their modules.
  * <p>
@@ -99,20 +101,23 @@ public class AttributeFinder
     }
 
     /**
-     * Returns the ordered <code>List</code> of modules used by this class
-     * to find attribute values.
+     * Returns the ordered list of
+     * {@link AttributeFinderModule}s used by this class to find
+     * attribute values.
      *
-     * @return the list of modules used by this class
+     * @return a list of <code>AttributeFinderModule</code>s
      */
     public List getModules() {
         return new ArrayList(allModules);
     }
 
     /**
-     * Sets the ordered <code>List</code> of modules used by this class
-     * to find attribute values. The ordering will be maintained.
+     * Sets the ordered list of
+     * {@link AttributeFinderModule}s used by this class to find
+     * attribute values. The ordering will be maintained.
      *
-     * @param modules the modules this class will use
+     * @param modules a list of
+     *                <code>AttributeFinderModule</code>s
      */
     public void setModules(List modules) {
         Iterator it = modules.iterator();
@@ -135,7 +140,7 @@ public class AttributeFinder
     /**
      * Tries to find attribute values based on the given designator data.
      * The result, if successful, will always contain a
-     * <code>BagAttribute</code>, even if only one value was found. If no
+     * {@link BagAttribute}, even if only one value was found. If no
      * values were found, but no other error occurred, an empty bag is
      * returned.
      *
@@ -143,10 +148,10 @@ public class AttributeFinder
      * @param attributeId the identifier of the attributes to find
      * @param issuer the issuer of the attributes, or null if unspecified
      * @param subjectCategory the category of the attribute if the
-     *                        designatorType is SUBJECT_TARGET, otherwise null
+     *                        designatorType is {@link AttributeDesignator#SUBJECT_TARGET}, otherwise null
      * @param context the representation of the request data
      * @param designatorType the type of designator as named by the *_TARGET
-     *                       fields in <code>AttributeDesignator</code>
+     *                       fields in {@link AttributeDesignator}
      *
      * @return the result of attribute retrieval, which will be a bag of
      *         attributes or an error
@@ -199,7 +204,7 @@ public class AttributeFinder
     /**
      * Tries to find attribute values based on the given selector data.
      * The result, if successful, must always contain a
-     * <code>BagAttribute</code>, even if only one value was found. If no
+     * {@link BagAttribute}, even if only one value was found. If no
      * values were found, but no other error occurred, an empty bag is
      * returned.
      *

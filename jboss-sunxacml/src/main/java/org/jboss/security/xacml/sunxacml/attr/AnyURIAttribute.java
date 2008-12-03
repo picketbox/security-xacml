@@ -59,27 +59,7 @@ public class AnyURIAttribute extends AttributeValue
         "http://www.w3.org/2001/XMLSchema#anyURI";
 
     //URI version of name for this type
-    private static URI identifierURI;
-
-    // RuntimeException that wraps an Exception thrown during the
-    // creation of identifierURI, null if none
-    private static RuntimeException earlyException;
-
-    /**
-     * Static initializer that initializes the identifierURI
-     * class field so that we can catch any exceptions thrown
-     * by URI(String) and transform them into a RuntimeException.
-     * Such exceptions should never happen but should be reported
-     * properly if they ever do.
-     */
-    static {
-        try {
-            identifierURI = new URI(identifier);
-        } catch (Exception e) {
-            earlyException = new IllegalArgumentException();
-            earlyException.initCause(e);
-        }
-    };
+    private static URI identifierURI = URI.create(identifier);
 
     // the URI value that this class represents
     private URI value;
@@ -92,10 +72,6 @@ public class AnyURIAttribute extends AttributeValue
      */
     public AnyURIAttribute(URI value) {
         super(identifierURI);
-
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
 
         this.value = value;
     }

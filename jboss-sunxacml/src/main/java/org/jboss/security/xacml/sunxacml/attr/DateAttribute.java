@@ -71,37 +71,10 @@ public class DateAttribute extends AttributeValue
     /**
      * URI version of name for this type
      * <p>
-     * This field is initialized by a static initializer so that
-     * we can catch any exceptions thrown by URI(String) and
-     * transform them into a RuntimeException, since this should
-     * never happen but should be reported properly if it ever does.
-     * <p>
      * This object is used for synchronization whenever we need
      * protection across this whole class.
      */
-    private static URI identifierURI;
-
-    /**
-     * RuntimeException that wraps an Exception thrown during the
-     * creation of identifierURI, null if none.
-     */
-    private static RuntimeException earlyException;
-
-    /**
-     * Static initializer that initializes the identifierURI
-     * class field so that we can catch any exceptions thrown
-     * by URI(String) and transform them into a RuntimeException.
-     * Such exceptions should never happen but should be reported
-     * properly if they ever do.
-     */
-    static {
-        try {
-            identifierURI = new URI(identifier);
-        } catch (Exception e) {
-            earlyException = new IllegalArgumentException();
-            earlyException.initCause(e);
-        }
-    };
+    private static URI identifierURI = URI.create(identifier);
 
     /**
      * Parser for dates with no time zones
@@ -299,10 +272,6 @@ public class DateAttribute extends AttributeValue
      */
     private void init(Date date, int timeZone, int defaultedTimeZone) {
 
-        // Shouldn't happen, but just in case...
-        if (earlyException != null)
-            throw earlyException;
-
         this.value = (Date) date.clone();
         this.timeZone = timeZone;
         this.defaultedTimeZone = defaultedTimeZone;
@@ -412,10 +381,6 @@ public class DateAttribute extends AttributeValue
         // If simpleParser is already set, we're done.
         if (simpleParser != null)
             return;
-
-        // Make sure that identifierURI is not null
-        if (earlyException != null)
-            throw earlyException;
 
         // Synchronize on identifierURI while initializing parsers
         // so we don't end up using a half-way initialized parser

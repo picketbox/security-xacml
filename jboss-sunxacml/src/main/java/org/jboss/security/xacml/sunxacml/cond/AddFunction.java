@@ -170,16 +170,6 @@ public class AddFunction extends FunctionBase
                 sum = sum + arg;
             }
             
-            // Make it round half even, not round nearest
-            double lower = Math.floor(sum);
-            double higher = lower + 1;
-            if ((sum - lower) == (higher - sum)) {
-                if ((lower % 2) == 0)
-                    sum = lower;
-                else
-                    sum = higher;
-            }
-            
             result = new EvaluationResult(new DoubleAttribute(sum));
             break;
         }

@@ -65,29 +65,7 @@ public class Subject
     /**
      * <code>URI</code> form of the default subject category
      */
-    public static final URI DEFAULT_CATEGORY;
-
-    // the exception thrown if the default category was invalid
-    private static RuntimeException earlyException = null;
-
-    /**
-     * Tries to initialize the default category, keeping track of the
-     * exception for later use (if there was a problem). Note that this
-     * should never happen, but the error case will be reported correctly
-     * if the default string is invalid.
-     */
-    static {
-        URI defaultURI = null;
-
-        try {
-            defaultURI = new URI(AttributeDesignator.SUBJECT_CATEGORY_DEFAULT);
-        } catch (Exception e) {
-            earlyException = new IllegalArgumentException("invalid URI");
-            earlyException.initCause(e);
-        }
-
-        DEFAULT_CATEGORY = defaultURI;
-    }
+    public static final URI DEFAULT_CATEGORY = URI.create(AttributeDesignator.SUBJECT_CATEGORY_DEFAULT);
 
     /**
      * Creates a new collection of subject attributes using the default
@@ -98,9 +76,6 @@ public class Subject
      */
     public Subject(Set attributes) {
         this(null, attributes);
-
-        if (earlyException != null)
-            throw earlyException;
     }
 
     /**
