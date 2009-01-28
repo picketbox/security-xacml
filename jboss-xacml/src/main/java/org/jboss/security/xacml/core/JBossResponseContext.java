@@ -25,11 +25,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jboss.security.xacml.core.model.context.DecisionType;
 import org.jboss.security.xacml.core.model.context.ObjectFactory;
 import org.jboss.security.xacml.core.model.context.ResultType;
 import org.jboss.security.xacml.core.model.context.StatusCodeType;
@@ -115,12 +117,37 @@ public class JBossResponseContext implements ResponseContext
          Result result = (Result) response.getResults().iterator().next(); 
          resultType.setResourceId(result.getResource());
          
+         //Decision
+         int decision = result.getDecision();
+         switch(decision)
+         {
+            case 0:
+               resultType.setDecision(DecisionType.PERMIT);
+               break;
+            case 1:
+               resultType.setDecision(DecisionType.DENY);
+               break;
+            case 2:
+               resultType.setDecision(DecisionType.INDETERMINATE);
+               break;
+            case 3:
+               resultType.setDecision(DecisionType.NOT_APPLICABLE);
+               break;
+            default:
+               throw new IllegalStateException("Unknown code");
+         }
          //Status
          Status status = result.getStatus();
          StatusType statusType = objectFactory.createStatusType();
          StatusCodeType statusCodeType = objectFactory.createStatusCodeType();
-         statusCodeType.setValue(status.getMessage()); 
+         List statusList = status.getCode();
+         if(statusList != null && statusList.size() > 0)
+         {
+            statusCodeType.setValue((String) statusList.get(0));
+         }
+         statusType.setStatusMessage(status.getMessage()); 
          statusType.setStatusCode(statusCodeType);
+         resultType.setStatus(statusType);
          
          //Obligations
          Set<Obligation> obligationsSet = result.getObligations();
