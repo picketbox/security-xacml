@@ -11,16 +11,6 @@
   <name>JBoss port of sunxacml</name>
   <url>http://www.jboss.org</url>
   <description>JBoss XACML Library</description> 
-  <build>
-   <resources>
-      <resource>
-        <directory>${basedir}/src/resources</directory>
-        <includes>
-          <include>licenses/**</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
   <dependencies>
     <dependency>
       <groupId>apache-xerces</groupId>
