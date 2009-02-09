@@ -1,8 +1,0 @@
-<Response>
-<Result ResourceId="Anthony Gurrola">
-<Decision>Permit</Decision>
-<Status>
-<StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"/>
-</Status>
-</Result>
-</Response>

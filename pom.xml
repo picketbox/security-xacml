@@ -16,7 +16,6 @@
      <module>parent</module>
      <module>jboss-sunxacml</module>
      <module>jboss-xacml</module>
-     <module>jboss-xacml-saml</module>
    </modules>
    <scm>
     <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</connection>
