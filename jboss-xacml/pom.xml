@@ -11,17 +11,6 @@
   <name>JBoss XACML</name>
   <url>http://www.jboss.org</url>
   <description>JBoss XACML Library</description> 
-  <build>
-   <resources>
-      <resource>
-        <directory>src/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-        <filtering>true</filtering>
-      </resource>
-   </resources>
-  </build>
   <dependencies>
     <dependency>
       <groupId>org.jboss.security</groupId>
