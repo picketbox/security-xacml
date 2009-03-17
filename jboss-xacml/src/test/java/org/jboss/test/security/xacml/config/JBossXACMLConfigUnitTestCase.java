@@ -101,4 +101,23 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       PolicyDecisionPoint pdp = new JBossPDP(configFile);
       XACMLTestUtil.validateInteropCases(pdp);
    }
+   
+   /**
+    * SECURITY-382: JBossPDP to take in configuration metadata
+    * @throws Exception
+    */
+   public void testPDPConfigPassingJAXBConfig() throws Exception
+   {
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      URL configFile = tcl.getResource("test/config/interopPolicySetConfig.xml");
+      JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
+      assertNotNull("JAXBContext is !null", jc);
+      Unmarshaller u = jc.createUnmarshaller();
+      JAXBElement<?> j = (JAXBElement<?>) u.unmarshal(configFile);
+      assertNotNull("JAXBElement is !null", j);
+      
+      assertNotNull("configFile != null", configFile);
+      PolicyDecisionPoint pdp = new JBossPDP(j);
+      XACMLTestUtil.validateInteropCases(pdp);
+   }
 }

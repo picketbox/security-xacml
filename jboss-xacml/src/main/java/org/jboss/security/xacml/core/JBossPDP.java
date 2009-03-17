@@ -83,6 +83,7 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP()
    {
+	   createValidatingUnMarshaller();
    }
 
    /**
@@ -91,7 +92,7 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP(InputStream configFile)
    {
-      createValidatingUnMarshaller();
+      this();
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
@@ -109,7 +110,7 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP(InputSource configFile)
    {
-      createValidatingUnMarshaller();
+	  this();
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
@@ -127,7 +128,7 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP(Node configFile)
    {
-      createValidatingUnMarshaller();
+	  this();
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
@@ -145,8 +146,8 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP(XMLStreamReader configFile)
    {
-      createValidatingUnMarshaller();
-      try
+	  this();
+	  try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFile);
          bootstrap((PDP) jxb.getValue());
@@ -163,11 +164,30 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP(URL configFileURL)
    {
-      createValidatingUnMarshaller();
+      this();
       try
       {
          JAXBElement<?> jxb = (JAXBElement<?>) unmarshaller.unmarshal(configFileURL.openStream());
          bootstrap((PDP) jxb.getValue());
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException(e);
+      }
+   }
+   
+   /**
+    * Create a PDP
+    * @param config JAXB model for configuration
+    */
+   public JBossPDP(JAXBElement<?> config)
+   {
+      Object object = config.getValue();
+      if(object instanceof PDP == false)
+         throw new IllegalArgumentException("Not PDP configuration");
+      try
+      {
+         bootstrap((PDP) object);
       }
       catch (Exception e)
       {
