@@ -46,7 +46,7 @@ public class Util
 
    private static final String CONSENTED_SUBJECT_ID = "urn:oasis:names:tc:xacml:interop:resource:consented-subject-id";
 
-   private static final String DISSENTED_SUBJECT_ID = "urn:xacml:2.0:interop:example:resource:hl7:dissented-subject-id";
+   //private static final String DISSENTED_SUBJECT_ID = "urn:xacml:2.0:interop:example:resource:hl7:dissented-subject-id";
 
    private static final String HL7_SUBJECT_PERMISSION = "urn:xacml:2.0:interop:example:subject:hl7:permission";
 
