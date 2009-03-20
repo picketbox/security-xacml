@@ -38,7 +38,7 @@ import org.jboss.security.xacml.jaxb.Option;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public abstract class AbstractJBossPolicyLocator implements PolicyLocator, ContextMapOp
+public abstract class AbstractJBossPolicyLocator implements PolicyLocator
 {
    protected List<Option> options = null;
 

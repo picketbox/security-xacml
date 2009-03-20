@@ -1,0 +1,45 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:PolicySet>
+      <ns:Location>test/policies/interop/xacml-policySet.xml</ns:Location>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy2.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy3.xml</ns:Location>
+      </ns:Policy>
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy4.xml</ns:Location>
+      </ns:Policy>
+      
+      <ns:Policy>
+         <ns:Location>test/policies/interop/xacml-policy5.xml</ns:Location>
+      </ns:Policy>
+      
+    </ns:PolicySet>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicySetLocator"/> 
+    
+    <ns:Locator Name="org.jboss.test.security.xacml.locators.TestAttributeLocator">
+      <ns:Option Name="identifier">test-attrib</ns:Option>
+      <ns:Option Name="attributeDesignatorSupport">true</ns:Option>
+      <ns:Option Name="attributeSelectorSupport">true</ns:Option>
+      <ns:Option Name="attributeDesignatorInt">0</ns:Option>
+      <ns:Option Name="attributeDesignatorInt">1</ns:Option>
+      <ns:Option Name="attributeDesignatorInt">2</ns:Option>
+      <ns:Option Name="attributeSupportedId">urn:oasis:names:tc:xacml:1.0:action:action-id</ns:Option>
+      <ns:Option Name="attributeSupportedId">http://www.w3.org/2001/XMLSchema#string</ns:Option>
+      <ns:Option Name="attributeSupportedId">urn:xacml:2.0:interop:example:subject:buy-offer-price</ns:Option>
+      <ns:Option Name="attributeSupportedId">urn:oasis:names:tc:xacml:1.0:subject:subject-id</ns:Option>
+    </ns:Locator>
+    
+    <ns:Locator Name="org.jboss.test.security.xacml.locators.TestResourceLocator">
+      <ns:Option Name="identifier">test-resource</ns:Option>
+      <ns:Option Name="resourceChildSupport">true</ns:Option>
+      <ns:Option Name="resourceDescendantSupport">true</ns:Option>
+     </ns:Locator>
+    
+  </ns:Locators>
+</ns:jbosspdp>

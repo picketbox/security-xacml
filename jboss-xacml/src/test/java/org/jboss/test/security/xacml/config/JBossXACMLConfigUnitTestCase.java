@@ -35,6 +35,7 @@ import junit.framework.TestCase;
 
 import org.jboss.security.xacml.core.JBossPDP;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
+import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.jaxb.LocatorType;
 import org.jboss.security.xacml.jaxb.LocatorsType;
 import org.jboss.security.xacml.jaxb.PDP;
@@ -119,5 +120,23 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       assertNotNull("configFile != null", configFile);
       PolicyDecisionPoint pdp = new JBossPDP(j);
       XACMLTestUtil.validateInteropCases(pdp);
+   }
+   
+   public void testPDPConfigJAXBConfigWithAdditionalTestLocators() throws Exception
+   {
+      String fileName = "test/config/interopPolicySetConfig_additional_testlocators.xml";
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      URL configFile = tcl.getResource(fileName);
+      JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
+      assertNotNull("JAXBContext is !null", jc);
+      Unmarshaller u = jc.createUnmarshaller();
+      JAXBElement<?> j = (JAXBElement<?>) u.unmarshal(configFile);
+      assertNotNull("JAXBElement is !null", j);
+      
+      assertNotNull("configFile != null", configFile);
+      PolicyDecisionPoint pdp = new JBossPDP(j);
+      TestCase.assertEquals("Case 1 should be deny", 
+            XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
+            "test/policies/custom/custom-request.xml")); 
    }
 }
