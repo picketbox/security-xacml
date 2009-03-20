@@ -39,6 +39,7 @@ import javax.xml.validation.SchemaFactory;
 import org.jboss.security.xacml.bridge.JBossPolicyFinder;
 import org.jboss.security.xacml.factories.PolicyFactory;
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
+import org.jboss.security.xacml.interfaces.AbstractLocator;
 import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.PolicyLocator;
 import org.jboss.security.xacml.interfaces.RequestContext;
@@ -47,16 +48,21 @@ import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.jaxb.LocatorType;
 import org.jboss.security.xacml.jaxb.LocatorsType;
+import org.jboss.security.xacml.jaxb.Option;
 import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.security.xacml.jaxb.PolicyType;
+import org.jboss.security.xacml.locators.AttributeLocator;
+import org.jboss.security.xacml.locators.ResourceLocator;
 import org.jboss.security.xacml.sunxacml.PDPConfig;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinder;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
+import org.jboss.security.xacml.sunxacml.finder.ResourceFinder;
+import org.jboss.security.xacml.sunxacml.finder.ResourceFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.impl.CurrentEnvModule;
 import org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule;
 import org.w3c.dom.Node;
@@ -72,11 +78,16 @@ public class JBossPDP implements PolicyDecisionPoint
 {
    private Unmarshaller unmarshaller = null;
 
-   private Set<PolicyLocator> locators = new HashSet<PolicyLocator>();
-
+   private Set<AttributeFinderModule> attributeLocators = new HashSet<AttributeFinderModule>();
+   
+   private Set<PolicyLocator> policyLocators = new HashSet<PolicyLocator>();
+   private Set<ResourceLocator> resourceLocators = new HashSet<ResourceLocator>();
+   
    private Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
 
    private JBossPolicyFinder policyFinder = new JBossPolicyFinder();
+
+   private org.jboss.security.xacml.sunxacml.PDP policyDecisionPoint = null;
 
    /**
     * CTR
@@ -200,7 +211,7 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public void setLocators(Set<PolicyLocator> locators)
    {
-      this.locators = locators;
+      this.policyLocators = locators;
    }
 
    /**
@@ -213,34 +224,19 @@ public class JBossPDP implements PolicyDecisionPoint
 
    /**
     * @see PolicyDecisionPoint#evaluate(RequestContext)
-    */
-   @SuppressWarnings("unchecked")
+    */ 
    public ResponseContext evaluate(RequestContext request)
-   {
-      HashSet<PolicyFinderModule> policyModules = new HashSet<PolicyFinderModule>();
-      //Go through the Locators
-      for (PolicyLocator locator : locators)
-      {
-         List finderModulesList = (List) locator.get(XACMLConstants.POLICY_FINDER_MODULE);
-         if (finderModulesList == null)
-            throw new IllegalStateException("Locator " + locator.getClass().getName() + " has no policy finder modules");
-         policyModules.addAll(finderModulesList);
-      }
-      policyFinder.setModules(policyModules);
-
-      AttributeFinder attributeFinder = new AttributeFinder();
-      List<AttributeFinderModule> attributeModules = new ArrayList<AttributeFinderModule>();
-      attributeModules.add(new CurrentEnvModule());
-      attributeModules.add(new SelectorModule());
-      attributeFinder.setModules(attributeModules);
-
-      org.jboss.security.xacml.sunxacml.PDP pdp = new org.jboss.security.xacml.sunxacml.PDP(new PDPConfig(
-            attributeFinder, policyFinder, null));
+   { 
       RequestCtx req = (RequestCtx) request.get(XACMLConstants.REQUEST_CTX);
       if (req == null)
          throw new IllegalStateException("Request Context does not contain a request");
 
-      ResponseCtx resp = pdp.evaluate(req);
+      //Check if PDP is null
+      if(policyDecisionPoint == null)
+      {   
+         this.bootstrapPDP();
+      }
+      ResponseCtx resp = policyDecisionPoint.evaluate(req);
 
       ResponseContext response = RequestResponseContextFactory.createResponseContext();
       response.set(XACMLConstants.RESPONSE_CTX, resp);
@@ -263,10 +259,79 @@ public class JBossPDP implements PolicyDecisionPoint
       List<LocatorType> locs = locatorsType.getLocator();
       for (LocatorType lt : locs)
       {
-         PolicyLocator pl = (PolicyLocator) loadClass(lt.getName()).newInstance();
-         pl.setPolicies(policies);
-         this.locators.add(pl);
+         //Get the options
+         List<Option> options = lt.getOption();
+         AbstractLocator locator = (AbstractLocator) loadClass(lt.getName()).newInstance();
+         locator.setOptions(options);
+         
+         if(locator instanceof PolicyLocator)
+         {
+            PolicyLocator pl = (PolicyLocator)locator; 
+            pl.setPolicies(policies);
+            this.policyLocators.add(pl); 
+         }
+         else
+            if(locator instanceof AttributeLocator)
+            {
+               AttributeLocator attribLocator = (AttributeLocator) locator;
+               this.attributeLocators.add(attribLocator);
+            }
+            else
+               if(locator instanceof ResourceLocator)
+               {
+                  ResourceLocator resourceLocator = (ResourceLocator) locator;
+                  this.resourceLocators.add(resourceLocator);
+               }
+      } 
+      this.bootstrapPDP(); 
+   }
+   
+   private List<AttributeFinderModule> createAttributeFinderModules()
+   {
+      List<AttributeFinderModule> attributeModules = new ArrayList<AttributeFinderModule>();
+      attributeModules.add(new CurrentEnvModule());
+      attributeModules.add(new SelectorModule());      
+      attributeModules.addAll(attributeLocators); 
+      return attributeModules;
+   }
+
+   @SuppressWarnings("unchecked")
+   private Set<PolicyFinderModule> createPolicyFinderModules()
+   {
+      HashSet<PolicyFinderModule> policyModules = new HashSet<PolicyFinderModule>();
+      //Go through the Locators
+      for (PolicyLocator locator : policyLocators)
+      {
+         List finderModulesList = (List) locator.get(XACMLConstants.POLICY_FINDER_MODULE);
+         if (finderModulesList == null)
+            throw new IllegalStateException("Locator " + locator.getClass().getName() + " has no policy finder modules");
+         policyModules.addAll(finderModulesList);
       }
+      return policyModules; 
+   }
+   
+   private List<ResourceFinderModule> createResourceFinderModules()
+   {
+      List<ResourceFinderModule> resourceFinderModules = new ArrayList<ResourceFinderModule>();
+      for(ResourceLocator resourceLocator: resourceLocators)
+      {
+         resourceFinderModules.add(resourceLocator);
+      }
+      return resourceFinderModules;
+   }
+   
+   private void bootstrapPDP()
+   {
+      AttributeFinder attributeFinder = new AttributeFinder();
+      attributeFinder.setModules(this.createAttributeFinderModules());
+      
+      policyFinder.setModules(this.createPolicyFinderModules());
+      
+      ResourceFinder resourceFinder = new ResourceFinder();
+      resourceFinder.setModules(this.createResourceFinderModules());
+      
+      PDPConfig pdpConfig = new PDPConfig(attributeFinder, policyFinder, resourceFinder); 
+      policyDecisionPoint = new org.jboss.security.xacml.sunxacml.PDP(pdpConfig);  
    }
 
    private List<XACMLPolicy> addPolicySets(List<PolicySetType> policySets, boolean topLevel) throws Exception
