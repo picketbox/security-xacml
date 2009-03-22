@@ -393,8 +393,8 @@ public abstract class FunctionBase implements Function
             while (it.hasNext()) {
                 Evaluatable eval = (Evaluatable)(it.next());
 
-                if ((! eval.getType().toString().equals(paramType)) ||
-                    (eval.returnsBag() != paramIsBag))
+                if ((! eval.getType().toString().equals(paramType)) /*||
+                    (eval.returnsBag() != paramIsBag)*/)
                     throw new IllegalArgumentException("illegal parameter");
             }
         } else {
