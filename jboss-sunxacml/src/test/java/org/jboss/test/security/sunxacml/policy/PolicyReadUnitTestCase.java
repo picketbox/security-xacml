@@ -43,6 +43,12 @@ public class PolicyReadUnitTestCase extends TestCase
    }
    
    
+   public void testFunctionMatch() throws Exception
+   {   
+      String fileName = "src/test/resources/policies/function-match/function-match-policy-01.xml";
+      readPolicyIntoPDP(fileName);
+   }
+   
    public void testHimmss09_01() throws Exception
    {
       String fileName = "src/test/resources/policies/himss09/himss-policy-01.xml";
@@ -53,6 +59,6 @@ public class PolicyReadUnitTestCase extends TestCase
    {
       String[] policies = new String[] {fileName};
       SimplePDP pdp = new SimplePDP(policies);
-      assertNotNull(pdp);
+      assertNotNull(pdp); 
    }
 }

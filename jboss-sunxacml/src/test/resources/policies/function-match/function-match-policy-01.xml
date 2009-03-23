@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:2.0:policy:schema:os" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:policy:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd" 
+           PolicySetId="urn:oasis:names:tc:xspa:1.0" 
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+  <Target />
+  <PolicySet PolicySetId="urn:oasis:names:tc:xspa:1.0:org" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides">
+    <Description>Contains all organizational policies which are evaluated on all requests.</Description>
+    <Target />    
+    <Policy PolicyId="urn:oasis:names:tc:xspa:1.0:org:allowed:organizations" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:deny-overrides">
+      <Description>
+        The organization denies the request if the subject is attempting to access 
+        a resource and is not a member of the allowed organizations.
+      </Description>
+      <Target>
+        <Subjects/>
+         <Resources>
+           <Resource>
+              <!-- to view everything under the resource collection -->
+             <ResourceMatch MatchId="urn:oasis:names:tc:xacml:2.0:function:anyURI-regexp-match">
+               <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/.*</AttributeValue>
+                   <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI" />
+             </ResourceMatch>
+          </Resource>
+        </Resources>
+       <Actions/>
+      </Target>
+      <Rule RuleId="urn:oasis:names:tc:xspa:1.0:org:allowed:organizations:deny" Effect="Deny">
+        <Description>Evaluates the allowed-organizations (if available) against the subject's locality.</Description>
+        <Target />
+        <Condition>
+          <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+              <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                  <ResourceAttributeDesignator AttributeId="urn:oasis:names:tc:xspa:1.0:resource:org:allowed-organizations" DataType="http://www.w3.org/2001/XMLSchema#string" />
+                </Apply>
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">0</AttributeValue>
+              </Apply>
+            </Apply>
+           </Apply>
+        </Condition>
+      </Rule>
+    </Policy> 
+  </PolicySet>
+</PolicySet>
