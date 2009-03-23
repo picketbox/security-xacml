@@ -268,7 +268,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
             String cname = SunxacmlUtil.getNodeName(child);
 
             if (cname.equals("Description")) {
-                description = child.getFirstChild().getNodeValue();
+                description = (child.getFirstChild() != null ? child.getFirstChild().getNodeValue() : "");
             } else if (cname.equals("Target")) {
                 target = Target.getInstance(child, metaData);
             } else if (cname.equals("Obligations")) {

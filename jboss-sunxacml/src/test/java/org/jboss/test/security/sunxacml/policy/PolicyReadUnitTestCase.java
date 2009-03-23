@@ -39,6 +39,18 @@ public class PolicyReadUnitTestCase extends TestCase
    public void testBagSize() throws Exception 
    {
       String fileName = "src/test/resources/policies/bag-size/bag-size-policy.xml";
+      readPolicyIntoPDP(fileName);
+   }
+   
+   
+   public void testHimmss09_01() throws Exception
+   {
+      String fileName = "src/test/resources/policies/himss09/himss-policy-01.xml";
+      readPolicyIntoPDP(fileName); 
+   }
+   
+   private void readPolicyIntoPDP(String fileName) throws Exception
+   {
       String[] policies = new String[] {fileName};
       SimplePDP pdp = new SimplePDP(policies);
       assertNotNull(pdp);
