@@ -26,6 +26,7 @@ import junit.framework.TestCase;
 import org.jboss.security.xacml.sunxacml.support.SimplePDP;
 
 /**
+ * Unit test for reading Policies for the Sunxacml PDP
  * @author Anil.Saldhana@redhat.com
  * @since Mar 21, 2009
  */
