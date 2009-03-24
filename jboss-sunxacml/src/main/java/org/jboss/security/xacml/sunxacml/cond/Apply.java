@@ -345,7 +345,7 @@ public class Apply implements Evaluatable
           builder.append(":").append(obj).append(":");  
         }
         builder.append("::result=");
-        if(avalue != null)
+        if(avalue != null && avalue.isBag() == false)
           builder.append(avalue.encode());
         logger.log(Level.FINE, builder.toString());
         return result;
