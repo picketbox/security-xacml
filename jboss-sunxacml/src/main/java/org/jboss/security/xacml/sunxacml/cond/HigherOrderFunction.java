@@ -51,9 +51,13 @@ import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.Indenter;
+import org.jboss.security.xacml.sunxacml.attr.AnyURIAttribute;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.attr.BooleanAttribute;
+import org.jboss.security.xacml.sunxacml.attr.DNSNameAttribute;
+import org.jboss.security.xacml.sunxacml.attr.IPAddressAttribute;
+import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 
 
 /**
@@ -416,11 +420,14 @@ public class HigherOrderFunction implements Function
         Evaluatable eval1 = (Evaluatable)(list[1]);
         Evaluatable eval2 = (Evaluatable)(list[2]);
 
-        // make sure the two args are of the same type
-        if (! eval1.getType().equals(eval2.getType()))
+        // make sure the two args are of the same type 
+        if(StringAttribute.identifier.equals(eval1.getType().toString()))
+           this.checkType(eval2.getType().toString());
+        else
+          if (! eval1.getType().equals(eval2.getType()))
             throw new IllegalArgumentException("input types to the any/all " +
-                                               "functions must match");
-
+                                                 "functions must match"); 
+        
         // the first arg might be a bag
         if (secondIsBag && (! eval1.returnsBag()))
             throw new IllegalArgumentException("first arg has to be a bag");
@@ -576,6 +583,20 @@ public class HigherOrderFunction implements Function
         PrintStream out = new PrintStream(output);
         out.println(indenter.makeString() + "<Function FunctionId=\"" +
                     getIdentifier().toString() + "\"/>");
+    } 
+    
+    /**
+     * SECURITY-397: XACML 2.0 reg exp matching functions have varying
+     * evaluatable second types (anyURI etc) when the first type is
+     * String
+     * @param type
+     */
+    private void checkType(String type)
+    {
+       if(!(type.equals(StringAttribute.identifier) ||
+             type.equals(AnyURIAttribute.identifier) || 
+             type.equals(IPAddressAttribute.identifier) ||
+             type.equals(DNSNameAttribute.identifier)))
+          throw new IllegalArgumentException("type is invalid:" + type);
     }
-
 }

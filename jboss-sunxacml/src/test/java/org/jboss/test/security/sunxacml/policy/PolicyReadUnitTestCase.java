@@ -43,9 +43,15 @@ public class PolicyReadUnitTestCase extends TestCase
    }
    
    
-   public void testFunctionMatch() throws Exception
+   public void testFunctionMatch_01() throws Exception
    {   
       String fileName = "src/test/resources/policies/function-match/function-match-policy-01.xml";
+      readPolicyIntoPDP(fileName);
+   }
+   
+   public void testFunctionMatch_02() throws Exception
+   {   
+      String fileName = "src/test/resources/policies/function-match/function-match-policy-02.xml";
       readPolicyIntoPDP(fileName);
    }
    
