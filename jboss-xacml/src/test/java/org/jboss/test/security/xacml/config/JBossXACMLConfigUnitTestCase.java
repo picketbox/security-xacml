@@ -89,6 +89,15 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       assertNotNull("LocatorType != null", lt);
       assertEquals("LocatorType != null", 1, lt.size());
    }
+   
+   public void testPDPForHimss09()
+   {
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      URL configFile = tcl.getResource("test/config/himss09-interop-config.xml");
+      assertNotNull("configFile != null", configFile);
+      PolicyDecisionPoint pdp = new JBossPDP(configFile);
+      assertNotNull(pdp);
+   }
 
    /**
     * Test the URL version of the PDP construction
