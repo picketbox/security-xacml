@@ -78,20 +78,20 @@ public class TestPolicyFinderModule extends PolicyFinderModule
 {
 
     // the finder that owns this module
-    private PolicyFinder finder = null;
+    protected PolicyFinder finder = null;
 
     // the policies we're currently using for request-based retrieval
-    private Set policies = null;
+    protected Set policies = null;
 
     // a map of URIs to policies for the reference-based policies we're
     // currently providing, and the current namespace prefix
-    private Map policyRefs = null;
-    private String policyRefPrefix;
+    protected Map policyRefs = null;
+    protected String policyRefPrefix;
 
     // a map of URIs to policies for the reference-based policy sets we're
     // currently providing, and the current namespace prefix
-    private Map policySetRefs = null;
-    private String policySetRefPrefix;
+    protected Map policySetRefs = null;
+    protected String policySetRefPrefix;
     
     /**
      * Default constructor.
@@ -290,7 +290,7 @@ public class TestPolicyFinderModule extends PolicyFinderModule
      * Private helper that tries to load the given file-based policy, and
      * returns null if any error occurs.
      */
-    private AbstractPolicy loadPolicy(String filename, PolicyFinder finder) {
+    protected AbstractPolicy loadPolicy(String filename, PolicyFinder finder) {
         try {
             // create the factory
             DocumentBuilderFactory factory =

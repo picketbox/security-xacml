@@ -23,14 +23,16 @@ package org.jboss.test.security.sunxacml.conformance;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Result;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
+import org.jboss.test.security.sunxacml.conformance.support.ConformanceTestPolicyFinderModule;
 import org.jboss.test.security.sunxacml.conformance.support.TestAttributeFinderModule;
 import org.jboss.test.security.sunxacml.conformance.support.TestPDP;
 import org.jboss.test.security.sunxacml.conformance.support.TestPolicyFinderModule;
@@ -247,7 +249,7 @@ public class ConformanceUnitTestCase extends TestCase
       }
    }
    
-   /*public void testMandatoryConformance_Schema_1_through_3() throws Exception
+   public void testMandatoryConformance_Schema_1_through_3() throws Exception
    { 
       TestPDP pdp = null;
       for(int i =1; i<=3; i++)
@@ -259,8 +261,7 @@ public class ConformanceUnitTestCase extends TestCase
             fileName = mandatoryBase + "IIE00" + i + "Policy.xml"; 
          
          String[] policies = new String[] {fileName};
-         pdp = new TestPDP(policies);  
-         pdp.clearPolicyModules();
+         pdp = new TestPDP(policies);   
          pdp.addPolicyFinderModule(createTestPolicyFinderModule(i));
          pdp.createInternalPDP(); 
          
@@ -288,13 +289,18 @@ public class ConformanceUnitTestCase extends TestCase
    @SuppressWarnings("unchecked")
    private PolicyFinderModule createTestPolicyFinderModule(int i) throws Exception
    {
-      TestPolicyFinderModule tpfm = new TestPolicyFinderModule();
+      TestPolicyFinderModule tpfm = new ConformanceTestPolicyFinderModule();
       
-      Set policyFiles = new HashSet();
-      policyFiles.add(mandatoryBase + "IIE00" + i + "PolicyId1.xml");
-      policyFiles.add(mandatoryBase + "IIE00" + i + "PolicySetId1.xml");
-          
-      tpfm.setPolicies(policyFiles);
+      String policyRefString = "urn:oasis:names:tc:xacml:1.0:conformance-test:IIE00"+i+":policy1"; 
+      URI policyRef = new URI(policyRefString); 
+      Map policyRefs = new HashMap();
+      policyRefs.put(policyRef.toString(), mandatoryBase + "IIE00" + i + "PolicyId1.xml");
+      tpfm.setPolicyRefs(policyRefs, policyRef.toString());
+      
+      URI policySetRef = new URI("urn:oasis:names:tc:xacml:1.0:conformance-test:IIE00"+i+":policyset1");
+      Map policySetRefs = new HashMap();
+      policySetRefs.put(policySetRef.toString(), mandatoryBase + "IIE00" + i + "PolicySetId1.xml");  
+      tpfm.setPolicySetRefs(policySetRefs, policySetRef.toString());
       return tpfm;
-   }*/
+   } 
 }

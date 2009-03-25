@@ -106,12 +106,6 @@ public class TestPDP
       policyFinder.setModules(modules);
    }
    
-   public void clearPolicyModules()
-   {
-      Set modules = new HashSet();
-      policyFinder.setModules(modules);
-   }
-   
    public void createInternalPDP()
    {
       pdp = new PDP(new PDPConfig(attributeFinder, policyFinder, null));  
