@@ -37,6 +37,7 @@ import junit.framework.TestCase;
 public class RequestReadUnitTestCase extends TestCase
 {
 
+   @SuppressWarnings("unchecked")
    public void testMultipleResourceIds() throws Exception
    {
       String fileName = "src/test/resources/requests/multiple-resourceid.xml";
