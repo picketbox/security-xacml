@@ -1,0 +1,28 @@
+<Request>
+<Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>xxxxxx</AttributeValue></Attribute>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" DataType="http://www.w3.org/2001/XMLSchema#anyURI"><AttributeValue>urn:jboss:role-values:ADMIN</AttributeValue><AttributeValue>urn:jboss:aa:role-values:ALLOW-ALL</AttributeValue><AttributeValue>urn:jboss:aa:role-values:OTHER</AttributeValue></Attribute>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>aa</AttributeValue></Attribute>
+</Subject>
+<Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>123456</AttributeValue></Attribute>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>AXA-CH</AttributeValue></Attribute>
+</Subject>
+
+<Resource>
+<Attribute AttributeId="urn:jboss:test:contract_domain:contract:contract_info" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>some contract info</AttributeValue></Attribute>
+<Attribute AttributeId="urn:jboss:test:contract_domain:contract:alternateID" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>1</AttributeValue></Attribute>
+<Attribute AttributeId="urn:jboss:test:contract_domain:contract:expiry-date" DataType="http://www.w3.org/2001/XMLSchema#dateTime"><AttributeValue>2009-03-30T10:14:10.285000000+02:00</AttributeValue></Attribute>
+<Attribute AttributeId="urn:jboss:test:contract_domain:contract:number" DataType="http://www.w3.org/2001/XMLSchema#integer"><AttributeValue>1</AttributeValue></Attribute>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI"><AttributeValue>urn:jboss:test:contract_domain:contract:alternateID:1</AttributeValue></Attribute>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#anyURI"><AttributeValue>urn:jboss:test:contract_domain:contract:ID:1</AttributeValue></Attribute>
+<Attribute AttributeId="urn:jboss:test:contract_domain:contract:ID" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>1</AttributeValue></Attribute>
+</Resource>
+<Action>
+
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"><AttributeValue>read</AttributeValue></Attribute>
+</Action>
+<Environment>
+</Environment>
+</Request>
