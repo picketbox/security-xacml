@@ -215,10 +215,15 @@ public class TimeAttribute extends AttributeValue
 
         // Check that the date is normalized to 1/1/70
         if ((timeGMT >= DateAttribute.MILLIS_PER_DAY) || (timeGMT < 0)) {
+            long div = timeGMT / DateAttribute.MILLIS_PER_DAY;
             timeGMT = timeGMT % DateAttribute.MILLIS_PER_DAY;
+            
+           //SECURITY-405
+           if(div == 1)
+               timeGMT += DateAttribute.MILLIS_PER_DAY; 
 
             // if we had a negative value then we need to shift by a day
-            if (timeGMT < 0)
+           if (timeGMT < 0)
                 timeGMT += DateAttribute.MILLIS_PER_DAY;
         }
     }
@@ -253,7 +258,7 @@ public class TimeAttribute extends AttributeValue
         // DateTimeAttribute parsing code.
 
         value = "1970-01-01T" + value;
-
+        
         DateTimeAttribute dateTime = DateTimeAttribute.getInstance(value);
 
         // if there was no explicit TZ provided, then we want to make sure
