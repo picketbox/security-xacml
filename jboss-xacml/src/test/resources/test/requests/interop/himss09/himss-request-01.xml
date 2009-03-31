@@ -1,0 +1,160 @@
+<xacml-context:Request xmlns="urn:oasis:names:tc:xacml:2.0:context:schema:os"
+	xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/"
+	xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:context:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
+
+	<xacml-context:Subject
+		SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xacml:2.0:subject:subject-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Doctor,Bob
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute AttributeId="urn:oasis:names:tc:xspa:1.0:subject:npi"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>100035
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>codeSystem="1.2.840.1986.7"
+				codeSystemName="ISO" displayName="MD/Allopath"
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:subject:functional_role"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>physician
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:subject:purposeofuse"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Healthcare Treatment
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:subject:hl7:permission"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-017"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-003"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-012"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-005"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-010"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-006"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-009"
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xacml:2.0:subject:locality" DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Healthcare Domain A
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+	</xacml-context:Subject>
+	<xacml-context:Resource>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:hl7:type" 
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>
+				urn:oasis:names:tc:xspa:1.0:resource:hl7:type:medical-record
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:org:hoursofoperation:start"
+			DataType="http://www.w3.org/2001/XMLSchema#time">
+			<xacml-context:AttributeValue>00:00:00-08:00</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:org:hoursofoperation:end"
+			DataType="http://www.w3.org/2001/XMLSchema#time">
+			<xacml-context:AttributeValue>23:59:00-08:00</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:org:allowed-organizations"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Healthcare Domain A
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>DoD Healthcare Domain A
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:org:hl7:permission"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-003"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-005"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-010"
+			</xacml-context:AttributeValue>
+			<xacml-context:AttributeValue>codeSystem="2.16.840.1.113883.13.27"
+				codeSystemName="HL7" displayName="PRD-012"
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:patient:allowed-organizations"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Healthcare Domain A
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0.resource:patient:hl7:confidentiality-code"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>UBA</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:patient:masked:Alerts:dissenting-subject-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>100035
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:patient:masked:Immunizations:dissenting-subject-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>100035
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:patient:masked:Medications:dissenting-subject-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>100035
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xspa:1.0:resource:patient:masked:Problems:dissenting-subject-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>100035
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+	</xacml-context:Resource>
+	<xacml-context:Action>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Read</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+	</xacml-context:Action>
+	<xacml-context:Environment>
+		<xacml-context:Attribute
+			AttributeId="urn:oasis:names:tc:xacml:2.0:resource:locality"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<xacml-context:AttributeValue>Healthcare Domain B
+			</xacml-context:AttributeValue>
+		</xacml-context:Attribute>
+	</xacml-context:Environment>
+</xacml-context:Request>  
