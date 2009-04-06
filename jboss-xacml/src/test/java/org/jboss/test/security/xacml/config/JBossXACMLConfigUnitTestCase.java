@@ -131,6 +131,11 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       XACMLTestUtil.validateInteropCases(pdp);
    }
    
+   /**
+    * SECURITY-388: Attribute Locators
+    * SECURITY-390: Resource Locators
+    * @throws Exception
+    */
    public void testPDPConfigJAXBConfigWithAdditionalTestLocators() throws Exception
    {
       String fileName = "test/config/interopPolicySetConfig_additional_testlocators.xml";
