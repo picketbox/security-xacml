@@ -246,16 +246,24 @@ public class JBossPDP implements PolicyDecisionPoint
    private void bootstrap(PDP pdp) throws Exception
    {
       PoliciesType policiesType = pdp.getPolicies();
-      List<PolicySetType> pset = policiesType.getPolicySet();
+      //SECURITY-407: Just allow Locators
+      if(policiesType != null)
+      {
+         List<PolicySetType> pset = policiesType.getPolicySet();
 
-      this.addPolicySets(pset, true);
+         this.addPolicySets(pset, true);
 
-      //Take care of additional policies
-      List<XACMLPolicy> policyList = this.addPolicies(policiesType.getPolicy());
-      policies.addAll(policyList);
-
+         //Take care of additional policies
+         List<XACMLPolicy> policyList = this.addPolicies(policiesType.getPolicy());
+         policies.addAll(policyList);  
+      }
+      
       //Take care of the locators
       LocatorsType locatorsType = pdp.getLocators();
+      
+      if(policiesType == null && locatorsType == null)
+         throw new IllegalStateException("Configuration should have either policies or locators");
+      
       List<LocatorType> locs = locatorsType.getLocator();
       for (LocatorType lt : locs)
       {

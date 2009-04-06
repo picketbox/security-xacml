@@ -153,4 +153,24 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
             XACMLConstants.DECISION_DENY, XACMLTestUtil.getDecision(pdp,
             "test/policies/custom/custom-request.xml")); 
    }
+   
+   /**
+    * SECURITY-407: Add just Locators in the config file
+    * @throws Exception
+    */
+   public void testPDPJustLocators() throws Exception
+   {
+      String fileName = "test/config/justLocatorsConfig.xml";
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+      URL configFile = tcl.getResource(fileName);
+      JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
+      assertNotNull("JAXBContext is !null", jc);
+      Unmarshaller u = jc.createUnmarshaller();
+      JAXBElement<?> j = (JAXBElement<?>) u.unmarshal(configFile);
+      assertNotNull("JAXBElement is !null", j);
+      
+      assertNotNull("configFile != null", configFile);
+      PolicyDecisionPoint pdp = new JBossPDP(j);
+      assertNotNull(pdp); 
+   }
 }
