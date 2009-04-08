@@ -1,0 +1,5 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.test.security.xacml.locators.TestPolicySetLocator"/> 
+  </ns:Locators>
+</ns:jbosspdp>

@@ -21,6 +21,7 @@
   */
 package org.jboss.security.xacml.locators;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,4 +76,15 @@ public abstract class AbstractJBossPolicyLocator implements PolicyLocator
     * @see PolicyLocator#setPolicies(Set)
     */
    public abstract void setPolicies(Set<XACMLPolicy> policies);
+
+   /**
+    * @see PolicyLocator#getPolicies()
+    */
+   public Set<XACMLPolicy> getPolicies()
+   {
+      if(policies == null)
+         return Collections.emptySet();
+      else
+         return Collections.unmodifiableSet(policies);
+   } 
 }

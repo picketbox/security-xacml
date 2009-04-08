@@ -160,7 +160,7 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
     */
    public void testPDPJustLocators() throws Exception
    {
-      String fileName = "test/config/justLocatorsConfig.xml";
+      String fileName = "test/config/locator/justLocatorConfig.xml";
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
       URL configFile = tcl.getResource(fileName);
       JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");

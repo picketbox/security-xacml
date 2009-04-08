@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 public class PDP
 {
 
-   @XmlElement(name = "Policies", required = true)
+   @XmlElement(name = "Policies", required = false)
    protected PoliciesType policies;
 
    @XmlElement(name = "Locators", required = true)

@@ -245,6 +245,8 @@ public class JBossPDP implements PolicyDecisionPoint
 
    private void bootstrap(PDP pdp) throws Exception
    {
+      boolean justLocators = false;
+      
       PoliciesType policiesType = pdp.getPolicies();
       //SECURITY-407: Just allow Locators
       if(policiesType != null)
@@ -256,6 +258,10 @@ public class JBossPDP implements PolicyDecisionPoint
          //Take care of additional policies
          List<XACMLPolicy> policyList = this.addPolicies(policiesType.getPolicy());
          policies.addAll(policyList);  
+      }
+      else
+      {
+         justLocators = true;
       }
       
       //Take care of the locators
@@ -275,7 +281,8 @@ public class JBossPDP implements PolicyDecisionPoint
          if(locator instanceof PolicyLocator)
          {
             PolicyLocator pl = (PolicyLocator)locator; 
-            pl.setPolicies(policies);
+            if(justLocators == false)     
+               pl.setPolicies(policies);
             this.policyLocators.add(pl); 
          }
          else
@@ -291,6 +298,21 @@ public class JBossPDP implements PolicyDecisionPoint
                   this.resourceLocators.add(resourceLocator);
                }
       } 
+      
+      //Since we do not have any policies in the config file, we need to specify 
+      //the policy finder
+      if(justLocators)
+      {
+         int len = this.policyLocators.size();
+         if(len > 0)
+         {
+            for(PolicyLocator pl: policyLocators)
+            {
+               pl.set(XACMLConstants.POLICY_FINDER, this.policyFinder); 
+            } 
+         }
+      } 
+      
       this.bootstrapPDP(); 
    }
    

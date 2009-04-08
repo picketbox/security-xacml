@@ -53,6 +53,8 @@ public class JBossPolicyLocator extends AbstractJBossPolicyLocator
    @Override
    public void setPolicies(Set<XACMLPolicy> policies)
    {
+      this.policies = policies;
+      
       for (XACMLPolicy xp : policies)
       {
          if (xp.getType() == XACMLPolicy.POLICY)

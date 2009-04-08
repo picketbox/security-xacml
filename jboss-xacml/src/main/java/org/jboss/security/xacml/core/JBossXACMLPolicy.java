@@ -107,6 +107,7 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
       {
          if (theFinder == null)
             throw new IllegalArgumentException("policy finder is null");
+         this.finder = theFinder;
          policy = xpu.createPolicySet(is, theFinder);
          map.put(XACMLConstants.POLICY_FINDER, theFinder);
       }

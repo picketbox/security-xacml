@@ -37,4 +37,10 @@ public interface PolicyLocator extends AbstractLocator
     * @param policies
     */
    void setPolicies(Set<XACMLPolicy> policies);
+   
+   /**
+    * Get the set of policies that the locator can return
+    * @return
+    */
+   Set<XACMLPolicy> getPolicies();  
 }

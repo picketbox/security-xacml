@@ -47,15 +47,21 @@ import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
  *  @version $Revision$
  */
 public class JBossPDPUnitTestCase extends TestCase
-{
+{ 
    /**Enable to see the xacml request in system out for the objects case**/
    //Enable for request trace
    private boolean debug = "true".equals(System.getProperty("debug", "false"));
+   
+   
+   public  String getConfigFileName()
+   {
+      return "test/config/interopPolicySetConfig.xml";
+   }
 
    public void testInteropTestWithXMLRequests() throws Exception
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
+      InputStream is = tcl.getResourceAsStream(getConfigFileName());
       assertNotNull("InputStream != null", is);
       PolicyDecisionPoint pdp = new JBossPDP(is);
       assertNotNull("JBossPDP is != null", pdp);
@@ -77,7 +83,7 @@ public class JBossPDPUnitTestCase extends TestCase
    public void testInteropTestWithObjects() throws Exception
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/interopPolicySetConfig.xml");
+      InputStream is = tcl.getResourceAsStream(getConfigFileName());
       assertNotNull("InputStream != null", is);
       PolicyDecisionPoint pdp = new JBossPDP(is);
       assertNotNull("JBossPDP is != null", pdp);

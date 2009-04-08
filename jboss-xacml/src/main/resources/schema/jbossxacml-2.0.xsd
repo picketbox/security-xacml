@@ -10,7 +10,7 @@
    </xs:element>
    <xs:complexType name="PDP">
       <xs:sequence>
-         <xs:element ref="ns:Policies" minOccurs="1"/>
+         <xs:element ref="ns:Policies" minOccurs="0"/>
          <xs:element ref="ns:Locators" minOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
