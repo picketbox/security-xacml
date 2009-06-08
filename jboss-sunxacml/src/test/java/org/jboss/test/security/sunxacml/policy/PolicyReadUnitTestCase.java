@@ -55,6 +55,12 @@ public class PolicyReadUnitTestCase extends TestCase
       readPolicyIntoPDP(fileName);
    }
    
+   public void testAnyURL() throws Exception
+   {   
+      String fileName = "src/test/resources/policies/anyurl/anyurl-policy.xml";
+      readPolicyIntoPDP(fileName);
+   }
+   
    public void testHimmss09_01() throws Exception
    {
       String fileName = "src/test/resources/policies/himss09/himss-policy-01.xml";

@@ -199,7 +199,7 @@ public class BaseAttributeFactory extends AttributeFactory
                 return proxy.getInstance(root);
             } catch (Exception e) {
                 throw new ParsingException("couldn't create " + type +
-                                           " attribute based on DOM node");
+                                           " attribute based on DOM node",e);
             }
         } else {
             throw new UnknownIdentifierException("Attributes of type " + type +
@@ -234,7 +234,7 @@ public class BaseAttributeFactory extends AttributeFactory
                 return proxy.getInstance(value);
             } catch (Exception e) {
                 throw new ParsingException("couldn't create " + type +
-                                           " attribute from input: " + value);
+                                           " attribute from input: " + value , e);
             }
         } else {
             throw new UnknownIdentifierException("Attributes of type " + type +
