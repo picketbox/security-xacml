@@ -17,11 +17,8 @@
       </listitem>
 
       <listitem>
-        <para>JAXB2 libraries (JAXB-API, JAXB-IMPL)</para>
+        <para>JAXB2 libraries (JAXB-API, JAXB-IMPL) (Unnecessary if you are on JDK6 and above)</para>
       </listitem>
 
-      <listitem>
-        <para>JBossSunXACML 2.0</para>
-      </listitem>
     </orderedlist></para>
 </chapter>
