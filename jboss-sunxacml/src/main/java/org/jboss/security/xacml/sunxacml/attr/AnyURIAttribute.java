@@ -103,6 +103,7 @@ public class AnyURIAttribute extends AttributeValue
     public static AnyURIAttribute getInstance(String value)
         throws URISyntaxException
     {
+        value = value.trim();
         return new AnyURIAttribute(new URI(value));
     }
 
