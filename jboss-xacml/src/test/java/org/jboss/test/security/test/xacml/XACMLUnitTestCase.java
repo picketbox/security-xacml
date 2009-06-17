@@ -183,6 +183,7 @@ public class XACMLUnitTestCase extends TestCase
     * Get the ResponseCtx that represents a Syntax Error
     * @return
     */
+   @SuppressWarnings("unchecked")
    private ResponseCtx getSyntaxErrorResponseCtx()
    {
       ArrayList code = new ArrayList();
