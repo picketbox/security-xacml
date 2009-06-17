@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -69,7 +71,8 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 /**
- *  PDP for JBoss XACML
+ *  <p>PDP for JBoss XACML</p>
+ *  <b>Thread-safe evaluate method</b>
  *  @author Anil.Saldhana@redhat.com
  *  @since  Jul 6, 2007 
  *  @version $Revision$
@@ -88,6 +91,8 @@ public class JBossPDP implements PolicyDecisionPoint
    private JBossPolicyFinder policyFinder = new JBossPolicyFinder();
 
    private org.jboss.security.xacml.sunxacml.PDP policyDecisionPoint = null;
+   
+   private Lock lock = new ReentrantLock();
 
    /**
     * CTR
@@ -236,7 +241,18 @@ public class JBossPDP implements PolicyDecisionPoint
       {   
          this.bootstrapPDP();
       }
-      ResponseCtx resp = policyDecisionPoint.evaluate(req);
+      
+      ResponseCtx resp = null;
+      
+      lock.lock();
+      try
+      {
+         resp = policyDecisionPoint.evaluate(req);  
+      }
+      finally
+      {
+         lock.unlock();
+      }
 
       ResponseContext response = RequestResponseContextFactory.createResponseContext();
       response.set(XACMLConstants.RESPONSE_CTX, resp);
