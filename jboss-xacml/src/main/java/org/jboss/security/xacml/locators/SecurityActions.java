@@ -31,13 +31,13 @@ import java.security.PrivilegedAction;
  *  @since  Jul 10, 2007 
  *  @version $Revision$
  */
-public class SecurityActions
+class SecurityActions
 {
    /**
     * Obtain the Thread Context ClassLoader
     * @return
     */
-   public static ClassLoader getContextClassLoader()
+   static ClassLoader getContextClassLoader()
    {
       return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
       {

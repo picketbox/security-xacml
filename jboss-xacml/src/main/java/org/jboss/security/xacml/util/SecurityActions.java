@@ -37,7 +37,7 @@ class SecurityActions
     * Obtain the Thread Context ClassLoader
     * @return
     */
-   public static ClassLoader getContextClassLoader()
+   static ClassLoader getContextClassLoader()
    {
       return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
       {
