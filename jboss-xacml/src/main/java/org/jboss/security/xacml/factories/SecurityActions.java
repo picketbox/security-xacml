@@ -19,7 +19,7 @@
   * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   */
-package org.jboss.security.xacml.core;
+package org.jboss.security.xacml.factories;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -37,7 +37,7 @@ class SecurityActions
     * Obtain the Thread Context ClassLoader
     * @return
     */
-   static ClassLoader getContextClassLoader()
+   public static ClassLoader getContextClassLoader()
    {
       return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
       {
@@ -47,15 +47,5 @@ class SecurityActions
          }
       });
    }
-   
-   static String getSystemProperty(final String key)
-   {
-      return AccessController.doPrivileged(new PrivilegedAction<String>()
-      {
-         public String run()
-         {
-            return System.getProperty(key);
-         }
-      });
-   }
+
 }

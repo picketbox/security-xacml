@@ -30,8 +30,7 @@ import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBElement;
 
 import org.jboss.security.xacml.bridge.JBossPolicyFinder;
-import org.jboss.security.xacml.core.JBossXACMLPolicy;
-import org.jboss.security.xacml.core.SecurityActions;
+import org.jboss.security.xacml.core.JBossXACMLPolicy; 
 import org.jboss.security.xacml.core.model.policy.ObjectFactory;
 import org.jboss.security.xacml.core.model.policy.PolicyType;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
