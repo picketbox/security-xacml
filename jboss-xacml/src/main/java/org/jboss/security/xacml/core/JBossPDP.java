@@ -29,10 +29,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.validation.Schema;
@@ -67,8 +69,12 @@ import org.jboss.security.xacml.sunxacml.finder.ResourceFinder;
 import org.jboss.security.xacml.sunxacml.finder.ResourceFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.impl.CurrentEnvModule;
 import org.jboss.security.xacml.sunxacml.finder.impl.SelectorModule;
+import org.jboss.security.xacml.util.JBossXACMLEntityResolver;
 import org.w3c.dom.Node;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  *  <p>PDP for JBoss XACML</p>
@@ -79,6 +85,8 @@ import org.xml.sax.InputSource;
  */
 public class JBossPDP implements PolicyDecisionPoint
 {
+   private static Logger log = Logger.getLogger(JBossPDP.class.getName());
+   
    private Unmarshaller unmarshaller = null;
 
    private Set<AttributeFinderModule> attributeLocators = new HashSet<AttributeFinderModule>();
@@ -99,7 +107,10 @@ public class JBossPDP implements PolicyDecisionPoint
     */
    public JBossPDP()
    {
-	   createValidatingUnMarshaller();
+      if(SecurityActions.getSystemProperty("org.jboss.security.xacml.schema.validation") == null)
+	     this.createValidatingUnMarshaller();
+      else
+         this.createUnMarshaller();
    }
 
    /**
@@ -414,19 +425,72 @@ public class JBossPDP implements PolicyDecisionPoint
 
       return policyList;
    }
-
-   private void createValidatingUnMarshaller()
+   
+   private void createUnMarshaller()
    {
       try
       {
          JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");;
          unmarshaller = jc.createUnmarshaller();
+      }catch(JAXBException je)
+      {
+         throw new RuntimeException(je);
+      }
+   }
+
+   private void createValidatingUnMarshaller()
+   {
+      try
+      {
+         createUnMarshaller();
+         
          //Validate against schema
          ClassLoader tcl = SecurityActions.getContextClassLoader();
          URL schemaURL = tcl.getResource("schema/jbossxacml-2.0.xsd");
          if(schemaURL == null)
             throw new IllegalStateException("Schema URL is null:" + "schema/jbossxacml-2.0.xsd");
+         
          SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+         scFact.setResourceResolver( new JBossXACMLEntityResolver()); 
+         scFact.setErrorHandler(new ErrorHandler()
+         {
+            public void error(SAXParseException exception) throws SAXException
+            {
+               StringBuilder builder = new StringBuilder();
+               builder.append("Line Number=").append(exception.getLineNumber());
+               builder.append(" Col Number=").append(exception.getColumnNumber());
+               builder.append(" Public ID=").append(exception.getPublicId());
+               builder.append(" System ID=").append(exception.getSystemId());
+               builder.append(" exc=").append(exception.getLocalizedMessage());
+               
+               log.finest("SAX Error:" + builder.toString());
+            }
+
+            public void fatalError(SAXParseException exception) throws SAXException
+            {
+               StringBuilder builder = new StringBuilder();
+               builder.append("Line Number=").append(exception.getLineNumber());
+               builder.append(" Col Number=").append(exception.getColumnNumber());
+               builder.append(" Public ID=").append(exception.getPublicId());
+               builder.append(" System ID=").append(exception.getSystemId());
+               builder.append(" exc=").append(exception.getLocalizedMessage());
+               
+               log.finest("SAX Fatal Error:" + builder.toString());
+            }
+
+            public void warning(SAXParseException exception) throws SAXException
+            {
+               StringBuilder builder = new StringBuilder();
+               builder.append("Line Number=").append(exception.getLineNumber());
+               builder.append(" Col Number=").append(exception.getColumnNumber());
+               builder.append(" Public ID=").append(exception.getPublicId());
+               builder.append(" System ID=").append(exception.getSystemId());
+               builder.append(" exc=").append(exception.getLocalizedMessage());
+               
+               log.finest("SAX Warn:" + builder.toString());        
+            }
+         });
+         
          Schema schema = scFact.newSchema(schemaURL);
          unmarshaller.setSchema(schema);
       }
