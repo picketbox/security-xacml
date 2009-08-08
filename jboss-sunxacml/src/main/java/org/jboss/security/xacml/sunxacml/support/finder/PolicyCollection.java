@@ -90,7 +90,7 @@ public class PolicyCollection
 {
 
    // the actual collection of policies
-   private HashMap policies;
+   protected HashMap policies;
 
    // the single instance of the comparator we'll use for managing versions
    private VersionComparator versionComparator = new VersionComparator();
