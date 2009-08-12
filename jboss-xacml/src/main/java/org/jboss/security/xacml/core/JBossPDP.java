@@ -101,7 +101,27 @@ public class JBossPDP implements PolicyDecisionPoint
    private org.jboss.security.xacml.sunxacml.PDP policyDecisionPoint = null;
    
    private Lock lock = new ReentrantLock();
+   
+   /**
+    * JAXBContext is thread safe and very expensive to create
+    */
+   private static JAXBContext jaxbContext;
 
+   static
+   {
+      try
+      {
+         jaxbContext = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
+      }
+      catch (JAXBException e)
+      {
+         throw new RuntimeException(e);
+      }
+   
+      //Following is an optimization for Sun VMs which does affect other VMs
+      SecurityActions.setSystemProperty("com.sun.xml.bind.v2.runtime.JAXBContextImpl.fastBoot", "true");
+   }
+   
    /**
     * CTR
     */
@@ -429,9 +449,8 @@ public class JBossPDP implements PolicyDecisionPoint
    private void createUnMarshaller()
    {
       try
-      {
-         JAXBContext jc = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");;
-         unmarshaller = jc.createUnmarshaller();
+      { 
+         unmarshaller = jaxbContext.createUnmarshaller();
       }catch(JAXBException je)
       {
          throw new RuntimeException(je);

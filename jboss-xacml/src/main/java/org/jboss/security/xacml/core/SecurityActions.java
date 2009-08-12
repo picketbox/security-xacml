@@ -58,4 +58,16 @@ class SecurityActions
          }
       });
    }
+   
+   static void setSystemProperty(final String key, final String value)
+   {
+      AccessController.doPrivileged(new PrivilegedAction<Object>()
+      {
+         public Object run()
+         {
+            System.setProperty(key, value);
+            return null;
+         }
+      });
+   }
 }
