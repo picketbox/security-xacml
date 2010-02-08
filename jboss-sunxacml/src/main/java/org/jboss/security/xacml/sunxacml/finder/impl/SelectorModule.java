@@ -42,10 +42,12 @@ package org.jboss.security.xacml.sunxacml.finder.impl;
 
 
 import java.net.URI;
-
 import java.util.ArrayList;
 
-import org.apache.xpath.XPathAPI;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.PolicyMetaData;
@@ -56,7 +58,6 @@ import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
-
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -191,7 +192,9 @@ public class SelectorModule extends AttributeFinderModule
         NodeList matches = null;
         try {
             // NOTE: see comments in XALAN docs about why this is slow
-            matches = XPathAPI.selectNodeList(root, rootPath + path, nsNode);
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            matches = (NodeList)xpath.evaluate(rootPath + path, root, XPathConstants.NODESET);
+
         } catch (Exception e) {
             // in the case of any exception, we need to return an error
             return createProcessingError("error in XPath: " + e.getMessage());
