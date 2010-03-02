@@ -1,0 +1,18 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:Policy>
+      <ns:Location>locators/attrib/attribLocator_policy.xml</ns:Location> 
+    </ns:Policy>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicyLocator"/>
+    <ns:Locator Name="org.jboss.security.xacml.locators.attrib.DatabaseResourceAttributeLocator">   
+      <ns:Option Name="DATABASE_FILE_NAME">data_stores/db.properties</ns:Option>  
+      <ns:Option Name="sql">SELECT account_status FROM resource where owner_id=?;</ns:Option>  
+      <ns:Option Name="attributeSupportedId">urn:xacml:2.0:interop:example:resource:account-status</ns:Option> 
+      <ns:Option Name="preparedStatementValue">urn:xacml:2.0:interop:example:resource:owner-id</ns:Option>  
+      <ns:Option Name="valueDataType">http://www.w3.org/2001/XMLSchema#string</ns:Option>   
+      <ns:Option Name="columnName">account_status</ns:Option> 
+    </ns:Locator> 
+  </ns:Locators>
+</ns:jbosspdp>

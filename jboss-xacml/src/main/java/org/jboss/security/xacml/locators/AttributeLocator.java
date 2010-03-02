@@ -22,6 +22,7 @@
 package org.jboss.security.xacml.locators;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,8 @@ import java.util.Set;
 
 import org.jboss.security.xacml.interfaces.AbstractLocator;
 import org.jboss.security.xacml.jaxb.Option;
+import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
+import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
 
 /**
@@ -39,9 +42,8 @@ import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
  * <b>Usage:</b>
  * Remember, when a policy defines an attribute and the request does not contain
  * it, then the PDP will ask the AttributeLocator for a value.
- * 
- * The following methods need to be overridden in your attribute locators
- * @see AttributeFinderModule#findAttribute(String, org.w3c.dom.Node, URI, org.jboss.security.xacml.sunxacml.EvaluationCtx, String)
+ *  
+ * The following method needs to be overridden in your attribute locator
  * @see AttributeFinderModule#findAttribute(URI, URI, URI, URI, org.jboss.security.xacml.sunxacml.EvaluationCtx, int)
  * 
  * @author Anil.Saldhana@redhat.com
@@ -49,19 +51,19 @@ import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
  */
 public class AttributeLocator extends AttributeFinderModule implements AbstractLocator
 {
-   private String identifier = null;
+   protected String identifier = null;
    
-   private boolean attributeDesignatorSupported = true;
+   protected boolean attributeDesignatorSupported = true;
    
-   private boolean attributeSelectorSupported = true;
+   protected boolean attributeSelectorSupported = true;
    
-   private Set<Integer> designatorTypes = new HashSet<Integer>();
+   protected Set<Integer> designatorTypes = new HashSet<Integer>();
    
-   private Set<URI> ids = new HashSet<URI>();
+   protected Set<URI> ids = new HashSet<URI>();
    
-   private List<Option> options = new ArrayList<Option>();
+   protected List<Option> options = new ArrayList<Option>();
    
-   private Map<String,Object> map = new HashMap<String,Object>();
+   protected Map<String,Object> map = new HashMap<String,Object>();
 
    public void setOptions(List<Option> options)
    {
@@ -131,26 +133,82 @@ public class AttributeLocator extends AttributeFinderModule implements AbstractL
           
           String value = (String) values.get(0); 
           
-          if(AbstractLocator.IDENTIFIER_TAG.equals(tag))
-          {
-             this.identifier = value;
-          }
-          else if(AbstractLocator.ATTRIBUTE_DESIGNATOR_SUPPORT_TAG.equals(tag))
-          {
-             this.attributeDesignatorSupported = Boolean.parseBoolean(value);
-          }
-          else if(AbstractLocator.ATTRIBUTE_SELECTOR_SUPPORT_TAG.equals(tag))
-          {
-             this.attributeSelectorSupported = Boolean.parseBoolean(value);
-          }
-          else if(AbstractLocator.ATTRIBUTE_SUPPORTED_ID_TAG.equals(tag))
-          {
-             this.ids.add(new URI(value)); 
-          }
-          else if(AbstractLocator.ATTRIBUTE_DESIGNATOR_INTEGER_TAG.equals(tag))
-          {
-             this.designatorTypes.add(Integer.parseInt(value)); 
-          }
+          this.usePassedOption(tag, value); 
       }
+   } 
+   
+   /**
+    * <p>
+    * An opportunity for sub-classes to process the passed option tag and value
+    * </p>
+    * <p>
+    * <b>NOTE:</b> Subclasses should override this method and allow super class processing
+    * before their own processing in the method via the <i>super.usePassedOption()</i> call.
+    * </p>
+    * @param optionTag
+    * @param optionValue
+    */
+   protected void usePassedOption(String optionTag, String optionValue) 
+   {
+      if(AbstractLocator.IDENTIFIER_TAG.equals(optionTag))
+      {
+         this.identifier = optionValue;
+      }
+      else if(AbstractLocator.ATTRIBUTE_DESIGNATOR_SUPPORT_TAG.equals(optionTag))
+      {
+         this.attributeDesignatorSupported = Boolean.parseBoolean(optionValue);
+      }
+      else if(AbstractLocator.ATTRIBUTE_SELECTOR_SUPPORT_TAG.equals(optionTag))
+      {
+         this.attributeSelectorSupported = Boolean.parseBoolean(optionValue);
+      }
+      else if(AbstractLocator.ATTRIBUTE_SUPPORTED_ID_TAG.equals(optionTag))
+      {
+         try
+         {
+            this.ids.add(new URI(optionValue));
+         }
+         catch (URISyntaxException e)
+         {
+            throw new RuntimeException("Unable to create URI:", e);
+         } 
+      }
+      else if(AbstractLocator.ATTRIBUTE_DESIGNATOR_INTEGER_TAG.equals(optionTag))
+      {
+         this.designatorTypes.add(Integer.parseInt(optionValue)); 
+      } 
+   }
+   
+   /**
+    * Given an <i>option tag</i>, get the <i>option value</i>
+    * @param optionTag
+    * @return value of the option
+    */
+   protected String getOptionValue(String optionTag)
+   {
+      int index = options.indexOf(optionTag);
+      if(index > -1)
+      {
+         Option option = options.get(index);
+         if(option != null)
+            return (String) option.getContent().get(0);
+      }
+      return null;
+   }
+   
+   /**
+    * Given a <code>EvaluationResult</code>, return the attribute value contained
+    * @param evalResult
+    * @param attributeType
+    * @return attribute value such as String, Integer etc.
+    */
+   protected Object getAttributeValue(EvaluationResult evalResult, URI attributeType)
+   {
+      if(evalResult != null)
+      {
+         AttributeValue attr = evalResult.getAttributeValue(); 
+         return attr.getValue();
+      }
+      return null;
    } 
 }

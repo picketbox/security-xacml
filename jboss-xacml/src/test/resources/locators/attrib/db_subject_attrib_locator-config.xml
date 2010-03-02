@@ -1,0 +1,18 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:Policy>
+      <ns:Location>locators/attrib/attribLocator_policy.xml</ns:Location> 
+    </ns:Policy>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicyLocator"/>
+    <ns:Locator Name="org.jboss.security.xacml.locators.attrib.DatabaseSubjectAttributeLocator">   
+      <ns:Option Name="DATABASE_FILE_NAME">data_stores/db.properties</ns:Option>  
+      <ns:Option Name="sql">SELECT subject_id FROM subject where name=?;</ns:Option>  
+      <ns:Option Name="attributeSupportedId">urn:oasis:names:tc:xacml:1.0:subject:subject-id</ns:Option> 
+      <ns:Option Name="preparedStatementValue">urn:xacml:2.0:interop:example:subject:user-name</ns:Option>  
+      <ns:Option Name="valueDataType">http://www.w3.org/2001/XMLSchema#string</ns:Option>   
+      <ns:Option Name="columnName">subject_id</ns:Option> 
+    </ns:Locator> 
+  </ns:Locators>
+</ns:jbosspdp>

@@ -23,9 +23,15 @@ package org.jboss.security.xacml.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.ResponseContext;
+import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
+import org.jboss.security.xacml.sunxacml.attr.BooleanAttribute;
+import org.jboss.security.xacml.sunxacml.attr.DateAttribute;
+import org.jboss.security.xacml.sunxacml.attr.IntegerAttribute;
+import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -61,4 +67,35 @@ public class JBossXACMLUtil
       return element;
    }
 
+   /**
+    * <p>
+    * Given a value, construct an <code>AttributeValue</code>
+    * depending on the type of object
+    * @param value
+    * @return
+    */
+   public static AttributeValue getAttributeValue(Object value)
+   {
+      if(value == null)
+         throw new IllegalArgumentException("value passed is null"); 
+      
+      if(value instanceof String)
+         return new StringAttribute((String) value); 
+
+      if(value instanceof Integer)
+         return new IntegerAttribute((Integer) value);
+      
+      if(value instanceof Boolean)
+      {
+         Boolean boolVal = (Boolean)value;
+         return BooleanAttribute.getInstance(boolVal);
+      } 
+      
+      if(value instanceof Date)
+      {
+         return new DateAttribute((Date) value);
+      }
+      
+      throw new RuntimeException("unrecognized attribute value:" + value); 
+   }
 }
