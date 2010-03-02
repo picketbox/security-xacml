@@ -88,6 +88,12 @@ public abstract class AttributeValue implements Evaluatable
     public URI getType() {
         return type;
     }
+    
+    /**
+     * Get the value represented
+     * @return
+     */
+    public abstract Object getValue();
 
     /**
      * Returns whether or not this value is actually a bag of values. This

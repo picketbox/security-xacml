@@ -119,7 +119,7 @@ public class IntegerAttribute extends AttributeValue
      *
      * @return the <code>long</code> value
      */
-    public long getValue() {
+    public Long getValue() {
         return value;
     }
 

@@ -177,7 +177,7 @@ public class BooleanAttribute extends AttributeValue
      *
      * @return the <code>boolean</code> value
      */
-    public boolean getValue() {
+    public Boolean getValue() {
         return value;
     }
 

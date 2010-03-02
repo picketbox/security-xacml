@@ -259,4 +259,10 @@ public class DNSNameAttribute extends AttributeValue
         return hostname + ":" + range.encode();
     }
 
+
+    @Override
+    public Object getValue()
+    {
+       throw new RuntimeException("Not implemented");
+    }   
 }

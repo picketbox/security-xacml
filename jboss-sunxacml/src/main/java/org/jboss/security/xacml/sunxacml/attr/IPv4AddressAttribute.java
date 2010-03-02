@@ -171,4 +171,10 @@ public class IPv4AddressAttribute extends IPAddressAttribute
         return str;
     }
 
+
+    @Override
+    public Object getValue()
+    {
+       throw new RuntimeException("Not implemented");
+    }   
 }

@@ -161,4 +161,11 @@ public class IPv6AddressAttribute extends IPAddressAttribute
         return str;
     }
 
+
+    @Override
+    public Object getValue()
+    {
+       throw new RuntimeException("Not implemented");
+    }   
+
 }

@@ -120,7 +120,7 @@ public class DoubleAttribute extends AttributeValue
      *
      * @return the <code>double</code> value
      */
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
     

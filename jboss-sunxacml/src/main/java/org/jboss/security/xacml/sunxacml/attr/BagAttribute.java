@@ -37,7 +37,6 @@
 package org.jboss.security.xacml.sunxacml.attr;
 
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -233,4 +232,14 @@ public class BagAttribute extends AttributeValue
         throw new UnsupportedOperationException("Bags cannot be encoded");
     }
 
+   @Override
+   public Object getValue()
+   {
+      if(isEmpty() == false)
+      {
+         AttributeValue attributeValue = (AttributeValue) iterator().next();
+         return attributeValue.getValue(); 
+      }
+      return null;
+   }
 }

@@ -386,4 +386,11 @@ public class YearMonthDurationAttribute extends AttributeValue
 
         return encodedValue;
     }
+
+
+    @Override
+    public Object getValue()
+    {
+       throw new RuntimeException("Not implemented");
+    }   
 }

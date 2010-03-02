@@ -538,4 +538,10 @@ public class DayTimeDurationAttribute extends AttributeValue
 
         return encodedValue;
     }
+
+   @Override
+   public Object getValue()
+   {
+      throw new RuntimeException("Not implemented");
+   }   
 }
