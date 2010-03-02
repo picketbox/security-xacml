@@ -40,12 +40,10 @@ package org.jboss.security.xacml.sunxacml.finder;
 
 
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -175,9 +173,18 @@ public class AttributeFinder
                     module.findAttribute(attributeType, attributeId, issuer,
                                          subjectCategory, context,
                                          designatorType);
+                
+                //If a module returned null
+                if(result == null)
+                {
+                   if (logger.isLoggable(Level.WARNING))
+                      logger.log(Level.WARNING, "Module returned null:" + module.getClass().getCanonicalName() +
+                            " for attributeID:" + attributeId);
+                   result = new EvaluationResult(BagAttribute.createEmptyBag(attributeType));
+                }
 
                 // if there was an error, we stop right away
-                if (result.indeterminate()) {
+                if (result == null || result.indeterminate()) {
                     if (logger.isLoggable(Level.INFO))
                         logger.info("Error while trying to resolve values: " +
                                     result.getStatus().getMessage());
