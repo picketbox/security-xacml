@@ -95,10 +95,12 @@ public class JBossRequestContext implements RequestContext
    }
 
    /**
-    * @see RequestContext#readRequest(InputStream)
+    * @see RequestContext#readRequest(InputStream) 
     */
    public void readRequest(InputStream is) throws IOException
    {
+      if(is == null)
+         throw new IllegalArgumentException("Inputstream is null");
       try
       {
          Node root = getRequest(is);
