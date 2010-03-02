@@ -51,4 +51,10 @@ public class SingleValueAttribute extends AttributeValue
    {
       return value;
    }
+
+   @Override
+   public Object getValue()
+   {
+      throw new RuntimeException("Not implemented");
+   }   
 }
