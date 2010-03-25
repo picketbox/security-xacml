@@ -47,6 +47,10 @@ import org.jboss.security.xacml.util.JBossXACMLUtil;
 
 /**
  * An attribute locator that gets the attributes from the DB
+ * <p>
+ * <b>NOTE:</b> Subclasses should try to override the {@link #getColumnValue(URI, EvaluationCtx)}
+ * method if the DB is not a true RDBMS
+ * </p> 
  * @author Anil.Saldhana@redhat.com
  * @since Mar 1, 2010
  */
@@ -101,70 +105,8 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
             return new EvaluationResult(BagAttribute.createEmptyBag(attributeId)); 
       }
 
-      Object columnValue = null;
-      //Do DB stuff here
-      Connection connection = getConnection(); 
+      Object columnValue = getColumnValue(attributeType, context);
       
-      PreparedStatement statement = null;
-      ResultSet resultSet = null; 
-      
-      try
-      {     
-         statement = connection.prepareStatement(sqlStatement);
-         
-         Object pluginValue = null;
-         try
-         {
-            pluginValue = getPreparedStatementPluginValue(context, attributeType);
-         }
-         catch (URISyntaxException e)
-         {
-           throw new RuntimeException(e);
-         }
-         statement.setObject(1, pluginValue);
-
-         statement.addBatch();
-         connection.setAutoCommit(false);
-         resultSet = statement.executeQuery(); 
-         connection.setAutoCommit(true);  
-
-         while (resultSet.next()) 
-         {
-            columnValue = resultSet.getObject(columnName); 
-            break;
-         }
-      }
-      catch (SQLException e)
-      {
-         throw new RuntimeException(e);
-      }
-      finally
-      {
-         try
-         {
-            if(resultSet != null)
-               resultSet.close();
-         }
-         catch (SQLException e)
-         {}
-         
-         try
-         { 
-            if(statement != null)
-               statement.close();
-         }
-         catch (SQLException e)
-         {}
-         
-         try
-         { 
-            if(connection != null)
-               connection.close();
-         }
-         catch (SQLException e)
-         { 
-         }         
-      }   
       Set bagSet = new HashSet();
       bagSet.add(JBossXACMLUtil.getAttributeValue(columnValue));
       
@@ -251,6 +193,83 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
          }
       } 
       return connection;
+   }
+   
+   /**
+    * Get the value of the attribute we are interested in
+    * @param attributeType
+    * @param context
+    * @return
+    */
+   protected Object getColumnValue(URI attributeType, EvaluationCtx context)
+   {
+      Object columnValue = null;
+      
+      //Do DB stuff here
+      Connection connection = getConnection(); 
+      
+      PreparedStatement statement = null;
+      ResultSet resultSet = null; 
+      
+      try
+      {     
+         statement = connection.prepareStatement(sqlStatement);
+         
+         Object pluginValue = null;
+         try
+         {
+            pluginValue = getPreparedStatementPluginValue(context, attributeType);
+         }
+         catch (URISyntaxException e)
+         {
+           throw new RuntimeException(e);
+         }
+         statement.setObject(1, pluginValue);
+
+         statement.addBatch();
+         connection.setAutoCommit(false);
+         resultSet = statement.executeQuery(); 
+         connection.setAutoCommit(true);  
+
+         while (resultSet.next()) 
+         {
+            columnValue = resultSet.getObject(columnName); 
+            break;
+         }
+      }
+      catch (SQLException e)
+      {
+         throw new RuntimeException(e);
+      }
+      finally
+      {
+         try
+         {
+            if(resultSet != null)
+               resultSet.close();
+         }
+         catch (SQLException e)
+         {}
+         
+         try
+         { 
+            if(statement != null)
+               statement.close();
+         }
+         catch (SQLException e)
+         {}
+         
+         try
+         { 
+            if(connection != null)
+               connection.close();
+         }
+         catch (SQLException e)
+         { 
+         }         
+      }  
+      
+      return columnValue; 
    }
    
    /**
