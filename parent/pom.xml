@@ -30,13 +30,16 @@
   </build>
   <repositories>
     <repository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <layout>default</layout>
-      <url>http://anonsvn.jboss.org/repos/repository.jboss.org/maven2</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+       <id>snapshots.jboss.org</id>
+       <name>JBoss Snapshots Repository</name>
+       <layout>default</layout>
+       <url>http://snapshots.jboss.org/maven2/</url>
+       <snapshots>
+          <enabled>true</enabled>
+       </snapshots>
+       <releases>
+          <enabled>false</enabled>
+       </releases>
     </repository>
   </repositories>
 </project>
