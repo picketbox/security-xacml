@@ -21,15 +21,12 @@
   */
 package org.jboss.security.xacml.locators;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.jboss.security.xacml.bridge.WrapperPolicyFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
-import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
 
 /**
  *  Policy Locator for plain XACML Policy instances
@@ -38,9 +35,7 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
  *  @version $Revision$
  */
 public class JBossPolicyLocator extends AbstractJBossPolicyLocator
-{
-   private List<PolicyFinderModule> pfml = new ArrayList<PolicyFinderModule>();
-
+{ 
    public JBossPolicyLocator()
    {
    }

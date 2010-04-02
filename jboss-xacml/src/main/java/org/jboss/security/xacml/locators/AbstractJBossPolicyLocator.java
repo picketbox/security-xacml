@@ -21,6 +21,7 @@
   */
 package org.jboss.security.xacml.locators;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.PolicyLocator;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.jaxb.Option;
+import org.jboss.security.xacml.sunxacml.finder.PolicyFinderModule;
 
 
 /**
@@ -46,6 +48,8 @@ public abstract class AbstractJBossPolicyLocator implements PolicyLocator
    protected Map<String, Object> map = new HashMap<String, Object>();
 
    protected Set<XACMLPolicy> policies;
+   
+   protected List<PolicyFinderModule> pfml = new ArrayList<PolicyFinderModule>();
 
    /**
     * @see PolicyLocator#setOptions(List)

@@ -26,9 +26,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.jboss.security.xacml.bridge.PolicySetFinderModule;
+import org.jboss.security.xacml.bridge.WrapperPolicyFinderModule;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
-import org.jboss.security.xacml.sunxacml.AbstractPolicy; 
+import org.jboss.security.xacml.sunxacml.AbstractPolicy;
+import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
 
 /**
@@ -38,9 +40,7 @@ import org.jboss.security.xacml.sunxacml.PolicySet;
  *  @version $Revision$
  */
 public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
-{
-   private List<PolicySetFinderModule> pfml = new ArrayList<PolicySetFinderModule>();
-
+{  
    public JBossPolicySetLocator()
    {
    }
@@ -59,6 +59,12 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
          if (xp.getType() == XACMLPolicy.POLICYSET)
          {
             pfml.add(getPopulatedPolicySetFinderModule(xp));
+         }
+         else if (xp.getType() == XACMLPolicy.POLICY)
+         {
+            Policy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
+            WrapperPolicyFinderModule wpfm = new WrapperPolicyFinderModule(p);
+            pfml.add(wpfm);
          }
       }
       this.map.put(XACMLConstants.POLICY_FINDER_MODULE, pfml);
@@ -88,6 +94,5 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
          if (p instanceof PolicySet)
             this.recursivePopulate(xp, policies, psfm);
       }
-
    }
 }
