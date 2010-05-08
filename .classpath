@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="jboss-xacml/target/eclipse-classes" path="jboss-xacml/src/main/java"/>
-	<classpathentry kind="src" output="jboss-xacml-saml/target/eclipse-classes" path="jboss-xacml-saml/src/main/java"/>
 	<classpathentry kind="src" path="jboss-sunxacml/src/main/java"/>
 	<classpathentry kind="src" output="jboss-xacml/target/eclipse-classes" path="jboss-xacml/src/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -11,11 +10,6 @@
 	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-impl/2.1.4/jaxb-impl-2.1.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-xjc/2.1.4/jaxb-xjc-2.1.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xalan/xalan/2.5.1/xalan-2.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/net/sf/joda-time/1.4/joda-time-1.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/javaee/jboss-jaxs-api/1.2.0.20070913080910/jboss-jaxs-api-1.2.0.20070913080910.jar"/>
-	<classpathentry kind="var" path="M2_REPO/opensaml/opensaml/2.2.0/opensaml-2.2.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/opensaml/openws/1.2.0/openws-1.2.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/opensaml/xmltooling/1.1.0/xmltooling-1.1.0.jar"/>
 	<classpathentry kind="output" path="jboss-sunxacml/target/eclipse-classes"/>
 </classpath>
