@@ -1,0 +1,12 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossLDAPPolicyLocator">
+    	<ns:Option Name="url">ldap://localhost:10389</ns:Option>
+    	<ns:Option Name="username">cn=Directory Manager</ns:Option>
+    	<ns:Option Name="password">password</ns:Option>
+    	<ns:Option Name="filter">(objectclass=organizationalRole)</ns:Option>
+    	<ns:Option Name="attribute">description</ns:Option>
+    	<ns:Option Name="baseDN">dc=jboss,dc=org</ns:Option>
+    </ns:Locator>
+  </ns:Locators>
+</ns:jbosspdp>
