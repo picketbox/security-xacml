@@ -29,6 +29,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PBEParameterSpec;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -47,6 +51,7 @@ import org.jboss.security.xacml.jaxb.Option;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
+import org.jboss.security.xacml.util.PBEUtils;
 
 /**
  * 
@@ -61,6 +66,13 @@ import org.jboss.security.xacml.sunxacml.PolicySet;
  * attribute - The name of the entry's attribute containing the XACML policy in the xml format
  * searchScope - Scope of the search for entries. Default is SUBTREE
  * searchTimeLimit - Search time limit. Default is 10000 (10 seconds)
+ * 
+ * The password value can be masked using PBE. To create a masked password invoke
+ * org.jboss.security.xacml.util.PBEUtils salt iterationCount password
+ * When using a masked password add also the options
+ * salt - the 8 character String
+ * iterationCount - an integer
+ * Those options must have the same value used for encryption.
  * 
  * @author <a href="mmoyses@redhat.com">Marcus Moyses</a>
  * @version $Revision: 1 $
@@ -87,23 +99,33 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
    protected static final String XACML_LDAP_ATTRIBUTE = "attribute";
 
    protected String attribute;
-   
+
    protected static final String XACML_LDAP_SEARCH_SCOPE = "searchScope";
-   
+
    protected int searchScope = SearchControls.SUBTREE_SCOPE;
-   
+
    protected static final String XACML_LDAP_SEARCH_TIMELIMIT = "searchTimeLimit";
-   
+
    protected int searchTimeLimit = 10000;
-   
+
    protected static final String XACML_LDAP_BASEDN = "baseDN";
-   
+
    protected String baseDN;
-   
+
+   protected static final String XACML_LDAP_SALT = "salt";
+
+   protected String salt;
+
+   protected static final String XACML_LDAP_COUNT = "iterationCount";
+
+   protected int iterationCount;
+
+   protected static final String XACML_LDAP_PASSWORD_PREFIX = "MASK-";
+
    protected Properties env = new Properties();
-   
+
    protected static Logger log = Logger.getLogger(JBossLDAPPolicyLocator.class.getName());
-   
+
    public JBossLDAPPolicyLocator()
    {
    }
@@ -144,7 +166,8 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
                }
                catch (NumberFormatException e)
                {
-                  log.fine("Failed to parse: " + timeLimit + ", using searchTimeLimit = " + searchTimeLimit + ". " + e.getMessage());
+                  log.fine("Failed to parse: " + timeLimit + ", using searchTimeLimit = " + searchTimeLimit + ". "
+                        + e.getMessage());
                }
             }
          }
@@ -158,6 +181,10 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
             if ("SUBTREE_SCOPE".equalsIgnoreCase(scope))
                searchScope = SearchControls.SUBTREE_SCOPE;
          }
+         else if (name.equals(XACML_LDAP_SALT))
+            salt = (String) option.getContent().iterator().next();
+         else if (name.equals(XACML_LDAP_COUNT))
+            iterationCount = Integer.parseInt((String) option.getContent().iterator().next());
       }
 
       init();
@@ -172,17 +199,27 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
          throw new IllegalArgumentException("Option " + XACML_LDAP_FILTER + " cannot be null");
       if (attribute == null)
          throw new IllegalArgumentException("Option " + XACML_LDAP_ATTRIBUTE + " cannot be null");
-     
+
+      if (password != null && password.startsWith(XACML_LDAP_PASSWORD_PREFIX))
+      {
+         // try to decode password
+         if (salt == null || salt.equals("") || salt.length() != 8)
+            throw new IllegalArgumentException("Option " + XACML_LDAP_SALT + " is not set correctly");
+         if (iterationCount == 0)
+            throw new IllegalArgumentException("Option " + XACML_LDAP_COUNT + " must be a positive integer");
+         password = decodePassword(password);
+      }
+
       env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
       env.put(Context.PROVIDER_URL, url);
       if (username != null)
          env.put(Context.SECURITY_PRINCIPAL, username);
       if (password != null)
          env.put(Context.SECURITY_CREDENTIALS, password);
-      
+
       search();
    }
-   
+
    protected void search()
    {
       InitialLdapContext ctx = null;
@@ -194,8 +231,8 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
          SearchControls constraints = new SearchControls();
          constraints.setSearchScope(searchScope);
          constraints.setTimeLimit(searchTimeLimit);
-         constraints.setReturningAttributes(new String[]{attribute});
-         
+         constraints.setReturningAttributes(new String[] {attribute});
+
          results = ctx.search(baseDN, filter, constraints);
          while (results.hasMore())
          {
@@ -266,7 +303,30 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
          }
       }
    }
-   
+
+   protected String decodePassword(String encodedPassword)
+   {
+      try
+      {
+         // remove prefix
+         String password = encodedPassword.substring(XACML_LDAP_PASSWORD_PREFIX.length());
+         byte[] salt = this.salt.getBytes();
+         char[] p = "somearbitrarycrazystringthatdoesnotmatter".toCharArray();
+         PBEParameterSpec cipherSpec = new PBEParameterSpec(salt, iterationCount);
+         PBEKeySpec keySpec = new PBEKeySpec(p);
+         String cipherAlgorithm = "PBEwithMD5andDES";
+         SecretKeyFactory factory = SecretKeyFactory.getInstance(cipherAlgorithm);
+         SecretKey cipherKey = factory.generateSecret(keySpec);
+         //TODO move these utils to a separate project
+         return PBEUtils.decode64(password, cipherAlgorithm, cipherKey, cipherSpec);
+      }
+      catch (Exception e)
+      {
+         log.severe("Could not decode masked password. " + e.getMessage());
+         throw new IllegalStateException(e);
+      }
+   }
+
    private PolicySetFinderModule getPopulatedPolicySetFinderModule(XACMLPolicy xpolicy)
    {
       PolicySetFinderModule psfm = new PolicySetFinderModule();
@@ -280,14 +340,14 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
       xpolicy.set(XACMLConstants.POLICY_FINDER_MODULE, psfm);
       return psfm;
    }
-   
+
    private void recursivePopulate(XACMLPolicy policy, List<AbstractPolicy> policies, PolicySetFinderModule psfm)
    {
       List<XACMLPolicy> policyList = policy.getEnclosingPolicies();
       for (XACMLPolicy xp : policyList)
       {
          AbstractPolicy p = xp.get(XACMLConstants.UNDERLYING_POLICY);
-         policies.add(p); 
+         policies.add(p);
          if (p instanceof PolicySet)
             this.recursivePopulate(xp, policies, psfm);
       }
