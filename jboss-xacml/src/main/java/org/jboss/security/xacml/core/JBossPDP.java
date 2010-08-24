@@ -22,6 +22,7 @@
 package org.jboss.security.xacml.core;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -83,8 +84,10 @@ import org.xml.sax.SAXParseException;
  *  @since  Jul 6, 2007 
  *  @version $Revision$
  */
-public class JBossPDP implements PolicyDecisionPoint
+public class JBossPDP implements PolicyDecisionPoint, Serializable
 {
+   private static final long serialVersionUID = -7665101320619759984L;
+
    private static Logger log = Logger.getLogger(JBossPDP.class.getName());
    
    private Unmarshaller unmarshaller = null;
@@ -118,7 +121,7 @@ public class JBossPDP implements PolicyDecisionPoint
          throw new RuntimeException(e);
       }
    
-      //Following is an optimization for Sun VMs which does affect other VMs
+      //Following is an optimization for Sun VMs which does NOT affect other VMs
       SecurityActions.setSystemProperty("com.sun.xml.bind.v2.runtime.JAXBContextImpl.fastBoot", "true");
    }
    
