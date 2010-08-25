@@ -38,6 +38,7 @@ import org.jboss.security.xacml.locators.JBossPolicySetLocator;
  * @author Anil.Saldhana@redhat.com
  * @since Apr 8, 2009
  */
+@org.junit.Ignore
 public class TestPolicySetLocator extends JBossPolicySetLocator
 {
    public TestPolicySetLocator()

@@ -35,6 +35,7 @@ import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
+import org.junit.Ignore;
 
 //$Id: TestRoleAttributeFinderModule.java 58115 2006-11-04 08:42:14Z scott.stark@jboss.org $
 
@@ -46,7 +47,7 @@ import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
  *  @since  May 26, 2006 
  *  @version $Revision: 58115 $
  */
-
+@Ignore
 public class TestRoleAttributeFinderModule extends AttributeFinderModule
 {
    /**

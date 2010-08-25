@@ -31,6 +31,7 @@ import org.jboss.security.xacml.sunxacml.finder.ResourceFinderResult;
  * @author Anil.Saldhana@redhat.com
  * @since Mar 19, 2009
  */
+@org.junit.Ignore
 public class TestResourceLocator extends ResourceLocator
 {
 

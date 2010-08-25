@@ -30,6 +30,7 @@ import org.jboss.security.xacml.sunxacml.attr.AnyURIAttribute;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.finder.ResourceFinderModule;
 import org.jboss.security.xacml.sunxacml.finder.ResourceFinderResult;
+import org.junit.Ignore;
 
 //$Id: TestResourceFinderModule.java 45389 2006-05-30 21:29:37Z asaldhana $
 
@@ -39,6 +40,7 @@ import org.jboss.security.xacml.sunxacml.finder.ResourceFinderResult;
  *  @since  May 26, 2006 
  *  @version $Revision: 45389 $
  */
+@Ignore
 public class TestResourceFinderModule extends ResourceFinderModule
 {
 

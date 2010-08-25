@@ -33,6 +33,7 @@ import org.w3c.dom.Node;
  * @author Anil.Saldhana@redhat.com
  * @since Mar 19, 2009
  */
+@org.junit.Ignore
 public class TestAttributeLocator extends AttributeLocator
 { 
    @Override
