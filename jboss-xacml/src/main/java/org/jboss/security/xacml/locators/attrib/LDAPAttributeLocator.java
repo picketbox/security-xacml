@@ -47,30 +47,30 @@ import org.jboss.security.xacml.util.LDAPCommon;
  * An attribute locator getting attribute values from an LDAP
  * 
  * Configuration:
-    * url - The LDAP server URL to connect to.
-    * factory - The JNDI factory that is JDK specific such as "com.sun.jndi.ldap.LdapCtxFactory" which is the default.
-    * username - The username to connect to the LDAP server. This user must have search privileges
-    * password - The password of the user to connect to the LDAP server
-    * filter - The search filter to be used to find the entries that have a policy
-    * attribute - The name of the entry's attribute containing the XACML policy in the xml format
-    * searchScope - Scope of the search for entries. Default is SUBTREE
-    * searchTimeLimit - Search time limit. Default is 10000 (10 seconds)
-    * attributeSupportedId : Attribute that is supported by this locator for retrieval.
-    * substituteValue : This is the URI of the attribute available from the request that will be plugged into the ldap filter wildcard.
-    * valueDataType: The data type of the attribute that is being plugged into the filter of the wildcard. 
-    * name : the fully qualified name (FQN) of the class.
+    * url - The LDAP server URL to connect to.<br/>
+    * factory - The JNDI factory that is JDK specific such as "com.sun.jndi.ldap.LdapCtxFactory" which is the default.<br/>
+    * username - The username to connect to the LDAP server. This user must have search privileges<br/>
+    * password - The password of the user to connect to the LDAP server<br/>
+    * filter - The search filter to be used to find the entries that have a policy<br/>
+    * attribute - The name of the entry's attribute <br/>
+    * searchScope - Scope of the search for entries. Default is SUBTREE<br/>
+    * searchTimeLimit - Search time limit. Default is 10000 (10 seconds)<br/>
+    * attributeSupportedId : Attribute that is supported by this locator for retrieval.<br/>
+    * substituteValue : This is the URI of the attribute available from the request that will be plugged into the ldap filter wildcard.<br/>
+    * valueDataType: The data type of the attribute that is being plugged into the filter of the wildcard. <br/>
+    * name : the fully qualified name (FQN) of the class.<br/>
 
-     Masking the LDAP Password
+     Masking the LDAP Password<br/>
 
-     Additionally, The password value can be masked using PBE.
+     Additionally, The password value can be masked using PBE.<br/>
 
-     To create a masked password invoke  org.jboss.security.xacml.util.PBEUtils salt iterationCount password
-     When using a masked password add also the options
+     To create a masked password invoke  org.jboss.security.xacml.util.PBEUtils salt iterationCount password<br/>
+     When using a masked password add also the options<br/>
 
-      * salt - the 8 character String
-      * iterationCount - an integer
+      * salt - the 8 character String<br/>
+      * iterationCount - an integer<br/>
 
-      NOTE:  Those options must have the same value used for encryption.
+      NOTE:  Those options must have the same value used for encryption.<br/>
  *
  * @author Anil.Saldhana@redhat.com
  * @since Aug 25, 2010
