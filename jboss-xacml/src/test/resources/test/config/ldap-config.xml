@@ -1,6 +1,6 @@
 <ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
   <ns:Locators>
-    <ns:Locator Name="org.jboss.security.xacml.locators.JBossLDAPPolicyLocator">
+    <ns:Locator Name="org.jboss.security.xacml.locators.policy.JBossLDAPPolicyLocator">
     	<ns:Option Name="url">ldap://localhost:10389</ns:Option>
     	<ns:Option Name="username">cn=Directory Manager</ns:Option>
     	<ns:Option Name="password">password</ns:Option>
