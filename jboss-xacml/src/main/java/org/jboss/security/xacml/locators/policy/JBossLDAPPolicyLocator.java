@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.security.xacml.locators;
+package org.jboss.security.xacml.locators.policy;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
@@ -48,6 +48,7 @@ import org.jboss.security.xacml.factories.PolicyFactory;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.jaxb.Option;
+import org.jboss.security.xacml.locators.AbstractJBossPolicyLocator;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
