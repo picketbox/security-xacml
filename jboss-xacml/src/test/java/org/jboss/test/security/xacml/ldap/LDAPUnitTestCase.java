@@ -61,7 +61,7 @@ public class LDAPUnitTestCase extends OpenDSUnitTestAdapter
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/ldap-config.xml");
+      InputStream is = tcl.getResourceAsStream("locators/policy/ldap-config.xml");
       assertNotNull("InputStream != null", is);
 
       return new JBossPDP(is);
