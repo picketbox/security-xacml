@@ -107,6 +107,7 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
 
       Object columnValue = getColumnValue(attributeType, context);
       
+      @SuppressWarnings("rawtypes")
       Set bagSet = new HashSet();
       bagSet.add(JBossXACMLUtil.getAttributeValue(columnValue));
       
