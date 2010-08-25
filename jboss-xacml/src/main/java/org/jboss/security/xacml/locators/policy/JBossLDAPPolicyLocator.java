@@ -25,22 +25,14 @@ import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.PBEParameterSpec;
-import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
-import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
-import javax.naming.ldap.InitialLdapContext;
 
 import org.jboss.security.xacml.bridge.PolicySetFinderModule;
 import org.jboss.security.xacml.bridge.WrapperPolicyFinderModule;
@@ -52,7 +44,7 @@ import org.jboss.security.xacml.locators.AbstractJBossPolicyLocator;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
-import org.jboss.security.xacml.util.PBEUtils;
+import org.jboss.security.xacml.util.LDAPCommon;
 
 /**
  * 
@@ -61,6 +53,7 @@ import org.jboss.security.xacml.util.PBEUtils;
  * This PolicyLocator is configured with the following options:
  * 
  * url - The LDAP server URL to connect to
+ * factory - The JNDI factory that is JDK specific such as "com.sun.jndi.ldap.LdapCtxFactory"
  * username - The username to connect to the LDAP server. This user must have search privileges
  * password - The password of the user to connect to the LDAP server
  * filter - The search filter to be used to find the entries that have a policy
@@ -76,56 +69,15 @@ import org.jboss.security.xacml.util.PBEUtils;
  * Those options must have the same value used for encryption.
  * 
  * @author <a href="mmoyses@redhat.com">Marcus Moyses</a>
+ * @author Anil.Saldhana@redhat.com
  * @version $Revision: 1 $
  */
 public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
-{
-
-   protected static final String XACML_LDAP_URL = "url";
-
-   protected String url;
-
-   protected static final String XACML_LDAP_USERNAME = "username";
-
-   protected String username;
-
-   protected static final String XACML_LDAP_PASSWORD = "password";
-
-   protected String password;
-
-   protected static final String XACML_LDAP_FILTER = "filter";
-
-   protected String filter;
-
-   protected static final String XACML_LDAP_ATTRIBUTE = "attribute";
-
-   protected String attribute;
-
-   protected static final String XACML_LDAP_SEARCH_SCOPE = "searchScope";
-
-   protected int searchScope = SearchControls.SUBTREE_SCOPE;
-
-   protected static final String XACML_LDAP_SEARCH_TIMELIMIT = "searchTimeLimit";
-
-   protected int searchTimeLimit = 10000;
-
-   protected static final String XACML_LDAP_BASEDN = "baseDN";
-
-   protected String baseDN;
-
-   protected static final String XACML_LDAP_SALT = "salt";
-
-   protected String salt;
-
-   protected static final String XACML_LDAP_COUNT = "iterationCount";
-
-   protected int iterationCount;
-
-   protected static final String XACML_LDAP_PASSWORD_PREFIX = "MASK-";
-
-   protected Properties env = new Properties();
-
+{  
    protected static Logger log = Logger.getLogger(JBossLDAPPolicyLocator.class.getName());
+   
+   // Common Utility class that is common for ldap integration
+   protected LDAPCommon ldapCommon = new LDAPCommon();
 
    public JBossLDAPPolicyLocator()
    {
@@ -140,114 +92,41 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
    public void setOptions(List<Option> theoptions)
    {
       super.setOptions(theoptions);
-
-      for (Option option : options)
-      {
-         String name = option.getName();
-         if (name.equals(XACML_LDAP_URL))
-            url = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_USERNAME))
-            username = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_PASSWORD))
-            password = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_FILTER))
-            filter = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_ATTRIBUTE))
-            attribute = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_BASEDN))
-            baseDN = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_SEARCH_TIMELIMIT))
-         {
-            String timeLimit = (String) option.getContent().iterator().next();
-            if (timeLimit != null)
-            {
-               try
-               {
-                  searchTimeLimit = Integer.parseInt(timeLimit);
-               }
-               catch (NumberFormatException e)
-               {
-                  log.fine("Failed to parse: " + timeLimit + ", using searchTimeLimit = " + searchTimeLimit + ". "
-                        + e.getMessage());
-               }
-            }
-         }
-         else if (name.equals(XACML_LDAP_SEARCH_SCOPE))
-         {
-            String scope = (String) option.getContent().iterator().next();
-            if ("OBJECT_SCOPE".equalsIgnoreCase(scope))
-               searchScope = SearchControls.OBJECT_SCOPE;
-            else if ("ONELEVEL_SCOPE".equalsIgnoreCase(scope))
-               searchScope = SearchControls.ONELEVEL_SCOPE;
-            if ("SUBTREE_SCOPE".equalsIgnoreCase(scope))
-               searchScope = SearchControls.SUBTREE_SCOPE;
-         }
-         else if (name.equals(XACML_LDAP_SALT))
-            salt = (String) option.getContent().iterator().next();
-         else if (name.equals(XACML_LDAP_COUNT))
-            iterationCount = Integer.parseInt((String) option.getContent().iterator().next());
-      }
-
+      ldapCommon.processOptions(theoptions);
+      
       init();
    }
 
    protected void init()
-   {
-      // check options. username and password can be null as the ldap server may allow anonymous search
-      if (url == null)
-         throw new IllegalArgumentException("Option " + XACML_LDAP_URL + " cannot be null");
-      if (filter == null)
-         throw new IllegalArgumentException("Option " + XACML_LDAP_FILTER + " cannot be null");
-      if (attribute == null)
-         throw new IllegalArgumentException("Option " + XACML_LDAP_ATTRIBUTE + " cannot be null");
-
-      if (password != null && password.startsWith(XACML_LDAP_PASSWORD_PREFIX))
-      {
-         // try to decode password
-         if (salt == null || salt.equals("") || salt.length() != 8)
-            throw new IllegalArgumentException("Option " + XACML_LDAP_SALT + " is not set correctly");
-         if (iterationCount == 0)
-            throw new IllegalArgumentException("Option " + XACML_LDAP_COUNT + " must be a positive integer");
-         password = decodePassword(password);
-      }
-
-      env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-      env.put(Context.PROVIDER_URL, url);
-      if (username != null)
-         env.put(Context.SECURITY_PRINCIPAL, username);
-      if (password != null)
-         env.put(Context.SECURITY_CREDENTIALS, password);
+   {   
+      ldapCommon.validateConfiguration( LDAPCommon.TYPE.POLICY );
 
       search();
    }
 
-   protected void search()
-   {
-      InitialLdapContext ctx = null;
+   protected void search() 
+   { 
       NamingEnumeration<SearchResult> results = null;
+
       try
       {
-         ctx = new InitialLdapContext(env, null);
 
-         SearchControls constraints = new SearchControls();
-         constraints.setSearchScope(searchScope);
-         constraints.setTimeLimit(searchTimeLimit);
-         constraints.setReturningAttributes(new String[] {attribute});
-
-         results = ctx.search(baseDN, filter, constraints);
+         ldapCommon.constructJNDIContext();
+         results = ldapCommon.search( null ); 
          while (results.hasMore())
          {
             SearchResult rs = results.next();
             Attributes attributes = rs.getAttributes();
             if (attributes != null)
             {
-               Attribute xml = attributes.get(attribute);
+               Attribute xml = attributes.get( ldapCommon.getLdapAttribute() );
                if (xml != null)
                {
                   String xmlString = (String) xml.get();
                   try
                   {
-                     XACMLPolicy policy = PolicyFactory.createPolicy(new ByteArrayInputStream(xmlString.getBytes("UTF-8")));
+                     byte[] xmlStream = xmlString.getBytes("UTF-8");
+                     XACMLPolicy policy = PolicyFactory.createPolicy( new ByteArrayInputStream( xmlStream ));
                      if (policy != null)
                      {
                         if (policy.getType() == XACMLPolicy.POLICY)
@@ -274,6 +153,7 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
             }
          }
          this.map.put(XACMLConstants.POLICY_FINDER_MODULE, pfml);
+
       }
       catch (NamingException e)
       {
@@ -282,51 +162,26 @@ public class JBossLDAPPolicyLocator extends AbstractJBossPolicyLocator
       }
       finally
       {
-         if (results != null)
+         if( results != null )
          {
             try
             {
                results.close();
             }
-            catch (NamingException e)
-            {
+            catch ( NamingException ignore )
+            { 
             }
          }
-         if (ctx != null)
-         {
-            try
-            {
-               ctx.close();
-            }
-            catch (NamingException e)
-            {
-            }
-         }
-      }
-   }
 
-   protected String decodePassword(String encodedPassword)
-   {
-      try
-      {
-         // remove prefix
-         String password = encodedPassword.substring(XACML_LDAP_PASSWORD_PREFIX.length());
-         byte[] salt = this.salt.getBytes();
-         char[] p = "somearbitrarycrazystringthatdoesnotmatter".toCharArray();
-         PBEParameterSpec cipherSpec = new PBEParameterSpec(salt, iterationCount);
-         PBEKeySpec keySpec = new PBEKeySpec(p);
-         String cipherAlgorithm = "PBEwithMD5andDES";
-         SecretKeyFactory factory = SecretKeyFactory.getInstance(cipherAlgorithm);
-         SecretKey cipherKey = factory.generateSecret(keySpec);
-         //TODO move these utils to a separate project
-         return PBEUtils.decode64(password, cipherAlgorithm, cipherKey, cipherSpec);
+         try
+         {
+            ldapCommon.closeJNDIContext();
+         }
+         catch (NamingException ignore )
+         { 
+         }
       }
-      catch (Exception e)
-      {
-         log.severe("Could not decode masked password. " + e.getMessage());
-         throw new IllegalStateException(e);
-      }
-   }
+   } 
 
    private PolicySetFinderModule getPopulatedPolicySetFinderModule(XACMLPolicy xpolicy)
    {

@@ -98,14 +98,14 @@ public class AttributeLocator extends AttributeFinderModule implements AbstractL
       return this.identifier;
    }
 
-   @SuppressWarnings("unchecked")
+   @SuppressWarnings("rawtypes")
    @Override
    public Set getSupportedDesignatorTypes()
    { 
       return this.designatorTypes;
    }
 
-   @SuppressWarnings("unchecked")
+   @SuppressWarnings("rawtypes")
    @Override
    public Set getSupportedIds()
    { 

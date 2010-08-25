@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.security.xacml.ldap;
+package org.jboss.test.security.test.xacml.attriblocators;
 
 import java.io.File;
 import java.io.InputStream;
@@ -29,63 +29,54 @@ import org.jboss.security.xacml.interfaces.PolicyDecisionPoint;
 import org.jboss.security.xacml.interfaces.ResponseContext;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
+import org.jboss.test.security.xacml.ldap.OpenDSUnitTestAdapter;
+import org.junit.Test;
 
 /**
- * LDAP Unit Test Case
- * @author mmoyses@redhat.com
+ * Unit test the {@code LDAPAttributeLocator}
+ * @author Anil.Saldhana@redhat.com
+ * @since Aug 25, 2010
  */
-public abstract class LDAPUnitTestCase extends OpenDSUnitTestAdapter
+public class LDAPAttributeLocatorUnitTestCase extends OpenDSUnitTestAdapter
 {
+   public LDAPAttributeLocatorUnitTestCase(String name)
+   {
+      super(name); 
+   }
+
    @Override
    protected void setUp() throws Exception
    {
       super.setUp();
-      
       // Let us add the ldap.ldif
-      String fileName = targetDir + "test" + fs + "ldif" + fs + "ldap.ldif";
+      String fileName = targetDir + "test" + fs + "ldif" + fs + "ldap-attrib.ldif";
       boolean op = util.addLDIF(serverHost, port, adminDN, adminPW, new File(fileName).toURI().toURL());
-      assertTrue(op);
+      assertTrue(op);   
    }
-
-   public LDAPUnitTestCase(String name)
-   {
-      super(name);
-   }
-
-   public void testPermit() throws Exception
-   {    
-      validateCase(getResponse("request.xml"), 
-            XACMLConstants.DECISION_PERMIT); 
-   }
-
-   private PolicyDecisionPoint getPDP()
-   {
+   
+   @Test
+   public void testPDPUsingLDAPResourceAttributeLocator() throws Exception
+   {   
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("locators/policy/ldap-config.xml");
-      assertNotNull("InputStream != null", is);
 
-      return new JBossPDP(is);
-   }
-   
-   private ResponseContext getResponse(String loc) throws Exception
-   {
-      loc = "test/requests/ldap/" + loc;
-      return XACMLTestUtil.getResponse(getPDP(), loc);
-   }
-   
-   private void validateCase(ResponseContext response, int decisionval) throws Exception
-   {
+      InputStream is = tcl.getResourceAsStream("locators/attrib/ldap_resource_attrib_locator-config.xml");
+      assertNotNull("Inputstream is not null?", is);
+      PolicyDecisionPoint pdp = new JBossPDP(is);
+      ResponseContext response = XACMLTestUtil.getResponse(pdp,"locators/attrib/attribLocatorResourceAttribute-request.xml"); 
       int decision = response.getDecision();
-      
-      switch(decisionval)
-      {
-         case XACMLConstants.DECISION_PERMIT: 
-            assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision);
-            break;
-         case XACMLConstants.DECISION_DENY:
-            assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
-            break;
-         default: fail("wrong value");
-      }  
-   } 
+      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision);
+   }
+   
+   @Test
+   public void testPDPUsingLDAPSubjectAttributeLocator() throws Exception
+   { 
+      ClassLoader tcl = Thread.currentThread().getContextClassLoader();
+
+      InputStream is = tcl.getResourceAsStream("locators/attrib/ldap_subject_attrib_locator-config.xml");
+      assertNotNull("Inputstream is not null?", is);
+      PolicyDecisionPoint pdp = new JBossPDP(is);
+      ResponseContext response = XACMLTestUtil.getResponse(pdp,"locators/attrib/attribLocatorSubjectAttribute-request.xml"); 
+      int decision = response.getDecision();
+      assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision);
+   }
 }

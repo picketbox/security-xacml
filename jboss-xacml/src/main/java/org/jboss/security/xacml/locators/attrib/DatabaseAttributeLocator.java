@@ -39,7 +39,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.jboss.security.xacml.locators.AttributeLocator;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
@@ -54,7 +53,7 @@ import org.jboss.security.xacml.util.JBossXACMLUtil;
  * @author Anil.Saldhana@redhat.com
  * @since Mar 1, 2010
  */
-public abstract class DatabaseAttributeLocator extends AttributeLocator
+public abstract class DatabaseAttributeLocator extends StorageAttributeLocator
 {   
    private static Logger log = Logger.getLogger(DatabaseAttributeLocator.class.getName());
    
@@ -67,12 +66,6 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
    //The Prepared Statement SQL
    protected String sqlStatement = null;
    
-   //The Prepared Statement plugin Value
-   protected String preparedStatementValue = null;
-   
-   //The data type of the prepared statement plugin value
-   protected String valueDataType = null;
-   
    //Column Name to be returned as part of the sql statement
    protected String columnName = null;
    
@@ -80,16 +73,6 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
    public static final String DS_JNDI_NAME = "DATASOURCE_JNDI_NAME";
    
    public static final String DB_FILE_NAME = "DATABASE_FILE_NAME";
-   
-   public DatabaseAttributeLocator()
-   { 
-      this.attributeDesignatorSupported = true;
-      this.attributeSelectorSupported = true;
-      
-      this.designatorTypes.add(Integer.valueOf(0));
-      this.designatorTypes.add(Integer.valueOf(1));
-      this.designatorTypes.add(Integer.valueOf(2));
-   }  
    
    @SuppressWarnings("unchecked")
    @Override
@@ -134,11 +117,11 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
       }
       if("preparedStatementValue".equals(optionTag))
       {
-         this.preparedStatementValue = optionValue;
+         this.substituteValue = optionValue;
       }
       if("valueDataType".equals(optionTag))
       {
-         this.valueDataType = optionValue;
+         this.dataTypeOfSubstituteValue = optionValue;
       } 
       if("columnName".equals(optionTag))
       {
@@ -194,7 +177,7 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
          }
       } 
       return connection;
-   }
+   } 
    
    /**
     * Get the value of the attribute we are interested in
@@ -219,7 +202,7 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
          Object pluginValue = null;
          try
          {
-            pluginValue = getPreparedStatementPluginValue(context, attributeType);
+            pluginValue = getSubstituteValue( attributeType, context );
          }
          catch (URISyntaxException e)
          {
@@ -271,16 +254,5 @@ public abstract class DatabaseAttributeLocator extends AttributeLocator
       }  
       
       return columnValue; 
-   }
-   
-   /**
-    * <p>
-    * Get the value to be plugged into the PreparedStatement using the <code>EvaluationCtx</code>
-    * </p>
-    * @param evaluationCtx
-    * @param attributeType
-    * @return
-    * @throws URISyntaxException
-    */
-   protected abstract Object getPreparedStatementPluginValue(EvaluationCtx evaluationCtx, URI attributeType) throws URISyntaxException; 
+   } 
 }

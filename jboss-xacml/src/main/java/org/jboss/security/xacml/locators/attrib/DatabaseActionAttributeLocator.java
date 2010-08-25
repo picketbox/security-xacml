@@ -46,10 +46,12 @@ import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
  * @since Mar 2, 2010
  */
 public class DatabaseActionAttributeLocator extends DatabaseAttributeLocator
-{
-   protected Object getPreparedStatementPluginValue(EvaluationCtx evaluationCtx, URI attributeType) throws URISyntaxException
-   {    
-      EvaluationResult evalResult = evaluationCtx.getActionAttribute(new URI(valueDataType), new URI(preparedStatementValue), null);  
+{ 
+   @Override
+   protected Object getSubstituteValue(URI attributeType, EvaluationCtx context) throws URISyntaxException
+   {
+      EvaluationResult evalResult = context.getActionAttribute(new URI(dataTypeOfSubstituteValue), 
+            new URI( substituteValue ), null);  
       
       return this.getAttributeValue(evalResult, attributeType); 
    } 

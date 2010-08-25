@@ -25,37 +25,21 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
-import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 
 /**
- * Locates an attribute about the subject from the DB
- *   
- * An example of the Locator configuration is here:
- * 
- * &lt;ns:Locator Name="org.jboss.security.xacml.locators.attrib.DatabaseSubjectAttributeLocator"&gt;   <br/>
-      &lt;ns:Option Name="DATABASE_FILE_NAME"&gt;data_stores/db.properties&lt;/ns:Option&gt;  <br/>
-      &lt;ns:Option Name="sql"&gt;SELECT account_status FROM resource where owner_id=?;&lt;/ns:Option&gt; <br/>  
-      &lt;ns:Option Name="attributeSupportedId"&gt;urn:xacml:2.0:interop:example:resource:account-status&lt;/ns:Option&gt; <br/> 
-      &lt;ns:Option Name="preparedStatementValue"&gt;urn:xacml:2.0:interop:example:resource:owner-id&lt;/ns:Option&gt;  <br/>
-      &lt;ns:Option Name="valueDataType"&gt;http://www.w3.org/2001/XMLSchema#string&lt;/ns:Option&gt;   <br/>
-      &lt;ns:Option Name="columnName"&gt;account_status&lt;/ns:Option&gt; <br/>
-    &lt;/ns:Locator&gt; <br/>
-  
+ * LDAP Attribute Locator that will get an environment attribute
  * @author Anil.Saldhana@redhat.com
- * @since Mar 2, 2010
+ * @since Aug 25, 2010
  */
-public class DatabaseSubjectAttributeLocator extends DatabaseAttributeLocator
-{
+public class LDAPEnvAttributeLocator extends LDAPAttributeLocator
+{    
    @Override
    protected Object getSubstituteValue(URI attributeType, EvaluationCtx context) throws URISyntaxException
-   {    
-      String category = AttributeDesignator.SUBJECT_CATEGORY_DEFAULT;
+   {
+      EvaluationResult evalResult = context.getEnvironmentAttribute( new URI( dataTypeOfSubstituteValue ), 
+               new URI( substituteValue ), null);
       
-      EvaluationResult evalResult = context.getSubjectAttribute(new URI(dataTypeOfSubstituteValue), 
-            new URI( substituteValue ), 
-            new URI(category)); 
-
-      return this.getAttributeValue(evalResult, attributeType); 
-   } 
+      return this.getAttributeValue( evalResult, attributeType ); 
+   }
 }
