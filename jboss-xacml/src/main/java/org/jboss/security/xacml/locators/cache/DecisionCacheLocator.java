@@ -24,8 +24,7 @@ package org.jboss.security.xacml.locators.cache;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.List; 
 import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +33,8 @@ import org.jboss.security.xacml.sunxacml.ctx.Attribute;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
 import org.jboss.security.xacml.sunxacml.ctx.Subject;
+
+import static org.jboss.security.xacml.util.JBossXACMLUtil.getTokenList;
 
 
 /**
@@ -228,28 +229,7 @@ public class DecisionCacheLocator extends CacheLocator
       
       return DecisionCacheLocatorRequest.from( request, 
             subjectID, resourceID, actionID, envID ); 
-   }
-   
-   /**
-    * Get a list of token from comma separated string
-    * @param commaSeparatedListOfStrings
-    * @return
-    */
-   private List<String> getTokenList( String commaSeparatedListOfStrings )
-   {
-      List<String> stringList = new ArrayList<String>();
-      
-      if( commaSeparatedListOfStrings != null )
-      {  
-         StringTokenizer st = new StringTokenizer(commaSeparatedListOfStrings, ",");
-         
-         while( st != null && st.hasMoreTokens() )
-         {
-            stringList.add( st.nextToken() ); 
-         } 
-      }
-      return stringList;
-   }
+   } 
    
    /**
     * Determine whether we need correctness (WeakHashMap)  or Speed (LinkedHashMap)

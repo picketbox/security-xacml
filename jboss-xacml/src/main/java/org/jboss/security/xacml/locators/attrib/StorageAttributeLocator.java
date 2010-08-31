@@ -25,10 +25,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.jboss.security.xacml.locators.AttributeLocator;
-import org.jboss.security.xacml.sunxacml.EvaluationCtx;
+import org.jboss.security.xacml.sunxacml.EvaluationCtx; 
 
 /**
  * Common base class for attribute locators using external storage
+ * 
+ * All subclasses have to override and implement the
+ *  {@link #findAttribute(URI, URI, URI, URI, EvaluationCtx, int)} method
+ *  
  * @author Anil.Saldhana@redhat.com
  * @since Aug 25, 2010
  */
@@ -59,5 +63,14 @@ public abstract class StorageAttributeLocator extends AttributeLocator
       this.designatorTypes.add(Integer.valueOf(2));
    }  
    
+   /**
+    * For locators based on DB or LDAP, we may need one value that needs to be substituted in the DB prepared
+    * statement or ldap DIT query.  This value for example, can be the uid
+    * 
+    * @param attributeType
+    * @param context
+    * @return
+    * @throws URISyntaxException
+    */
    protected abstract Object getSubstituteValue( URI attributeType, EvaluationCtx context ) throws URISyntaxException;
 }

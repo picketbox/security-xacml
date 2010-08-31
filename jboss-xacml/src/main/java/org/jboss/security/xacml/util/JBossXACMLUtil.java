@@ -23,7 +23,10 @@ package org.jboss.security.xacml.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import org.jboss.security.xacml.factories.RequestResponseContextFactory;
 import org.jboss.security.xacml.interfaces.ResponseContext;
@@ -97,5 +100,26 @@ public class JBossXACMLUtil
       }
       
       throw new RuntimeException("unrecognized attribute value:" + value); 
+   }
+   
+   /**
+    * Get a list of token from comma separated string
+    * @param commaSeparatedListOfStrings
+    * @return
+    */
+   public static List<String> getTokenList( String commaSeparatedListOfStrings )
+   {
+      List<String> stringList = new ArrayList<String>();
+      
+      if( commaSeparatedListOfStrings != null )
+      {  
+         StringTokenizer st = new StringTokenizer(commaSeparatedListOfStrings, ",");
+         
+         while( st != null && st.hasMoreTokens() )
+         {
+            stringList.add( st.nextToken() ); 
+         } 
+      }
+      return stringList;
    }
 }
