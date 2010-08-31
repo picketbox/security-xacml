@@ -52,6 +52,7 @@ import org.jboss.security.xacml.sunxacml.cond.URLStringCatFunction;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class StringFunctionCluster implements FunctionCluster
 {
 

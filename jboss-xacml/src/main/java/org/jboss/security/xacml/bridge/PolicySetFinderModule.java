@@ -42,6 +42,7 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
 *  @since  Jul 6, 2007 
 *  @version $Revision$
 */
+@SuppressWarnings({"unused"})
 public class PolicySetFinderModule extends PolicyFinderModule
 {
    private PolicySet policySet;

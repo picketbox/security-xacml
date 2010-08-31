@@ -51,6 +51,7 @@ import org.jboss.security.xacml.sunxacml.cond.StringNormalizeFunction;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class StringNormalizeFunctionCluster implements FunctionCluster
 {
 

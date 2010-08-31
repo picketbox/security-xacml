@@ -86,6 +86,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class PolicyCollection
 {
 

@@ -45,10 +45,12 @@ import org.jboss.test.security.sunxacml.conformance.support.TestPolicyFinderModu
  * @author Anil.Saldhana@redhat.com
  * @since Mar 24, 2009
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ConformanceUnitTestCase extends TestCase
 {
    String mandatoryBase = "src/test/resources/conformance/mandatory/";
    
+   @SuppressWarnings("unused")
    public void testMandatoryConformance_AttributeReferences_01_through_21() throws Exception
    {  
       TestPDP pdp = null;
@@ -101,6 +103,7 @@ public class ConformanceUnitTestCase extends TestCase
       }
    }
    
+   @SuppressWarnings("unused")
    public void testMandatoryConformance_TargetMatching_1_through_53() throws Exception
    { 
       TestPDP pdp = null;
@@ -142,6 +145,7 @@ public class ConformanceUnitTestCase extends TestCase
       }
    }
    
+   @SuppressWarnings("unused")
    public void testMandatoryConformance_FunctionEvaluation_1_through_232() throws Exception
    { 
       TestPDP pdp = null;
@@ -202,6 +206,7 @@ public class ConformanceUnitTestCase extends TestCase
       }
    }
    
+   @SuppressWarnings("unused")
    public void testMandatoryConformance_CombiningAlgorithms_1_through_30() throws Exception
    { 
       TestPDP pdp = null;
@@ -249,6 +254,7 @@ public class ConformanceUnitTestCase extends TestCase
       }
    }
    
+   @SuppressWarnings("unused")
    public void testMandatoryConformance_Schema_1_through_3() throws Exception
    { 
       TestPDP pdp = null;
@@ -285,8 +291,7 @@ public class ConformanceUnitTestCase extends TestCase
          assertEquals("IIE0"+i, expectedResult.getDecision(),actualResult.getDecision()); 
       }
    }
-   
-   @SuppressWarnings("unchecked")
+    
    private PolicyFinderModule createTestPolicyFinderModule(int i) throws Exception
    {
       TestPolicyFinderModule tpfm = new ConformanceTestPolicyFinderModule();

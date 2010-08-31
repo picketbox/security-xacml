@@ -43,10 +43,11 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
  *
  * @since 2.0
  * @author Seth Proctor
- */
+ */ 
 public class TopLevelPolicyException extends Exception
 {
 
+   private static final long serialVersionUID = -2215255767851349263L;
    // status explaining the error
    private Status status;
 

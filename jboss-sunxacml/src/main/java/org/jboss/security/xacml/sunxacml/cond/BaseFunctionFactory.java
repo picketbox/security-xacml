@@ -70,6 +70,7 @@ import org.w3c.dom.Node;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BaseFunctionFactory extends FunctionFactory
 {
 

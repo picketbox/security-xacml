@@ -78,6 +78,7 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ResourceFinder
 {
 

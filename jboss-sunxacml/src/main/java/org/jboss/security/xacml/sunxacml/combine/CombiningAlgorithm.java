@@ -53,6 +53,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public abstract class CombiningAlgorithm
 {
    protected static final Logger logger =

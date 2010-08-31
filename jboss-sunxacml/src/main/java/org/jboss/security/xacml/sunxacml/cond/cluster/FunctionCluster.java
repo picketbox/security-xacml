@@ -51,6 +51,7 @@ import java.util.Set;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({ "rawtypes"})
 public interface FunctionCluster
 {
 

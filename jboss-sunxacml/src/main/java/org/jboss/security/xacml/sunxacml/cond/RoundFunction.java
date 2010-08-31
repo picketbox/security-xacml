@@ -56,6 +56,7 @@ import org.jboss.security.xacml.sunxacml.attr.DoubleAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class RoundFunction extends FunctionBase
 {
 

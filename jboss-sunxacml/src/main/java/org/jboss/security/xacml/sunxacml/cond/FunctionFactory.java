@@ -63,6 +63,7 @@ import org.w3c.dom.Node;
  * @author Marco Barreno
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class FunctionFactory
 {
 

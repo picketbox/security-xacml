@@ -74,6 +74,7 @@ import org.w3c.dom.Element;
  *
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class TestPolicyFinderModule extends PolicyFinderModule
 {
 

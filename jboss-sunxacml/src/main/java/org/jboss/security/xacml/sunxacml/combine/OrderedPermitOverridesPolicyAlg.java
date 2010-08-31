@@ -37,7 +37,6 @@
 package org.jboss.security.xacml.sunxacml.combine;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 
 /**

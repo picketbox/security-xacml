@@ -64,6 +64,7 @@ import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public abstract class AttributeValue implements Evaluatable
 {
 

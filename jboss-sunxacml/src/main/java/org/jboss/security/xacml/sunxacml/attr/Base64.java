@@ -52,7 +52,7 @@ import java.io.IOException;
  *
  * @since 1.0
  * @author Anne Anderson
- */
+ */ 
 class Base64
 {
     /*
@@ -72,6 +72,7 @@ class Base64
      * The character used to pad out a 4-character Base64-encoded block,
      * or "quantum".
      */
+    @SuppressWarnings("unused")
     private static char PAD   = '=';
 
     /*

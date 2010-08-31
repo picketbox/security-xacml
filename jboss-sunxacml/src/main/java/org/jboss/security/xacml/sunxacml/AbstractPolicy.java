@@ -47,7 +47,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import org.jboss.security.xacml.sunxacml.combine.CombinerElement;
 import org.jboss.security.xacml.sunxacml.combine.CombinerParameter;
@@ -68,6 +67,7 @@ import org.w3c.dom.NodeList;
  * @author Seth Proctor
  * @author Marco Barreno
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class AbstractPolicy implements PolicyTreeElement
 {
 
@@ -97,10 +97,6 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
     // the list of combiner parameters
     private List parameters;
-
-    // the logger we'll use for all messages
-    private static final Logger logger =
-        Logger.getLogger(AbstractPolicy.class.getName());
 
     /**
      * Constructor used by <code>PolicyReference</code>, which supplies
@@ -246,8 +242,7 @@ public abstract class AbstractPolicy implements PolicyTreeElement
 
         // do an initial pass through the elements to pull out the
         // defaults, if any, so we can setup the meta-data
-        NodeList children = root.getChildNodes();
-        String xpathVersion = null;
+        NodeList children = root.getChildNodes(); 
         
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);

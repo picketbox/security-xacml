@@ -267,6 +267,7 @@ public class TimeAttribute extends AttributeValue
         Date dateValue = dateTime.getValue();
         int defaultedTimeZone = dateTime.getDefaultedTimeZone();
         if (dateTime.getTimeZone() == TZ_UNSPECIFIED) { 
+ 
             int newDefTimeZone =
                 DateTimeAttribute.getDefaultTZOffset(new Date());
             dateValue = new Date(dateValue.getTime() -

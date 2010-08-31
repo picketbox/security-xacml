@@ -60,6 +60,7 @@ import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
  *
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class TestAttributeFinderModule extends AttributeFinderModule
 {
 

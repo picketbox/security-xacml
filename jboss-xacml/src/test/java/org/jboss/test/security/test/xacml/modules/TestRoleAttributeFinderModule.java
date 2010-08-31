@@ -47,6 +47,7 @@ import org.junit.Ignore;
  *  @since  May 26, 2006 
  *  @version $Revision: 58115 $
  */
+@SuppressWarnings({"unused", "unchecked", "rawtypes"})
 @Ignore
 public class TestRoleAttributeFinderModule extends AttributeFinderModule
 {

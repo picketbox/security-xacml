@@ -58,6 +58,7 @@ import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class StringNormalizeFunction extends FunctionBase
 {
 

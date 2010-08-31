@@ -62,7 +62,6 @@ import org.jboss.security.xacml.locators.AttributeLocator;
 import org.jboss.security.xacml.locators.ResourceLocator;
 import org.jboss.security.xacml.locators.cache.CacheLocator;
 import org.jboss.security.xacml.locators.cache.DecisionCacheLocator;
-import org.jboss.security.xacml.locators.cache.DecisionCacheLocator.DecisionCacheLocatorRequest;
 import org.jboss.security.xacml.sunxacml.PDPConfig;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;

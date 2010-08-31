@@ -50,6 +50,7 @@ import org.jboss.security.xacml.sunxacml.cond.RoundFunction;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class RoundFunctionCluster implements FunctionCluster
 {
 

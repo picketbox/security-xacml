@@ -63,6 +63,7 @@ import org.jboss.security.xacml.sunxacml.UnknownIdentifierException;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BaseCombiningAlgFactory extends CombiningAlgFactory
 {
 

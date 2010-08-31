@@ -39,7 +39,6 @@ package org.jboss.security.xacml.sunxacml.combine;
 
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -61,6 +60,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class DenyOverridesPolicyAlg extends PolicyCombiningAlgorithm
 {
 

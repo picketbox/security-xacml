@@ -86,6 +86,7 @@ import org.w3c.dom.NodeList;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unused", "unchecked", "rawtypes"})
 public class SelectorModule extends AttributeFinderModule
 {
 

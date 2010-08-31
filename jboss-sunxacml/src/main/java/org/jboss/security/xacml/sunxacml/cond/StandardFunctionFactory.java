@@ -91,6 +91,7 @@ import org.jboss.security.xacml.sunxacml.cond.cluster.SubtractFunctionCluster;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unused", "unchecked", "rawtypes"})
 public class StandardFunctionFactory extends BaseFunctionFactory
 {
 

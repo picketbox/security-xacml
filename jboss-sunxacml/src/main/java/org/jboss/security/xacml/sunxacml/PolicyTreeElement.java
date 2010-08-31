@@ -55,6 +55,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  * @since 1.1
  * @author seth proctor
  */
+@SuppressWarnings( "rawtypes" )
 public interface PolicyTreeElement
 {
 

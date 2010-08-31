@@ -64,6 +64,7 @@ import org.w3c.dom.NodeList;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class PolicySet extends AbstractPolicy
 {
 

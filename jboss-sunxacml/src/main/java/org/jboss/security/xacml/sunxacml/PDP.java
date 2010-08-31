@@ -69,6 +69,7 @@ import org.jboss.security.xacml.sunxacml.finder.ResourceFinderResult;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class PDP
 {
 

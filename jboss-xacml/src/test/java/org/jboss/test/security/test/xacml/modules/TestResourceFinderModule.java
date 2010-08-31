@@ -40,6 +40,7 @@ import org.junit.Ignore;
  *  @since  May 26, 2006 
  *  @version $Revision: 45389 $
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 @Ignore
 public class TestResourceFinderModule extends ResourceFinderModule
 {

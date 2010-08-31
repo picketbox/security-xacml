@@ -56,6 +56,7 @@ import org.w3c.dom.Node;
  * @author Seth Proctor
  * @author Marco Barreno
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class AttributeFactory
 {
 

@@ -53,6 +53,7 @@ import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class StringFunction extends FunctionBase
 {
 

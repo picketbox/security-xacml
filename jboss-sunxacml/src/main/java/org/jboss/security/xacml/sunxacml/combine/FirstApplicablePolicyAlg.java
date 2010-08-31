@@ -39,7 +39,6 @@ package org.jboss.security.xacml.sunxacml.combine;
 
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,6 +56,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public class FirstApplicablePolicyAlg extends PolicyCombiningAlgorithm
 {
     

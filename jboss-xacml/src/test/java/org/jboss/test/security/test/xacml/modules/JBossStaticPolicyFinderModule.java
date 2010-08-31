@@ -56,6 +56,7 @@ import org.jboss.security.xacml.sunxacml.support.finder.TopLevelPolicyException;
  *  @since  May 30, 2006 
  *  @version $Revision: 45389 $
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class JBossStaticPolicyFinderModule extends PolicyFinderModule
 {
    // the list of policy URLs passed to the constructor

@@ -58,6 +58,7 @@ import java.util.NoSuchElementException;
  * @author Seth Proctor
  * @author Steve Hanna
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BagAttribute extends AttributeValue
 {
 

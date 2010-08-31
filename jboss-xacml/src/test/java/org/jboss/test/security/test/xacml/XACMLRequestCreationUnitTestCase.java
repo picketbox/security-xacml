@@ -25,7 +25,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -43,6 +42,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Subject;
  *  @since  Jun 20, 2006 
  *  @version $Revision: 45705 $
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class XACMLRequestCreationUnitTestCase extends TestCase
 {
    private static final boolean DEBUG = true;
@@ -100,7 +100,7 @@ public class XACMLRequestCreationUnitTestCase extends TestCase
       assertTrue("We have one subject?", subjects.size() == 1);
       Subject subj = (Subject) (subjects.iterator().next());
       assertNotNull("Subject != null", subj);
-      assertEquals("Attributes in subject match", subjectAttr, (Attribute) (subj.getAttributes().iterator().next()));
+      assertEquals("Attributes in subject match", subjectAttr, (Attribute) (subj.getAttributesAsList().get(0)));
 
       //Test the resource attributes
       List resources = request.getResourceAsList();

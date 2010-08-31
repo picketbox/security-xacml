@@ -69,6 +69,7 @@ import org.w3c.dom.NodeList;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class Rule implements PolicyTreeElement
 {
 
@@ -167,8 +168,7 @@ public class Rule implements PolicyTreeElement
                                    VariableManager manager)
         throws ParsingException
     {
-        URI id = null;
-        String name = null;
+        URI id = null; 
         int effect = 0;
         String description = null;
         Target target = null;

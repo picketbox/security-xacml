@@ -49,14 +49,14 @@ import org.jboss.security.xacml.sunxacml.support.finder.URLPolicyFinderModule;
  * @author Anil.Saldhana@redhat.com
  * @since Mar 24, 2009
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class TestPDP
 { 
    private PDP pdp = null;
   
    private PolicyFinder policyFinder = null;
    private AttributeFinder attributeFinder = null;
-   
-   @SuppressWarnings("unchecked")
+    
    public TestPDP(String[] policies)
    {
       List policyList = Arrays.asList(policies);
@@ -89,16 +89,14 @@ public class TestPDP
       attributeModules.add(selectorAttributeModule);
       attributeFinder.setModules(attributeModules); 
    }
-   
-   @SuppressWarnings("unchecked")
+    
    public void addAttributeFinderModule(AttributeFinderModule afm)
    {
       List modules = attributeFinder.getModules();
       modules.add(afm);
       attributeFinder.setModules(modules);
    }
-   
-   @SuppressWarnings("unchecked")
+    
    public void addPolicyFinderModule(PolicyFinderModule pfm)
    {
       Set modules = policyFinder.getModules();

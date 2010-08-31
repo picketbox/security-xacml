@@ -80,6 +80,7 @@ import org.jboss.security.xacml.sunxacml.support.finder.URLPolicyFinderModule;
  * @since 1.1
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class SimplePDP
 {
 

@@ -63,6 +63,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public abstract class FunctionBase implements Function
 {
     

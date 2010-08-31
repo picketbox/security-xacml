@@ -63,6 +63,7 @@ import org.w3c.dom.NodeList;
  * @author Seth Proctor
  * @author Marco Barreno
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class Result
 {
 

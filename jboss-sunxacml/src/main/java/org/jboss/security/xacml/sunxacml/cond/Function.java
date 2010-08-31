@@ -52,6 +52,7 @@ import org.jboss.security.xacml.sunxacml.Indenter;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public interface Function extends Expression
 {
 

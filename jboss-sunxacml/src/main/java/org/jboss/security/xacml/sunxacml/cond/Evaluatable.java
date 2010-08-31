@@ -52,6 +52,7 @@ import org.jboss.security.xacml.sunxacml.EvaluationCtx;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public interface Evaluatable extends Expression
 {
 

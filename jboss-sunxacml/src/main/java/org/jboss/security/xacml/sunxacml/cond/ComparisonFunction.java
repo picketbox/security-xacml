@@ -62,6 +62,7 @@ import org.jboss.security.xacml.sunxacml.attr.TimeAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ComparisonFunction extends FunctionBase
 {
 

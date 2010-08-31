@@ -42,11 +42,12 @@ package org.jboss.security.xacml.sunxacml;
  *
  * @since 1.0
  * @author Seth Proctor
- */
+ */ 
 public class ParsingException extends Exception
-{
+{ 
+   private static final long serialVersionUID = -380343983934440540L;
 
-    /**
+   /**
      * Constructs a new <code>ParsingException</code> with no message
      * or cause.
      */

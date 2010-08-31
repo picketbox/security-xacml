@@ -56,6 +56,7 @@ import org.jboss.security.xacml.sunxacml.PolicySet;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public class PolicyCombinerElement extends CombinerElement
 {
 

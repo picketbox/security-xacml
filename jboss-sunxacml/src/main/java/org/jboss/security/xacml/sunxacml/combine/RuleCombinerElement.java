@@ -53,6 +53,7 @@ import org.jboss.security.xacml.sunxacml.Rule;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings( "rawtypes" )
 public class RuleCombinerElement extends CombinerElement
 {
 

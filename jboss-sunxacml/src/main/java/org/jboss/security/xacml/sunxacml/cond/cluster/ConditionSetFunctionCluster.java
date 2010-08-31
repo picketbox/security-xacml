@@ -50,6 +50,7 @@ import org.jboss.security.xacml.sunxacml.cond.ConditionSetFunction;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings( { "unchecked", "rawtypes"})
 public class ConditionSetFunctionCluster implements FunctionCluster
 {
 

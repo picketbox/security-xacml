@@ -66,6 +66,7 @@ import org.jboss.security.xacml.sunxacml.attr.YearMonthDurationAttribute;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class BagFunction extends FunctionBase
 {
 

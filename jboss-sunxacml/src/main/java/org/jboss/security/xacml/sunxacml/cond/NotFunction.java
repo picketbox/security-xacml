@@ -57,6 +57,7 @@ import org.jboss.security.xacml.sunxacml.attr.BooleanAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class NotFunction extends FunctionBase
 {
 

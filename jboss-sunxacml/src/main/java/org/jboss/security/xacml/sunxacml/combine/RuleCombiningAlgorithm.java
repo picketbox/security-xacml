@@ -53,6 +53,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Result;
  * @author Seth Proctor
  * @author Marco Barreno
  */
+@SuppressWarnings( "rawtypes" )
 public abstract class RuleCombiningAlgorithm extends CombiningAlgorithm
 {
 

@@ -47,8 +47,9 @@ package org.jboss.security.xacml.sunxacml.cond;
  */
 public class FunctionTypeException extends Exception
 {
+   private static final long serialVersionUID = -3180711780650516471L;
 
-    /**
+   /**
      * Constructs a new <code>FunctionTypeException</code> with no message
      * or cause.
      */

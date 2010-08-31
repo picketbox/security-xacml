@@ -62,6 +62,7 @@ import org.w3c.dom.Node;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "rawtypes"})
 public class VariableReference implements Evaluatable
 {
 

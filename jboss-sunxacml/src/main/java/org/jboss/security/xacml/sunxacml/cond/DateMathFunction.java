@@ -68,6 +68,7 @@ import org.jboss.security.xacml.sunxacml.attr.YearMonthDurationAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class DateMathFunction extends FunctionBase
 {
 
@@ -129,9 +130,6 @@ public class DateMathFunction extends FunctionBase
 
     // nothing here uses a bag
     private static final boolean bagParams [] = { false, false };
-
-    // Argument types for this object
-    private String [] argTypes = null;
 
     // mapping from name to provide identifiers and argument types
     private static HashMap idMap;

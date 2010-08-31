@@ -83,6 +83,7 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "rawtypes"})
 public class StaticPolicyFinderModule extends PolicyFinderModule
 {
 

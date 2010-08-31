@@ -40,15 +40,14 @@ public class Himss09UnitTestCase extends TestCase
 {
    public void testPermit() throws Exception
    {    
-      validateCase(getResponse("himss-request-01.xml"), 
-            XACMLConstants.DECISION_PERMIT); 
+      validateCase( getResponse( "himss-request-01.xml" ),  XACMLConstants.DECISION_PERMIT ); 
    }
 
    private PolicyDecisionPoint getPDP()
    {
       ClassLoader tcl = Thread.currentThread().getContextClassLoader();
-      InputStream is = tcl.getResourceAsStream("test/config/himss09-interop-config.xml");
-      assertNotNull("InputStream != null", is);
+      InputStream is = tcl.getResourceAsStream( "test/config/himss09-interop-config.xml" );
+      assertNotNull( "InputStream != null", is );
 
       return new JBossPDP(is);
    }
@@ -56,22 +55,22 @@ public class Himss09UnitTestCase extends TestCase
    private ResponseContext getResponse(String loc) throws Exception
    {
       loc = "test/requests/interop/himss09/" + loc;
-      return XACMLTestUtil.getResponse(getPDP(), loc);
+      return XACMLTestUtil.getResponse( getPDP(), loc );
    }
    
-   private void validateCase(ResponseContext response, int decisionval) throws Exception
+   private void validateCase( ResponseContext response, int decisionval ) throws Exception
    {
       int decision = response.getDecision();
       
-      switch(decisionval)
+      switch( decisionval )
       {
          case XACMLConstants.DECISION_PERMIT: 
-            assertEquals("PERMIT?", XACMLConstants.DECISION_PERMIT,decision);
+            assertEquals( "PERMIT?", XACMLConstants.DECISION_PERMIT, decision );
             break;
          case XACMLConstants.DECISION_DENY:
-            assertEquals("DENY?", XACMLConstants.DECISION_DENY,decision);
+            assertEquals( "DENY?", XACMLConstants.DECISION_DENY, decision );
             break;
-         default: fail("wrong value");
+         default: fail( "wrong value" );
       }  
    } 
 }

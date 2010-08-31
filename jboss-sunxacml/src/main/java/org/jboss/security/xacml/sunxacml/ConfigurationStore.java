@@ -115,6 +115,7 @@ import org.w3c.dom.NodeList;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ConfigurationStore
 {
 

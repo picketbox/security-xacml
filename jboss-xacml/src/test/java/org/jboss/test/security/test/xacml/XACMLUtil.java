@@ -53,6 +53,7 @@ import org.jboss.test.security.test.xacml.modules.TestRoleAttributeFinderModule;
  *  @since  May 30, 2006 
  *  @version $Revision: 58115 $
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class XACMLUtil
 { 
    //Validate that two PDP responses are the same semantically

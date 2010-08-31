@@ -53,7 +53,6 @@ import org.jboss.security.xacml.sunxacml.Indenter;
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.SunxacmlUtil;
 import org.jboss.security.xacml.sunxacml.attr.BagAttribute;
-import org.jboss.security.xacml.sunxacml.ctx.Status;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -64,6 +63,7 @@ import org.w3c.dom.NodeList;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 class MapFunction implements Function
 {
 
@@ -188,16 +188,7 @@ class MapFunction implements Function
      */
     public boolean returnsBag() {
         return true;
-    }
-
-    /**
-     * Helper function to create a processing error message.
-     */
-    private static EvaluationResult makeProcessingError(String message) {
-        ArrayList code = new ArrayList();
-        code.add(Status.STATUS_PROCESSING_ERROR);
-        return new EvaluationResult(new Status(code, message));
-    }
+    } 
 
     /**
      * Evaluates the function given the input data. Map expects a

@@ -59,6 +59,7 @@ import org.jboss.security.xacml.sunxacml.attr.TimeAttribute;
  * @since 2.0
  * @author seth proctor
  */
+@SuppressWarnings({ "rawtypes"})
 public class TimeInRangeFunction extends FunctionBase
 {
 

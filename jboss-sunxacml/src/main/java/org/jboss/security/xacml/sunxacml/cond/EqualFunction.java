@@ -73,6 +73,7 @@ import org.jboss.security.xacml.sunxacml.attr.YearMonthDurationAttribute;
  * @author Steve Hanna
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class EqualFunction extends FunctionBase
 {
 

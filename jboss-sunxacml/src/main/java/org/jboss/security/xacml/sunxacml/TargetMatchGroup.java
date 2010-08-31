@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -56,6 +55,7 @@ import org.w3c.dom.NodeList;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class TargetMatchGroup
 {
 
@@ -63,11 +63,7 @@ public class TargetMatchGroup
     private List matches;
 
     // the match type contained in this group
-    private int matchType;
-
-    // the logger we'll use for all messages
-    private static final Logger logger =
-        Logger.getLogger(Target.class.getName());
+    private int matchType; 
 
     /**
      * Constructor that creates a new <code>TargetMatchGroup</code> based

@@ -37,7 +37,6 @@
 package org.jboss.security.xacml.sunxacml.combine;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 
 /**
@@ -48,7 +47,7 @@ import java.net.URISyntaxException;
  *
  * @since 1.1
  * @author seth proctor
- */
+ */ 
 public class OrderedDenyOverridesRuleAlg extends DenyOverridesRuleAlg
 {
 

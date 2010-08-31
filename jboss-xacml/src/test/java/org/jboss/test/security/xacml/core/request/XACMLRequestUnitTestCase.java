@@ -37,6 +37,7 @@ import org.junit.Test;
  * @author Anil.Saldhana@redhat.com
  * @since Aug 30, 2010
  */
+@SuppressWarnings({"rawtypes"})
 public class XACMLRequestUnitTestCase
 {
 

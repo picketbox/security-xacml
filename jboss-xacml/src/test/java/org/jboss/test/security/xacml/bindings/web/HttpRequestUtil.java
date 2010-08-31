@@ -41,6 +41,7 @@ import javax.servlet.http.HttpSession;
  *  @since  Jul 10, 2007 
  *  @version $Revision$
  */
+@SuppressWarnings({ "rawtypes"})
 public class HttpRequestUtil
 {
    public HttpServletRequest createRequest(final Principal gp, final String uri)
@@ -72,14 +73,12 @@ public class HttpRequestUtil
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Enumeration getHeaderNames()
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Enumeration getHeaders(String arg0)
          {
             return null;
@@ -179,8 +178,7 @@ public class HttpRequestUtil
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Enumeration getAttributeNames()
          {
             return null;
@@ -225,8 +223,7 @@ public class HttpRequestUtil
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Enumeration getLocales()
          {
             return null;
@@ -236,14 +233,12 @@ public class HttpRequestUtil
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Map getParameterMap()
          {
             return null;
          }
-
-         @SuppressWarnings("unchecked")
+ 
          public Enumeration getParameterNames()
          {
             return null;

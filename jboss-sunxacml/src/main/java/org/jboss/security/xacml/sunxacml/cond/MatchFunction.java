@@ -64,6 +64,7 @@ import org.jboss.security.xacml.sunxacml.attr.X500NameAttribute;
  * @author Seth Proctor
  * @author Yassir Elley
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class MatchFunction extends FunctionBase
 {
 

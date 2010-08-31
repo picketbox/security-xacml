@@ -45,9 +45,10 @@ package org.jboss.security.xacml.sunxacml;
  * @author Seth Proctor
  */
 public class UnknownIdentifierException extends Exception
-{
+{ 
+   private static final long serialVersionUID = 2311599809157755384L;
 
-    /**
+   /**
      * Creates an <code>UnknownIdentifierException</code> with no data
      */
     public UnknownIdentifierException() {

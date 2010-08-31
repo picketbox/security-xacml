@@ -82,6 +82,7 @@ import org.xml.sax.SAXParseException;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unused", "unchecked", "rawtypes"})
 public class FilePolicyModule extends PolicyFinderModule
     implements ErrorHandler
 {

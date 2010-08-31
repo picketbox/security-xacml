@@ -73,6 +73,7 @@ import org.w3c.dom.Node;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class AttributeFinder
 {
 

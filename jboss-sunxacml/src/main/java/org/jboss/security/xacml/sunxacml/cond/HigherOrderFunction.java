@@ -71,6 +71,7 @@ import org.jboss.security.xacml.sunxacml.attr.StringAttribute;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class HigherOrderFunction implements Function
 {
 
@@ -360,8 +361,7 @@ public class HigherOrderFunction implements Function
             Iterator it = ((BagAttribute)args[0]).iterator();
             BagAttribute bag = (BagAttribute)(args[1]);
 
-            while (it.hasNext()) {
-                AttributeValue value = (AttributeValue)(it.next());
+            while (it.hasNext()) { 
                 result = all((AttributeValue)(it.next()), bag, function,
                              context);
             

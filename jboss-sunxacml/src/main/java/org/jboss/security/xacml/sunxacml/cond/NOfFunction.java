@@ -66,6 +66,7 @@ import org.jboss.security.xacml.sunxacml.attr.IntegerAttribute;
  * @author Steve Hanne
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class NOfFunction extends FunctionBase
 {
 

@@ -60,6 +60,7 @@ import org.w3c.dom.Node;
  * @since 1.0
  * @author Seth Proctor
  */
+@SuppressWarnings({ "rawtypes"})
 public class StatusDetail
 {
 

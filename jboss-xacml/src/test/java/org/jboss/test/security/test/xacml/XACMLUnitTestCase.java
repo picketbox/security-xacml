@@ -45,6 +45,7 @@ import org.jboss.security.xacml.sunxacml.ctx.Status;
  *  @since  May 26, 2006 
  *  @version $Revision: 45725 $
  */
+@SuppressWarnings({ "unchecked", "rawtypes"})
 public class XACMLUnitTestCase extends TestCase
 {
    /**
@@ -182,8 +183,7 @@ public class XACMLUnitTestCase extends TestCase
    /**
     * Get the ResponseCtx that represents a Syntax Error
     * @return
-    */
-   @SuppressWarnings("unchecked")
+    */ 
    private ResponseCtx getSyntaxErrorResponseCtx()
    {
       ArrayList code = new ArrayList();

@@ -36,10 +36,9 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
  * @author Anil.Saldhana@redhat.com
  * @since Mar 25, 2009
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ConformanceTestPolicyFinderModule extends TestPolicyFinderModule
 {
-
-   @SuppressWarnings("unchecked")
    @Override
    public PolicyFinderResult findPolicy(URI idReference, int type, VersionConstraints constraints,
          PolicyMetaData metaData)

@@ -53,6 +53,7 @@ import org.jboss.security.xacml.sunxacml.PolicyTreeElement;
  * @since 2.0
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class CombinerElement
 {
 
