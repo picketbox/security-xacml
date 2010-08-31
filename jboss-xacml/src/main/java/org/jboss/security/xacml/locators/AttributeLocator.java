@@ -35,6 +35,7 @@ import org.jboss.security.xacml.jaxb.Option;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
 import org.jboss.security.xacml.sunxacml.cond.EvaluationResult;
 import org.jboss.security.xacml.sunxacml.finder.AttributeFinderModule;
+import org.jboss.security.xacml.util.JBossXACMLUtil;
 
 /**
  * An attribute finder module
@@ -166,7 +167,13 @@ public class AttributeLocator extends AttributeFinderModule implements AbstractL
       {
          try
          {
-            this.ids.add(new URI(optionValue));
+            List<String> tokens = JBossXACMLUtil.getTokenList( optionValue );
+            int lengthOfTokens = tokens.size();
+            
+            for( int i = 0; i < lengthOfTokens ; i++ )
+            {
+               this.ids.add(new URI( tokens.get( i ) )); 
+            }
          }
          catch (URISyntaxException e)
          {
