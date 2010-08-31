@@ -22,7 +22,10 @@
 package org.jboss.test.security.test.xacml;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -55,14 +58,14 @@ public class XACMLRequestCreationUnitTestCase extends TestCase
 
       //Create the subject set
       URI subjectAttrUri = new URI("urn:oasis:names:tc:xacml:1.0:subject:subject-id");
-      Set subjectAttributeValues = new HashSet();
+      List subjectAttributeValues = new ArrayList();
       subjectAttributeValues.add(new StringAttribute("Anil Saldhana"));
       Attribute subjectAttr = new Attribute(subjectAttrUri, new URI(StringAttribute.identifier), null, null,
             subjectAttributeValues);
-      Set subjectAttrSet = new HashSet();
-      subjectAttrSet.add(subjectAttr);
-      Set subjectSet = new HashSet();
-      subjectSet.add(new Subject(subjectAttrSet));
+      List subjectAttrList = new ArrayList();
+      subjectAttrList.add(subjectAttr);
+      List subjectList = new ArrayList();
+      subjectList.add(new Subject(subjectAttrList));
 
       //Create the resource set
       URI resourceUri = new URI("urn:oasis:names:tc:xacml:1.0:resource:resource-id");
@@ -70,8 +73,8 @@ public class XACMLRequestCreationUnitTestCase extends TestCase
       resourceAttributeValues.add(new StringAttribute("http://jboss.com/developers/payroll/anilsaldhana"));
       Attribute resourceAttr = new Attribute(resourceUri, new URI(StringAttribute.identifier), null, null,
             resourceAttributeValues);
-      Set resourceSet = new HashSet();
-      resourceSet.add(resourceAttr);
+      List resourceList = new ArrayList();
+      resourceList.add(resourceAttr);
 
       //Create the action set
       URI actionUri = new URI("urn:oasis:names:tc:xacml:1.0:action:action-id");
@@ -79,13 +82,13 @@ public class XACMLRequestCreationUnitTestCase extends TestCase
       actionAttributeValues.add(new StringAttribute("read"));
       Attribute actionAttr = new Attribute(actionUri, new URI(StringAttribute.identifier), null, null,
             actionAttributeValues);
-      Set actionSet = new HashSet();
-      actionSet.add(actionAttr);
+      List actionList = new ArrayList();
+      actionList.add(actionAttr);
 
       //Create the environment set
-      Set environSet = new HashSet();
+      List environList = new ArrayList();
 
-      RequestCtx request = new RequestCtx(subjectSet, resourceSet, actionSet, environSet);
+      RequestCtx request = new RequestCtx(subjectList, resourceList, actionList, environList);
       assertNotNull("XACML Request != null", request);
 
       //Log the request for viewing
@@ -93,19 +96,19 @@ public class XACMLRequestCreationUnitTestCase extends TestCase
          XACMLUtil.logRequest(request);
 
       //Test the request contents
-      Set subjects = request.getSubjects();
+      List subjects = request.getSubjectsAsList();
       assertTrue("We have one subject?", subjects.size() == 1);
       Subject subj = (Subject) (subjects.iterator().next());
       assertNotNull("Subject != null", subj);
       assertEquals("Attributes in subject match", subjectAttr, (Attribute) (subj.getAttributes().iterator().next()));
 
       //Test the resource attributes
-      Set resources = request.getResource();
+      List resources = request.getResourceAsList();
       assertTrue("# of resources = 1", resources.size() == 1);
       assertEquals("Attributes in resources match", resourceAttr, (Attribute) (resources.iterator().next()));
 
       //Test the action attributes
-      Set actions = request.getAction();
+      List actions = request.getActionAsList();
       assertTrue("# of actions = 1", actions.size() == 1);
       assertEquals("Attributes in actions match", actionAttr, (Attribute) (actions.iterator().next()));
    }
