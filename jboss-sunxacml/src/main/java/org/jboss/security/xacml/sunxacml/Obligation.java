@@ -40,15 +40,12 @@ package org.jboss.security.xacml.sunxacml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.attr.AttributeFactory;
 import org.jboss.security.xacml.sunxacml.attr.AttributeValue;
@@ -233,7 +230,7 @@ public class Obligation
             str.append("<AttributeAssignment AttributeId=\"");
             str.append(attr.getId().toString() + "\" DataType=\"");
             str.append(attr.getType().toString() + "\">");
-            Set<AttributeValue> attrValues = attr.getValues();
+            List<AttributeValue> attrValues = attr.getValues();
             if(attrValues != null)
             {
                for(AttributeValue val: attrValues)

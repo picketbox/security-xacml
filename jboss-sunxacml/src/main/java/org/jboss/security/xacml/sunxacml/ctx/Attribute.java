@@ -42,7 +42,9 @@ package org.jboss.security.xacml.sunxacml.ctx;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
@@ -78,7 +80,7 @@ public class Attribute
    //private AttributeValue value;
    
    //SECURITY-157: support multiple values
-   private Set<AttributeValue> attributeValues = null;
+   private List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
 
    /**
     * Creates a new <code>Attribute</code> of the type specified in the
@@ -97,7 +99,7 @@ public class Attribute
       this.issuer = issuer;
       this.issueInstant = issueInstant;
       if(this.attributeValues == null)
-         this.attributeValues = new HashSet<AttributeValue>();
+         this.attributeValues = new ArrayList<AttributeValue>();
       this.attributeValues.add(value); 
       if(value != null)
         this.type = value.getType();
@@ -110,7 +112,17 @@ public class Attribute
       this.type = type;
       this.issuer = issuer;
       this.issueInstant = issueInstant;
-      this.attributeValues = values; 
+      this.attributeValues.addAll( values ); 
+   }
+   
+   public Attribute(URI id, URI type, String issuer, DateTimeAttribute issueInstant,
+         List<AttributeValue> values) 
+   {
+      this.id = id;
+      this.type = type;
+      this.issuer = issuer;
+      this.issueInstant = issueInstant;
+      this.attributeValues.addAll( values ); 
    }
 
    /**
@@ -270,7 +282,7 @@ public class Attribute
     * Return all the values
     * @return
     */
-   public Set<AttributeValue> getValues()
+   public List<AttributeValue> getValues()
    {
       return this.attributeValues;
    }
@@ -344,5 +356,66 @@ public class Attribute
       encoded += "</Attribute>";
       
       return encoded;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((attributeValues == null) ? 0 : attributeValues.hashCode());
+      result = prime * result + ((id == null) ? 0 : id.hashCode());
+      result = prime * result + ((issueInstant == null) ? 0 : issueInstant.hashCode());
+      result = prime * result + ((issuer == null) ? 0 : issuer.hashCode());
+      result = prime * result + ((type == null) ? 0 : type.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Attribute other = (Attribute) obj;
+      if (attributeValues == null)
+      {
+         if (other.attributeValues != null)
+            return false;
+      }
+      else if (!attributeValues.equals(other.attributeValues))
+         return false;
+      if (id == null)
+      {
+         if (other.id != null)
+            return false;
+      }
+      else if (!id.equals(other.id))
+         return false;
+      if (issueInstant == null)
+      {
+         if (other.issueInstant != null)
+            return false;
+      }
+      else if (!issueInstant.equals(other.issueInstant))
+         return false;
+      if (issuer == null)
+      {
+         if (other.issuer != null)
+            return false;
+      }
+      else if (!issuer.equals(other.issuer))
+         return false;
+      if (type == null)
+      {
+         if (other.type != null)
+            return false;
+      }
+      else if (!type.equals(other.type))
+         return false;
+      return true;
    }
 }

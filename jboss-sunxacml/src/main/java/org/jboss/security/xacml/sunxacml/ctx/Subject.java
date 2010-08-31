@@ -39,8 +39,10 @@ package org.jboss.security.xacml.sunxacml.ctx;
 
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
@@ -53,6 +55,7 @@ import org.jboss.security.xacml.sunxacml.attr.AttributeDesignator;
  * @since 1.1
  * @author seth proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class Subject
 {
 
@@ -60,7 +63,7 @@ public class Subject
     private URI category;
 
     // the attributes associated with the subject
-    private Set attributes;
+    private List attributes;
 
     /**
      * <code>URI</code> form of the default subject category
@@ -73,11 +76,24 @@ public class Subject
      *
      * @param attributes a non-null <code>Set</code> of <code>Attribute</code>
      *                   objects
-     */
+     * @deprecated                  
+     */ 
     public Subject(Set attributes) {
         this(null, attributes);
     }
+    
+    /**
+     * Creates a new collection of subject attributes using the default
+     * subject cateorgy.
+     *
+     * @param attributes a non-null <code>Set</code> of <code>Attribute</code>
+     *                   objects
+     */ 
+    public Subject(List attributes) {
+        this(null, attributes);
+    }
 
+    
     /**
      * Creates a new collection of subject attributes using the given
      * subject category.
@@ -85,6 +101,7 @@ public class Subject
      * @param category the subject category or null for the default category
      * @param attributes a non-null <code>Set</code> of <code>Attribute</code>
      *                   objects
+     * @deprecated
      */
     public Subject(URI category, Set attributes) {
         if (category == null)
@@ -92,8 +109,26 @@ public class Subject
         else
             this.category = category;
 
-        this.attributes = Collections.unmodifiableSet(new HashSet(attributes));
+        this.attributes = Collections.unmodifiableList( new ArrayList( attributes ));
     }
+    
+    /**
+     * Creates a new collection of subject attributes using the given
+     * subject category.
+     *
+     * @param category the subject category or null for the default category
+     * @param attributes a non-null <code>Set</code> of <code>Attribute</code>
+     *                   objects
+     */ 
+    public Subject(URI category, List attributes) {
+        if (category == null)
+            this.category = DEFAULT_CATEGORY;
+        else
+            this.category = category;
+
+        this.attributes = Collections.unmodifiableList( attributes );
+    }
+    
 
     /**
      * Returns the category of this subject's attributes.
@@ -108,9 +143,55 @@ public class Subject
      * Returns the <code>Attribute</code>s associated with this subject.
      *
      * @return the immutable <code>Set</code> of <code>Attribute</code>s
-     */
+     * @deprecated 
+     */ 
     public Set getAttributes() {
+        return Collections.unmodifiableSet( new HashSet( attributes ) );
+    }
+    
+    /**
+     * Returns the <code>Attribute</code>s associated with this subject.
+     *
+     * @return the immutable <code>Set</code> of <code>Attribute</code>s
+     */
+    public List getAttributesAsList() {
         return attributes;
     }
 
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+      result = prime * result + ((category == null) ? 0 : category.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Subject other = (Subject) obj;
+      if (attributes == null)
+      {
+         if (other.attributes != null)
+            return false;
+      }
+      else if (!attributes.equals(other.attributes))
+         return false;
+      if (category == null)
+      {
+         if (other.category != null)
+            return false;
+      }
+      else if (!category.equals(other.category))
+         return false;
+      return true;
+   } 
 }

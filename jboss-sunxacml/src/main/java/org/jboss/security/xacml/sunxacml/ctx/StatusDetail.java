@@ -194,5 +194,34 @@ public class StatusDetail
             throw new IllegalStateException("no encoded form available");
         
         return detailText;
-    } 
+    }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1; 
+      result = prime * result + ((detailText == null) ? 0 : detailText.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      StatusDetail other = (StatusDetail) obj; 
+      if (detailText == null)
+      {
+         if (other.detailText != null)
+            return false;
+      }
+      else if (!detailText.equals(other.detailText))
+         return false;
+      return true;
+   }   
 }

@@ -40,7 +40,6 @@ package org.jboss.security.xacml.sunxacml.attr;
 import java.net.URI;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.TimeZone;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
 import org.jboss.security.xacml.sunxacml.ProcessingException;
@@ -56,7 +55,7 @@ import org.w3c.dom.Node;
  * @since 1.0
  * @author Steve Hanna
  * @author Seth Proctor
- */
+ */ 
 public class TimeAttribute extends AttributeValue
 {
     /**
@@ -267,8 +266,7 @@ public class TimeAttribute extends AttributeValue
 
         Date dateValue = dateTime.getValue();
         int defaultedTimeZone = dateTime.getDefaultedTimeZone();
-        if (dateTime.getTimeZone() == TZ_UNSPECIFIED) {
-            TimeZone localTZ = TimeZone.getDefault();
+        if (dateTime.getTimeZone() == TZ_UNSPECIFIED) { 
             int newDefTimeZone =
                 DateTimeAttribute.getDefaultTZOffset(new Date());
             dateValue = new Date(dateValue.getTime() -

@@ -44,7 +44,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +84,7 @@ import org.w3c.dom.Node;
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"}) 
 public class BasicEvaluationCtx implements EvaluationCtx
 {
     // the finder to use if a value isn't in the request
@@ -198,19 +198,19 @@ public class BasicEvaluationCtx implements EvaluationCtx
 
         // get the subjects, make sure they're correct, and setup tables
         subjectMap = new HashMap();
-        setupSubjects(request.getSubjects());
+        setupSubjects(request.getSubjectsAsList());
 
         // next look at the Resource data, which needs to be handled specially
         resourceMap = new HashMap();
-        setupResource(request.getResource());
+        setupResource(request.getResourceAsList());
         
         // setup the action data, which is generic
         actionMap = new HashMap();
-        mapAttributes(request.getAction(), actionMap);
+        mapAttributes(request.getActionAsList(), actionMap);
 
         // finally, set up the environment data, which is also generic
         environmentMap = new HashMap();
-        mapAttributes(request.getEnvironmentAttributes(), environmentMap);
+        mapAttributes(request.getEnvironmentAttributesAsList(), environmentMap);
     }
 
     /**
@@ -220,7 +220,7 @@ public class BasicEvaluationCtx implements EvaluationCtx
      * Maps that in turn are indexed by id and keep the unique ctx.Attribute
      * objects.
      */
-    private void setupSubjects(Set subjects) throws ParsingException {
+    private void setupSubjects(List subjects) throws ParsingException {
         // make sure that there is at least one Subject
         if (subjects.size() == 0)
             throw new ParsingException("Request must a contain subject");
@@ -242,7 +242,7 @@ public class BasicEvaluationCtx implements EvaluationCtx
             }
 
             // iterate over the set of attributes
-            Iterator attrIterator = subject.getAttributes().iterator();
+            Iterator attrIterator = subject.getAttributesAsList().iterator();
 
             while (attrIterator.hasNext()) {
                 Attribute attr = (Attribute)(attrIterator.next());
@@ -250,11 +250,11 @@ public class BasicEvaluationCtx implements EvaluationCtx
 
                 if (categoryMap.containsKey(id)) {
                     // add to the existing set of Attributes w/this id
-                    Set existingIds = (Set)(categoryMap.get(id));
+                    List existingIds = (List)(categoryMap.get(id));
                     existingIds.add(attr);
                 } else {
                     // this is the first Attr w/this id
-                    HashSet newIds = new HashSet();
+                    List newIds = new ArrayList();
                     newIds.add(attr);
                     categoryMap.put(id, newIds);
                 }
@@ -269,7 +269,7 @@ public class BasicEvaluationCtx implements EvaluationCtx
      * there, and for the optional scope attribute, to see what the scope
      * of the attribute is
      */
-    private void setupResource(Set resource) throws ParsingException {
+    private void setupResource(List resource) throws ParsingException {
         mapAttributes(resource, resourceMap);
 
         // make sure there resource-id attribute was included
@@ -337,17 +337,17 @@ public class BasicEvaluationCtx implements EvaluationCtx
      * by the String form of the attribute ids, and that contains Sets at
      * each entry with all attributes that have that id
      */
-    private void mapAttributes(Set input, Map output) {
+    private void mapAttributes(List input, Map output) {
         Iterator it = input.iterator();
         while (it.hasNext()) {
             Attribute attr = (Attribute)(it.next());
             String id = attr.getId().toString();
 
             if (output.containsKey(id)) {
-                Set set = (Set)(output.get(id));
+                List set = (List)(output.get(id));
                 set.add(attr);
             } else {
-                Set set = new HashSet();
+                List set = new ArrayList();
                 set.add(attr);
                 output.put(id, set);
             }
@@ -611,7 +611,7 @@ public class BasicEvaluationCtx implements EvaluationCtx
                                                   Map map, URI category,
                                                   int designatorType) {
         // try to find the id
-        Set attrSet = (Set)(map.get(id.toString()));
+        List attrSet = (List)(map.get(id.toString()));
         if (attrSet == null) {
             // the request didn't have an attribute with that id, so we should
             // try asking the attribute finder

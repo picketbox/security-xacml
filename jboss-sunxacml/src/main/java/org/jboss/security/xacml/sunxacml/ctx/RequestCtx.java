@@ -43,9 +43,11 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.jboss.security.xacml.sunxacml.Indenter;
@@ -63,20 +65,21 @@ import org.w3c.dom.NodeList;
  * @author Seth Proctor
  * @author Marco Barreno
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class RequestCtx
 {
 
     // There must be at least one subject
-    private Set subjects = null;
+    private List subjects = null;
 
     // There must be exactly one resource
-    private Set resource = null;
+    private List resource = null;
 
     // There must be exactly one action
-    private Set action = null;
+    private List action = null;
 
     // There may be any number of environment attributes
-    private Set environment = null;
+    private List environment = null;
 
     // Hold onto the root of the document for XPath searches
     private Node documentRoot = null;
@@ -92,8 +95,21 @@ public class RequestCtx
      * @param action a <code>Set</code> of <code>Attribute</code>s
      * @param environment a <code>Set</code> of environment attributes
      */
-    public RequestCtx(Set subjects, Set resource, Set action,
+    /*public RequestCtx(Set subjects, Set resource, Set action,
                       Set environment) {
+        this(subjects, resource, action, environment, null, null);
+    }*/
+    
+    /**
+     * Constructor that creates a <code>RequestCtx</code> from components.
+     *
+     * @param subjects a <code>Set</code> of <code>Subject</code>s
+     * @param resource a <code>Set</code> of <code>Attribute</code>s
+     * @param action a <code>Set</code> of <code>Attribute</code>s
+     * @param environment a <code>Set</code> of environment attributes
+     */
+    public RequestCtx(List subjects, List resource, List action,
+                      List environment) {
         this(subjects, resource, action, environment, null, null);
     }
 
@@ -108,6 +124,20 @@ public class RequestCtx
      */
     public RequestCtx(Set subjects, Set resource, Set action, 
                       Set environment, Node documentRoot) {
+        this(subjects, resource, action, environment, documentRoot, null);
+    }
+    
+    /**
+     * Constructor that creates a <code>RequestCtx</code> from components.
+     *
+     * @param subjects a <code>Set</code> of <code>Subject</code>s
+     * @param resource a <code>Set</code> of <code>Attribute</code>s
+     * @param action a <code>Set</code> of <code>Attribute</code>s
+     * @param environment a <code>Set</code> of environment attributes
+     * @param documentRoot the root node of the DOM tree for this request
+     */
+    public RequestCtx(List subjects, List resource, List action, 
+                      List environment, Node documentRoot) {
         this(subjects, resource, action, environment, documentRoot, null);
     }
 
@@ -144,8 +174,11 @@ public class RequestCtx
     public RequestCtx(Set subjects, Set resource, Set action, 
                       Set environment, Node documentRoot,
                       String resourceContent) throws IllegalArgumentException {
+       
+       this( new ArrayList( subjects ), new ArrayList( resource ),
+             new ArrayList(action), new ArrayList( environment ), documentRoot, resourceContent );
       
-        // make sure subjects is well formed
+        /*// make sure subjects is well formed
         Iterator sIter = subjects.iterator();
         while (sIter.hasNext()){
             if (!(sIter.next() instanceof Subject))
@@ -183,6 +216,65 @@ public class RequestCtx
             Collections.unmodifiableSet(new HashSet(environment));
 
         this.documentRoot = documentRoot;
+        this.resourceContent = resourceContent;*/
+    }
+    
+    /**
+     * Constructor that creates a <code>RequestCtx</code> from components.
+     *
+     * @param subjects a <code>Set</code> of <code>Subject</code>s
+     * @param resource a <code>Set</code> of <code>Attribute</code>s
+     * @param action a <code>Set</code> of <code>Attribute</code>s
+     * @param environment a <code>Set</code> of environment attributes
+     * @param documentRoot the root node of the DOM tree for this request
+     * @param resourceContent a text-encoded version of the content, suitable
+     *                        for including in the RequestType, including the
+     *                        root <code>RequestContent</code> node
+     *
+     * @throws IllegalArgumentException if the inputs are not well formed
+     */
+    public RequestCtx( List subjects, List resource, List action, 
+                      List environment, Node documentRoot,
+                      String resourceContent) throws IllegalArgumentException {
+      
+        // make sure subjects is well formed
+        Iterator sIter = subjects.iterator();
+        while (sIter.hasNext()){
+            if (!(sIter.next() instanceof Subject))
+                throw new IllegalArgumentException("Subjects input is not " +
+                                                   "well formed");
+        }
+        this.subjects = Collections.unmodifiableList(subjects);
+
+        // make sure resource is well formed
+        Iterator rIter = resource.iterator();
+        while (rIter.hasNext()){
+            if (!(rIter.next() instanceof Attribute))
+                throw new IllegalArgumentException("Resource input is not " +
+                                                   "well formed");
+        }
+        this.resource = Collections.unmodifiableList( resource );
+
+        // make sure action is well formed
+        Iterator aIter = action.iterator();
+        while (aIter.hasNext()){
+            if (!(aIter.next() instanceof Attribute))
+                throw new IllegalArgumentException("Action input is not " +
+                                                   "well formed");
+        }
+        this.action = Collections.unmodifiableList( action );
+        
+        // make sure environment is well formed
+        Iterator eIter = environment.iterator();
+        while (eIter.hasNext()){
+            if (!(eIter.next() instanceof Attribute))
+                throw new IllegalArgumentException("Environment input is not" +
+                                                   " well formed");
+        }
+        this.environment =
+            Collections.unmodifiableList( environment );
+
+        this.documentRoot = documentRoot;
         this.resourceContent = resourceContent;
     }
 
@@ -199,11 +291,10 @@ public class RequestCtx
      * @throws ParsingException if the DOM node is invalid
      */
     public static RequestCtx getInstance(Node root) throws ParsingException {
-        Set newSubjects = new HashSet();
-        Set newResource = null;
-        Set newAction = null;
-        Set newEnvironment = null;
-        String resourceContent;
+        List newSubjects = new ArrayList();
+        List newResource = null;
+        List newAction = null;
+        List newEnvironment = null; 
 
         // First check to be sure the node passed is indeed a Request node.
         String tagName = SunxacmlUtil.getNodeName(root); 
@@ -235,7 +326,7 @@ public class RequestCtx
                 }
                 
                 // now we get the attributes
-                Set attributes = parseAttributes(node);
+                List attributes = parseAttributes(node);
 
                 // finally, add the list to the set of subject attributes
                 newSubjects.add(new Subject(category, attributes));
@@ -257,7 +348,7 @@ public class RequestCtx
         // if we didn't have an environment section, the only optional section
         // of the four, then create a new empty set for it
         if (newEnvironment == null)
-            newEnvironment = new HashSet();
+            newEnvironment = new ArrayList();
 
         // Now create and return the RequestCtx from the information
         // gathered
@@ -269,8 +360,8 @@ public class RequestCtx
      * Helper method that parses a set of Attribute types. The Subject,
      * Action and Environment sections all look like this.
      */
-    private static Set parseAttributes(Node root) throws ParsingException {
-        Set set = new HashSet();
+    private static List parseAttributes(Node root) throws ParsingException {
+        List set = new ArrayList();
 
         // the Environment section is just a list of Attributes
         NodeList nodes = root.getChildNodes();
@@ -309,8 +400,48 @@ public class RequestCtx
      * Returns a <code>Set</code> containing <code>Subject</code> objects.
      *
      * @return the request's subject attributes
+     * @deprecated
      */
     public Set getSubjects() {
+        return Collections.unmodifiableSet( new HashSet( subjects )) ;
+    }
+
+    /**
+     * Returns a <code>Set</code> containing <code>Attribute</code> objects.
+     *
+     * @return the request's resource attributes
+     * @deprecated
+     */
+    public Set getResource() {
+        return Collections.unmodifiableSet( new HashSet( resource ));
+    }
+
+    /**
+     * Returns a <code>Set</code> containing <code>Attribute</code> objects.
+     *
+     * @return the request's action attributes
+     * @deprecated
+     */
+    public Set getAction() {
+        return Collections.unmodifiableSet( new HashSet( action ));
+    }
+
+    /**
+     * Returns a <code>Set</code> containing <code>Attribute</code> objects.
+     *
+     * @return the request's environment attributes
+     * @deprecated
+     */
+    public Set getEnvironmentAttributes() {
+        return Collections.unmodifiableSet( new HashSet( environment ));
+    }
+    
+    /**
+     * Returns a <code>Set</code> containing <code>Subject</code> objects.
+     *
+     * @return the request's subject attributes
+     */
+    public List getSubjectsAsList() {
         return subjects;
     }
 
@@ -319,7 +450,7 @@ public class RequestCtx
      *
      * @return the request's resource attributes
      */
-    public Set getResource() {
+    public List getResourceAsList() {
         return resource;
     }
 
@@ -328,7 +459,7 @@ public class RequestCtx
      *
      * @return the request's action attributes
      */
-    public Set getAction() {
+    public List getActionAsList() {
         return action;
     }
 
@@ -337,7 +468,7 @@ public class RequestCtx
      *
      * @return the request's environment attributes
      */
-    public Set getEnvironmentAttributes() {
+    public List getEnvironmentAttributesAsList() {
         return environment;
     }
 
@@ -400,7 +531,7 @@ public class RequestCtx
             out.print(indent + "<Subject SubjectCategory=\"" +
                       subject.getCategory().toString() + "\"");
 
-            Set subjectAttrs = subject.getAttributes();
+            List subjectAttrs = subject.getAttributesAsList();
             
             if (subjectAttrs.size() == 0) {
                 // there's nothing in this Subject, so just close the tag
@@ -476,7 +607,7 @@ public class RequestCtx
             out.print(indent + "<Subject SubjectCategory=\"" +
                       subject.getCategory().toString() + "\"");
 
-            Set subjectAttrs = subject.getAttributes();
+            List subjectAttrs = subject.getAttributesAsList();
             
             if (subjectAttrs.size() == 0) {
                 // there's nothing in this Subject, so just close the tag
@@ -526,12 +657,12 @@ public class RequestCtx
         indenter.out();
         
         out.println(topIndent + "</Request>");
-    }
-
+    } 
+    
     /**
      * Private helper function to encode the attribute sets
      */
-    private void encodeAttributes(Set attributes, PrintStream out,
+    private void encodeAttributes(List attributes, PrintStream out,
                                   Indenter indenter) {
         Iterator it = attributes.iterator();
         while (it.hasNext()) {
@@ -539,4 +670,65 @@ public class RequestCtx
             attr.encode(out, indenter);
         }
     } 
+    
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((action == null) ? 0 : action.hashCode()); 
+      result = prime * result + ((environment == null) ? 0 : environment.hashCode());
+      result = prime * result + ((resource == null) ? 0 : resource.hashCode()); 
+      result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      RequestCtx other = (RequestCtx) obj;
+      if (action == null)
+      {
+         if (other.action != null)
+            return false;
+      }
+      else if (!action.equals(other.action))
+         return false; 
+      if (environment == null)
+      {
+         if (other.environment != null)
+            return false;
+      }
+      else if (!environment.equals(other.environment))
+         return false;
+      if (resource == null)
+      {
+         if (other.resource != null)
+            return false;
+      }
+      else if (!resource.equals(other.resource))
+         return false;
+      if (resourceContent == null)
+      {
+         if (other.resourceContent != null)
+            return false;
+      }
+      else if (!resourceContent.equals(other.resourceContent))
+         return false;
+      if (subjects == null)
+      {
+         if (other.subjects != null)
+            return false;
+      }
+      else if (!subjects.equals(other.subjects))
+         return false;
+      return true;
+   } 
 }
