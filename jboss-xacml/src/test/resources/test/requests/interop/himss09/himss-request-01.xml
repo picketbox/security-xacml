@@ -156,5 +156,9 @@
 			<xacml-context:AttributeValue>Healthcare Domain B
 			</xacml-context:AttributeValue>
 		</xacml-context:Attribute>
+		<xacml-context:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time"
+               DataType="http://www.w3.org/2001/XMLSchema#time">
+             <AttributeValue>12:59:00-08:00</AttributeValue>
+        </xacml-context:Attribute>
 	</xacml-context:Environment>
 </xacml-context:Request>  
