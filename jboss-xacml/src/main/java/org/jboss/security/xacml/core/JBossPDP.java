@@ -60,6 +60,9 @@ import org.jboss.security.xacml.jaxb.PolicySetType;
 import org.jboss.security.xacml.jaxb.PolicyType;
 import org.jboss.security.xacml.locators.AttributeLocator;
 import org.jboss.security.xacml.locators.ResourceLocator;
+import org.jboss.security.xacml.locators.cache.CacheLocator;
+import org.jboss.security.xacml.locators.cache.DecisionCacheLocator;
+import org.jboss.security.xacml.locators.cache.DecisionCacheLocator.DecisionCacheLocatorRequest;
 import org.jboss.security.xacml.sunxacml.PDPConfig;
 import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
 import org.jboss.security.xacml.sunxacml.ctx.ResponseCtx;
@@ -96,6 +99,8 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    
    private Set<PolicyLocator> policyLocators = new HashSet<PolicyLocator>();
    private Set<ResourceLocator> resourceLocators = new HashSet<ResourceLocator>();
+   
+   private List<CacheLocator> cacheLocators = new ArrayList<CacheLocator>();
    
    private Set<XACMLPolicy> policies = new HashSet<XACMLPolicy>();
 
@@ -281,7 +286,37 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       lock.lock();
       try
       {
-         resp = policyDecisionPoint.evaluate(req);  
+         int cacheLocatorsLength = cacheLocators.size();
+         
+         if( cacheLocatorsLength > 0 )
+         {
+            for( int i = 0 ; i < cacheLocatorsLength; i++ )
+            {
+               CacheLocator cacheLocator = cacheLocators.get(i);
+               resp = cacheLocator.get( req );
+               if( resp != null )
+                  break;
+            }
+         }
+         
+         //We got nothing from the cache?
+         if( resp == null ) 
+         {
+            resp = policyDecisionPoint.evaluate(req); 
+            
+            //add it to cache locators
+            if( cacheLocatorsLength > 0 )
+            {
+               for( int i = 0 ; i < cacheLocatorsLength; i++ )
+               {
+                  CacheLocator cacheLocator = cacheLocators.get(i);
+                  if( cacheLocator instanceof DecisionCacheLocator  )
+                  {
+                     ( ( DecisionCacheLocator ) cacheLocator ).add( req, resp );
+                  } 
+               }
+            }  
+         }  
       }
       finally
       {
@@ -335,18 +370,20 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
                pl.setPolicies(policies);
             this.policyLocators.add(pl); 
          }
-         else
-            if(locator instanceof AttributeLocator)
-            {
-               AttributeLocator attribLocator = (AttributeLocator) locator;
-               this.attributeLocators.add(attribLocator);
-            }
-            else
-               if(locator instanceof ResourceLocator)
-               {
-                  ResourceLocator resourceLocator = (ResourceLocator) locator;
-                  this.resourceLocators.add(resourceLocator);
-               }
+         else if(locator instanceof AttributeLocator)
+         {
+            AttributeLocator attribLocator = (AttributeLocator) locator;
+            this.attributeLocators.add(attribLocator);
+         }
+         else if(locator instanceof ResourceLocator)
+         {
+            ResourceLocator resourceLocator = (ResourceLocator) locator;
+            this.resourceLocators.add(resourceLocator);
+         }
+         else if( locator instanceof CacheLocator )
+         {
+            this.cacheLocators.add( (CacheLocator) locator );
+         }
       } 
       
       //Since we do not have any policies in the config file, we need to specify 
@@ -382,6 +419,7 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       //Go through the Locators
       for (PolicyLocator locator : policyLocators)
       {
+         @SuppressWarnings("rawtypes")
          List finderModulesList = (List) locator.get(XACMLConstants.POLICY_FINDER_MODULE);
          if (finderModulesList == null)
             throw new IllegalStateException("Locator " + locator.getClass().getName() + " has no policy finder modules");

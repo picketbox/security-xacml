@@ -39,7 +39,6 @@ package org.jboss.security.xacml.sunxacml.attr;
 import java.net.URI;
 
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 /**
@@ -60,7 +59,7 @@ import org.w3c.dom.NodeList;
  * @author Marco Barreno
  * @author Seth Proctor
  * @author Steve Hanna
- */
+ */ 
 public class StringAttribute extends AttributeValue
 {
     /**

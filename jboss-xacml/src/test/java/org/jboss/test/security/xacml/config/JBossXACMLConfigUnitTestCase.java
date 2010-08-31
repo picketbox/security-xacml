@@ -41,6 +41,7 @@ import org.jboss.security.xacml.jaxb.LocatorsType;
 import org.jboss.security.xacml.jaxb.PDP;
 import org.jboss.security.xacml.jaxb.PoliciesType;
 import org.jboss.security.xacml.jaxb.PolicySetType;
+import org.jboss.test.security.xacml.core.AbstractJBossXACMLInteropTestBase;
 import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
 
 
@@ -50,7 +51,7 @@ import org.jboss.test.security.xacml.factories.util.XACMLTestUtil;
  *  @since  Jul 5, 2007 
  *  @version $Revision$
  */
-public class JBossXACMLConfigUnitTestCase extends TestCase
+public class JBossXACMLConfigUnitTestCase extends AbstractJBossXACMLInteropTestBase
 {
    public void testBasicPolicySetConfig() throws Exception
    {
@@ -109,7 +110,7 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       URL configFile = tcl.getResource("test/config/interopPolicySetConfig.xml");
       assertNotNull("configFile != null", configFile);
       PolicyDecisionPoint pdp = new JBossPDP(configFile);
-      XACMLTestUtil.validateInteropCases(pdp);
+      validateInteropCases(pdp);
    }
    
    /**
@@ -128,7 +129,7 @@ public class JBossXACMLConfigUnitTestCase extends TestCase
       
       assertNotNull("configFile != null", configFile);
       PolicyDecisionPoint pdp = new JBossPDP(j);
-      XACMLTestUtil.validateInteropCases(pdp);
+      validateInteropCases(pdp);
    }
    
    /**

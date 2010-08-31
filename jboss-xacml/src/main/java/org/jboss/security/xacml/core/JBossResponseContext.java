@@ -140,10 +140,10 @@ public class JBossResponseContext implements ResponseContext
          Status status = result.getStatus();
          StatusType statusType = objectFactory.createStatusType();
          StatusCodeType statusCodeType = objectFactory.createStatusCodeType();
-         List statusList = status.getCode();
+         List<String> statusList = status.getCode();
          if(statusList != null && statusList.size() > 0)
          {
-            statusCodeType.setValue((String) statusList.get(0));
+            statusCodeType.setValue( statusList.get(0) );
          }
          statusType.setStatusMessage(status.getMessage()); 
          statusType.setStatusCode(statusCodeType);

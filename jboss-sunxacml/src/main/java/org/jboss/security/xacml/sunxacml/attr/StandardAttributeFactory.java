@@ -82,6 +82,7 @@ import org.jboss.security.xacml.sunxacml.attr.proxy.YearMonthDurationAttributePr
  * @since 1.2
  * @author Seth Proctor
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class StandardAttributeFactory extends BaseAttributeFactory
 {
 
