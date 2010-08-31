@@ -1,0 +1,14 @@
+<ns:jbosspdp xmlns:ns="urn:jboss:xacml:2.0">
+  <ns:Policies>
+    <ns:Policy>
+      <ns:Location>locators/attrib/attribLocator_policy.xml</ns:Location> 
+    </ns:Policy>
+  </ns:Policies>
+  <ns:Locators>
+    <ns:Locator Name="org.jboss.security.xacml.locators.JBossPolicyLocator"/>
+    <ns:Locator Name="org.jboss.security.xacml.locators.attrib.FileSystemAttributeLocator">   
+      <ns:Option Name="fileName">locators/attrib/filesystemAttrib.properties</ns:Option>   
+      <ns:Option Name="attributeSupportedId">urn:xacml:2.0:interop:example:resource:account-status,urn:oasis:names:tc:xacml:1.0:subject:subject-id</ns:Option>
+    </ns:Locator> 
+  </ns:Locators>
+</ns:jbosspdp>
