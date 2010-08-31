@@ -23,11 +23,12 @@ package org.jboss.test.security.sunxacml.request;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Set;
-
-import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
+import java.util.List;
 
 import junit.framework.TestCase;
+
+import org.jboss.security.xacml.sunxacml.ctx.RequestCtx;
+import org.jboss.security.xacml.sunxacml.ctx.Subject;
 
 /**
  * Unit test to read xacml requests
@@ -35,16 +36,28 @@ import junit.framework.TestCase;
  * @since Mar 30, 2009
  */
 public class RequestReadUnitTestCase extends TestCase
-{
-
-   @SuppressWarnings("unchecked")
+{ 
+   @SuppressWarnings("rawtypes")
    public void testMultipleResourceIds() throws Exception
    {
       String fileName = "src/test/resources/requests/multiple-resourceid.xml";
       
       RequestCtx req = RequestCtx.getInstance(new FileInputStream(new File(fileName)));
       assertNotNull("Request is not null", req);
-      Set resources = req.getResource();
+      List resources = req.getResourceAsList();
       assertTrue("Multiple resources", resources.size() > 1);
+   }
+   
+   @SuppressWarnings("rawtypes")
+   public void testDuplicateAttributes() throws Exception
+   {
+      String fileName = "src/test/resources/requests/DuplicateAttributes.xml";
+      
+      RequestCtx req = RequestCtx.getInstance(new FileInputStream(new File(fileName)));
+      assertNotNull("Request is not null", req);
+      List subjects = req.getSubjectsAsList();
+      Subject subject = (Subject) subjects.get(0);
+      List attribs = subject.getAttributesAsList(); 
+      assertEquals( 3, attribs.size() );
    }
 }
