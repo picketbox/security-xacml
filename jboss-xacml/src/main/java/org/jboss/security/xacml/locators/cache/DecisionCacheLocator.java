@@ -61,7 +61,15 @@ public class DecisionCacheLocator extends CacheLocator
    public static final String IGNORE_ENVIRONMENT_ID = "ignoreEnvironmentID";
    
    public static final String ENHANCE_SPEED = "enhanceSpeed";
+   
+   public static final String INITIAL_CAPACITY = "initialCapacity";
+   public static final String LOAD_FACTOR = "loadFactor";
 
+   /**
+    * Add a {@code RequestCtx} and a {@code ResponseCtx} to the cache
+    * @param request
+    * @param response
+    */
    public void add( RequestCtx request, ResponseCtx response )
    {
       RequestCtx cacheRequest = preprocessRequest( request );
@@ -77,7 +85,12 @@ public class DecisionCacheLocator extends CacheLocator
          this.speedDecisionMap.put( cacheRequest, response );
       }
    }
-
+   
+   /**
+    * Get a {@code ResponseCtx} response that we have cached
+    * for a {@code RequestCtx} request.
+    * @return response object if cached else null
+    */
    public ResponseCtx get( RequestCtx request )
    {
       RequestCtx cacheRequest = preprocessRequest( request );
@@ -109,6 +122,10 @@ public class DecisionCacheLocator extends CacheLocator
       return response;
    } 
 
+   /**
+    * Specialized version of {@code RequestCtx} that is suited to be cached
+    * @author anil 
+    */
    public static class DecisionCacheLocatorRequest extends RequestCtx
    {  
       @SuppressWarnings("rawtypes")
@@ -185,6 +202,13 @@ public class DecisionCacheLocator extends CacheLocator
       
    }
    
+   /**
+    * Transform the XACML request into a request that we can place
+    * in the cache, while considering any of the (subject, resource, action, environment)
+    * attributes that need to be ignored
+    * @param request
+    * @return
+    */
    private RequestCtx  preprocessRequest( RequestCtx request )
    {
       List<String> subjectID = new ArrayList<String>();
@@ -206,6 +230,11 @@ public class DecisionCacheLocator extends CacheLocator
             subjectID, resourceID, actionID, envID ); 
    }
    
+   /**
+    * Get a list of token from comma separated string
+    * @param commaSeparatedListOfStrings
+    * @return
+    */
    private List<String> getTokenList( String commaSeparatedListOfStrings )
    {
       List<String> stringList = new ArrayList<String>();
@@ -222,6 +251,10 @@ public class DecisionCacheLocator extends CacheLocator
       return stringList;
    }
    
+   /**
+    * Determine whether we need correctness (WeakHashMap)  or Speed (LinkedHashMap)
+    * @return
+    */
    private boolean needCorrectness()
    {
       boolean correctness = false;
@@ -232,15 +265,61 @@ public class DecisionCacheLocator extends CacheLocator
       return correctness;
    }
    
+   /**
+    * Validate that the WeakHashMap is not null
+    */
    private void validateCorrectnessMap()
-   {
+   { 
       if( correctnessDecisionMap == null )
-         correctnessDecisionMap = new WeakHashMap<RequestCtx, ResponseCtx>();
+      { 
+         int initialCapacity  = getInitialCapacity(); 
+         float loadFactor = getLoadFactor();
+         correctnessDecisionMap = new WeakHashMap<RequestCtx, ResponseCtx>( initialCapacity , loadFactor ); 
+      }
    }
    
+   /**
+    * Validate that the LRU LinkedHashMap is not null
+    */
    private void validateSpeedMap()
    {
       if( speedDecisionMap == null )
-         speedDecisionMap = new LinkedHashMap<RequestCtx, ResponseCtx>( 100, 5, true ); 
+      {
+         int initialCapacity  = getInitialCapacity(); 
+         float loadFactor = getLoadFactor();
+         
+         speedDecisionMap = new LinkedHashMap<RequestCtx, ResponseCtx>( initialCapacity, loadFactor, true ); 
+      } 
+   }
+   
+   /**
+    * Get the configured Initial Capacity
+    * @return
+    */
+   private int getInitialCapacity()
+   {
+      int initialCapacity = 100;
+      
+      String initialCapacityStr = (String) optionMap.get( INITIAL_CAPACITY );
+      if( initialCapacityStr != null && initialCapacityStr != "" )
+      {
+         initialCapacity = Integer.parseInt( initialCapacityStr );
+      }
+      return initialCapacity;
+   }
+   
+   /**
+    * Get the configured load factor
+    * @return
+    */
+   private float getLoadFactor()
+   {
+      float loadFactor = 0.75F;
+      String loadFactorStr = (String) optionMap.get( LOAD_FACTOR );
+      if( loadFactorStr != null && loadFactorStr != "" )
+      {
+         loadFactor = Float.parseFloat( loadFactorStr );
+      }
+      return loadFactor; 
    }
 }

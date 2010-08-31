@@ -43,6 +43,7 @@ import org.junit.Test;
 
 
 /**
+ * Unit Test the {@code DecisionCacheLocator}
  * @author Anil.Saldhana@redhat.com
  * @since Aug 30, 2010
  */
@@ -144,8 +145,8 @@ public class DecisionCacheLocatorUnitTestCase
    @Test
    public void testCache() throws Exception
    { 
-      System.out.println( "We are going to run a short performance test that will take under 1 min " );
-      int len = 2;
+      System.out.println( "We are going to run a short performance test that will take under 1 min. " );
+      int len = 100;
 
       long start = System.currentTimeMillis(); 
       for( int i = 0 ; i < len; i++ )
@@ -154,7 +155,7 @@ public class DecisionCacheLocatorUnitTestCase
       }
       long elapsedTimeMillis = System.currentTimeMillis() - start; 
       System.out.println("Without Decision Caching, time spent for " + len  
-            + " iterations in = " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs");
+            + " iterations = " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs");
 
       
       
@@ -165,7 +166,7 @@ public class DecisionCacheLocatorUnitTestCase
       } 
       elapsedTimeMillis = System.currentTimeMillis() - start; 
       System.out.println("With Decision Caching, time spent for " + len  
-            + " iterations in = " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs"); 
+            + " iterations= " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs"); 
       
       start = System.currentTimeMillis(); 
       for( int i = 0 ; i < len; i++ )
@@ -174,7 +175,7 @@ public class DecisionCacheLocatorUnitTestCase
       } 
       elapsedTimeMillis = System.currentTimeMillis() - start; 
       System.out.println("With Decision Caching (Enhanced Speed), time spent for " + len  
-            + " iterations in = " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs");
+            + " iterations = " + elapsedTimeMillis + " ms or " + elapsedTimeMillis/1000F + " secs");
    }
 
    private void runTests( PolicyDecisionPoint pdp) throws Exception
