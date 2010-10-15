@@ -36,14 +36,12 @@
 
 package org.jboss.security.xacml.sunxacml.attr;
 
-
-import java.io.IOException;
-
 import java.net.URI;
 
 import java.util.Arrays;
 
 import org.jboss.security.xacml.sunxacml.ParsingException;
+import org.picketbox.commons.cipher.Base64;
 import org.w3c.dom.Node;
 
 
@@ -118,14 +116,7 @@ public class Base64BinaryAttribute extends AttributeValue
      */
     public static Base64BinaryAttribute getInstance(String value)
         throws ParsingException {
-        byte [] bytes = null;
-
-        try {
-            bytes = Base64.decode(value, false);
-        } catch (IOException e) {
-            throw new ParsingException("Couldn't parse purported " +
-                                       "Base64 string: " + value, e);
-        }
+        byte [] bytes = Base64.decode(value);
         
         return new Base64BinaryAttribute(bytes);
     }
@@ -182,7 +173,7 @@ public class Base64BinaryAttribute extends AttributeValue
      * @return the String representation
      */
     private String makeStringRep() {
-        return Base64.encode(value);
+        return Base64.encodeBytes(value);
     }
 
     /**

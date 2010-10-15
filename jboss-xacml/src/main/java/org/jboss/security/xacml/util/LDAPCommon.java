@@ -37,6 +37,7 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 
 import org.jboss.security.xacml.jaxb.Option;
+import org.picketbox.commons.cipher.PBEUtils;
 
 /**
  * Common Utility class for LDAP integration
@@ -321,7 +322,6 @@ public class LDAPCommon
          String cipherAlgorithm = "PBEwithMD5andDES";
          SecretKeyFactory factory = SecretKeyFactory.getInstance(cipherAlgorithm);
          SecretKey cipherKey = factory.generateSecret(keySpec);
-         //TODO move these utils to a separate project
          return PBEUtils.decode64(password, cipherAlgorithm, cipherKey, cipherSpec);
       }
       catch (Exception e)
