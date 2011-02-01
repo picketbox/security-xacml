@@ -3,7 +3,7 @@
     <groupId>org.jboss.security</groupId>
     <artifactId>jboss-xacml-project</artifactId>
     <version>2.0.6-SNAPSHOT</version>
-    <relativePath>../build/pom.xml</relativePath>
+    <relativePath>../parent/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jboss-xacml</artifactId>
