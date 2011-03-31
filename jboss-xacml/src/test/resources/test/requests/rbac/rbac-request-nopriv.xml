@@ -1,0 +1,31 @@
+<Request 
+      xmlns="urn:oasis:names:tc:xacml:2.0:context:schema:os"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="urn:oasis:names:tc:xacml:2.0:context:schema:os
+         access_control-xacml-2.0-context-schema-os.xsd">
+<Subject>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
+ DataType="http://www.w3.org/2001/XMLSchema#string">
+<AttributeValue>Anne</AttributeValue>
+</Attribute>
+
+<Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+ DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+<AttributeValue>manager</AttributeValue>
+</Attribute>
+</Subject> 
+
+<Resource>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+<AttributeValue>manager</AttributeValue>
+</Attribute>
+</Resource>
+
+<Action>
+<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+ DataType="http://www.w3.org/2001/XMLSchema#anyURI">
+ <AttributeValue>urn:nobody</AttributeValue>
+</Attribute>
+</Action>
+</Request>

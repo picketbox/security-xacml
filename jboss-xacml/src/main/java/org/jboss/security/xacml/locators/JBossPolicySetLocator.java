@@ -58,7 +58,11 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
       {
          if (xp.getType() == XACMLPolicy.POLICYSET)
          {
-            pfml.add(getPopulatedPolicySetFinderModule(xp));
+            PolicySetFinderModule psfm = getPopulatedPolicySetFinderModule(xp);
+            if( psfm != null )
+            {
+               pfml.add(psfm); 
+            }
          }
          else if (xp.getType() == XACMLPolicy.POLICY)
          {
@@ -70,7 +74,7 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
       this.map.put(XACMLConstants.POLICY_FINDER_MODULE, pfml);
    }
 
-   private PolicySetFinderModule getPopulatedPolicySetFinderModule(XACMLPolicy xpolicy)
+   protected PolicySetFinderModule getPopulatedPolicySetFinderModule(XACMLPolicy xpolicy)
    {
       PolicySetFinderModule psfm = new PolicySetFinderModule();
       //Check for enclosed policies
@@ -84,7 +88,7 @@ public class JBossPolicySetLocator extends AbstractJBossPolicyLocator
       return psfm;
    }
 
-   private void recursivePopulate(XACMLPolicy policy, List<AbstractPolicy> policies, PolicySetFinderModule psfm)
+   protected void recursivePopulate(XACMLPolicy policy, List<AbstractPolicy> policies, PolicySetFinderModule psfm)
    {
       List<XACMLPolicy> policyList = policy.getEnclosingPolicies();
       for (XACMLPolicy xp : policyList)
