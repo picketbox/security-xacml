@@ -33,6 +33,7 @@ import org.jboss.security.xacml.interfaces.ContextMapOp;
 import org.jboss.security.xacml.interfaces.XACMLConstants;
 import org.jboss.security.xacml.interfaces.XACMLPolicy;
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
+import org.jboss.security.xacml.sunxacml.PolicySet;
 import org.jboss.security.xacml.util.XACMLPolicyUtil;
 
 /**
@@ -61,6 +62,29 @@ public class JBossXACMLPolicy implements XACMLPolicy, ContextMapOp
    public JBossXACMLPolicy(URL url, int type) throws Exception
    {
       this(url.openStream(), type);
+   }
+   
+   /**
+    * Construct a JBossXACMLPolicy
+    * @param is Inputstream to the policy file
+    * @throws Exception
+    * @see XACMLConstants
+    */
+   public JBossXACMLPolicy(InputStream is, JBossPolicyFinder theFinder) throws Exception
+   {
+      this.finder = theFinder;
+      AbstractPolicy policy = null;
+      XACMLPolicyUtil xpu = new XACMLPolicyUtil();
+      policy = xpu.create(is, finder);
+      if( policy instanceof PolicySet)
+      {
+         this.policyType = XACMLPolicy.POLICYSET; 
+      }
+      else
+      {
+         this.policyType = XACMLPolicy.POLICY;
+      } 
+      map.put(XACMLConstants.UNDERLYING_POLICY, policy);
    }
 
    /**
