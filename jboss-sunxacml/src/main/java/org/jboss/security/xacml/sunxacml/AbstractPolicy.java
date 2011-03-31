@@ -439,6 +439,9 @@ public abstract class AbstractPolicy implements PolicyTreeElement
      * @return the result of trying to match the policy and the request
      */
     public MatchResult match(EvaluationCtx context) {
+        //https://issues.jboss.org/browse/SECURITY-574
+        if( target == null)
+           throw new RuntimeException("No Target found in policy with id="+idAttr);
         return target.match(context);
     }
 
