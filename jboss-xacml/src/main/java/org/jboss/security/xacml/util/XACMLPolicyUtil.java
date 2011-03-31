@@ -29,10 +29,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.Policy;
 import org.jboss.security.xacml.sunxacml.PolicySet;
 import org.jboss.security.xacml.sunxacml.finder.PolicyFinder;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
@@ -43,6 +45,25 @@ import org.xml.sax.SAXException;
  */
 public class XACMLPolicyUtil
 {
+   /**
+    * Construct {@link AbstractPolicy}
+    * @param is inputstream to a policy or policyset
+    * @param finder
+    * @return
+    * @throws Exception
+    */
+   public AbstractPolicy create(InputStream is, PolicyFinder finder) throws Exception
+   {
+      if (finder == null)
+         throw new IllegalArgumentException("Policy Finder is null");
+      Document doc = getDocument(is);
+      Node root = doc.getFirstChild();
+      if( root.getNodeName().contains("PolicySet"))
+      {
+         return PolicySet.getInstance(root, finder);
+      }
+      return Policy.getInstance(root);
+   }
    /**
     * Create a PolicySet
     * @param location location of the policy set file
@@ -91,7 +112,7 @@ public class XACMLPolicyUtil
    {
       Document doc = getDocument(is);
       return Policy.getInstance(doc.getFirstChild());
-   }
+   } 
 
    private Document getDocument(InputStream is) throws ParserConfigurationException, SAXException, IOException
    {

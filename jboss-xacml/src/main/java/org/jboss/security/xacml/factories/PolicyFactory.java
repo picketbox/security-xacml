@@ -45,8 +45,12 @@ import org.jboss.security.xacml.interfaces.XACMLPolicy;
  */
 public class PolicyFactory
 {
-   public static Class<?> constructingClass = JBossXACMLPolicy.class;
+   private static Class<?> constructingClass = JBossXACMLPolicy.class;
 
+   /**
+    * Set the class that constructs {@link XACMLPolicy}
+    * @param clazz
+    */
    public static void setConstructingClass(Class<?> clazz)
    {
       if (XACMLPolicy.class.isAssignableFrom(clazz) == false)
@@ -54,6 +58,10 @@ public class PolicyFactory
       constructingClass = clazz;
    }
 
+   /**
+    * Set the class that constructs {@link XACMLPolicy}
+    * @param fqn
+    */
    public static void setConstructingClass(String fqn)
    {
       ClassLoader tcl = SecurityActions.getContextClassLoader();
@@ -67,24 +75,49 @@ public class PolicyFactory
       }
    }
 
+   /**
+    * Create a {@link XACMLPolicy}
+    * @param policySetFile
+    * @return
+    * @throws Exception
+    */
    public static XACMLPolicy createPolicySet(InputStream policySetFile) throws Exception
    {
       return (XACMLPolicy) getCtr().newInstance(new Object[]
       {policySetFile, XACMLPolicy.POLICYSET});
    }
 
+   /**
+    * Create {@link XACMLPolicy}
+    * @param policySetFile inputstream to a policyset
+    * @param theFinder
+    * @return
+    * @throws Exception
+    */
    public static XACMLPolicy createPolicySet(InputStream policySetFile, JBossPolicyFinder theFinder) throws Exception
    {
       return (XACMLPolicy) getCtrWithFinder().newInstance(new Object[]
       {policySetFile, XACMLPolicy.POLICYSET, theFinder});
    }
 
+   /**
+    * Create a {@link XACMLPolicy}
+    * @param policyFile inputstream to a Policy
+    * @return
+    * @throws Exception
+    */
    public static XACMLPolicy createPolicy(InputStream policyFile) throws Exception
    {
       return (XACMLPolicy) getCtr().newInstance(new Object[]
       {policyFile, XACMLPolicy.POLICY});
    }
 
+   /**
+    * Construct {@link XACMLPolicy}
+    * @param policyFile a {@link PolicyType}
+    * @return
+    * @throws Exception
+    */
    public static XACMLPolicy createPolicy(PolicyType policyFile) throws Exception
    {
       JAXBElement<PolicyType> jaxbPolicy = new ObjectFactory().createPolicy(policyFile);
@@ -93,6 +126,21 @@ public class PolicyFactory
       ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
       return (XACMLPolicy) getCtr().newInstance(new Object[]
       {bis, XACMLPolicy.POLICY});
+   }
+   
+   /**
+    * Create {@link XACMLPolicy}
+    * @param is an inputstream to a policy or policyset
+    * @param finder a {@link JBossPolicyFinder}
+    * @return
+    * @throws Exception
+    */
+   @SuppressWarnings("unchecked")
+   public static XACMLPolicy create(InputStream is, JBossPolicyFinder finder) throws Exception
+   {
+      Constructor<XACMLPolicy> ctr = (Constructor<XACMLPolicy>) constructingClass.getConstructor(new Class[]{
+             InputStream.class,JBossPolicyFinder.class});
+      return ctr.newInstance(new Object[]{is, finder});
    }
 
    @SuppressWarnings("unchecked")

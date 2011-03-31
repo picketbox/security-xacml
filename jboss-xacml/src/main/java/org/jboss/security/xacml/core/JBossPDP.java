@@ -21,8 +21,12 @@
   */
 package org.jboss.security.xacml.core;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -454,22 +458,34 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    private List<XACMLPolicy> addPolicySets(List<PolicySetType> policySets, boolean topLevel) throws Exception
    {
       List<XACMLPolicy> list = new ArrayList<XACMLPolicy>();
-
+      
       for (PolicySetType pst : policySets)
       {
          String loc = pst.getLocation();
-         XACMLPolicy policySet = PolicyFactory.createPolicySet(getInputStream(loc), policyFinder);
-         list.add(policySet);
+         log.info("Reading policysets from location="+loc); 
+         if( isDirectory(loc))
+         {
+            InputStream[] streams = this.readPoliciesFromDir(loc);
+            for( InputStream stream : streams)
+            {
+               list.add(PolicyFactory.create(stream, policyFinder));
+            }
+            policies.addAll(list);
+         }
+         else
+         {
+            XACMLPolicy policySet = PolicyFactory.createPolicySet(getInputStream(loc), policyFinder);
+            list.add(policySet);
+            List<XACMLPolicy> policyList = this.addPolicies(pst.getPolicy());
+            policySet.setEnclosingPolicies(policyList);
 
-         List<XACMLPolicy> policyList = this.addPolicies(pst.getPolicy());
-         policySet.setEnclosingPolicies(policyList);
+            List<PolicySetType> pset = pst.getPolicySet();
+            if (pset != null)
+               policySet.getEnclosingPolicies().addAll(this.addPolicySets(pset, false));
 
-         List<PolicySetType> pset = pst.getPolicySet();
-         if (pset != null)
-            policySet.getEnclosingPolicies().addAll(this.addPolicySets(pset, false));
-
-         if (topLevel)
-            policies.add(policySet);
+            if (topLevel)
+               policies.add(policySet); 
+         }
       }
 
       return list;
@@ -557,6 +573,80 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       {
          throw new RuntimeException(jxb);
       }
+   }
+   
+   private boolean isDirectory(String location)
+   {
+      boolean result = false;
+      File file = new File(location);
+      result =  (file !=null && file.isDirectory());
+      URI uri = null;
+      
+      if( !result)
+      {
+         uri = getResourceViaClassLoader(SecurityActions.getContextClassLoader(), location);
+         if( uri != null)
+         {
+            file = new File( uri ); 
+         } 
+         result = (file !=null && file.isDirectory()); 
+      }
+      if( !result)
+      { 
+         uri = getResourceViaClassLoader(SecurityActions.getClassLoader(getClass()), location);
+         if( uri != null)
+         {
+            file = new File( uri ); 
+         } 
+         result = (file !=null && file.isDirectory()); 
+      }
+      return result;
+   }
+   
+   private URI getResourceViaClassLoader( ClassLoader cl, String location)
+   {
+      URL url = cl.getResource(location);
+      if( url != null )
+      {
+         try
+         {
+            return url.toURI();
+         }
+         catch (URISyntaxException e)
+         {
+            // ignore
+         }
+      }
+      return null;
+   }
+   
+   private InputStream[] readPoliciesFromDir( String location)
+   {
+      URI uri = getResourceViaClassLoader(SecurityActions.getContextClassLoader(), location);
+      if( uri == null)
+         uri = getResourceViaClassLoader(SecurityActions.getClassLoader(getClass()), location);
+      
+      if( uri == null )
+         throw new RuntimeException("Unable to load the URI:" + location);
+      
+      ArrayList<InputStream> list = new ArrayList<InputStream>();
+      File dir = new File(uri);
+      if( dir == null || !dir.isDirectory())
+         throw new RuntimeException( location + " is not a directory" );
+      String[]  files = dir.list(new FilenameFilter()
+      {     
+         public boolean accept(File dir, String name)
+         { 
+            return !name.startsWith(".");
+         }
+      });
+      for( String fileName: files)
+      {
+         list.add(getInputStream(location + fileName));
+      }
+      InputStream[] isArr = new InputStream[list.size()];
+      list.toArray(isArr);
+      return isArr;
    }
 
    private InputStream getInputStream(String loc)

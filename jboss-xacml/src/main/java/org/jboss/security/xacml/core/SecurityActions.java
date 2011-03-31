@@ -48,6 +48,17 @@ class SecurityActions
       });
    }
    
+   static ClassLoader getClassLoader( final Class<?> clazz)
+   {
+      return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
+      {
+         public ClassLoader run()
+         {
+            return clazz.getClassLoader();
+         }
+      });
+   }
+   
    static String getSystemProperty(final String key)
    {
       return AccessController.doPrivileged(new PrivilegedAction<String>()
