@@ -444,4 +444,9 @@ public class PolicySet extends AbstractPolicy
         out.println(indent + "</PolicySet>");
     }
 
+   @Override
+   public String toString()
+   {
+      return "PolicySet [getId()=" + getId() + "]";
+   }
 }
