@@ -53,6 +53,34 @@ public class RbacUnitTestCase
             XACMLConstants.DECISION_NOT_APPLICABLE);
    }
    
+   @Test
+   public void testEmployeeCreatePurchaseOrderPermit() throws Exception
+   { 
+      validateCase(getResponse("rbac-employee-create.xml"), 
+            XACMLConstants.DECISION_PERMIT);
+   }
+   
+   @Test
+   public void testEmployeeSignPurchaseOrderDeny() throws Exception
+   { 
+      validateCase(getResponse("rbac-employee-sign.xml"), 
+            XACMLConstants.DECISION_NOT_APPLICABLE);
+   }
+   
+   @Test
+   public void testManagerCreatePurchaseOrderPermit() throws Exception
+   { 
+      validateCase(getResponse("rbac-manager-create.xml"), 
+            XACMLConstants.DECISION_PERMIT);
+   }
+   
+   @Test
+   public void testManagerSignPurchaseOrderPermit() throws Exception
+   { 
+      validateCase(getResponse("rbac-manager-sign.xml"), 
+            XACMLConstants.DECISION_PERMIT);
+   }
+   
    
    private PolicyDecisionPoint getPDP()
    {
