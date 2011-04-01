@@ -153,15 +153,18 @@ public class JBossResponseContext implements ResponseContext
          Set<Obligation> obligationsSet = result.getObligations();
          if(obligationsSet != null)
          {
+            ObligationsType obligationsType = new ObligationsType();
             for(Obligation obl:obligationsSet)
             {
                ObligationType obType = new ObligationType();
                obType.setObligationId(obl.getId().toASCIIString());
                obType.setFulfillOn(EffectType.fromValue(Result.DECISIONS[obl.getFulfillOn()]));
-            
-               ObligationsType obligationsType = new ObligationsType();
+               
                obligationsType.getObligation().add(obType);
-               resultType.setObligations(obligationsType);  
+            }
+            if( obligationsSet.size() > 0 )
+            {
+               resultType.setObligations(obligationsType);
             }
          }
       }
