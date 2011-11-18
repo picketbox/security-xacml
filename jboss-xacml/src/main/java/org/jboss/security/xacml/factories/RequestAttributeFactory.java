@@ -115,7 +115,7 @@ public class RequestAttributeFactory
     */
    public static AttributeType createDateTimeAttributeType(String attrID, String issuer)
    {
-      return getBareAttributeType(attrID, issuer, getXMLDate(), XMLSchemaConstants.DATATYPE_DATE_TIME);
+      return getBareAttributeType(attrID, issuer, getXMLDateTime(), XMLSchemaConstants.DATATYPE_DATE_TIME);
    }
    /**
     * Create Date Time attribute with the passed {@link XMLGregorianCalendar}
@@ -221,7 +221,7 @@ public class RequestAttributeFactory
     */
    public static AttributeType createTimeAttributeType(String attrID, String issuer)
    {
-      return getBareAttributeType(attrID, issuer, getXMLDate(), XMLSchemaConstants.DATATYPE_TIME);
+      return getBareAttributeType(attrID, issuer, getXMLTime(), XMLSchemaConstants.DATATYPE_TIME);
    }
 
    /**
@@ -309,7 +309,7 @@ public class RequestAttributeFactory
       return attributeType;
    }
 
-   private static String getXMLDate()
+   private static String getXMLDateTime()
    {
       DatatypeFactory dtf;
       try
@@ -321,6 +321,36 @@ public class RequestAttributeFactory
          throw new RuntimeException(e);
       }
       XMLGregorianCalendar value = dtf.newXMLGregorianCalendar((GregorianCalendar) Calendar.getInstance());
+      return value.toXMLFormat();
+   }
+   private static String getXMLDate()
+   {
+      DatatypeFactory dtf;
+      try
+      {
+         dtf = DatatypeFactory.newInstance();
+      }
+      catch (DatatypeConfigurationException e)
+      {
+         throw new RuntimeException(e);
+      }
+      GregorianCalendar cal=(GregorianCalendar) Calendar.getInstance();
+      XMLGregorianCalendar value = dtf.newXMLGregorianCalendarDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), cal.getTimeZone().getRawOffset()/60000);
+      return value.toXMLFormat();
+   }
+   private static String getXMLTime()
+   {
+      DatatypeFactory dtf;
+      try
+      {
+         dtf = DatatypeFactory.newInstance();
+      }
+      catch (DatatypeConfigurationException e)
+      {
+         throw new RuntimeException(e);
+      }
+      GregorianCalendar cal=(GregorianCalendar) Calendar.getInstance();
+      XMLGregorianCalendar value = dtf.newXMLGregorianCalendarTime(cal.get(Calendar.HOUR),cal.get(Calendar.MINUTE),cal.get(Calendar.SECOND),cal.get(Calendar.MILLISECOND), cal.getTimeZone().getRawOffset()/60000);
       return value.toXMLFormat();
    }
 }
