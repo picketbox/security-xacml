@@ -224,14 +224,20 @@ public class JBossResponseContext implements ResponseContext
     */
    public Element asElement(Document root)
    { 
-      throw new RuntimeException("SECURITY-177");
+      String contextSchema = XACMLConstants.CONTEXT_SCHEMA;
+      NodeList nodes = root.getElementsByTagNameNS(contextSchema, "Response");
+      if(nodes.getLength() == 0)
+      {
+         nodes = root.getElementsByTagName("Response");
+      }
+      return (Element)nodes.item(0);
    }
    
    private Node getResponse(InputStream is) throws Exception
    {
       String contextSchema = XACMLConstants.CONTEXT_SCHEMA;
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      factory.setNamespaceAware(true);
+//      factory.setNamespaceAware(true);
       factory.setIgnoringComments(true);
       Document doc = factory.newDocumentBuilder().parse(is);
       NodeList nodes = doc.getElementsByTagNameNS(contextSchema, "Response");
