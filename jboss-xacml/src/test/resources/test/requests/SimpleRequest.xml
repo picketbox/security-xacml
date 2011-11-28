@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xacml-context:Request 
+    xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" 
+    xmlns="urn:oasis:names:tc:xacml:2.0:context:schema:os" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation=" urn:oasis:names:tc:xacml:2.0:context:schema:os 
+      http://docs.oasis-open.org/xacml/access_control-xacml-2.0-context-schema-os.xsd">
+	<Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" />
+	<Resource>
+		<Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"
+			DataType="http://www.w3.org/2001/XMLSchema#string">
+			<AttributeValue>resource1</AttributeValue>
+		</Attribute>
+	</Resource>
+	<Action />
+	<Environment>
+	</Environment>
+</xacml-context:Request>

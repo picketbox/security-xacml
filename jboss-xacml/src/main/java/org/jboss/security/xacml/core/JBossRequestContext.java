@@ -152,7 +152,9 @@ public class JBossRequestContext implements RequestContext
     */
    public Element asElement(Document root)
    { 
-      throw new RuntimeException("SECURITY-176");
+      String contextSchema = "urn:oasis:names:tc:xacml:2.0:context:schema:os";
+      NodeList nodes = root.getElementsByTagNameNS(contextSchema, "Request");
+      return (Element) nodes.item(0);
    }
    
    
