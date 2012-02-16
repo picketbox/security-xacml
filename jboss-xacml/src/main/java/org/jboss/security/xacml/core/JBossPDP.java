@@ -122,7 +122,8 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    {
       try
       {
-         jaxbContext = JAXBContext.newInstance("org.jboss.security.xacml.jaxb");
+         jaxbContext = JAXBContext.newInstance("org.jboss.security.xacml.jaxb", 
+        		 SecurityActions.getClassLoader(JBossPDP.class));
       }
       catch (JAXBException e)
       {
@@ -584,24 +585,27 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       
       if( !result)
       {
-         uri = getResourceViaClassLoader(SecurityActions.getContextClassLoader(), location);
-         if( uri != null)
-         {
-            file = new File( uri ); 
-         } 
-         result = (file !=null && file.isDirectory()); 
+         result = isDirectory(SecurityActions.getContextClassLoader(), location); 
       }
       if( !result)
       { 
-         uri = getResourceViaClassLoader(SecurityActions.getClassLoader(getClass()), location);
-         if( uri != null)
-         {
-            file = new File( uri ); 
-         } 
-         result = (file !=null && file.isDirectory()); 
+         result = isDirectory(SecurityActions.getClassLoader(getClass()), location); 
       }
       return result;
    }
+
+   
+   private boolean isDirectory(ClassLoader cl, String location) {
+       File file = null;
+	   URI uri = getResourceViaClassLoader(SecurityActions.getContextClassLoader(), location);
+       if( uri != null)
+       {
+    	  if (uri.getScheme().equals("file")) 
+    	     file = new File(uri); 
+       } 
+       return (file !=null && file.isDirectory()); 
+   }
+   
    
    private URI getResourceViaClassLoader( ClassLoader cl, String location)
    {
