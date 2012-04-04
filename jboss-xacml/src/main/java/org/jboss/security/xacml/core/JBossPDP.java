@@ -578,10 +578,13 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    
    private boolean isDirectory(String location)
    {
+      if(location.startsWith("file") == false)
+      {
+         return false;
+      }
       boolean result = false;
       File file = new File(location);
       result =  (file !=null && file.isDirectory());
-      URI uri = null;
       
       if( !result)
       {
