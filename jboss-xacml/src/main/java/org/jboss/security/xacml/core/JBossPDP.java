@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
@@ -578,12 +579,22 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    
    private boolean isDirectory(String location)
    {
-      if(location.startsWith("file") == false)
-      {
-         return false;
-      }
       boolean result = false;
-      File file = new File(location);
+      File file;
+      
+      if (location.startsWith("file")) {
+         try {
+            file = new File(new URI(location));
+         }
+         catch (URISyntaxException e) {
+            log.log(Level.FINER, "Cannot determine directory: " + location, e);
+            return false;
+         }
+      }
+      else {
+         file = new File(location);
+      }
+      
       result =  (file !=null && file.isDirectory());
       
       if( !result)
@@ -633,13 +644,27 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       if( uri == null)
          uri = getResourceViaClassLoader(SecurityActions.getClassLoader(getClass()), location);
       
+      // last check if we are loading from directory located on a filesystem
+      if (uri == null) {
+         try {
+            uri = new URI("file://" + location);
+         }
+         catch (URISyntaxException e) {
+            log.log(Level.FINER, "Given location is not a directory after conversion to URI: file://" + location, e);
+            uri = null;
+         }
+      }
+      
       if( uri == null )
          throw new RuntimeException("Unable to load the URI:" + location);
       
       ArrayList<InputStream> list = new ArrayList<InputStream>();
       File dir = new File(uri);
       if( dir == null || !dir.isDirectory())
-         throw new RuntimeException( location + " is not a directory" );
+         throw new RuntimeException( uri + " is not a directory" );
+      
+      String dirLocationUri = uri.toString() + "/";
+      
       String[]  files = dir.list(new FilenameFilter()
       {     
          public boolean accept(File dir, String name)
@@ -649,7 +674,7 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       });
       for( String fileName: files)
       {
-         list.add(getInputStream(location + fileName));
+         list.add(getInputStream(dirLocationUri + fileName));
       }
       InputStream[] isArr = new InputStream[list.size()];
       list.toArray(isArr);
