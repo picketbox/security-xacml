@@ -23,7 +23,9 @@ package org.jboss.security.xacml.bridge;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jboss.security.xacml.sunxacml.AbstractPolicy;
 import org.jboss.security.xacml.sunxacml.EvaluationCtx;
@@ -39,7 +41,7 @@ import org.jboss.security.xacml.sunxacml.finder.PolicyFinderResult;
 /**
 *  PolicyFinderModule for PolicySet
 *  @author Anil.Saldhana@redhat.com
-*  @since  Jul 6, 2007 
+*  @since  Jul 6, 2007
 *  @version $Revision$
 */
 @SuppressWarnings({"unused"})
@@ -47,7 +49,7 @@ public class PolicySetFinderModule extends PolicyFinderModule
 {
    private PolicySet policySet;
 
-   private List<AbstractPolicy> policies = new ArrayList<AbstractPolicy>();
+   private final Map<URI, AbstractPolicy> policies = new HashMap<URI, AbstractPolicy>();
 
    protected PolicyFinder policyFinder = null;
 
@@ -63,7 +65,10 @@ public class PolicySetFinderModule extends PolicyFinderModule
    public PolicySetFinderModule(PolicySet policySet, List<AbstractPolicy> policies)
    {
       this.policySet = policySet;
-      this.policies.addAll(policies);
+      if ( policies != null ) {
+        for ( AbstractPolicy p : policies )
+          this.policies.put(p.getId(), p);
+      }
    }
 
    @Override
@@ -115,11 +120,9 @@ public class PolicySetFinderModule extends PolicyFinderModule
    public PolicyFinderResult findPolicy(URI idReference, int type, VersionConstraints constraints,
          PolicyMetaData parentMetaData)
    {
-      for (AbstractPolicy p : policies)
-      {
-         if (p.getId().compareTo(idReference) == 0)
-            return new PolicyFinderResult(p);
-      }
+      final AbstractPolicy p = (idReference != null) ? policies.get(idReference) : null;
+      if ( p != null )
+         return new PolicyFinderResult(p);
       return new PolicyFinderResult();
    }
 
@@ -142,6 +145,10 @@ public class PolicySetFinderModule extends PolicyFinderModule
    public void set(PolicySet ps, List<AbstractPolicy> policies)
    {
       this.policySet = ps;
-      this.policies = policies;
+      this.policies.clear();
+      if ( policies != null ) {
+        for ( AbstractPolicy p : policies )
+          this.policies.put(p.getId(), p);
+      }
    }
 }
