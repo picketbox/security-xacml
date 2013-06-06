@@ -113,6 +113,8 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    private org.jboss.security.xacml.sunxacml.PDP policyDecisionPoint = null;
    
    private Lock lock = new ReentrantLock();
+
+   private boolean shouldLock = true;
    
    /**
     * JAXBContext is thread safe and very expensive to create
@@ -287,8 +289,9 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       }
       
       ResponseCtx resp = null;
-      
-      lock.lock();
+      if(shouldLock){
+         lock.lock();
+      }
       try
       {
          int cacheLocatorsLength = cacheLocators.size();
@@ -325,7 +328,9 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       }
       finally
       {
-         lock.unlock();
+         if(shouldLock){
+            lock.unlock();
+         }
       }
 
       ResponseContext response = RequestResponseContextFactory.createResponseContext();
@@ -445,6 +450,12 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    
    private void bootstrapPDP()
    {
+      String lockStatus = SecurityActions.getSystemProperty("picketbox.xacml.pdp.lockstrategy");
+      if(lockStatus != null){
+          if("lockfree".equalsIgnoreCase(lockStatus)){
+              shouldLock = false;
+          }
+      }
       AttributeFinder attributeFinder = new AttributeFinder();
       attributeFinder.setModules(this.createAttributeFinderModules());
       
