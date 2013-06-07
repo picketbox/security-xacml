@@ -210,7 +210,6 @@ public abstract class DatabaseAttributeLocator extends StorageAttributeLocator
          }
          statement.setObject(1, pluginValue);
 
-         statement.addBatch();
          connection.setAutoCommit(false);
          resultSet = statement.executeQuery(); 
          connection.setAutoCommit(true);  
