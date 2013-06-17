@@ -33,7 +33,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -114,7 +116,11 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
    
    private Lock lock = new ReentrantLock();
 
-   private boolean shouldLock = true;
+   private ReadWriteLock rwLock = new ReentrantReadWriteLock();
+
+   private boolean lockFree = false;
+
+   private boolean useRWLock = false;
    
    /**
     * JAXBContext is thread safe and very expensive to create
@@ -289,7 +295,7 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       }
       
       ResponseCtx resp = null;
-      if(shouldLock){
+      if(!lockFree || useRWLock){
          lock.lock();
       }
       try
@@ -328,7 +334,7 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       }
       finally
       {
-         if(shouldLock){
+         if(!lockFree || useRWLock){
             lock.unlock();
          }
       }
@@ -453,7 +459,11 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
       String lockStatus = SecurityActions.getSystemProperty("picketbox.xacml.pdp.lockstrategy");
       if(lockStatus != null){
           if("lockfree".equalsIgnoreCase(lockStatus)){
-              shouldLock = false;
+              lockFree = true;
+          }
+          if("readwrite".equalsIgnoreCase(lockStatus)){
+              useRWLock =true;
+              lock = rwLock.writeLock();
           }
       }
       AttributeFinder attributeFinder = new AttributeFinder();
