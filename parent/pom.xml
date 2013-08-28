@@ -15,16 +15,13 @@
     The JBoss XACML Project
   </description>
    <scm>
-      <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</connection>
-      <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/trunk</developerConnection>
+      <connection>scm:git:https://github.com/picketbox/security-xacml.git</connection>
+      <developerConnection>scm:git:https://github.com/picketbox/security-xacml.git</developerConnection>
    </scm>
   <build>
     <plugins>
        <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <configuration>
-            <tagBase>https://svn.jboss.org/repos/jbossas/projects/security/security-xacml/tags</tagBase>
-          </configuration>
         </plugin>
     </plugins>
   </build>
