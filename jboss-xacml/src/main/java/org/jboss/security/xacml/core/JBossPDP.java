@@ -28,6 +28,8 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -544,11 +546,11 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
          
          //Validate against schema
          ClassLoader tcl = SecurityActions.getContextClassLoader();
-         URL schemaURL = tcl.getResource("schema/jbossxacml-2.0.xsd");
+         final URL schemaURL = tcl.getResource("schema/jbossxacml-2.0.xsd");
          if(schemaURL == null)
             throw new IllegalStateException("Schema URL is null:" + "schema/jbossxacml-2.0.xsd");
          
-         SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+         final SchemaFactory scFact = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
          scFact.setResourceResolver( new JBossXACMLEntityResolver()); 
          scFact.setErrorHandler(new ErrorHandler()
          {
@@ -588,8 +590,17 @@ public class JBossPDP implements PolicyDecisionPoint, Serializable
                log.finest("SAX Warn:" + builder.toString());        
             }
          });
-         
-         Schema schema = scFact.newSchema(schemaURL);
+
+         Schema schema;
+         if (System.getSecurityManager() != null) {
+            schema = AccessController.doPrivileged(new PrivilegedExceptionAction<Schema>(){
+               public Schema run() throws Exception {
+                  return scFact.newSchema(schemaURL);
+               }
+            });
+         }else{
+            schema = scFact.newSchema(schemaURL);
+         }
          unmarshaller.setSchema(schema);
       }
       catch (Exception jxb)
