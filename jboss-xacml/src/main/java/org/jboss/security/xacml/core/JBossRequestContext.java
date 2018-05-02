@@ -26,6 +26,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,9 +89,20 @@ public class JBossRequestContext implements RequestContext
     */
    public void setRequest(RequestType requestType) throws IOException
    {
-      JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(requestType);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      JAXB.marshal(requestJAXB, baos);
+      final JAXBElement<RequestType> requestJAXB = new ObjectFactory().createRequest(requestType);
+      final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+      if (System.getSecurityManager() == null) {
+         JAXB.marshal(requestJAXB, baos);
+      } else {
+         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            public Void run() {
+               JAXB.marshal(requestJAXB, baos);
+               return null;
+            }
+         });
+      }
+
       ByteArrayInputStream bis = new ByteArrayInputStream(baos.toByteArray());
       readRequest(bis);
    }
